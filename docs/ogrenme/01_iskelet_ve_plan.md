@@ -121,3 +121,22 @@ Yeni terimler:
 ## 5. Gösterim: mini puanlama
 
 Uydurma soru ve iki cevapla yapılan gösterim `degerlendirme/deney_plani_v1.md` §9'dadır. Oradan çıkan ders: chrF iki cevabı birbirinden ayırıyor (62,1'e karşı 27,4, ölçüldü), ama Cevap 2'deki "%25" ve "300 saat" kritik hatalarını tek başına göstermiyor. Bu hataları sayı karşılaştırması yakalıyor (recall 5/5'e karşı 1/5, ölçüldü).
+
+---
+
+## 6. Açık kararların işlenmesi (01 güncellemesi)
+
+**Tetikleyici kural (`esikler_v1.md` §3A):** "Gerekirse yap" türü bir karar ancak "ne zaman gerekir?" sorusu sonuç görülmeden sayıyla yazılırsa güvenilirdir. Burada tetikleyici, seçilen adaptörün Türkçe değerlendirmenin geliştirme bölümünde hazır modele göre ne kadar gerileyebileceğini görev görev söyler. Sınırlardan biri aşılırsa genel Türkçe karışımlı adaptör eğitilir.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):**
+- TurkishMMLU geliştirme bölümünde hazır model %61,0, adaptör %58,5 → fark −2,5 pp. T.1 sınırı −2,0 pp, yani tetikleyici **çalışır**.
+- Aynı koşuda sızıntı oranları %8'e karşı %14 → fark +6 pp ≤ +10 pp, T.7 aşılmaz.
+
+Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
+
+**İnsan formunun iki bölümü:** üslup bölümünde referans gösterilmez. Neden: referansı gören değerlendirici farkında olmadan "referansa benzeyen" cevaba yüksek üslup puanı verebilir. Bilgi bölümünde ise referans gösterilir, çünkü bilgi ancak bir ölçüye göre kontrol edilebilir.
+
+**Üç cümlelik özet:** Genel Türkçe verisi artık yalnızca sayısal bir tetikleyici aşılırsa eğitime giriyor. Tetikleyici, final eşikleriyle aynı sayıları geliştirme bölümünde kullanıyor; böylece gerileme testten önce yakalanıyor. İnsan değerlendirmesi 50 soruda, tek kişi tarafından, üslup ve bilgi ayrı bölümlerde ve kör olarak yapılacak.
+
+**Kontrol sorusu:** Tetikleyiciyi geçemeyen bir adaptörün öğrenme oranını değiştirip tekrar ölçmek neden yasak?
+*Cevap:* Çünkü o zaman geliştirme bölümü bir ayar hedefine dönüşür. Aynı bölüm üzerinde defalarca deneme yapıp eşiği "geçen" ayarı seçmek, gerilemeyi gizleyen şanslı bir sonuç üretebilir. Tetikleyici bu yüzden bir kez ölçülür.

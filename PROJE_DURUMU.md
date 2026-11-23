@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-23 · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-23 (01 açık kararları işlendi) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -30,6 +30,7 @@ Son güncelleme: 2026-11-23 · Son tamamlanan aşama: **01**
 | `env/2026-11-23_girdi_sha256.json` | 505 girdi dosyasının özeti |
 | `env/2026-11-23_paketler.txt`, `env/2026-11-23_donanim.txt` | Ortam kaydı |
 | `docs/ogrenme/01_iskelet_ve_plan.md` | Öğrenme açıklaması |
+| `rapor/rapor_plani_v1.md` | Rapor iskeleti ve önceden bilinen sınırlamalar (açık kararlar güncellemesinde eklendi) |
 
 `.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
 
@@ -52,16 +53,36 @@ Son güncelleme: 2026-11-23 · Son tamamlanan aşama: **01**
 - TurkishMMLU seçenek sayısı (02'de dosyadan).
 - `sacrebleu` kurulu değil; resmî chrF metrik betiğinden önce sabit sürümle kurulacak.
 
+### Kararlar (kullanıcı, 2026-11-23) — "01: açık kararlar kaydedildi" commit'iyle işlendi
+1. **Genel Türkçe verisi** yalnızca gerileme görülürse eğitime girer.
+   - Sayısal tetikleyici `esikler_v1.md` §3A'da: T.1–T.8 (görev başına izin verilen en fazla düşüş ve sızıntı sınırı) ve K.1–K.3 (tetiklenince yapılacaklar). Senior onayı bekliyor.
+   - Eski "her durumda %10–20" kararından neden değişildiği `deney_plani_v1.md` §8, karar 1'de.
+2. **Türkçe değerlendirme ayrımı:** her dosyada %30 geliştirme / %70 saklanan, seed 42; her görevde geliştirme bölümü en az 50 kayıt. Bölme 02'de yapılacak.
+3. **Kör insan değerlendirmesi:**
+   - 11. aşamada, yalnızca birincil çift için, testten 50 soru, tek değerlendirici (proje sahibi).
+   - Form iki bölüm: üslup ve jargon referanssız; bilgi bölümünde referans gösterilir.
+   - Model adları gizli, sıra karışık, anahtar ayrı dosyada.
+   - Ayrıntı `deney_plani_v1.md` §6.9'da, eşikler 1.2 ve 2.1b'de, sınırlamalar `rapor/rapor_plani_v1.md` §4'te.
+4. **Deny kuralları:** kapandı. Commit `f6ad4d0`; ham `05_tuzak_sorular`, `01_sss`, `06_genel_turkce/degerlendirme` ve `kanarya_klasor` için Read deny var (settings.json okunarak doğrulandı; kanarya ölçümünü kullanıcı yaptı).
+5. **Ham tuzak araçları:** şimdi kullanılmayacak, karar 11'e kaldı. Birincil tuzak puanı önceden kayıtlı ölçütlerden ve projenin kendi yargıç akışından gelir; hazır betik 11'de en fazla ek kontrol olabilir.
+
 ### Açık kararlar (kullanıcı)
-1. **Genel Türkçe karışımı:** "her durumda %10–20" mi, "gerekirse" mi? Önerim: gerekirse, tetikleyici önceden kayıtlı (`deney_plani_v1.md` §8).
-2. **Türkçe değerlendirmenin saklanan bölümü:** önerim, 02'de betikle %30 geliştirme / %70 saklanan bölmek.
-3. **Kör insan değerlendirmesi:** büyüklüğü (öneri: test 50 soru × birincil çift + kalibrasyon için 20–30 doğrulama çifti) ve değerlendirici kim olacak.
-4. **Deny kurallarının sıkılaştırılması:** ham veride `05_tuzak_sorular/**`, `06_genel_turkce/degerlendirme/**` ve `01_sss/**` korumasız. Önerilen satırlar `deney_plani_v1.md` §8'de.
-5. **Ham tuzak araçları:** `otomatik_kontrol.py` ve `yargic_promptu.md` 11. aşamada kullanılsın mı? Kullanıcı incelemeli.
-6. **Senior onayları:** `esikler_v1.md` (bütün satırlar), `deney_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru).
+6. **Bölme kuralına uymayan iki dosya** (`deney_plani_v1.md` §8, açık karar 6):
+   - `genel_kontrol_v1` (60 kayıt): %30 = 18 < 50. Önerim: tümü geliştirme olsun, saklanan karşılık için yeni `genel_kontrol_v2` yazılıp kilitlensin.
+   - `turkishmmlu_dev` (45 kayıt): görev değil, 5-shot havuzu. Önerim: bölünmesin.
+   - Bu kararın 02'deki bölmeden önce verilmesi gerekiyor.
+7. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
+  - Not: `01_sss/**` artık deny kapsamında ama bu listede yok. 02'de listeye eklenip kilit manifesti yeniden üretilmeli (`kilit_manifesti_v2.json`).
+- **02'de Türkçe değerlendirme bölmesi:**
+  - Dosya başına %30 / %70, seed 42, geliştirmede ≥ 50 kayıt.
+  - Alt grubu olan dosyalarda (TurkishMMLU ders, `genel_kontrol` soru türü) katmanlı.
+  - Betik yalnızca kimlik, sayı ve SHA-256 yazar.
+  - Beklenen boyutlar `deney_plani_v1.md` §6.5'te.
+  - `genel_kontrol_v1` ve `turkishmmlu_dev` için açık karar 6 beklenmeli.
+- 11'deki insan formu için 50 test sorusu, cevaplar üretilmeden önce kimlikle seçilir (seed 42, kaynağa göre katmanlı). Bu seçim 11'in ilk adımıdır, 02'de yapılmaz.
 - Kilitli setler yalnızca toplu sayı, kimlik ve SHA-256 yazan betiklerle açılır. Çakışma denetiminde test ve tuzak içeren çiftler yalnızca kimlikle `inceleme/` CSV'sine yazılır.
 - `gelistirme_kapsam_disi.jsonl` 02'deki çakışma denetimine dahil edilmeli.
 - Few-shot havuzu yalnızca onaylı eğitim grubundan oluşur (karakter 3–5 gram TF-IDF, k=4).

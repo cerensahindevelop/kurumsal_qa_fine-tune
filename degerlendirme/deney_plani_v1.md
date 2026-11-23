@@ -1,6 +1,7 @@
 # Deney planı v1 (ön kayıt taslağı)
 
-Durum: taslak (01, 2026-11-23), senior onayı: bekliyor
+Durum: taslak (01, 2026-11-23; aynı gün kullanıcının açık kararlarıyla güncellendi, bkz. §8), senior onayı: bekliyor
+Rapor planı ve sınırlamalar: `rapor/rapor_plani_v1.md`
 Eşikler: `degerlendirme/esikler_v1.md` · Cevap standardı: `istemler/cevap_standardi_v1.md` · Sistem mesajı: `istemler/sistem_v1.txt`
 
 Bu plan **hiçbir model cevabı görülmeden** yazıldı. Onaylandıktan sonra yapılacak değişiklikler yeni sürüm dosyasında (`deney_plani_v2.md`) gerekçesiyle yapılır.
@@ -15,7 +16,7 @@ Bu plan **hiçbir model cevabı görülmeden** yazıldı. Onaylandıktan sonra y
 | `hazir_istemli` | `sistem_v1` + üslup istemi + k=4 benzer few-shot + soru | — | doğrulama, test |
 | `sss_adaptor` | `sistem_v1` + soru | onaylı gerçek SSS | doğrulama, test |
 | `sss_sentetik_adaptor` | `sistem_v1` + soru | aynı tarif + onaylı sentetik çiftler | doğrulama, test |
-| `genel_karisim_adaptor` | `sistem_v1` + soru | seçilen tarif + genel Türkçe çiftleri | yalnızca açık karar 1'e göre oluşursa |
+| `genel_karisim_adaptor` | `sistem_v1` + soru | seçilen tarif + genel Türkçe çiftleri (%10 veya %20) | yalnızca `esikler_v1.md` §3A tetikleyicisi çalışırsa oluşur |
 
 Ortak kurallar:
 - **Adaptörler yalnızca `istemler/sistem_v1.txt` ile değerlendirilir.** Üslup istemi ve few-shot verilmez. Adaptörün kazancı istemden değil eğitimden gelmeli.
@@ -26,7 +27,8 @@ Ortak kurallar:
 ## 2. Değerlendirme sırası
 
 1. **Eşik onayı:** `esikler_v1.md` onaylanıp commit edilene kadar doğrulamada puanlama yapılmaz. O zamana kadar yalnızca 3–5 soruluk teknik deneme yapılır.
-2. **Doğrulama (100 soru):** önce `hazir` ve `hazir_istemli`, sonra adaptörler. Ayar ve tarif seçimi (öğrenme oranı, epoch, sentetik oranı, karışım kararı) yalnızca doğrulamada ve geliştirme kapsam dışı setinde yapılır.
+2. **Doğrulama (100 soru):** önce `hazir` ve `hazir_istemli`, sonra adaptörler. Ayar ve tarif seçimi (öğrenme oranı, epoch, sentetik oranı) yalnızca doğrulamada, geliştirme kapsam dışı setinde ve Türkçe değerlendirmenin geliştirme bölümünde (%30) yapılır.
+   - Tarif seçildikten sonra genel Türkçe tetikleyicisi (`esikler_v1.md` §3A) **bir kez** ölçülür. Tetikleyici çalışırsa `genel_karisim_adaptor` eğitilir.
 3. **Kilitleme:** test öncesinde seçilen adaptör, bütün ayarlar ve test betiği commit edilir. Test sistem listesi de sabitlenir: `hazir`, `hazir_istemli`, `sss_adaptor`, `sss_sentetik_adaptor` ve oluşmuşsa `genel_karisim_adaptor`.
 4. **Test (11. aşama, tek sefer):** test, tuzak ve Türkçe değerlendirmenin saklanan bölümü ayrı bir betikle çalışır. Puanlar commit edildikten sonra hiçbir ayar değişmez.
 
@@ -119,7 +121,7 @@ Not: Referans cevaplar kullanıcı kararıyla doğru kabul edildi, ancak bağım
 
 ### 6.4 Tuzak sorular (28) ve geliştirme kapsam dışı seti (15)
 
-Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar genel kategoriler olarak tanımlandı:
+Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar genel kategoriler olarak tanımlandı. **Birincil tuzak puanı bu önceden kayıtlı ölçütlerden ve projenin kendi yargıç akışından gelir** (karar 5):
 
 | Kategori | Başarılı davranış |
 |---|---|
@@ -133,33 +135,37 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
 
 - Her soru "başarılı / başarısız" olarak işaretlenir. Sonuç adet olarak raporlanır: tuzak için **NN/28**, geliştirme seti için **NN/15**. Kategori dağılımı ayrıca verilir.
 - Karar iki kaynaktan gelir: otomatik kontrol (anahtar ifade ve sayı uydurma denetimi) ve yerel yargıç. İkisi çelişirse soru insan formuna gider.
-- Ham veride `05_tuzak_sorular/otomatik_kontrol.py` ve `yargic_promptu.md` var. Bunları açmadım. 11. aşamada kullanılıp kullanılmayacakları açık karar 5'tir.
+- Ham verideki `05_tuzak_sorular/otomatik_kontrol.py` ve `yargic_promptu.md` şimdi kullanılmaz (bkz. §8, karar 5). 11. aşamada en fazla ek kontrol olarak çalışabilir; sonucu ayrı raporlanır ve birincil puanı değiştirmez.
 
 ### 6.5 Genel Türkçe (görev bazında)
 
-| Dosya (kayıt) | Görev | Ölçüt | Not |
-|---|---|---|---|
-| `turkishmmlu_test` (900) + `turkishmmlu_dev` (45) | Çoktan seçmeli bilgi | Doğruluk, 5-shot (dev'den) | Cevaptan harf çıkarılamazsa yanlış sayılır, ayrı raporlanır |
-| `gecturk_test_500` (500) | Dilbilgisi düzeltme | chrF + tam eşleşme | |
-| `xlsum_tr_test_500` (500) | Özetleme | chrF (ROUGE-L ikincil) | NC lisans: yalnızca iç değerlendirmede kullanılır |
-| `wmt16_entr_test_500` (500) | EN→TR çeviri | chrF (BLEU ikincil) | |
-| `vikipedi_perplexity_500` (500) | Genel metin | Perplexity | Sohbet şablonu ve sistem mesajı olmadan, ham metinde |
-| `aya_eval_tr` (250) | Açık uçlu yardım | Yargıç ikili karşılaştırması (adaptör vs `hazir`) | Kazanma / beraberlik / kaybetme |
-| `genel_kontrol_v1` (60) | Üslup sızıntısı | §6.6 | 35 gayriresmî + 15 kurum-samimi + 10 resmî |
+| Dosya (kayıt) | Geliştirme %30 / saklanan %70 (beklenen) | Görev | Ölçüt | Not |
+|---|---|---|---|---|
+| `turkishmmlu_test` (900) | 270 / 630, ders bazında katmanlı (9 × 30 / 9 × 70) | Çoktan seçmeli bilgi | Doğruluk, 5-shot | Cevaptan harf çıkarılamazsa yanlış sayılır, ayrı raporlanır |
+| `turkishmmlu_dev` (45) | bölünmez | 5-shot örnek havuzu | — | Görev değil; iki bölümde de aynı 5-shot örnekleri kullanılır (açık karar 6) |
+| `gecturk_test_500` (500) | 150 / 350 | Dilbilgisi düzeltme | chrF + tam eşleşme | |
+| `xlsum_tr_test_500` (500) | 150 / 350 | Özetleme | chrF (ROUGE-L ikincil) | NC lisans: yalnızca iç değerlendirmede kullanılır |
+| `wmt16_entr_test_500` (500) | 150 / 350 | EN→TR çeviri | chrF (BLEU ikincil) | |
+| `vikipedi_perplexity_500` (500) | 150 / 350 | Genel metin | Perplexity | Sohbet şablonu ve sistem mesajı olmadan, ham metinde |
+| `aya_eval_tr` (250) | 75 / 175 | Açık uçlu yardım | Yargıç ikili karşılaştırması (adaptör vs `hazir`) | Kazanma / beraberlik / kaybetme |
+| `genel_kontrol_v1` (60) | **çakışma: %30 = 18 < 50** (açık karar 6) | Üslup sızıntısı | §6.6 | 35 gayriresmî + 15 kurum-samimi + 10 resmî |
 
-Sayılar `wc -l` ile ölçüldü. Kayıt düzeyinde doğrulama 02'de yapılacak.
+- Kayıt sayıları `wc -l` ile ölçüldü. Bölme boyutları beklenen değerdir.
+- Bölme kuralı (karar 2): her dosya sabit seed (42) ile %30 geliştirme / %70 saklanan olarak ayrılır; her görevde geliştirme bölümü en az 50 kayıttır. Alt grubu olan dosyalarda (ders, soru türü) bölme katmanlıdır.
+- Bölmenin kendisi 02'de yapılır. Betik yalnızca kimlik, sayı ve SHA-256 yazar. Geliştirme bölümü yalnızca doğrulama aşamasında, saklanan bölüm yalnızca 11. aşamada kullanılır.
 
 ### 6.6 Üslup sızıntısı (gündelik sorularda kurum dili)
 
 Ölçülen: gündelik sorulara gereksiz yere kurum diliyle cevap verilmesi.
 
-- **Kapsam:** `genel_kontrol_v1` içindeki 50 gündelik soru (35 gayriresmî + 15 kurum-samimi). 10 resmî soru kontrol grubudur; orada resmî dil beklenir ve yalnızca raporlanır.
+- **Kapsam:** `genel_kontrol` setindeki gündelik sorular (v1'de 50: 35 gayriresmî + 15 kurum-samimi). 10 resmî soru kontrol grubudur; orada resmî dil beklenir ve yalnızca raporlanır. Geliştirme ve saklanan bölümler açık karar 6'ya bağlı.
+- **Kullanım:** geliştirme bölümünde tetikleyici T.7, saklanan bölümde final eşiği 3.7 (`esikler_v1.md`).
 - **Sızıntı işareti (otomatik):** bir cevapta aşağıdaki işaret listesinden **en az 2 farklı işaret** varsa o cevap "sızıntılı" sayılır:
   1. Kurum ağzı: "Kurumumuz", "Bakanlığımız", "Sayın".
   2. Mevzuat atfı: `\d{3,4} sayılı`, "ilgili mevzuat", "inci/ıncı/üncü/uncu madde".
   3. Kurum yönlendirmesi: soru bunu gerektirmediği hâlde "e-Devlet", "ALO 170", "il müdürlüğü", "resmî kaynaktan teyit".
   4. Resmî kip yoğunluğu: cümlelerin en az yarısı `-mektedir/-maktadır` ile bitiyor.
-- **Ölçüt:** sızıntılı cevap oranı (yüzde) = sızıntılı / 50. Adaptörün oranı `hazir` modelin oranıyla karşılaştırılır.
+- **Ölçüt:** sızıntılı cevap oranı (yüzde) = sızıntılı / gündelik soru sayısı. Adaptörün oranı `hazir` modelin oranıyla karşılaştırılır.
 - Bu işaret listesi eşik onayıyla birlikte dondurulur ve sonradan değiştirilmez.
 - **Ölçmediği şey:** kurum dilini daha ince biçimlerde (ör. aşırı temkinli ret) sızdırmayı yakalamaz. Bunun için yargıca ikincil bir soru sorulur: "Bu cevap gündelik bir soruya gereksiz kurum diliyle mi cevap veriyor?"
 
@@ -195,7 +201,7 @@ Adaylar (A5000: 24.564 MiB; masaüstü yaklaşık 0,9 GB kullanıyor, ölçüld�
 2. Her iki aday aynı çiftleri, aynı istemle ve iki sırada puanlar.
 3. Ölçülenler: (a) beraberlik hariç insanla uyum yüzdesi ve Cohen kappa (şans düzeltmeli uyum katsayısı); (b) sıra tutarlılığı (iki sırada aynı karar).
 4. Eşiği (`esikler_v1.md`) geçen adaylar arasında kural şu: `gemma4:26b`, `gemma4:12b`'den uyumda **5 yüzde puandan fazla** önde değilse ve sıra tutarlılığında da 5 puandan fazla önde değilse **küçük model (`gemma4:12b`) seçilir**. Gerekçe: daha hızlı, daha az VRAM, intranette daha kolay taşınır.
-5. Hiçbir aday eşiği geçemezse yargıç sonuçları yalnızca ikincil gösterge sayılır; birincil karar insan formuna geçer (açık karar 3'e bağlı).
+5. Hiçbir aday eşiği geçemezse yargıç sonuçları yalnızca ikincil gösterge sayılır; birincil karar 11. aşamadaki kör insan formuna (50 soru, §6.9) geçer.
 6. Kalibrasyonda kullanılan çiftler daha sonra istem ayarında kullanılmaz.
 
 **Kullanım biçimi:**
@@ -208,59 +214,121 @@ Adaylar (A5000: 24.564 MiB; masaüstü yaklaşık 0,9 GB kullanıyor, ölçüld�
 
 ### 6.9 İnsan formu
 
-- Kör form: sistem adları gizlenir, cevap sırası rastgeledir (seed 42), anahtar ayrı bir dosyada tutulur.
-- Her cevap için üslup (0–2), jargon (0–2), bilgi (0–2), kritik hata var/yok, "referans eskimiş olabilir" kutusu ve isteğe bağlı not bulunur.
-- Büyüklük ve değerlendirici: açık karar 3.
+Karar 3'e göre:
+
+**Kapsam:**
+- **Ne zaman:** 11. aşamada, test cevapları üretildikten sonra.
+- **Ne:** yalnızca birincil karşılaştırma, yani seçilen adaptör ile `hazir_istemli`.
+- **Kaç soru:** testten 50 soru, toplam 100 cevap. Sorular, cevaplar üretilmeden önce kimlikle seçilir: seed 42, kaynağa göre (SGK / ÇSGB / İŞKUR) katmanlı. Seçim betiği yalnızca kimlik yazar.
+- **Değerlendirici:** tek kişi (proje sahibi).
+
+**Körlük:**
+- Model adları gizlenir. Cevaplar yalnızca rastgele bir kodla gösterilir (ör. `C-8F3A`).
+- Cevap sırası karışıktır (seed 42). Aynı sorunun iki cevabı yan yana gösterilmez, form boyunca dağıtılır.
+- Kod → sistem eşleştirme anahtarı ayrı bir dosyada tutulur (`degerlendirme/insan_formu_anahtar_v1.json`). Doldurulmuş form commit edilene kadar bu dosya git'e girmez ve açılmaz; form commit edildikten sonra anahtar da commit edilir.
+- Formu üreten betik anahtarın SHA-256 özetini forma yazar. Böylece anahtarın sonradan değişmediği kanıtlanır.
+
+**Form iki bölümden oluşur ve sırayla doldurulur:**
+
+| Bölüm | Gösterilen | Sorulan |
+|---|---|---|
+| 1. Üslup ve jargon | Soru + cevap. **Referans cevap gösterilmez** | Üslup 0–2, jargon 0–2 (§6.1, §6.2 tanımları formda yazılı); isteğe bağlı not |
+| 2. Bilgi doğruluğu | Soru + **referans cevap** + cevap | "Referansla aynı süre, tutar, koşul ve istisnayı söylüyor mu?" → Evet / Kısmen / Hayır. "Kısmen" veya "Hayır" seçilirse farklı olan öğe işaretlenir: süre, tutar, koşul, istisna, diğer (kurum, tarih). Ayrıca "referans eskimiş olabilir" kutusu ve isteğe bağlı not |
+
+- Bölüm 1, Bölüm 2'den önce bitirilir. Neden: referans görüldükten sonra üslup puanı referansa benzerliğe kayabilir.
+- Puanlama dönüşümü: Evet = 2, Kısmen = 1, Hayır = 0 (§6.3 ölçeğiyle uyumlu). "Hayır" sayısı eşik 2.1b'ye girer.
+- Form `inceleme/insan_formu_v1.csv` olarak üretilir; 11. aşamadan önce boş bir örnek sürümüyle teknik deneme yapılır.
+- Sınırlamalar (tek değerlendirici, referansla karşılaştırma) `rapor/rapor_plani_v1.md` §4'te.
+
+**Ayrı iş: yargıç kalibrasyonu.** 20–30 doğrulama çifti için insan puanlaması doğrulama aşamasında yapılır (§6.8). Bu, 11'deki insan formuyla karıştırılmaz.
 
 ## 7. Geliştirme kapsam dışı seti
 
 Dosya: `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru, taslak, onay bekliyor). Tuzak setine bakılmadan sıfırdan yazıldı. Her kayıtta beklenen davranış ve kabul ölçütü var. 02'deki çakışma denetiminden geçecek. Tuzak setiyle yakın eşleşme çıkarsa kayıt kimlikleri `inceleme/` altındaki CSV'ye yazılır ve kararı kullanıcı verir. Bu set yalnızca geliştirme ölçüsüdür, final iddiası olmaz.
 
-## 8. Açık kararlar
+## 8. Kararlar ve açık kararlar
 
-### Açık karar 1: Genel Türkçe verisi eğitime her durumda mı girsin?
+Kararlar 1–5 kullanıcı tarafından 2026-11-23'te verildi. Açık karar 6 bu kararları işlerken ortaya çıktı.
 
-Daha önce "%10–20 genel Türkçe her durumda eğitime girer" kararı verilmişti. Bu plandaki `genel_karisim_adaptor` ise yalnızca gerileme görülürse oluşuyor. Bu ikisi çelişiyor.
+### Karar 1 (verildi): genel Türkçe verisi yalnızca gerileme görülürse eğitime girer
+
+**Karar:** "Gerekirse karışım". Tetikleyici sayısaldır ve şimdiden yazılıdır: `esikler_v1.md` §3A, T.1–T.8 (görev başına izin verilen en fazla düşüş ve gündelik sorularda üslup sızıntısı sınırı; senior onayı bekliyor). Tetiklenince ne olacağı K.1–K.3'te.
+
+**Eski karardan neden değişti** ("genel Türkçe %10–20 her durumda eğitime girer"):
+1. **Veri hazır değil ve hazırlığı pahalı.** `egitim_sorulari.jsonl` cevapsız bir soru havuzu. Özgün cevaplar kalite sorunları nedeniyle eğitim hedefi olarak onaylanmadı (Gruplu Veriler README'si). Her durumda karışım, her adaptör için cevap üretimi ve onayı gerektirir:
+   - 904 SSS'ye göre %10 payı yaklaşık 100, %20 payı yaklaşık 225 çift eder (hesap).
+   - Sentetik çiftler eklendikçe bu sayı artar.
+   - Cevaplar öğretmen veya hazır modelle üretilir; kalite kontrolü insan emeği ister.
+   Bu iş gerileme hiç olmasa da yapılmış olur.
+2. **Ana soruyu temiz ölçmek.** Birincil soru "kurum SSS'siyle (ve sentetikle) eğitim, istemli hazır modeli geçiyor mu?". Her adaptöre genel Türkçe karıştırmak SSS sinyalini sulandırabilir ve üslup kazancını küçültebilir. Ayrıca sentetik katkısını (ikincil iddia) üçüncü bir değişkenle karıştırır.
+3. **Koşullu kuralın riski artık ölçülebilir.** Eski kararın asıl gerekçesi gerilemeyi önlemekti. Bunu artık iki yolla yapıyoruz:
+   - Türkçe değerlendirmenin geliştirme/saklanan ayrımı (karar 2) sayesinde gerileme testten önce, ayrı bir bölümde ölçülür.
+   - Tetikleyici final eşikleriyle aynı sayılarda, yani hassas ayarlı. Gerekçe §3A'da.
+4. **Beklenen gerileme küçük (tahmin).** Yaklaşık 1.000 örneklik, düşük rank'lı, az epoch'lu bir QLoRA'da genel becerilerin belirgin kaybı yaygın değildir. Bu bir varsayım; doğrulamada ölçülerek sınanacak.
+
+**Kalan risk ve ele alınışı:**
+- Geliştirme bölümünde görünmeyen bir gerileme testte çıkabilir. Bu durumda sonuç olduğu gibi raporlanır, ayar değiştirilmez.
+- Tetikleyici ölçümü bir kez yapılır; tetikleyiciyi geçmek için ayar değiştirip yeniden ölçmek yasaktır.
+- Kurum verisiyle yapılacak turda aynı kural, kurum verisinin kendi geliştirme bölümüyle yeniden uygulanır.
+
+Karar öncesi karşılaştırma (kayıt için):
 
 | | "Her durumda karışım" (%10–20) | "Gerekirse karışım" (yalnızca doğrulamada gerileme görülürse) |
 |---|---|---|
 | Artı | Unutmayı (catastrophic forgetting: yeni eğitimde eski becerilerin kaybı) baştan önler. Üslup sızıntısını azaltabilir. Tek eğitim koşusu yeter. Gerilemenin testte sürpriz çıkma riski düşer. | Tasarım sade kalır. SSS ve sentetik verinin etkisi temiz ölçülür. Genel Türkçe cevap üretme ve onaylama işi gerekmeyebilir. |
 | Eksi | `egitim_sorulari.jsonl` cevapsız; 18.187 sorudan seçilenlere cevap üretilip onaylanması gerekir (öğretmen veya hazır modelle). SSS sinyalini sulandırıp üslup kazancını azaltabilir. Oran ayrı bir ayar olur. Sentetik karşılaştırmayı karmaşıklaştırır. | Ek koşu ve ek doğrulama turu gerekir. Gerileme doğrulamada görülmez ama testte çıkarsa geri dönülemez. Tetikleyici kuralın önceden yazılması gerekir. |
 
-Benim önerim: **"Gerekirse karışım"**, ama iki ekle. (1) Tetikleyici şimdiden kayda geçsin: doğrulamada `esikler_v1.md` §3'teki genel Türkçe eşiklerinden biri aşılırsa ya da sızıntı eşiği aşılırsa karışım koşusu yapılır. (2) Genel Türkçe cevap üretimi küçük ölçekte (~1.000 çift) şimdiden hazırlansın ki gerekirse gecikme olmasın. Karar sizin; bilimsel bir karar.
+### Karar 2 (verildi): Türkçe değerlendirme ayrımı
 
-### Açık karar 2: Türkçe değerlendirmenin "saklanan bölümü" hangisi?
+Her dosya sabit seed (42) ile %30 geliştirme / %70 saklanan olarak bölünür; her görevde geliştirme bölümü en az 50 kayıttır. Ayrımın kendisi 02'de, yalnızca kimlik, sayı ve SHA-256 yazan bir betikle yapılır. Beklenen boyutlar §6.5'te. Kurala uymayan iki dosya için açık karar 6.
 
-CLAUDE.md "Türkçe değerlendirmenin saklanan bölümü"nden söz ediyor ama sınırı tanımlamıyor. Doğrulamadaki gerileme kontrolü (açık karar 1) aynı dosyalarla yapılırsa test temizliği bozulur. Önerim: 02'de her dosyayı betikle bölmek (seed 42): %30 geliştirme, %70 saklanan. `turkishmmlu_dev` yalnızca 5-shot havuzu olarak kalsın, `genel_kontrol_v1` tümüyle geliştirme olsun; saklanan karşılığı ise test aşamasından önce yeni yazılmış `genel_kontrol_v2` olsun. Bölme betiği yalnızca kimlik ve sayı yazar.
+### Karar 3 (verildi): kör insan değerlendirmesi
 
-### Açık karar 3: Kör insan değerlendirmesinin büyüklüğü ve değerlendirici
+- **Ne zaman ve ne:** 11. aşamada, yalnızca birincil karşılaştırma için (seçilen adaptör vs `hazir_istemli`).
+- **Kaç soru ve kim:** testten 50 soru, tek değerlendirici (proje sahibi).
+- **Form:** iki bölüm.
+  - Üslup ve jargon bölümünde referans cevap gösterilmez.
+  - Bilgi bölümünde referans gösterilir ve "referansla aynı süre, tutar, koşul ve istisnayı söylüyor mu?" diye sorulur.
+- **Körlük:** model adları gizli, cevap sırası karışık, eşleştirme anahtarı ayrı dosyada.
 
-| Seçenek | Kapsam | Artı | Eksi |
+Ayrıntı §6.9'da, eşikler `esikler_v1.md` 1.2 ve 2.1b'de. Tek değerlendirici ve referansla karşılaştırma sınırlamaları `rapor/rapor_plani_v1.md` §4'te.
+
+### Karar 4 (verildi, kapandı): deny kuralları
+
+Kullanıcı ham veri klasörleri için Read deny kurallarını ekledi ve `kanarya_klasor` ile ölçtü (commit `f6ad4d0`). `.claude/settings.json` artık şunları kapsıyor (01'de okunarak doğrulandı):
+- `fine_tuneVeriler/05_tuzak_sorular/**`
+- `fine_tuneVeriler/01_sss/**`
+- `fine_tuneVeriler/06_genel_turkce/degerlendirme/**`
+- `kurum-qa-finetune/kanarya_klasor/**`
+
+Kanarya ölçümü kullanıcı tarafından yapıldı; `kanarya_klasor` içeriği tarafımdan açılmadı.
+
+### Karar 5 (verildi): ham verideki tuzak araçları
+
+- `05_tuzak_sorular/otomatik_kontrol.py` ve `yargic_promptu.md` şimdi kullanılmaz; karar 11. aşamaya kalır.
+- Birincil tuzak puanı `esikler_v1.md` §4'teki önceden kayıtlı ölçütlerden (tanımlar §6.4) ve projenin kendi yargıç akışından gelir.
+- Hazır betik 11'de en fazla ek kontrol olarak çalışabilir. Sonucu ayrı raporlanır ve birincil puanı değiştirmez.
+
+### Açık karar 6 (yeni): bölme kuralına uymayan iki dosya
+
+Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) iki dosyada birlikte sağlanamıyor:
+
+| Dosya | Kayıt | Sorun |
+|---|---|---|
+| `genel_kontrol_v1` | 60 (35 gayriresmî + 15 kurum-samimi + 10 resmî) | %30 = 18 kayıt; 50 alt sınırının altında |
+| `turkishmmlu_dev` | 45 | Görev değil, 5-shot örnek havuzu; bölünürse iki bölümde 5-shot örnekleri farklılaşır |
+
+`genel_kontrol_v1` için seçenekler:
+
+| Seçenek | Geliştirme / saklanan | Artı | Eksi |
 |---|---|---|---|
-| Küçük | Testten 30 soru × birincil çift | Hızlı | Güvenilir fark çıkmaz; yalnızca yargıcı doğrular |
-| **Orta (öneri)** | Testten 50 soru × birincil çift (100 cevap) + kalibrasyon için doğrulamadan 20–30 çift | İş yükü makul; yargıç-insan uyumu ölçülebilir | Tek değerlendiriciyse kişisel yanlılık kalır |
-| Tam | 100 soru × 4 sistem | En güçlü | ~400 cevap, çok emek |
+| **Tümü geliştirme + yeni saklanan set (öneri)** | 60 / 0, saklanan karşılık: yeni `genel_kontrol_v2` (≥ 50 gündelik + 10 resmî) | İki bölüm de yeterince büyük; T.7 ve 3.7 anlamlı ölçülür | v2'nin yazılması gerekir. Önerim: v2'yi siz yazın ya da 02'de yazılıp hiçbir model cevabı görülmeden SHA-256 ile kilitlensin |
+| 50 alt sınırı öncelikli | 50 / 10 (katmanlı) | Yeni veri gerekmez | Saklanan 10 soruda sızıntı oranı tek cevapla 10 pp oynar; 3.7 fiilen ölçülemez |
+| %30 öncelikli | 18 / 42 | Oran kuralına uyar | 18 soruda T.7 tek cevapla 5,6 pp oynar; tetikleyici güvenilmez olur |
 
-Değerlendirici: proje sahibi tek başına mı, yoksa sahibi + en az bir kurum çalışanı mı? İki değerlendirici olursa 10 ortak soru üzerinden değerlendiriciler arası uyum (kappa) raporlanır. Bu pilotta açık veriler kullanıldığı için dış değerlendirici sorun değil; kurum verisinde ise değerlendirici kurum içinden olmalı.
+`turkishmmlu_dev` için önerim: bölünmesin. Yalnızca 5-shot örnek havuzu olarak iki bölümde de aynı biçimde kullanılsın (sabit 5 örnek, ders başına seed 42). Bu dosya puanlanmadığı için saklanan bölüme sızıntı yaratmaz.
 
-### Açık karar 4: Deny kurallarının sıkılaştırılması
-
-`.claude/settings.json` şu an yalnızca `Gruplu Veriler` altındaki kilitli setleri koruyor. Ham veride şu dosyalar korumasız:
-- `05_tuzak_sorular/` (tuzak soruları, yargıç istemi, kontrol betiği)
-- `06_genel_turkce/degerlendirme/` (Türkçe değerlendirmenin ham kopyaları)
-- `01_sss/sss_birlesik.jsonl` (test soruları buradan seçildi)
-
-Bunları açmadım ve açmayacağım. Yine de kazara açılmaya karşı aşağıdaki satırların `deny` listesine eklenmesini öneriyorum (dosya sizin, değişikliği siz yapın veya onay verin):
-
-```json
-"Read(//home/aipc/Desktop/fine_tuneVeriler/05_tuzak_sorular/**)",
-"Read(//home/aipc/Desktop/fine_tuneVeriler/06_genel_turkce/degerlendirme/**)",
-"Read(//home/aipc/Desktop/fine_tuneVeriler/01_sss/**)"
-```
-
-### Açık karar 5: Ham veride hazır bulunan tuzak araçları
-
-`05_tuzak_sorular/otomatik_kontrol.py` ve `yargic_promptu.md` 11. aşamada olduğu gibi mi kullanılsın, yoksa §6.4'teki genel tanımlardan yeni araçlar mı yazılsın? İçeriklerini görmediğim için bunları değerlendiremiyorum. Önerim: bu iki dosyayı siz inceleyin. Uygunsa 11'de tuzak puanlaması için olduğu gibi kullanılsın; benim yazacağım genel tuzak denetimi yalnızca geliştirme setinde kullanılsın.
+Bu kararlar 02'deki bölme betiğinden önce verilmeli.
 
 ## 9. Gösterim: uydurma bir soruyla mini puanlama
 
