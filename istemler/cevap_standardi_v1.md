@@ -27,7 +27,7 @@ Hedef okur **kurum çalışanı**: vatandaşa veya başka bir birime bilgi verec
 
 ### 2a. Sade anlatım istendiğinde (sistem mesajı kural 9)
 
-Varsayılan üslup yukarıdaki resmî üsluptur. Kullanıcı **açıkça** sade, basit veya adım adım anlatım isterse:
+Varsayılan üslup yukarıdaki resmî üsluptur. Kullanıcı sade, basit, kolay anlaşılır veya adım adım bir anlatım istediğini **belirtirse**, aşağıdaki tablo uygulanır. Tetikleyici kelime değil anlamdır: "kolayca anlatır mısın" ve "teknolojiden anlamayan birine anlatacağım" da sayılır. Tek başına "kısaca" sayılmaz; o yalnızca kısalık ister.
 
 | Özellik | Beklenen | Kaçınılacak |
 |---|---|---|

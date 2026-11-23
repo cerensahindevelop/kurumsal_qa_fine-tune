@@ -84,7 +84,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
   - İlk taslakta `b_kurum_gayriresmi` grubu yanlış yorumlanmıştı. Kullanıcının v1 kontrolünden sonra grup, kullanıcının verdiği tanıma göre yeniden yazıldı (karar 6c).
   - Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
 - **`b` grubunun bilgi öğeleri asistan tarafından yazıldı.** v2'deki `bilgi_ogeleri` kullanıcı onayından geçer, ama bağımsız mevzuat kontrolünden geçmez. 3.9'daki doğruluk ölçümü "onaylı öğelere uygunluk"tur. v1'de bu alan olmadığı için geliştirme bölümünde `b` doğruluğu yalnızca referanssız yargıç puanıyla raporlanır.
-- **Sade anlatım kuralı açık istekle tetiklenir** (karar 9, `sistem_v1` kural 9).
+- **Sade anlatım kuralı, kullanıcının sade anlatım istediğini belirtmesiyle tetiklenir** (karar 9, `sistem_v1` kural 9). Tetikleyici kelime değil anlamdır. Bu yüzden isteğin bulunup bulunmadığını otomatik olarak değil, kullanıcı kararıyla belirliyoruz.
   - Açık istek içermeyen `b` sorularında model varsayılan resmî üsluba döner.
   - v2'deki `b` soruları bu açıdan denetlendi; v1'deki `b` sorularını yalnızca kullanıcı denetleyebilir.
   - Eğitim verisinde sade anlatım örneği yoktur. Adaptörün bu kuralı korumayı unutması mümkündür ve `b` sızıntısı bunu ölçer.

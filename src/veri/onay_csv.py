@@ -47,7 +47,9 @@ def main() -> None:
                 satir[BILGI_ONAY] = "-"  # bu kayıtta bilgi öğesi yok
             w.writerow(satir)
 
-    korunan = sum(1 for k in kayitlar if any(eski.get(k["id"], {}).get(s, "").strip() for s in DOLDURULAN))
+    # "-" betiğin kendi yer tutucusudur; insan doldurması sayılmaz.
+    korunan = sum(1 for k in kayitlar
+                  if any(eski.get(k["id"], {}).get(s, "").strip() not in ("", "-") for s in DOLDURULAN))
     print(f"{len(kayitlar)} satır yazıldı -> {a.cikti} (korunan dolu satır: {korunan})")
 
 

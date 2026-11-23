@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı kararları 9–11 işlendi) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı kararları 9–11 ve kural 9 tetikleyicisi işlendi) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -33,7 +33,8 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 | `rapor/rapor_plani_v1.md` | Rapor iskeleti ve önceden bilinen sınırlamalar (açık kararlar güncellemesinde eklendi) |
 | `inceleme/genel_kontrol_v2_taslak.jsonl`, `inceleme/genel_kontrol_v2_onay.csv` | Saklanan üslup sızıntısı seti taslağı (60) ve onay kuyruğu (karar 6a) |
 | `degerlendirme/kilit_manifesti_v2.json`, `env/2026-11-23_girdi_sha256_v2.json` | 27 kilitli dosya: v1'deki 25 + ham `01_sss` + v2 taslağı (ilk `b` yorumu) |
-| `degerlendirme/kilit_manifesti_v3.json`, `env/2026-11-23_girdi_sha256_v3.json` | **Geçerli manifest.** 27 kilitli dosya; v2'den farkı yalnızca yeniden yazılmış `b` grubuyla taslağın özeti (karar 6c) |
+| `degerlendirme/kilit_manifesti_v3.json`, `env/2026-11-23_girdi_sha256_v3.json` | 27 kilitli dosya; v2'den farkı yalnızca yeniden yazılmış `b` grubuyla taslağın özeti (karar 6c) |
+| `degerlendirme/kilit_manifesti_v4.json`, `env/2026-11-23_girdi_sha256_v4.json` | **Geçerli manifest.** 27 kilitli dosya; v3'ten farkı yalnızca GK2-050 düzeltmesiyle taslağın özeti |
 | `src/veri/onay_csv.py` | JSONL taslağından onay CSV'si üretir; dolu hücreleri kimliğe göre korur (karar 6c) |
 
 `.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
@@ -80,11 +81,12 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 
 ### Sistem mesajı kararları (kullanıcı, 2026-11-23) — "01: sistem mesajı kararları" commit'iyle işlendi
 `sistem_v1.txt` yerinde düzeltildi, yeni sürüm açılmadı. Dosya henüz hiçbir eğitim veya değerlendirmede kullanılmamıştı; eski hâl git geçmişinde (`b4ebb4e`). Ayrıntılar `deney_plani_v1.md` §8'de.
-- **Karar 9, sade anlatım:** yeni kural 9 eklendi. Kullanıcı açıkça sade, basit veya adım adım anlatım isterse model doğru ve eksiksiz bilgiyi gündelik dille, bürokratik kalıpsız ve atıfsız verir. Varsayılan üslup resmî kalır. `cevap_standardi_v1.md` §2a. Açık karar 9 kapandı.
+- **Karar 9, sade anlatım:** yeni kural 9 eklendi. Kullanıcı sade, basit, kolay anlaşılır veya adım adım anlatım istediğini belirtirse model doğru ve eksiksiz bilgiyi gündelik dille, bürokratik kalıpsız ve atıfsız verir. Varsayılan üslup resmî kalır. `cevap_standardi_v1.md` §2a. Açık karar 9 kapandı.
+  - Kullanıcı incelemesinden sonra ("01: kural 9 tetikleyicisi ve GK2-050"): tetikleyici kelime eşleşmesi değil anlamdır. Kuralın başı şu oldu: "Kullanıcı sade, basit, kolay anlaşılır veya adım adım bir anlatım istediğini belirtirse (ör. "kolayca anlatır mısın", "teknolojiden anlamayan birine anlatacağım")…". Tek başına "kısaca" sade anlatım isteği sayılmaz.
 - **Karar 10, kurum ağzı:** kural 2'ye eklendi. Model kurumları adıyla anar, "Kurumumuz" / "Bakanlığımız" demez. `cevap_standardi_v1.md` §2. 03 notu aşağıda. Kurum verisi turunda bu kural tek kurum için yeniden değerlendirilecek.
 - **Karar 11, tutar ile süre/oran ayrımı:** kural 4 değiştirildi. Kanunda belirlenmiş süre, gün sayısı ve oranlar verilir. Dönemsel TL tutarlarının rakamı verilmez; hesaplama yolu söylenir ve resmî kaynaktan kontrol önerilir. `cevap_standardi_v1.md` §4 uyduruldu.
-  - 03'teki eskimiş tutar nötrleştirme kuralı daha önce hiçbir dosyada yazılı değildi. Plan karar 11'de önceden kayda alındı ve kural 4 ile uyumu gösterildi.
-  - Puanlamaya ilişkin ek kural önerisi `deney_plani_v1.md` §6.3'te; senior onayı bekliyor.
+  - 03'teki eskimiş tutar nötrleştirme kuralı plan karar 11'de önceden kayda alındı ve **kullanıcı tarafından onaylandı**.
+  - §6.3'teki puanlama kuralı **kullanıcı tarafından kabul edildi**: kural 4'e uygun biçimde verilmeyen dönemsel TL tutarı eksik sayılmaz. Kesin onayı eşiklerle birlikte senior verecek.
 
 ### Açık kararlar (kullanıcı)
 7. **`genel_kontrol_v2` onayı:** `inceleme/genel_kontrol_v2_onay.csv` doldurulacak.
@@ -92,12 +94,16 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
    - Kontrol listesi `deney_plani_v1.md` karar 6'da.
    - Onaydan sonra önerilen Read deny kuralı eklenmeli: `degerlendirme/saklanan/**`, `inceleme/genel_kontrol_v2_*`.
 - ~~9. `b` grubu ile `sistem_v1` gerilimi~~: karar 9 ile kapandı (aşağıda).
-- **`genel_kontrol_v2` için ek iş (karar 9'dan):** GK2-036 ("kolayca") ve GK2-050 ("kısaca") açık bir sade anlatım isteği içermiyor. Düzeltme önerisi sohbette verildi; kullanıcı onaylamadan dosya değiştirilmez. v1 `b` sorularında aynı denetimi yalnızca kullanıcı yapabilir.
+- ~~`genel_kontrol_v2` sade anlatım isteği denetimi~~ kapandı.
+  - GK2-036 kullanıcı kararıyla değişmedi; "kolayca anlatır mısın, bilgisayardan pek anlamaz" açık bir istektir.
+  - GK2-050 "Kısaca ve sade bir dille anlatır mısın?" olarak düzeltildi.
+  - 15 `b` sorusunun hepsi istek içeriyor. CSV ve `kilit_manifesti_v4.json` yeniden üretildi.
+  - v1 `b` sorularında aynı denetimi yalnızca kullanıcı yapabilir.
 8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
-  - `01_sss/*` deseni listeye eklendi. Yeni `--ek-kilitli` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `kilit_manifesti_v3.json`.
+  - `01_sss/*` deseni listeye eklendi. Yeni `--ek-kilitli` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `kilit_manifesti_v4.json`.
 - **02'de Türkçe değerlendirme bölmesi:**
   - Dosya başına %30 / %70, seed 42, geliştirmede ≥ 50 kayıt.
   - Alt grubu olan dosyalarda (TurkishMMLU ders, `genel_kontrol` soru türü) katmanlı.
@@ -105,11 +111,11 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
   - Beklenen boyutlar `deney_plani_v1.md` §6.5'te.
   - `genel_kontrol_v1` ve `turkishmmlu_dev` bölünmez (karar 6). `genel_kontrol_v2` saklanan bölümdür.
 - 02'deki çakışma denetimine `inceleme/genel_kontrol_v2_taslak.jsonl` (onaylı hâli) de girer. Karşılaştırılacak setler: eğitim adayları, genel Türkçe havuzu, `genel_kontrol_v1`, geliştirme kapsam dışı seti, doğrulama, test ve tuzak.
-- v2 onaylanınca: `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, `kilit_manifesti_v4.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
+- v2 onaylanınca: `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, `kilit_manifesti_v5.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
 - v2'nin `b` soruları SSS konularına yakın (işsizlik ödeneği, yıllık izin, ihbar, süt izni vb.). 02'deki çakışma denetiminde test ve tuzakla yakın eşleşme çıkabilir; çıkarsa yalnızca kimlikle CSV'ye yazılır.
 - **03 için önceden kayıtlı veri dönüşümleri** (`deney_plani_v1.md` karar 10 ve 11). İkisi de betikle yapılır, değişen kimlikleri yazar ve belirsiz kayıtları `inceleme/` kuyruğuna gönderir. Kilitli doğrulama ve test referanslarına dokunulmaz.
   1. **Kurum ağzı:** eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ve çekimli biçimleri `kaynak` alanına göre kurum adıyla değiştirilir.
-  2. **Eskimiş tutar:** dönemsel TL tutarları kaldırılır, yerine hesaplama yolu ve kontrol önerisi yazılır. Kanunda belirlenmiş süre, gün ve oranlar korunur.
+  2. **Eskimiş tutar** (kullanıcı onaylı): dönemsel TL tutarları kaldırılır, yerine hesaplama yolu ve kontrol önerisi yazılır. Kanunda belirlenmiş süre, gün ve oranlar korunur. Tutarın dönemsel mi yoksa kanunda sabit mi olduğu belirsizse kayıt inceleme kuyruğuna gider.
 - 02'deki toplu sayımlarda doğrulama ve test referanslarında "Kurumumuz/Bakanlığımız" ve TL tutarı içeren kayıtların **yalnızca sayısı** çıkarılmalı; içerik basılmamalı. Bu sayılar rapor sınırlaması için gerekiyor.
 - Sızıntı puanlama betiği işaret listesini kaydın `grup` alanına göre seçmeli (`a` / `b`), dosyadaki `yasak_kalip` alanını kullanmamalı (§6.6).
 - 11'deki insan formu için 50 test sorusu, cevaplar üretilmeden önce kimlikle seçilir (seed 42, kaynağa göre katmanlı). Bu seçim 11'in ilk adımıdır, 02'de yapılmaz.
@@ -125,4 +131,5 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 - Yeni: `python -m src.veri.girdi_ozeti --girdi ... --cikti ... --kilit-cikti ...` (README "01" bölümü).
 - Değişti: `src/veri/girdi_ozeti.py` artık `--ek-kilitli` seçeneğini kabul ediyor ve `01_sss/*` desenini varsayılan olarak kilitli sayıyor.
 - Yeni: `python -m src.veri.onay_csv --girdi inceleme/genel_kontrol_v2_taslak.jsonl --cikti inceleme/genel_kontrol_v2_onay.csv` (karar 6c).
-- Değişti: girdi özeti komutunun çıktıları artık `env/<tarih>_girdi_sha256_v3.json` ve `degerlendirme/kilit_manifesti_v3.json`.
+- Değişti: girdi özeti komutunun çıktıları artık `env/<tarih>_girdi_sha256_v4.json` ve `degerlendirme/kilit_manifesti_v4.json`.
+- Düzeltildi: `src/veri/onay_csv.py` artık betiğin kendi "-" yer tutucusunu "dolu satır" saymıyor. Önceki sürüm 45 yanlış "korunan" satır bildiriyordu; içerik farkı yoktu.

@@ -110,7 +110,7 @@ Ayrıntılar:
 Ek kurallar:
 - Kaldırılmış bir uygulamayı yürürlükteymiş gibi anlatmak kritik hatadır.
 - Referansta olmayan ve doğrulanamayan kesin bir rakam **kritik hata değildir**. Bunun yerine "doğrulanamayan iddia" olarak işaretlenir ve insan değerlendiriciye gider.
-- Referanstaki dönemsel bir TL tutarını sistem mesajı kural 4'e uygun biçimde vermemek eksik sayılmaz. Bunun için cevabın hesaplama yolunu doğru söylemesi ve kontrol önermesi gerekir. Bu kural öneri durumundadır ve senior onayı bekliyor (§8, karar 11).
+- Referanstaki dönemsel bir TL tutarını sistem mesajı kural 4'e uygun biçimde vermemek eksik sayılmaz. Bunun için cevabın hesaplama yolunu doğru söylemesi ve kontrol önermesi gerekir. Kullanıcı bu kuralı kabul etti. Kesin onayı eşiklerle birlikte senior verecek (§8, karar 11).
 
 | Puan | Tanım |
 |---|---|
@@ -377,15 +377,22 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
 **Sorun (karar 6c'de not edildi):** `b` soruları alan içidir. Bu yüzden onlara `sistem_v1`'in kural 1'i (dayanak belirt) ve kural 2'si (kurum yazışmasına uygun dil) uygulanıyordu. `b` ise sade, adım adım bir anlatım bekler. Sistem mesajı, kullanıcının sade anlatım istemesi durumunu düzenlemiyordu.
 
 **Karar (kullanıcı, 2026-11-23):** `sistem_v1.txt`'ye kural 9 eklendi:
-> "Kullanıcı açıkça sade, basit veya adım adım anlatım isterse, bilgiyi doğru ve eksiksiz tutarak gündelik bir dille, bürokratik kalıp kullanmadan ver; kanun ve madde atfı gerekmez. Böyle bir istek yoksa yukarıdaki resmî üslubu koru."
+> "Kullanıcı sade, basit, kolay anlaşılır veya adım adım bir anlatım istediğini belirtirse (ör. "kolayca anlatır mısın", "teknolojiden anlamayan birine anlatacağım"), bilgiyi doğru ve eksiksiz tutarak gündelik bir dille, bürokratik kalıp kullanmadan ver; kanun ve madde atfı gerekmez. Böyle bir istek yoksa yukarıdaki resmî üslubu koru."
 
-- Varsayılan davranış resmî kalır. Kural yalnızca **açık** bir istekle çalışır.
+(Tetikleyici metni kullanıcının incelemesinden sonra, 2026-11-23'te kelime eşleşmesinden anlama genişletildi.)
+
+- Varsayılan davranış resmî kalır. Kural, kullanıcının sade anlatım istediğini **belirtmesiyle** çalışır. Tetikleyici belirli kelimeler değil anlamdır: "kolayca anlatır mısın" ya da "bilgisayardan pek anlamaz" da yeterlidir. "Kısaca" ise kısalık ister, sadelik istemez; tek başına yeterli değildir.
 - Dosya yerinde düzeltildi, yeni sürüm açılmadı. Gerekçe: dosya henüz hiçbir eğitim veya değerlendirmede kullanılmadı ve CLAUDE.md bu adı kullanıyor. Eski hâl git geçmişindedir (commit `b4ebb4e` ve öncesi).
 - `cevap_standardi_v1.md` §2a bu kuralı ayrıntılandırır.
 
 **Ölçüme etkisi:**
 - `b` grubunda mevzuat atfı artık sistem mesajı tarafından da istenmiyor. Sızıntı sayılmamaya devam eder (§6.6) ama ikincil olarak raporlanır.
-- Kural açık bir istekle tetiklendiği için `b` sorularının her birinde açık bir sade anlatım isteği bulunmalıdır. v2 taslağı bu açıdan denetlendi: GK2-036 ("kolayca") ve GK2-050 ("kısaca") açık istek içermiyor. Düzeltme önerisi kullanıcı onayında.
+- `b` sorularının her birinde sade anlatım isteği belirtilmiş olmalıdır. v2 taslağı bu açıdan denetlendi:
+  - 13 soruda "sade", "basit" veya "adım adım" kelimeleri geçiyor.
+  - GK2-036 ("kolayca anlatır mısın, bilgisayardan pek anlamaz"): kullanıcı kararıyla anlamca yeterli, değiştirilmedi.
+  - GK2-050: "Kısaca anlatır mısın?" yalnızca kısalık istiyordu. Kullanıcı onayıyla "Kısaca ve sade bir dille anlatır mısın?" olarak düzeltildi.
+  - Sonuç: 15 `b` sorusunun hepsi sade anlatım isteği içeriyor (kullanıcı kararı).
+- v1 `b` sorularında isteğin bulunup bulunmadığını yalnızca kullanıcı denetleyebilir.
 - v1'in `b` soruları için aynı denetimi yalnızca kullanıcı yapabilir. Açık istek içermeyen v1 `b` soruları, geliştirme bölümünde varsayılan (resmî) davranışı ölçer.
 - **Eğitim verisine etkisi:** SSS'ler gündelik dille sorulmuş olsa da sade anlatım isteği içermez. Bu yüzden eğitim hedefi resmî kalır. Kural 9'u eğitim verisiyle ayrıca öğretmek gerekip gerekmediği doğrulamada `b` sızıntısına bakılarak değerlendirilir. Bu bir tahmindir: tetikleyici T.7 bu durumu kapsar.
 
@@ -417,13 +424,15 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
 
 **Neden uyumlu:** eğitim hedefi ile sistem mesajı aynı davranışı ister. Modele hem "rakam verme" denip hem de eğitimde rakamlı cevap öğretilseydi iki sinyal çatışırdı. Eskimiş tutarı ezberlemek de kritik hata üretirdi (§6.3).
 
-**Puanlamaya etkisi (öneri, senior onayı bekliyor):** kilitli referanslarda dönemsel TL tutarı bulunabilir. Bir cevap bu tutarın rakamını kural 4'e uygun biçimde vermiyorsa, hesaplama yolunu doğru söylüyorsa ve kontrol öneriyorsa, bu durum §6.3'te ne "önemli koşul eksik" ne de kritik hata sayılır. Kural hem `hazir` hem adaptörler için aynıdır. Sayı karşılaştırmasında (§6.7) dönemsel TL tutarları recall hesabının dışında tutulur ve ayrıca raporlanır.
+**03 nötrleştirme kuralı:** kullanıcı tarafından onaylandı (2026-11-23).
+
+**Puanlamaya etkisi (kullanıcı kabul etti, 2026-11-23; kesin onay `esikler_v1.md` ile birlikte senior'dan gelecek):** kilitli referanslarda dönemsel TL tutarı bulunabilir. Bir cevap bu tutarın rakamını kural 4'e uygun biçimde vermiyorsa, hesaplama yolunu doğru söylüyorsa ve kontrol öneriyorsa, bu durum §6.3'te ne "önemli koşul eksik" ne de kritik hata sayılır. Kural hem `hazir` hem adaptörler için aynıdır. Sayı karşılaştırmasında (§6.7) dönemsel TL tutarları recall hesabının dışında tutulur ve ayrıca raporlanır.
 
 ### `genel_kontrol_v2` kilitleme akışı (karar 6a ve 6c)
 
 1. Kullanıcı CSV'de onaylar veya düzeltir. Düzeltmeleri JSONL'e ben işlerim.
 2. 02'deki çakışma denetimi: v2, eğitim adaylarına, genel Türkçe havuzuna, `genel_kontrol_v1`'e, geliştirme kapsam dışı setine, doğrulamaya, teste ve tuzak setine karşı denetlenir. Test veya tuzak içeren yakın eşleşmeler yalnızca kimlikle `inceleme/` CSV'sine yazılır.
-3. Son hâl `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `kilit_manifesti_v4.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `kilit_manifesti_v3.json`, karar 6c'den sonraki taslağı kilitler.
+3. Son hâl `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `kilit_manifesti_v5.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `kilit_manifesti_v3.json` karar 6c'den sonraki taslağı, `kilit_manifesti_v4.json` GK2-050 düzeltmesinden sonraki taslağı kilitler.
 4. Taşımadan sonra bu yol ve taslak için Read deny kuralı eklenmesini öneriyorum: `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/degerlendirme/saklanan/**)` ve `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme/genel_kontrol_v2_*)`. Bunun nedeni: v2'yi ben yazdım, yani içeriğini biliyorum; deny kuralı üslup istemini ve ayarları geliştirirken v2'yi yeniden açmamı engeller. Bu sınırlama `rapor/rapor_plani_v1.md` §4.4'te.
 
 ## 9. Gösterim: uydurma bir soruyla mini puanlama
