@@ -84,10 +84,16 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
   - İlk taslakta `b_kurum_gayriresmi` grubu yanlış yorumlanmıştı. Kullanıcının v1 kontrolünden sonra grup, kullanıcının verdiği tanıma göre yeniden yazıldı (karar 6c).
   - Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
 - **`b` grubunun bilgi öğeleri asistan tarafından yazıldı.** v2'deki `bilgi_ogeleri` kullanıcı onayından geçti (14 "evet", 1 "düzelt"). 15 b kaydının bilgi öğeleri, farklı bir asistan oturumunda 2026 tarihli ikincil kaynaklarla (işsizlik ödeneği, rapor parası, yıllık izin, süt izni) ve mevzuat bilgisiyle kontrol edildi; GK2-044 düzeltildi; birincil mevzuat metniyle tek tek karşılaştırma yapılmadı. 3.9'daki doğruluk ölçümü bu yüzden "onaylı öğelere uygunluk"tur, "mevzuata doğruluk" değildir. v1'de bu alan olmadığı için geliştirme bölümünde `b` doğruluğu yalnızca referanssız yargıç puanıyla raporlanır.
-- **Sade anlatım kuralı, kullanıcının sade anlatım istediğini belirtmesiyle tetiklenir** (karar 9, `sistem_v1` kural 9). Tetikleyici kelime değil anlamdır. Bu yüzden isteğin bulunup bulunmadığını otomatik olarak değil, kullanıcı kararıyla belirliyoruz.
+- **Sade anlatım kuralı, kullanıcının sade anlatım veya gündelik bir ton istediğini belirtmesiyle tetiklenir** (karar 9, `sistem_v1` kural 9). Tetikleyici kelime değil anlamdır. Bu yüzden isteğin bulunup bulunmadığını otomatik olarak değil, kullanıcı kararıyla belirliyoruz.
   - Açık istek içermeyen `b` sorularında model varsayılan resmî üsluba döner.
   - v2'deki `b` soruları bu açıdan denetlendi; v1'deki `b` sorularını yalnızca kullanıcı denetleyebilir.
   - Eğitim verisinde sade anlatım örneği yoktur. Adaptörün bu kuralı korumayı unutması mümkündür ve `b` sızıntısı bunu ölçer.
+- **`b` grubunda istek türü dağılımı v1 ile v2 arasında farklı** (karar 9, ton istekleriyle genişleme).
+  - v2'nin 15 `b` sorusunun hepsi sadelik isteği içerir ("sade", "basit", "adım adım", "kolay"); ton isteği içeren soru yoktur (asistanın kendi taslağı üzerindeki sınıflaması).
+  - Kullanıcının gözlemine göre v1'de "samimi", "sohbet eder gibi", "mesaj atar gibi", "eğlenceli, gençlere hitap eden" gibi ton istekleri de vardır.
+  - Sonuç: saklanan bölüm, ton isteğine uyumu ve ton isteği altında bilgi doğruluğunu ölçmez. Bu davranış yalnızca geliştirme bölümünde (v1) görülür; v1 istem ve ayar geliştirmede kullanıldığı için oradaki sonuç iyimser olabilir.
+  - v2 bu yüzden değiştirilmedi (kullanıcı kararı): kilitli bir set sonuçlar görülmeden belirlendiği için ölçüdür; sonradan ona soru eklemek ölçüyü yeniden tasarlamak olurdu.
+  - Geliştirme ile saklanan bölüm arasındaki `b` sızıntı farkı yorumlanırken istek türü dağılımı da birlikte verilir.
 - **Kurum ağzı yalnızca eğitim tarafında düzeltildi** (karar 10).
   - Eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ifadeleri 03'te kurum adıyla değiştirilir. Kilitli doğrulama ve test referanslarına ise dokunulmaz; bu ifadeler orada kalır.
   - Sistem mesajı iki modele de kurum adı kullanmasını söylediği için, bu ifadeleri içeren referanslarda chrF hem `hazir`/`hazir_istemli` hem adaptör için hafifçe düşebilir.

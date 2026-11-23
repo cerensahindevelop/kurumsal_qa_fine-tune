@@ -172,6 +172,8 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 - **Kural 2'ye ek, kurum ağzı yok.** Model üç kurumun konularını cevapladığı için "Kurumumuz" belirsizdir. Kurumlar adıyla anılır. Eğitim verisi 03'te buna uydurulur; kilitli referanslar değişmez.
 - **Kural 4, tutar ile süre/oran ayrımı.** Kanundaki süreler ve oranlar sabittir, verilir. TL tutarları dönemseldir ve eğitim verisinde eskimiş olabilir. Bu yüzden rakam yerine hesaplama yolu verilir.
 - **Kural 9, sade anlatım.** Varsayılan resmî üsluptur. Kullanıcı sade anlatım istediğini belirtirse aynı bilgi gündelik dille verilir. Tetikleyici kelime değil anlamdır: "kolayca anlatır mısın" sayılır, tek başına "kısaca" sayılmaz, çünkü o yalnızca kısalık ister.
+  - Sonradan genişletildi: kullanıcı samimi, gündelik veya eğlenceli bir ton istediğini belirtirse de ("sohbet eder gibi anlat", "esprili bir dille yaz") aynı kural çalışır. Bilgi yine eksiksiz kalır; değişen yalnızca dildir.
+  - Kuraldaki örnekler bilerek değerlendirme sorularından farklı seçilir. Sistem mesajı her soruda modele verildiği için, değerlendirme sorusuna benzeyen bir örnek o soruyu kısmen önceden cevaplamış olur.
 
 **Mini örnek (örnek, uydurma; gerçek çalışma değil):** "İşsizlik maaşı ne kadar?"
 - Kural 4'e uygun: "Günlük ödenek, son dört aylık prime esas kazançların günlük ortalamasının %40'ıdır; aylık tutar asgari ücretin brüt tutarının %80'ini geçemez. Güncel tutarı İŞKUR'dan kontrol etmeniz önerilir."

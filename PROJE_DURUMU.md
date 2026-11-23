@@ -84,6 +84,8 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 `sistem_v1.txt` yerinde düzeltildi, yeni sürüm açılmadı. Dosya henüz hiçbir eğitim veya değerlendirmede kullanılmamıştı; eski hâl git geçmişinde (`b4ebb4e`). Ayrıntılar `deney_plani_v1.md` §8'de.
 - **Karar 9, sade anlatım:** yeni kural 9 eklendi. Kullanıcı sade, basit, kolay anlaşılır veya adım adım anlatım istediğini belirtirse model doğru ve eksiksiz bilgiyi gündelik dille, bürokratik kalıpsız ve atıfsız verir. Varsayılan üslup resmî kalır. `cevap_standardi_v1.md` §2a. Açık karar 9 kapandı.
   - Kullanıcı incelemesinden sonra ("01: kural 9 tetikleyicisi ve GK2-050"): tetikleyici kelime eşleşmesi değil anlamdır. Kuralın başı şu oldu: "Kullanıcı sade, basit, kolay anlaşılır veya adım adım bir anlatım istediğini belirtirse (ör. "kolayca anlatır mısın", "teknolojiden anlamayan birine anlatacağım")…". Tek başına "kısaca" sade anlatım isteği sayılmaz.
+  - **Ton istekleriyle genişleme** ("01: kural 9 ton istekleriyle genişletildi"): kullanıcı v1 `b` sorularında ton istekleri de gördü ("samimi", "sohbet eder gibi", "mesaj atar gibi", "eğlenceli"). Kural 9 artık "samimi, gündelik veya eğlenceli bir tonda" anlatım isteğini de kapsıyor. Örnekler "sohbet eder gibi anlat" ve "esprili bir dille yaz" eklendi. "Kısaca" istisnası kuralın metnine yazıldı. `sistem_v1.txt` yerinde düzeltildi; `cevap_standardi_v1.md` §2a (ton isteği örneği dahil) ve plan karar 9 güncellendi.
+  - Ölçüldü: v2'nin 15 `b` sorusunun 15'i sadelik isteği içeriyor, ton isteği içeren yok (kendi taslağım üzerinde sınıflama). v2 değiştirilmedi; dağılım farkı rapor planı §4.4'te sınırlama.
 - **Karar 10, kurum ağzı:** kural 2'ye eklendi. Model kurumları adıyla anar, "Kurumumuz" / "Bakanlığımız" demez. `cevap_standardi_v1.md` §2. 03 notu aşağıda. Kurum verisi turunda bu kural tek kurum için yeniden değerlendirilecek.
 - **Karar 11, tutar ile süre/oran ayrımı:** kural 4 değiştirildi. Kanunda belirlenmiş süre, gün sayısı ve oranlar verilir. Dönemsel TL tutarlarının rakamı verilmez; hesaplama yolu söylenir ve resmî kaynaktan kontrol önerilir. `cevap_standardi_v1.md` §4 uyduruldu.
   - 03'teki eskimiş tutar nötrleştirme kuralı plan karar 11'de önceden kayda alındı ve **kullanıcı tarafından onaylandı**.
@@ -102,6 +104,8 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
   - GK2-050 "Kısaca ve sade bir dille anlatır mısın?" olarak düzeltildi.
   - 15 `b` sorusunun hepsi istek içeriyor. CSV ve `kilit_manifesti_v4.json` yeniden üretildi.
   - v1 `b` sorularında aynı denetimi yalnızca kullanıcı yapabilir.
+12. **Ton isteklerinde ünlem/emoji:** kural 2'deki yasak ton isteklerinde (kural 9) de geçerli mi? Karar verilene kadar geçerli sayılır (`cevap_standardi_v1.md` §2a, plan karar 9).
+13. **"kolayca anlatır mısın" örneği:** kural 9'daki bu örnek GK2-036'da aynen geçiyor (ölçüldü, alt dize araması). Diğer üç örnek v2'de geçmiyor. Seçenekler: bırakmak ya da "anlaşılır bir dille anlatır mısın" gibi bir ifadeyle değiştirmek. Kullanıcı onayı olmadan değiştirilmedi.
 8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler

@@ -377,9 +377,16 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
 **Sorun (karar 6c'de not edildi):** `b` soruları alan içidir. Bu yüzden onlara `sistem_v1`'in kural 1'i (dayanak belirt) ve kural 2'si (kurum yazışmasına uygun dil) uygulanıyordu. `b` ise sade, adım adım bir anlatım bekler. Sistem mesajı, kullanıcının sade anlatım istemesi durumunu düzenlemiyordu.
 
 **Karar (kullanıcı, 2026-11-23):** `sistem_v1.txt`'ye kural 9 eklendi:
-> "Kullanıcı sade, basit, kolay anlaşılır veya adım adım bir anlatım istediğini belirtirse (ör. "kolayca anlatır mısın", "teknolojiden anlamayan birine anlatacağım"), bilgiyi doğru ve eksiksiz tutarak gündelik bir dille, bürokratik kalıp kullanmadan ver; kanun ve madde atfı gerekmez. Böyle bir istek yoksa yukarıdaki resmî üslubu koru."
+> "Kullanıcı sade, basit, kolay anlaşılır, adım adım ya da samimi, gündelik veya eğlenceli bir tonda anlatım istediğini belirtirse (ör. "kolayca anlatır mısın", "teknolojiden anlamayan birine anlatacağım", "sohbet eder gibi anlat", "esprili bir dille yaz"), bilgiyi doğru ve eksiksiz tutarak isteğe uygun gündelik bir dille, bürokratik kalıp kullanmadan ver; kanun ve madde atfı gerekmez. Tek başına "kısaca" bir üslup isteği değildir, yalnızca kısalık ister. Böyle bir istek yoksa yukarıdaki resmî üslubu koru."
 
-(Tetikleyici metni kullanıcının incelemesinden sonra, 2026-11-23'te kelime eşleşmesinden anlama genişletildi.)
+Metnin geçmişi (hepsi 2026-11-23, kullanıcı kararı):
+1. İlk hâl: "açıkça sade, basit veya adım adım anlatım isterse".
+2. Kullanıcı incelemesinden sonra ("01: kural 9 tetikleyicisi ve GK2-050"): tetikleyici kelime eşleşmesinden anlama genişletildi.
+3. **Ton istekleriyle genişleme** ("01: kural 9 ton istekleriyle genişletildi"): kullanıcı v1'in `b` sorularında sade/basit/kolay dışında ton istekleri de gördü ("samimi", "sohbet eder gibi", "mesaj atar gibi", "eğlenceli, gençlere hitap eden"). Kural bu istekleri de kapsayacak şekilde genişletildi. "Kısaca" istisnası kuralın metnine yazıldı.
+
+**Örnek seçimi:** kuraldaki örnekler, kullanıcı tarafından bilerek v1 ve v2 sorularından farklı seçildi. Sistem mesajına değerlendirme sorularına benzeyen örnek eklenmez. Gerekçe: sistem mesajı her değerlendirmede modele verilir; değerlendirme sorusuna benzeyen bir örnek, soruyu kısmen cevaplamış olur ve sızıntı ölçümünü kolaylaştırır.
+- Ölçüldü (kendi taslağım üzerinde, alt dize araması): "teknolojiden anlamayan", "sohbet eder gibi" ve "esprili" v2'de geçmiyor. **"kolayca anlatır mısın" GK2-036'da aynen geçiyor.** Bu ifade önceki kural metninde de vardı. Açık karar 13'e yazıldı; metin kullanıcının verdiği gibi bırakıldı.
+- v1'de aynı denetimi yalnızca kullanıcı yapabilir.
 
 - Varsayılan davranış resmî kalır. Kural, kullanıcının sade anlatım istediğini **belirtmesiyle** çalışır. Tetikleyici belirli kelimeler değil anlamdır: "kolayca anlatır mısın" ya da "bilgisayardan pek anlamaz" da yeterlidir. "Kısaca" ise kısalık ister, sadelik istemez; tek başına yeterli değildir.
 - Dosya yerinde düzeltildi, yeni sürüm açılmadı. Gerekçe: dosya henüz hiçbir eğitim veya değerlendirmede kullanılmadı ve CLAUDE.md bu adı kullanıyor. Eski hâl git geçmişindedir (commit `b4ebb4e` ve öncesi).
@@ -394,6 +401,9 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
   - Sonuç: 15 `b` sorusunun hepsi sade anlatım isteği içeriyor (kullanıcı kararı).
 - v1 `b` sorularında isteğin bulunup bulunmadığını yalnızca kullanıcı denetleyebilir.
 - v1'in `b` soruları için aynı denetimi yalnızca kullanıcı yapabilir. Açık istek içermeyen v1 `b` soruları, geliştirme bölümünde varsayılan (resmî) davranışı ölçer.
+- **İstek türü dağılımı:** v2'nin 15 `b` sorusunun 15'i sadelik isteği içeriyor (sade, basit, adım adım, kolay); ton isteği içeren soru yok. Bu sınıflamayı kendi taslağım üzerinde ben yaptım. Kullanıcının gözlemine göre v1'de ton istekleri de var. v2 değiştirilmedi (kullanıcı kararı). Bu fark `rapor/rapor_plani_v1.md` §4.4'te sınırlama olarak yazılı: saklanan bölüm ton isteğine uyumu ölçmez.
+- **Açık karar 12 (kullanıcı):** kural 2'deki ünlem/emoji yasağı ton isteklerinde de geçerli mi? Karar verilene kadar geçerli sayılır (`cevap_standardi_v1.md` §2a). Bu karar sızıntı işaret listesini etkilemez; ünlem ve emoji `b` listesinde yok.
+- **Açık karar 13 (kullanıcı):** kuraldaki "kolayca anlatır mısın" örneği GK2-036 ile aynen örtüşüyor. Seçenekler: örneği bırakmak (GK2-036'nın sade anlatım isteği zaten açık; örnek cevap içermiyor) ya da "anlaşılır bir dille anlatır mısın" gibi bir ifadeyle değiştirmek. Değişiklik yalnızca kullanıcı onayıyla yapılır.
 - **Eğitim verisine etkisi:** SSS'ler gündelik dille sorulmuş olsa da sade anlatım isteği içermez. Bu yüzden eğitim hedefi resmî kalır. Kural 9'u eğitim verisiyle ayrıca öğretmek gerekip gerekmediği doğrulamada `b` sızıntısına bakılarak değerlendirilir. Bu bir tahmindir: tetikleyici T.7 bu durumu kapsar.
 
 ### Karar 10 (verildi): kurum ağzı yok, kurumlar adıyla anılır
