@@ -140,3 +140,28 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 **Kontrol sorusu:** Tetikleyiciyi geçemeyen bir adaptörün öğrenme oranını değiştirip tekrar ölçmek neden yasak?
 *Cevap:* Çünkü o zaman geliştirme bölümü bir ayar hedefine dönüşür. Aynı bölüm üzerinde defalarca deneme yapıp eşiği "geçen" ayarı seçmek, gerilemeyi gizleyen şanslı bir sonuç üretebilir. Tetikleyici bu yüzden bir kez ölçülür.
+
+## 7. Karar 6c: `b` grubunun yeniden yazılması ve gruba göre sızıntı ölçütü
+
+**Dosyalar ve girdileri:**
+- `inceleme/genel_kontrol_v2_taslak.jsonl`: GK2-036..050 yeniden yazıldı.
+- `src/veri/onay_csv.py`: girdi taslak JSONL, çıktı onay CSV'si.
+- `degerlendirme/deney_plani_v1.md` §6.6 ve `esikler_v1.md` 3.7, 3.9 ve T.7.
+
+**Blok 1, neden ölçüt değişti.** Sızıntı ölçütünün amacı, "soru bunu gerektirmediği hâlde kurum diline kaymak" durumunu yakalamaktır. `b` soruları ise kurum işlemini sorar: "e-Devlet'ten nasıl bakarım?" sorusunun doğru cevabı "e-Devlet" kelimesini içermek zorundadır. Eski liste bu cevabı sızıntılı sayardı; buna yanlış alarm (false positive) denir. Yeni kuralda kurum adları serbest, yasak olan yalnızca bürokratik kalıptır ("Sayın", "gerekmektedir", "ilgili mevzuat çerçevesinde").
+
+**Blok 2, kayıt (register) ve doğruluk ayrı ölçülür.** Kayıt, aynı bilginin hangi resmiyet düzeyinde söylendiğidir. Bir cevap çok sade olup yanlış da olabilir. Bu yüzden `b` kayıtlarına `bilgi_ogeleri` eklendi: doğru bir cevapta bulunması gereken 3–4 temel bilgi. Yargıç cevabı bu öğelere göre 0–2 puanlar (3.9). Öğeleri asistan yazdığı için önce kullanıcı onayından geçerler.
+
+**Blok 3, ölçüm dosyadaki listeye değil, gruba bağlı.** v1 salt okunur bir girdidir; içindeki `yasak_kalip` değiştirilemez. Bu yüzden puanlama betiği listeyi kaydın `grup` alanına göre plandan seçer. Böylece v1 (geliştirme) ve v2 (saklanan) aynı kuralla ölçülür.
+
+**Blok 4, onay CSV'si betikle üretilir.** `onay_csv.py` taslağı CSV'ye döker ve `b` satırlarına ikinci bir onay sütunu ("bilgi öğeleri doğru mu?") açar. Zaten doldurulmuş hücreler kimliğe göre korunur. Bu sayede taslak değişince CSV yeniden üretilse de onaylarınız kaybolmaz.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** soru: "İşten çıkarıldım, işsizlik maaşına nasıl başvururum, sade anlatır mısın?"
+- Cevap X: "İŞKUR'a 30 gün içinde başvurman gerekiyor. 1) e-Devlet'e gir…" Kurum adı var ama bürokratik kalıp yok, bu yüzden sızıntılı değil. Bilgi öğeleri tam, puan 2.
+- Cevap Y: "Sayın vatandaşımız, başvurunun ilgili mevzuat çerçevesinde İŞKUR'a yapılması gerekmektedir." 3 farklı işaret var, bu yüzden sızıntılı.
+- Cevap Z: "SGK'ya git, 60 gün süren var." Sızıntılı değil, ama iki kritik hata var: kurum ve süre. Puan 0. Sızıntı ölçütünü geçmek doğru olmak demek değildir.
+
+**Üç cümlelik özet:** `b` grubu artık kurum işlemini gündelik dille soran ve sade anlatım bekleyen sorulardan oluşuyor. Bu grupta kurum adları serbest, yasak olan bürokratik kalıplar. Sadeleşmenin bilgi kaybına yol açmadığını görmek için doğruluk, kullanıcının onayladığı bilgi öğelerine göre ayrıca puanlanıyor.
+
+**Kontrol sorusu:** Neden `b` grubunda mevzuat atfı ("4447 sayılı Kanun") sızıntı sayılmadı, ama ayrıca sayılıyor?
+*Cevap:* Çünkü `sistem_v1` kural 1 alan içi sorularda dayanak belirtmeyi istiyor. Bu atıf sızıntı sayılsaydı, sistem mesajına uyan model cezalandırılırdı. Atıf yine de sade anlatımı ağırlaştırabilir; bu gerilim açık karar 9'da kullanıcıya bırakıldı.

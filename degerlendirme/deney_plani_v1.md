@@ -149,7 +149,7 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
 | `vikipedi_perplexity_500` (500) | 150 / 350 | Genel metin | Perplexity | Sohbet şablonu ve sistem mesajı olmadan, ham metinde |
 | `aya_eval_tr` (250) | 75 / 175 | Açık uçlu yardım | Yargıç ikili karşılaştırması (adaptör vs `hazir`) | Kazanma / beraberlik / kaybetme |
 | `genel_kontrol_v1` (60) | 60 / 0, tümü geliştirme (karar 6a) | Üslup sızıntısı | §6.6 | 35 `a_gayriresmi` + 15 `b_kurum_gayriresmi` + 10 `c_resmi` |
-| `genel_kontrol_v2` (60, taslak) | 0 / 60, tümü saklanan (karar 6a) | Üslup sızıntısı | §6.6 | v1 ile aynı grup ve alt kategori dağılımı; `inceleme/genel_kontrol_v2_taslak.jsonl`, onay bekliyor |
+| `genel_kontrol_v2` (60, taslak) | 0 / 60, tümü saklanan (karar 6a) | Üslup sızıntısı; `b` grubunda bilgi doğruluğu | §6.6 | v1 ile aynı grup dağılımı; `b` grubu karar 6c ile yeniden yazıldı. `inceleme/genel_kontrol_v2_taslak.jsonl`, onay bekliyor |
 
 - Kayıt sayıları `wc -l` ile ölçüldü. Bölme boyutları beklenen değerdir.
 - Bölme kuralı (karar 2): her dosya sabit seed (42) ile %30 geliştirme / %70 saklanan olarak ayrılır; her görevde geliştirme bölümü en az 50 kayıttır. Alt grubu olan dosyalarda (ders, soru türü) bölme katmanlıdır.
@@ -163,13 +163,27 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
   - Geliştirme bölümü `genel_kontrol_v1`'in tamamıdır.
   - Saklanan bölüm `genel_kontrol_v2`'dir (karar 6a).
 - **Kullanım:** geliştirme bölümünde tetikleyici T.7, saklanan bölümde final eşiği 3.7 (`esikler_v1.md`).
-- **Sızıntı işareti (otomatik):** bir cevapta aşağıdaki işaret listesinden **en az 2 farklı işaret** varsa o cevap "sızıntılı" sayılır:
+- **İki grup, iki işaret listesi.** Hangi listenin uygulanacağı kaydın `grup` alanından belirlenir. Dosyadaki `yasak_kalip` alanı ölçümde kullanılmaz; ölçüm yalnızca aşağıdaki dondurulmuş listelere dayanır. Böylece v1 ve v2 aynı kuralla ölçülür (karar 6c).
+- **Sızıntı işareti, `a_gayriresmi` (35):** cevapta aşağıdakilerden **en az 2 farklı işaret** varsa cevap "sızıntılı" sayılır. Bu gruptaki sorular kurumla ilgisizdir, bu yüzden kurum adı veya yönlendirmesi de sızıntı sayılır.
   1. Kurum ağzı: "Kurumumuz", "Bakanlığımız", "Sayın".
   2. Mevzuat atfı: `\d{3,4} sayılı`, "ilgili mevzuat", "inci/ıncı/üncü/uncu madde".
   3. Kurum yönlendirmesi: soru bunu gerektirmediği hâlde "e-Devlet", "ALO 170", "il müdürlüğü", "resmî kaynaktan teyit".
   4. Resmî kip yoğunluğu: cümlelerin en az yarısı `-mektedir/-maktadır` ile bitiyor.
-- **Ölçüt:** sızıntılı cevap oranı (yüzde) = sızıntılı / gündelik soru sayısı. Adaptörün oranı `hazir` modelin oranıyla karşılaştırılır.
-- Bu işaret listesi eşik onayıyla birlikte dondurulur ve sonradan değiştirilmez.
+- **Sızıntı işareti, `b_kurum_gayriresmi` (15):** bu sorular kurum işlemi veya bilgisi ister ama gündelik dille sorulur ve sade, adım adım bir anlatım bekler (karar 6c). Bu yüzden ölçüt farklıdır:
+  - **Serbest olanlar:** kurum ve sistem adları ile yönlendirme. Örnekler: "e-Devlet", "SGK", "İŞKUR", "ALO 170", "il müdürlüğü", "sosyal güvenlik merkezi". Bu sorularda doğru yönlendirme cevabın kendisidir.
+  - **Sızıntı işaretleri:** cevapta aşağıdakilerden **en az 2 farklı işaret** varsa cevap "sızıntılı" sayılır.
+    1. Kurum ağzı: "Kurumumuz", "Bakanlığımız", "Sayın".
+    2. Bürokratik kalıp: "gerekmektedir", "ilgili mevzuat çerçevesinde", "hususunda", "arz ederim", "bilgilerinize sunulur", "tarafınızca", "müracaat ediniz".
+    3. Resmî kip yoğunluğu: cümlelerin en az yarısı `-mektedir/-maktadır` ile bitiyor.
+  - **Ayrıca sayılan, sızıntı sayılmayan:** mevzuat atfı (`\d{3,4} sayılı`, "madde"). Bunun nedeni `sistem_v1` kural 1'in alan içi sorularda dayanak belirtmeyi istemesidir; bu atıf sızıntı sayılsaydı sistem mesajına uymak cezalandırılırdı. Atıf oranı ikincil olarak raporlanır (açık karar 9).
+- **Ölçüt:** sızıntılı cevap oranı (yüzde) = sızıntılı / gündelik soru sayısı (a + b = 50). Adaptörün oranı `hazir` modelin oranıyla karşılaştırılır. a ve b grubunun oranları ayrıca raporlanır.
+- Bu işaret listeleri eşik onayıyla birlikte dondurulur ve sonradan değiştirilmez.
+- **`b` grubunda bilgi doğruluğu ayrıca puanlanır.**
+  - Neden: sade ama yanlış bir cevap sızıntı ölçütünü geçer; doğruluk ayrı ölçülmezse "sadeleşme" bilgi kaybını gizleyebilir.
+  - Puanlama: §6.3'teki 0–2 ölçeği ve kritik hata tanımı kullanılır. Referans yerine kaydın `bilgi_ogeleri` alanı kullanılır; bu öğeler kullanıcı tarafından onaylanır.
+  - Puanı yerel yargıç verir. Yargıca soru, cevap ve bilgi öğeleri verilir. Tek cevap puanlanır; bu bir ikili karşılaştırma değildir. Cevaptaki sayılar ayrıca otomatik olarak bilgi öğelerindeki sayılarla karşılaştırılır (§6.7).
+  - Eşik `esikler_v1.md` 3.9'dadır (yalnızca saklanan bölüm, v2).
+  - `genel_kontrol_v1`'de `bilgi_ogeleri` alanı yoktur (bu, alan listesinden ölçüldü; dosya salt okunur). Geliştirme bölümünde `b` doğruluğu bu yüzden referanssız yargıç puanıyla yalnızca **raporlanır**; tetikleyiciye girmez.
 - **Ölçmediği şey:** kurum dilini daha ince biçimlerde (ör. aşırı temkinli ret) sızdırmayı yakalamaz. Bunun için yargıca ikincil bir soru sorulur: "Bu cevap gündelik bir soruya gereksiz kurum diliyle mi cevap veriyor?"
 
 ### 6.7 Otomatik metrikler ve sınırları
@@ -251,7 +265,7 @@ Dosya: `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru, taslak, onay bekli
 
 ## 8. Kararlar ve açık kararlar
 
-Kararlar 1–6 kullanıcı tarafından 2026-11-23'te verildi. Karar 6, ilk beş kararı işlerken ortaya çıkan bir çakışma üzerine verildi.
+Kararlar 1–6 kullanıcı tarafından 2026-11-23'te verildi. Karar 6, ilk beş kararı işlerken ortaya çıkan bir çakışma üzerine verildi. Karar 6c, kullanıcının v1'i kontrol etmesinden sonra verildi. Açık karar 9 kullanıcıyı bekliyor.
 
 ### Karar 1 (verildi): genel Türkçe verisi yalnızca gerileme görülürse eğitime girer
 
@@ -327,18 +341,62 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
 **`genel_kontrol_v2` nasıl yazıldı:**
 - v1'in içeriği okunmadı (deny kapsamında). Yalnızca toplu bilgi çıkaran bir betikle şunlar ölçüldü: alan adları, grup dağılımı (35 / 15 / 10), grup başına alt kategori sayısı ve boyutları (`a_gayriresmi`: 14 alt kategori, boyutlar 4-4-4-4-3-2-2-2-2-2-2-2-1-1; `b`: 1; `c`: 1) ve `yasak_kalip` listesinin uzunluğu (11). Alt kategori adları ve metinler basılmadı.
 - v2 bu yapıyı birebir izler (ölçüldü). Alt kategori adları ve bütün metinler sıfırdan yazıldı.
-- Alanlar v1 ile aynı: `id, grup, kategori, prompt, beklenen_davranis` ve gruba göre `yasak_kalip` (a, b) veya `beklenen_uslup` (c).
-- v2'nin `yasak_kalip` listesi §6.6'daki önceden kayıtlı sızıntı işaretlerinden kuruldu (11 öğe). Sızıntı ölçütü bu listeye değil, §6.6'daki işaret kuralına dayanır; iki sürümün `yasak_kalip` listesi farklı olabilir ve bu ölçümü etkilemez.
+- Alanlar v1 ile aynı: `id, grup, kategori, prompt, beklenen_davranis` ve gruba göre `yasak_kalip` (a, b) veya `beklenen_uslup` (c). Karar 6c'den sonra `b` kayıtlarında ek olarak `bilgi_ogeleri` alanı da var.
+- v2'nin `a` grubundaki `yasak_kalip` listesi §6.6'daki `a` işaretlerinden kuruldu (11 öğe). `b` grubundaki liste bürokratik kalıplardan oluşur (10 öğe, karar 6c). Sızıntı ölçütü bu alanlara değil, §6.6'daki gruba göre dondurulmuş işaret kuralına dayanır. Bu yüzden iki sürümün `yasak_kalip` listesi farklı olabilir ve bu ölçümü etkilemez.
 
 **Onay sırasında kontrol edilmesi gerekenler:**
-1. `b_kurum_gayriresmi` grubunu "iş hayatı veya kurum çağrışımlı, gayriresmî dille sorulmuş ama mevzuat sormayan gündelik istekler" olarak yorumladım (ör. "SGK binasında sıra beklerken canım sıkıldı, bana bir bilmece sor"). v1'deki tanımı göremediğim için bu grubun v1'le aynı anlama gelip gelmediğini sizin karşılaştırmanız gerekiyor. v1'de bu grup "gayriresmî dille sorulmuş mevzuat soruları" ise v2'nin `b` grubu yeniden yazılmalı. Ayrıca o durumda §6.6'daki sızıntı tanımı bu grup için yeniden düşünülmeli, çünkü `sistem_v1` mevzuat sorularında resmî dil istiyor.
+1. ~~`b_kurum_gayriresmi` grubunun v1'le aynı anlama gelip gelmediği.~~ Kullanıcı v1'i kontrol etti: ilk taslağın yorumu yanlıştı. Grup yeniden yazıldı (karar 6c).
 2. Kayıtların gündelik ve doğal bir dille yazılıp yazılmadığı.
 3. `c_resmi` kayıtlarının mevzuat bilgisi gerektirmemesi.
+4. `b` kayıtlarının `bilgi_ogeleri` alanının doğru olup olmadığı. Bu alan CSV'de ayrı bir sütunla onaylanır (karar 6c).
 
-**Kilitleme akışı:**
+### Karar 6c (verildi): `b_kurum_gayriresmi` grubunun tanımı ve ölçütü
+
+**Ne oldu.** İlk v2 taslağında `b` grubu "kurum çağrışımlı ama mevzuat sormayan gündelik istekler" olarak yazılmıştı. Kullanıcı 2026-11-23'te v1'i kontrol etti ve v1'in `b` grubunun başka bir türde olduğunu bildirdi:
+- **Tanım:** "kurum işlemi veya bilgisi isteyen, gündelik dille sorulmuş, doğru bilgiyi sade ve adım adım bir dille bekleyen sorular".
+- **Örnek tür:** "Anneme e-Devlet'ten emeklilik durumuna nasıl bakacağını kolayca anlatır mısın?". Beklenen cevap adım adım, sabırlı ve basit bir dille, resmî kalıp olmadan verilir.
+
+**Karar:**
+1. v2'nin 15 `b` sorusu (GK2-036..050) bu tanıma göre sıfırdan yeniden yazıldı. v1'in içeriği açılmadı; yalnızca kullanıcının verdiği tanım ve örnek tür kullanıldı. Örnek türün kendisi v2'ye alınmadı.
+2. **`b` için sızıntı ölçütü yeniden tanımlandı** (§6.6). Kurum ve sistem adları serbesttir. Yasak olan bürokratik kalıplardır. Bilgi doğruluğu ayrıca puanlanır (§6.6, `esikler_v1.md` 3.9).
+3. Yeni `b` kayıtlarında alanlar şunlardır: `id, grup, kategori` (`kurum_islemi_sade_anlatim`), `prompt, beklenen_davranis, yasak_kalip` (bürokratik kalıplar) ve yeni `bilgi_ogeleri` (doğru bir cevapta bulunması gereken 3–4 temel bilgi).
+
+**Gerekçe:**
+- **Eski ölçüt bu soru türünde yanlış alarm üretirdi.** Eski listede "e-Devlet", "ALO 170" ve "il müdürlüğü" sızıntı işaretiydi. "e-Devlet'ten nasıl bakarım?" sorusunun doğru cevabı ise bu adları içermek zorundadır. Doğru cevap verip sızıntılı sayılmak, ölçümü anlamsız kılardı.
+- **Ölçülmek istenen şey kayıt (register) uyumudur.** Kurum bilgisini bilen bir modelin, sade anlatım istendiğinde bürokratik kalıplara kaçıp kaçmadığı ölçülür. Fine-tuning'in en olası yan etkisi budur: SSS'lerin resmî üslubunu her kurum sorusuna taşımak.
+- **Doğruluk ayrı puanlanmalı.** Sadeleştirmenin bedeli bilgi kaybı olmamalıdır. Bu koşul, başarı ölçütü 2 ("bilgi doğruluğunda kötüleşme yok") ile uyumludur.
+- **Aynı kural v1'e de uygulanır.** Ölçüm dosyadaki `yasak_kalip` alanına değil, gruba göre seçilen dondurulmuş listeye dayanır. Bu yüzden v1 (salt okunur) değiştirilmeden aynı kuralla ölçülür.
+
+**Yeni riskler:**
+- `bilgi_ogeleri` asistan tarafından yazıldı ve bağımsız mevzuat kontrolünden geçmedi. Kullanıcı onayı bu yüzden şarttır (CSV'deki ayrı sütun). Onaylanmayan öğe puanlamada kullanılmaz.
+- `b` soruları artık SSS konularına yakın: işsizlik ödeneği, yıllık izin, ihbar ve süt izni gibi. 02'deki çakışma denetiminde test ve tuzak setiyle yakın eşleşme çıkma olasılığı arttı. Çıkan eşleşmeler kurala göre yalnızca kimlikle `inceleme/` CSV'sine yazılır; kararı kullanıcı verir.
+
+### Açık karar 9: `b` grubu ve `sistem_v1` arasındaki gerilim
+
+`sistem_v1.txt` değiştirilmedi. Not edilen nokta şu: `b` soruları sistem mesajının konu alanına (ÇSGB, SGK, İŞKUR) girer. Bu yüzden, son paragraftaki "genel dil görevlerinde kurum üslubunu dayatma" istisnası değil, kurallar 1–8 uygulanır. Bu kuralların ikisi `b` grubunun beklentisiyle gerilim yaratır:
+
+| `sistem_v1` kuralı | `b` beklentisi | Gerilim |
+|---|---|---|
+| Kural 2: "Kurum yazışmalarına uygun, nesnel ve saygılı bir dil kullan. Sohbet kalıpları … kullanma." | Sabırlı, sade, gündelik bir anlatım | **Kısmi.** Resmî ama sade bir dil mümkündür (bürokratik kalıp olmadan nesnel anlatım). Ancak "kurum yazışmalarına uygun" ifadesi modeli "-mektedir" yoğunluğuna ve kalıplara itebilir. |
+| Kural 1: "dayanağı (kanun adı ve sayısı, madde) belirt" | Basit anlatım | **Kısmi.** Mevzuat atfı `b`'de sızıntı sayılmadı (§6.6), ama sade anlatımı ağırlaştırabilir. |
+| Kural 1: "Önce sorunun doğrudan cevabını ver" | Adım adım anlatım | Yok. Önce cevap, sonra adımlar verilebilir. |
+
+**Sonuç:**
+- Sistem mesajı kullanıcı sade anlatım istediğinde ne yapılacağını söylemiyor.
+- `hazir` taban çizgisi aynı sistem mesajını kullandığı için karşılaştırma adildir: sızıntı **farkı** ölçülür.
+- Yine de `b` grubunda iki sistem de sistem mesajı yüzünden yüksek sızıntı gösterebilir. Bu, ölçümün duyarlılığını düşürür.
+
+**Kullanıcının vermesi gereken karar** (seçenekler; sistem mesajını ben değiştirmiyorum):
+1. `sistem_v1` olduğu gibi kalır ve gerilim rapora sınırlama olarak yazılır.
+2. Bir `sistem_v2` yazılır ve kurallara "kullanıcı sade anlatım isterse aynı bilgiyi bürokratik kalıp olmadan, adım adım ver" cümlesi eklenir. Bu, tek sistem mesajı kuralı gereği eğitim, değerlendirme ve servisi birlikte değiştirir. Bu yüzden eğitim verisi üretilmeden önce, yani 02–03'ten önce karar verilmelidir.
+
+Karar `cevap_standardi_v1.md` incelemesiyle birlikte verilebilir.
+
+### `genel_kontrol_v2` kilitleme akışı (karar 6a ve 6c)
+
 1. Kullanıcı CSV'de onaylar veya düzeltir. Düzeltmeleri JSONL'e ben işlerim.
 2. 02'deki çakışma denetimi: v2, eğitim adaylarına, genel Türkçe havuzuna, `genel_kontrol_v1`'e, geliştirme kapsam dışı setine, doğrulamaya, teste ve tuzak setine karşı denetlenir. Test veya tuzak içeren yakın eşleşmeler yalnızca kimlikle `inceleme/` CSV'sine yazılır.
-3. Son hâl `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `kilit_manifesti_v3.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır.
+3. Son hâl `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `kilit_manifesti_v4.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `kilit_manifesti_v3.json`, karar 6c'den sonraki taslağı kilitler.
 4. Taşımadan sonra bu yol ve taslak için Read deny kuralı eklenmesini öneriyorum: `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/degerlendirme/saklanan/**)` ve `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme/genel_kontrol_v2_*)`. Bunun nedeni: v2'yi ben yazdım, yani içeriğini biliyorum; deny kuralı üslup istemini ve ayarları geliştirirken v2'yi yeniden açmamı engeller. Bu sınırlama `rapor/rapor_plani_v1.md` §4.4'te.
 
 ## 9. Gösterim: uydurma bir soruyla mini puanlama

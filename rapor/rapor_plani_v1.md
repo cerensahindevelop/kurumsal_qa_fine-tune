@@ -80,5 +80,9 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
     - Taşındıktan sonra Read deny kapsamına alınması önerildi.
     - İstem ve ayar seçiminde kullanılmaz.
   - Kalan risk: geliştirilen istemlerin v2'deki soru türlerine bilinçsizce uyması tamamen dışlanamaz.
-- **Geliştirme ve saklanan sızıntı setleri arasında yorum farkı olabilir.** v1 ve v2 farklı zamanlarda yazıldı ve v1'in içeriği v2 yazılırken görülmedi. Bu yüzden iki set arasında konu ve zorluk farkı olabilir. `b_kurum_gayriresmi` grubunun yorumunu kullanıcı onay sırasında karşılaştırır. Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
+- **Geliştirme ve saklanan sızıntı setleri arasında yorum farkı olabilir.** v1 ve v2 farklı zamanlarda yazıldı ve v1'in içeriği v2 yazılırken görülmedi. Bu yüzden iki set arasında konu ve zorluk farkı olabilir.
+  - İlk taslakta `b_kurum_gayriresmi` grubu yanlış yorumlanmıştı. Kullanıcının v1 kontrolünden sonra grup, kullanıcının verdiği tanıma göre yeniden yazıldı (karar 6c).
+  - Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
+- **`b` grubunun bilgi öğeleri asistan tarafından yazıldı.** v2'deki `bilgi_ogeleri` kullanıcı onayından geçer, ama bağımsız mevzuat kontrolünden geçmez. 3.9'daki doğruluk ölçümü "onaylı öğelere uygunluk"tur. v1'de bu alan olmadığı için geliştirme bölümünde `b` doğruluğu yalnızca referanssız yargıç puanıyla raporlanır.
+- **`b` grubu ile `sistem_v1` arasında gerilim** (açık karar 9). Sistem mesajı alan içi sorularda kurum yazışması dili ve dayanak istiyor; `b` grubu sade anlatım bekliyor. `hazir` ve adaptörler aynı sistem mesajını kullandığı için fark ölçümü adildir, ama `b` grubunda mutlak sızıntı oranları sistem mesajından etkilenir. Karar 9'un sonucu rapora yazılır.
 - **Kapsam:** pilot açık verilerle yapıldı. Sonuçlar kurum verisine doğrudan genellenemez; aynı akış orijinal modelden yeniden çalıştırılacak.

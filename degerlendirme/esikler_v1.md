@@ -49,8 +49,14 @@ Bölme kararı: her dosya, sabit seed (42) ile %30 geliştirme / %70 saklanan ol
 | 3.4 | WMT16 EN→TR chrF (350) | Fark ≥ −1,0 puan | Aynı | bekliyor |
 | 3.5 | Vikipedi perplexity (350) | Göreli artış ≤ %10 | Alana uyum küçük bir artış doğurabilir; %10 üstü dil dağılımında belirgin kayma demektir | bekliyor |
 | 3.6 | Aya ikili karşılaştırması (175; yargıç, adaptör vs `hazir`) | Kaybetme − kazanma ≤ 10 pp | Genel yardımseverlikte belirgin gerileme kabul edilmez | bekliyor |
-| 3.7 | Üslup sızıntısı (gündelik sorular, `deney_plani_v1.md` §6.6 işaret listesi; geliştirme: `genel_kontrol_v1` tamamı; saklanan: `genel_kontrol_v2`, `deney_plani_v1.md` karar 6a) | Sızıntılı cevap **oranı** ≤ `hazir` oranı + 10 pp | 50 soruda yaklaşık 5 cevaplık artışa kadar tolerans; daha fazlası kurum dilinin gündelik kullanıma taştığını gösterir. Oran olarak yazıldı, böylece saklanan bölümün boyutundan bağımsız | bekliyor |
+| 3.7 | Üslup sızıntısı (gündelik sorular, `deney_plani_v1.md` §6.6, **gruba göre işaret listesi**: `a` için kurum adı/yönlendirme dahil, `b` için yalnızca kurum ağzı + bürokratik kalıp + resmî kip yoğunluğu; geliştirme: `genel_kontrol_v1` tamamı; saklanan: `genel_kontrol_v2`, karar 6a ve 6c) | Sızıntılı cevap **oranı** ≤ `hazir` oranı + 10 pp | 50 soruda yaklaşık 5 cevaplık artışa kadar tolerans; daha fazlası kurum dilinin gündelik kullanıma taştığını gösterir. Oran olarak yazıldı, böylece saklanan bölümün boyutundan bağımsız | bekliyor |
 | 3.8 | Çoktan seçmelide harf çıkarılamayan cevap oranı | ≤ %3 | Daha yüksek oran 3.1'i biçim sorununa dönüştürür | bekliyor |
+| 3.9 | `b_kurum_gayriresmi` bilgi doğruluğu (`genel_kontrol_v2`, 15 soru; yargıç, `deney_plani_v1.md` §6.3 ölçeği, referans = onaylı `bilgi_ogeleri`) | Kritik hatalı cevap sayısı ≤ `hazir` + 1 **ve** ortalama puan farkı ≥ −0,2 | Sade anlatım bilgi kaybı pahasına olmamalı (başarı ölçütü 2). 15 soruda tek bir kritik hata gürültü olabilir, ikincisi değildir. Ortalama puandaki 0,2'lik pay, 15 soruda yaklaşık 3 cevabın bir basamak düşmesine karşılık gelir. Onaylanmayan bilgi öğesi puanlamaya girmez | bekliyor |
+
+**Karar 6c'den sonraki değişiklik (2026-11-23, onaydan önce):**
+- 3.7'nin ölçütü `b` grubu için yeniden tanımlandı. 3.9 eklendi. T.7'ye aynı gruba göre ölçüt uygulanır.
+- **Gerekçe:** kullanıcının v1 kontrolüne göre `b` grubu kurum işlemi soran ve sade anlatım bekleyen sorulardan oluşuyor. Bu sorularda kurum ve sistem adlarını yasaklamak doğru cevabı sızıntı sayardı. Yeni ölçüt yalnızca bürokratik kalıbı yasaklıyor, doğruluğu ise ayrıca ölçüyor (`deney_plani_v1.md` §6.6 ve karar 6c).
+- Bu değişiklik dosya henüz onaylanmadan yapıldı ve hiçbir model puanlanmadı. Bu yüzden yeni bir sürüm dosyası açılmadı. Onaydan sonraki değişiklikler `esikler_v2.md` ile yapılır.
 
 ## 3A. "Gerekirse karışım" tetikleyicisi (doğrulama aşaması, geliştirme %30; taban çizgisi `hazir`)
 
@@ -68,7 +74,7 @@ Karar (kullanıcı, 2026-11-23): genel Türkçe verisi eğitime **yalnızca** a�
 | T.4 | WMT16 EN→TR chrF (150) | 1,0 puan | bekliyor |
 | T.5 | Vikipedi perplexity (150) | göreli artış %10 | bekliyor |
 | T.6 | Aya ikili karşılaştırması (75) | kaybetme − kazanma 10 pp | bekliyor |
-| T.7 | **Gündelik sorularda üslup sızıntısı** (`genel_kontrol_v1`, 50 gündelik soru) | sızıntılı cevap oranı `hazir` oranının en fazla **10 pp** üstünde olabilir | bekliyor |
+| T.7 | **Gündelik sorularda üslup sızıntısı** (`genel_kontrol_v1`, 50 gündelik soru; gruba göre işaret listesi, `deney_plani_v1.md` §6.6). `b` doğruluğu v1'de yalnızca raporlanır, tetiklemez | sızıntılı cevap oranı `hazir` oranının en fazla **10 pp** üstünde olabilir | bekliyor |
 | T.8 | Çoktan seçmelide harf çıkarılamayan cevap oranı | mutlak %3 | bekliyor |
 
 **Neden final eşikleriyle aynı sayılar:** iki tür hatanın maliyeti eşit değil.
