@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-23 (01 açık kararları işlendi) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-23 (01 açık kararları ve karar 6 işlendi) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -31,6 +31,8 @@ Son güncelleme: 2026-11-23 (01 açık kararları işlendi) · Son tamamlanan a�
 | `env/2026-11-23_paketler.txt`, `env/2026-11-23_donanim.txt` | Ortam kaydı |
 | `docs/ogrenme/01_iskelet_ve_plan.md` | Öğrenme açıklaması |
 | `rapor/rapor_plani_v1.md` | Rapor iskeleti ve önceden bilinen sınırlamalar (açık kararlar güncellemesinde eklendi) |
+| `inceleme/genel_kontrol_v2_taslak.jsonl`, `inceleme/genel_kontrol_v2_onay.csv` | Saklanan üslup sızıntısı seti taslağı (60) ve onay kuyruğu (karar 6a) |
+| `degerlendirme/kilit_manifesti_v2.json`, `env/2026-11-23_girdi_sha256_v2.json` | 27 kilitli dosya: v1'deki 25 + ham `01_sss` + v2 taslağı |
 
 `.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
 
@@ -66,22 +68,25 @@ Son güncelleme: 2026-11-23 (01 açık kararları işlendi) · Son tamamlanan a�
 4. **Deny kuralları:** kapandı. Commit `f6ad4d0`; ham `05_tuzak_sorular`, `01_sss`, `06_genel_turkce/degerlendirme` ve `kanarya_klasor` için Read deny var (settings.json okunarak doğrulandı; kanarya ölçümünü kullanıcı yaptı).
 5. **Ham tuzak araçları:** şimdi kullanılmayacak, karar 11'e kaldı. Birincil tuzak puanı önceden kayıtlı ölçütlerden ve projenin kendi yargıç akışından gelir; hazır betik 11'de en fazla ek kontrol olabilir.
 
+6. **Bölme kuralına uymayan iki dosya** (kullanıcı kararı, 2026-11-23; `deney_plani_v1.md` §8, karar 6):
+   - **6a:** `genel_kontrol_v1`'in tamamı (60) geliştirme bölümü olur. Saklanan karşılığı yeni `genel_kontrol_v2`: 60 kayıt, aynı dağılım. Taslak `inceleme/` altında yazıldı ve `kilit_manifesti_v2.json`'a eklendi.
+   - **6b:** `turkishmmlu_dev` bölünmez; iki bölümde de aynı 5-shot örnekleri kullanılır.
+
 ### Açık kararlar (kullanıcı)
-6. **Bölme kuralına uymayan iki dosya** (`deney_plani_v1.md` §8, açık karar 6):
-   - `genel_kontrol_v1` (60 kayıt): %30 = 18 < 50. Önerim: tümü geliştirme olsun, saklanan karşılık için yeni `genel_kontrol_v2` yazılıp kilitlensin.
-   - `turkishmmlu_dev` (45 kayıt): görev değil, 5-shot havuzu. Önerim: bölünmesin.
-   - Bu kararın 02'deki bölmeden önce verilmesi gerekiyor.
-7. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
+7. **`genel_kontrol_v2` onayı:** `inceleme/genel_kontrol_v2_onay.csv` doldurulacak. Kontrol edilmesi gerekenler `deney_plani_v1.md` karar 6'da; en önemlisi, `b_kurum_gayriresmi` grubunun v1'le aynı anlama gelip gelmediği. Onaydan sonra ayrıca önerilen Read deny kuralı (`degerlendirme/saklanan/**`, `inceleme/genel_kontrol_v2_*`) eklenmeli.
+8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
-  - Not: `01_sss/**` artık deny kapsamında ama bu listede yok. 02'de listeye eklenip kilit manifesti yeniden üretilmeli (`kilit_manifesti_v2.json`).
+  - `01_sss/*` deseni listeye eklendi. Yeni `--ek-kilitli` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `kilit_manifesti_v2.json`.
 - **02'de Türkçe değerlendirme bölmesi:**
   - Dosya başına %30 / %70, seed 42, geliştirmede ≥ 50 kayıt.
   - Alt grubu olan dosyalarda (TurkishMMLU ders, `genel_kontrol` soru türü) katmanlı.
   - Betik yalnızca kimlik, sayı ve SHA-256 yazar.
   - Beklenen boyutlar `deney_plani_v1.md` §6.5'te.
-  - `genel_kontrol_v1` ve `turkishmmlu_dev` için açık karar 6 beklenmeli.
+  - `genel_kontrol_v1` ve `turkishmmlu_dev` bölünmez (karar 6). `genel_kontrol_v2` saklanan bölümdür.
+- 02'deki çakışma denetimine `inceleme/genel_kontrol_v2_taslak.jsonl` (onaylı hâli) de girer. Karşılaştırılacak setler: eğitim adayları, genel Türkçe havuzu, `genel_kontrol_v1`, geliştirme kapsam dışı seti, doğrulama, test ve tuzak.
+- v2 onaylanınca: `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, `kilit_manifesti_v3.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
 - 11'deki insan formu için 50 test sorusu, cevaplar üretilmeden önce kimlikle seçilir (seed 42, kaynağa göre katmanlı). Bu seçim 11'in ilk adımıdır, 02'de yapılmaz.
 - Kilitli setler yalnızca toplu sayı, kimlik ve SHA-256 yazan betiklerle açılır. Çakışma denetiminde test ve tuzak içeren çiftler yalnızca kimlikle `inceleme/` CSV'sine yazılır.
 - `gelistirme_kapsam_disi.jsonl` 02'deki çakışma denetimine dahil edilmeli.
@@ -93,3 +98,4 @@ Son güncelleme: 2026-11-23 (01 açık kararları işlendi) · Son tamamlanan a�
 
 ### Değişen çalıştırılabilir kod veya komut yolları
 - Yeni: `python -m src.veri.girdi_ozeti --girdi ... --cikti ... --kilit-cikti ...` (README "01" bölümü).
+- Değişti: `src/veri/girdi_ozeti.py` artık `--ek-kilitli` seçeneğini kabul ediyor ve `01_sss/*` desenini varsayılan olarak kilitli sayıyor.

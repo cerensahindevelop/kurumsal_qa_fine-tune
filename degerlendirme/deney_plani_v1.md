@@ -142,13 +142,14 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
 | Dosya (kayıt) | Geliştirme %30 / saklanan %70 (beklenen) | Görev | Ölçüt | Not |
 |---|---|---|---|---|
 | `turkishmmlu_test` (900) | 270 / 630, ders bazında katmanlı (9 × 30 / 9 × 70) | Çoktan seçmeli bilgi | Doğruluk, 5-shot | Cevaptan harf çıkarılamazsa yanlış sayılır, ayrı raporlanır |
-| `turkishmmlu_dev` (45) | bölünmez | 5-shot örnek havuzu | — | Görev değil; iki bölümde de aynı 5-shot örnekleri kullanılır (açık karar 6) |
+| `turkishmmlu_dev` (45) | bölünmez | 5-shot örnek havuzu | — | Görev değil; iki bölümde de aynı 5-shot örnekleri kullanılır (karar 6b) |
 | `gecturk_test_500` (500) | 150 / 350 | Dilbilgisi düzeltme | chrF + tam eşleşme | |
 | `xlsum_tr_test_500` (500) | 150 / 350 | Özetleme | chrF (ROUGE-L ikincil) | NC lisans: yalnızca iç değerlendirmede kullanılır |
 | `wmt16_entr_test_500` (500) | 150 / 350 | EN→TR çeviri | chrF (BLEU ikincil) | |
 | `vikipedi_perplexity_500` (500) | 150 / 350 | Genel metin | Perplexity | Sohbet şablonu ve sistem mesajı olmadan, ham metinde |
 | `aya_eval_tr` (250) | 75 / 175 | Açık uçlu yardım | Yargıç ikili karşılaştırması (adaptör vs `hazir`) | Kazanma / beraberlik / kaybetme |
-| `genel_kontrol_v1` (60) | **çakışma: %30 = 18 < 50** (açık karar 6) | Üslup sızıntısı | §6.6 | 35 gayriresmî + 15 kurum-samimi + 10 resmî |
+| `genel_kontrol_v1` (60) | 60 / 0, tümü geliştirme (karar 6a) | Üslup sızıntısı | §6.6 | 35 `a_gayriresmi` + 15 `b_kurum_gayriresmi` + 10 `c_resmi` |
+| `genel_kontrol_v2` (60, taslak) | 0 / 60, tümü saklanan (karar 6a) | Üslup sızıntısı | §6.6 | v1 ile aynı grup ve alt kategori dağılımı; `inceleme/genel_kontrol_v2_taslak.jsonl`, onay bekliyor |
 
 - Kayıt sayıları `wc -l` ile ölçüldü. Bölme boyutları beklenen değerdir.
 - Bölme kuralı (karar 2): her dosya sabit seed (42) ile %30 geliştirme / %70 saklanan olarak ayrılır; her görevde geliştirme bölümü en az 50 kayıttır. Alt grubu olan dosyalarda (ders, soru türü) bölme katmanlıdır.
@@ -158,7 +159,9 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
 
 Ölçülen: gündelik sorulara gereksiz yere kurum diliyle cevap verilmesi.
 
-- **Kapsam:** `genel_kontrol` setindeki gündelik sorular (v1'de 50: 35 gayriresmî + 15 kurum-samimi). 10 resmî soru kontrol grubudur; orada resmî dil beklenir ve yalnızca raporlanır. Geliştirme ve saklanan bölümler açık karar 6'ya bağlı.
+- **Kapsam:** `genel_kontrol` setlerindeki gündelik sorular: `a_gayriresmi` + `b_kurum_gayriresmi`, her sürümde 50 soru. 10 `c_resmi` sorusu kontrol grubudur; orada resmî dil beklenir ve yalnızca raporlanır.
+  - Geliştirme bölümü `genel_kontrol_v1`'in tamamıdır.
+  - Saklanan bölüm `genel_kontrol_v2`'dir (karar 6a).
 - **Kullanım:** geliştirme bölümünde tetikleyici T.7, saklanan bölümde final eşiği 3.7 (`esikler_v1.md`).
 - **Sızıntı işareti (otomatik):** bir cevapta aşağıdaki işaret listesinden **en az 2 farklı işaret** varsa o cevap "sızıntılı" sayılır:
   1. Kurum ağzı: "Kurumumuz", "Bakanlığımız", "Sayın".
@@ -248,7 +251,7 @@ Dosya: `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru, taslak, onay bekli
 
 ## 8. Kararlar ve açık kararlar
 
-Kararlar 1–5 kullanıcı tarafından 2026-11-23'te verildi. Açık karar 6 bu kararları işlerken ortaya çıktı.
+Kararlar 1–6 kullanıcı tarafından 2026-11-23'te verildi. Karar 6, ilk beş kararı işlerken ortaya çıkan bir çakışma üzerine verildi.
 
 ### Karar 1 (verildi): genel Türkçe verisi yalnızca gerileme görülürse eğitime girer
 
@@ -280,7 +283,7 @@ Karar öncesi karşılaştırma (kayıt için):
 
 ### Karar 2 (verildi): Türkçe değerlendirme ayrımı
 
-Her dosya sabit seed (42) ile %30 geliştirme / %70 saklanan olarak bölünür; her görevde geliştirme bölümü en az 50 kayıttır. Ayrımın kendisi 02'de, yalnızca kimlik, sayı ve SHA-256 yazan bir betikle yapılır. Beklenen boyutlar §6.5'te. Kurala uymayan iki dosya için açık karar 6.
+Her dosya sabit seed (42) ile %30 geliştirme / %70 saklanan olarak bölünür; her görevde geliştirme bölümü en az 50 kayıttır. Ayrımın kendisi 02'de, yalnızca kimlik, sayı ve SHA-256 yazan bir betikle yapılır. Beklenen boyutlar §6.5'te. Kurala uymayan iki dosya için karar 6.
 
 ### Karar 3 (verildi): kör insan değerlendirmesi
 
@@ -309,26 +312,34 @@ Kanarya ölçümü kullanıcı tarafından yapıldı; `kanarya_klasor` içeriği
 - Birincil tuzak puanı `esikler_v1.md` §4'teki önceden kayıtlı ölçütlerden (tanımlar §6.4) ve projenin kendi yargıç akışından gelir.
 - Hazır betik 11'de en fazla ek kontrol olarak çalışabilir. Sonucu ayrı raporlanır ve birincil puanı değiştirmez.
 
-### Açık karar 6 (yeni): bölme kuralına uymayan iki dosya
+### Karar 6 (verildi): bölme kuralına uymayan iki dosya
 
-Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) iki dosyada birlikte sağlanamıyor:
+Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_kontrol_v1` (60 kayıt; %30 = 18) ve `turkishmmlu_dev` (45 kayıt; görev değil) için birlikte sağlanamıyordu. Kullanıcı 2026-11-23'te şu kararı verdi:
 
-| Dosya | Kayıt | Sorun |
-|---|---|---|
-| `genel_kontrol_v1` | 60 (35 gayriresmî + 15 kurum-samimi + 10 resmî) | %30 = 18 kayıt; 50 alt sınırının altında |
-| `turkishmmlu_dev` | 45 | Görev değil, 5-shot örnek havuzu; bölünürse iki bölümde 5-shot örnekleri farklılaşır |
+**6a) `genel_kontrol`:**
+- `genel_kontrol_v1`'in 60 kaydının tamamı geliştirme bölümüdür.
+- Saklanan bölüm için yeni `genel_kontrol_v2` yazılır: en az 60 kayıt, aynı kategori dağılımı.
+- Taslak: `inceleme/genel_kontrol_v2_taslak.jsonl`. Onay kuyruğu: `inceleme/genel_kontrol_v2_onay.csv`.
+- v2, 01'de **hiçbir model çalışmadan önce** yazıldı ve `degerlendirme/kilit_manifesti_v2.json`'a eklendi.
 
-`genel_kontrol_v1` için seçenekler:
+**6b) `turkishmmlu_dev`:** bölünmez. Geliştirme ve saklanan bölümde aynı 5-shot örnekleri kullanılır (ders başına sabit 5 örnek). Bu dosya puanlanmadığı için saklanan bölüme sızıntı yaratmaz.
 
-| Seçenek | Geliştirme / saklanan | Artı | Eksi |
-|---|---|---|---|
-| **Tümü geliştirme + yeni saklanan set (öneri)** | 60 / 0, saklanan karşılık: yeni `genel_kontrol_v2` (≥ 50 gündelik + 10 resmî) | İki bölüm de yeterince büyük; T.7 ve 3.7 anlamlı ölçülür | v2'nin yazılması gerekir. Önerim: v2'yi siz yazın ya da 02'de yazılıp hiçbir model cevabı görülmeden SHA-256 ile kilitlensin |
-| 50 alt sınırı öncelikli | 50 / 10 (katmanlı) | Yeni veri gerekmez | Saklanan 10 soruda sızıntı oranı tek cevapla 10 pp oynar; 3.7 fiilen ölçülemez |
-| %30 öncelikli | 18 / 42 | Oran kuralına uyar | 18 soruda T.7 tek cevapla 5,6 pp oynar; tetikleyici güvenilmez olur |
+**`genel_kontrol_v2` nasıl yazıldı:**
+- v1'in içeriği okunmadı (deny kapsamında). Yalnızca toplu bilgi çıkaran bir betikle şunlar ölçüldü: alan adları, grup dağılımı (35 / 15 / 10), grup başına alt kategori sayısı ve boyutları (`a_gayriresmi`: 14 alt kategori, boyutlar 4-4-4-4-3-2-2-2-2-2-2-2-1-1; `b`: 1; `c`: 1) ve `yasak_kalip` listesinin uzunluğu (11). Alt kategori adları ve metinler basılmadı.
+- v2 bu yapıyı birebir izler (ölçüldü). Alt kategori adları ve bütün metinler sıfırdan yazıldı.
+- Alanlar v1 ile aynı: `id, grup, kategori, prompt, beklenen_davranis` ve gruba göre `yasak_kalip` (a, b) veya `beklenen_uslup` (c).
+- v2'nin `yasak_kalip` listesi §6.6'daki önceden kayıtlı sızıntı işaretlerinden kuruldu (11 öğe). Sızıntı ölçütü bu listeye değil, §6.6'daki işaret kuralına dayanır; iki sürümün `yasak_kalip` listesi farklı olabilir ve bu ölçümü etkilemez.
 
-`turkishmmlu_dev` için önerim: bölünmesin. Yalnızca 5-shot örnek havuzu olarak iki bölümde de aynı biçimde kullanılsın (sabit 5 örnek, ders başına seed 42). Bu dosya puanlanmadığı için saklanan bölüme sızıntı yaratmaz.
+**Onay sırasında kontrol edilmesi gerekenler:**
+1. `b_kurum_gayriresmi` grubunu "iş hayatı veya kurum çağrışımlı, gayriresmî dille sorulmuş ama mevzuat sormayan gündelik istekler" olarak yorumladım (ör. "SGK binasında sıra beklerken canım sıkıldı, bana bir bilmece sor"). v1'deki tanımı göremediğim için bu grubun v1'le aynı anlama gelip gelmediğini sizin karşılaştırmanız gerekiyor. v1'de bu grup "gayriresmî dille sorulmuş mevzuat soruları" ise v2'nin `b` grubu yeniden yazılmalı. Ayrıca o durumda §6.6'daki sızıntı tanımı bu grup için yeniden düşünülmeli, çünkü `sistem_v1` mevzuat sorularında resmî dil istiyor.
+2. Kayıtların gündelik ve doğal bir dille yazılıp yazılmadığı.
+3. `c_resmi` kayıtlarının mevzuat bilgisi gerektirmemesi.
 
-Bu kararlar 02'deki bölme betiğinden önce verilmeli.
+**Kilitleme akışı:**
+1. Kullanıcı CSV'de onaylar veya düzeltir. Düzeltmeleri JSONL'e ben işlerim.
+2. 02'deki çakışma denetimi: v2, eğitim adaylarına, genel Türkçe havuzuna, `genel_kontrol_v1`'e, geliştirme kapsam dışı setine, doğrulamaya, teste ve tuzak setine karşı denetlenir. Test veya tuzak içeren yakın eşleşmeler yalnızca kimlikle `inceleme/` CSV'sine yazılır.
+3. Son hâl `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `kilit_manifesti_v3.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır.
+4. Taşımadan sonra bu yol ve taslak için Read deny kuralı eklenmesini öneriyorum: `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/degerlendirme/saklanan/**)` ve `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme/genel_kontrol_v2_*)`. Bunun nedeni: v2'yi ben yazdım, yani içeriğini biliyorum; deny kuralı üslup istemini ve ayarları geliştirirken v2'yi yeniden açmamı engeller. Bu sınırlama `rapor/rapor_plani_v1.md` §4.4'te.
 
 ## 9. Gösterim: uydurma bir soruyla mini puanlama
 

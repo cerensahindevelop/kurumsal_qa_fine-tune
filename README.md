@@ -37,8 +37,12 @@ Her komut proje kökünden çalıştırılır. Yollarda boşluk olduğu için t�
 # 1) Girdilerin SHA-256 özeti ve kilit manifesti (içerik basmaz)
 python -m src.veri.girdi_ozeti \
   --girdi "/home/aipc/Desktop/Gruplu Veriler" /home/aipc/Desktop/fine_tuneVeriler \
-  --cikti env/$(date +%F)_girdi_sha256.json \
-  --kilit-cikti degerlendirme/kilit_manifesti_v1.json
+  --ek-kilitli inceleme/genel_kontrol_v2_taslak.jsonl \
+  --cikti env/$(date +%F)_girdi_sha256_v2.json \
+  --kilit-cikti degerlendirme/kilit_manifesti_v2.json
+# (v1 manifesti --ek-kilitli olmadan ve 01_sss deseni eklenmeden üretilmişti.)
+# genel_kontrol_v2 onaylanıp degerlendirme/saklanan/ altına taşınınca --ek-kilitli o yolu gösterir
+# ve çıktı kilit_manifesti_v3.json olur.
 
 # 2) Paket ve donanım kaydı
 pip freeze > env/$(date +%F)_paketler.txt

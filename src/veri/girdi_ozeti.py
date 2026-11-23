@@ -28,6 +28,7 @@ VARSAYILAN_KILITLI = [
     "degerlendirme/Türkçe Değerlendirme/*",
     "05_tuzak_sorular/*",
     "06_genel_turkce/degerlendirme/*",
+    "01_sss/*",  # ham SSS: test soruları buradan seçildi
 ]
 
 SATIR_SAYILAN = {".jsonl", ".csv", ".txt", ".md", ".py"}
@@ -69,6 +70,8 @@ def main() -> None:
     ap.add_argument("--cikti", required=True, type=Path, help="Tüm dosyaların özeti (JSON)")
     ap.add_argument("--kilit-cikti", type=Path, help="Yalnızca kilitli dosyaların manifesti (JSON)")
     ap.add_argument("--kilitli", nargs="*", default=VARSAYILAN_KILITLI, help="Kilitli glob desenleri")
+    ap.add_argument("--ek-kilitli", nargs="*", default=[], type=Path,
+                    help="Girdi kökleri dışında, tek tek kilitlenecek dosyalar (ör. proje içindeki saklanan setler)")
     a = ap.parse_args()
 
     zaman = dt.datetime.now().astimezone().isoformat(timespec="seconds")
@@ -77,6 +80,20 @@ def main() -> None:
         if not kok.is_dir():
             raise SystemExit(f"Girdi klasörü yok: {kok}")
         tum.extend(kok_tara(kok, a.kilitli))
+    for yol in a.ek_kilitli:
+        if not yol.is_file():
+            raise SystemExit(f"Ek kilitli dosya yok: {yol}")
+        yol = yol.resolve()
+        tum.append(
+            {
+                "kok": str(yol.parent),
+                "yol": yol.name,
+                "bayt": yol.stat().st_size,
+                "satir": satir_say(yol) if yol.suffix.lower() in SATIR_SAYILAN else None,
+                "sha256": sha256_hesapla(yol),
+                "kilitli": True,
+            }
+        )
 
     a.cikti.parent.mkdir(parents=True, exist_ok=True)
     a.cikti.write_text(

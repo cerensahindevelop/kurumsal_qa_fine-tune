@@ -73,4 +73,12 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 
 - **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 20–30 çiftle sınar.
 - **Üslup sızıntısı ölçütü:** önceden belirlenmiş bir işaret listesine dayanır. Listedeki ifadeleri kullanmadan gerçekleşen sızıntıyı kaçırabilir.
+- **Saklanan `genel_kontrol_v2` asistan tarafından yazıldı.**
+  - Sorunu: istemi ve ayarları geliştiren asistan bu setin içeriğini biliyor.
+  - Önlemler:
+    - v2, hiçbir model cevabı görülmeden yazılıp SHA-256 ile kilitlendi.
+    - Taşındıktan sonra Read deny kapsamına alınması önerildi.
+    - İstem ve ayar seçiminde kullanılmaz.
+  - Kalan risk: geliştirilen istemlerin v2'deki soru türlerine bilinçsizce uyması tamamen dışlanamaz.
+- **Geliştirme ve saklanan sızıntı setleri arasında yorum farkı olabilir.** v1 ve v2 farklı zamanlarda yazıldı ve v1'in içeriği v2 yazılırken görülmedi. Bu yüzden iki set arasında konu ve zorluk farkı olabilir. `b_kurum_gayriresmi` grubunun yorumunu kullanıcı onay sırasında karşılaştırır. Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
 - **Kapsam:** pilot açık verilerle yapıldı. Sonuçlar kurum verisine doğrudan genellenemez; aynı akış orijinal modelden yeniden çalıştırılacak.

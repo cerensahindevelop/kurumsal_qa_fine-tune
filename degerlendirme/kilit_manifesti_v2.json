@@ -1,0 +1,229 @@
+{
+ "olusturma": "2026-11-23T13:43:02+03:00",
+ "desenler": [
+  "degerlendirme/test.jsonl",
+  "degerlendirme/tuzak_sorular.jsonl",
+  "degerlendirme/Türkçe Değerlendirme/*",
+  "05_tuzak_sorular/*",
+  "06_genel_turkce/degerlendirme/*",
+  "01_sss/*"
+ ],
+ "dosyalar": [
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/aya_eval_tr.jsonl",
+   "bayt": 97587,
+   "satir": 250,
+   "sha256": "7ffb4db1b7fcd937e61690f40485fd351375aead92275e7619250fdab006997e",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/gecturk_test_500.jsonl",
+   "bayt": 111025,
+   "satir": 500,
+   "sha256": "736e3a4b9490ce574b561b7ff9478bcdb76762e540ac38c5b712c23a939136d1",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/genel_kontrol_v1.jsonl",
+   "bayt": 22003,
+   "satir": 60,
+   "sha256": "406eadcf3b4143934e1fe6d33156b18dbc7bbd72123c19a2f8b6371f8aef1a95",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/turkishmmlu_dev.jsonl",
+   "bayt": 27241,
+   "satir": 45,
+   "sha256": "2c970c1accd807638097cfdc77af700667cbb5684066cf130ad21506474f8e44",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/turkishmmlu_test.jsonl",
+   "bayt": 508219,
+   "satir": 900,
+   "sha256": "ba596b8e33c04b3b066012ba952015719380c1c63528fbfce0ef1d46a1021365",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/vikipedi_perplexity_500.jsonl",
+   "bayt": 281546,
+   "satir": 500,
+   "sha256": "5cc7c3a2bce7e802366b88ec6a27c6d1575a95c4e6fc369b50e561eb4dc8ac73",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/wmt16_entr_test_500.jsonl",
+   "bayt": 138129,
+   "satir": 500,
+   "sha256": "fe89762a508db82acefa7de3626a5cafbdff254b9ef73bfdf479ea7f3fa01aab",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/xlsum_tr_test_500.jsonl",
+   "bayt": 1659804,
+   "satir": 500,
+   "sha256": "5ffec999d96b5ffe341ddebecde32869690996b3021714fdbb6a1c988b007f0f",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/test.jsonl",
+   "bayt": 57998,
+   "satir": 100,
+   "sha256": "2303a2c99c3df9ac8fe058a95a095268dfde88a3aa3a3cf3cb7905440e6c75a9",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/tuzak_sorular.jsonl",
+   "bayt": 19108,
+   "satir": 28,
+   "sha256": "9cc65b8b8dc135dd4d8aa90f7a2ba92b5118b00a844e31e769fb990717c3670d",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "01_sss/sss_birlesik.jsonl",
+   "bayt": 2458132,
+   "satir": 1699,
+   "sha256": "830d67600620fad48b138174c672917756f44749bb46a0bf4dceb04bde4b190e",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/README.md",
+   "bayt": 9031,
+   "satir": 75,
+   "sha256": "ea9fc5ca5201d3f0f9dc5ad4e7c4c47c604e202b12cc86bdb3e974842620a424",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/egitimden_cikarilacaklar.jsonl",
+   "bayt": 700,
+   "satir": 3,
+   "sha256": "df62b461b4810687cbd03fcc054ebe715bd720fd5d6f72c546e0cc92e141fe3f",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/otomatik_kontrol.py",
+   "bayt": 1626,
+   "satir": 32,
+   "sha256": "0e0c0a5ce61a2130056b5130a574a9786a5b98de301b60a72ba9fce099b21f22",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/tuzak_sorular.jsonl",
+   "bayt": 22713,
+   "satir": 28,
+   "sha256": "786e9461b946525bc8a78c8bc9f07c7cb790d3ce26b8a89124b4ac7b11bf4a72",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/yargic_promptu.md",
+   "bayt": 3473,
+   "satir": 103,
+   "sha256": "a7b1e04ab19725b91784b32f49983507cb34c5f446aba41ba7266d587793d025",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/aya_eval_tr.jsonl",
+   "bayt": 97625,
+   "satir": 250,
+   "sha256": "7024f7c4ab275d9f2958c69e564a3d26f08d036d7fe97ccfeedf00f399d188f8",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/gecturk_test_500.jsonl",
+   "bayt": 111025,
+   "satir": 500,
+   "sha256": "736e3a4b9490ce574b561b7ff9478bcdb76762e540ac38c5b712c23a939136d1",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/genel_kontrol_v1.jsonl",
+   "bayt": 22003,
+   "satir": 60,
+   "sha256": "406eadcf3b4143934e1fe6d33156b18dbc7bbd72123c19a2f8b6371f8aef1a95",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/turkishmmlu_dev.jsonl",
+   "bayt": 27241,
+   "satir": 45,
+   "sha256": "2c970c1accd807638097cfdc77af700667cbb5684066cf130ad21506474f8e44",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/turkishmmlu_test.jsonl",
+   "bayt": 508219,
+   "satir": 900,
+   "sha256": "ba596b8e33c04b3b066012ba952015719380c1c63528fbfce0ef1d46a1021365",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/uslup_kontrol.py",
+   "bayt": 1312,
+   "satir": 26,
+   "sha256": "79d36d1215c481aec8bcbb38c8466f0127e6a880e318c3c30857bd9b62e6809d",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/uslup_yargic_promptu.md",
+   "bayt": 1219,
+   "satir": 30,
+   "sha256": "afc03b4bc31daaa8219fa87551982fff17a4987a6d5af631096b56844646a0c1",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/vikipedi_perplexity_500.jsonl",
+   "bayt": 299678,
+   "satir": 500,
+   "sha256": "150b84b1260ce0dd617dde79843091dddc5b977ab052e12b1206d6982bd4bd93",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/wmt16_entr_test_500.jsonl",
+   "bayt": 138183,
+   "satir": 500,
+   "sha256": "1d064669288de644009e2a99e05d5a28313cc06076995266f996c48309e7091f",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/xlsum_tr_test_500.jsonl",
+   "bayt": 1736059,
+   "satir": 500,
+   "sha256": "0896162d0a94fba6fe904e97e279938359d6f6e9d58c378a92606ef38311bd8b",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme",
+   "yol": "genel_kontrol_v2_taslak.jsonl",
+   "bayt": 28804,
+   "satir": 60,
+   "sha256": "edf68c2c4bede0517412cf0516e34a8948125f9e079fbd9f75732ee79185aa05",
+   "kilitli": true
+  }
+ ]
+}

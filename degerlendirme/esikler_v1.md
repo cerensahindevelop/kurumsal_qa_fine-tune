@@ -49,7 +49,7 @@ Bölme kararı: her dosya, sabit seed (42) ile %30 geliştirme / %70 saklanan ol
 | 3.4 | WMT16 EN→TR chrF (350) | Fark ≥ −1,0 puan | Aynı | bekliyor |
 | 3.5 | Vikipedi perplexity (350) | Göreli artış ≤ %10 | Alana uyum küçük bir artış doğurabilir; %10 üstü dil dağılımında belirgin kayma demektir | bekliyor |
 | 3.6 | Aya ikili karşılaştırması (175; yargıç, adaptör vs `hazir`) | Kaybetme − kazanma ≤ 10 pp | Genel yardımseverlikte belirgin gerileme kabul edilmez | bekliyor |
-| 3.7 | Üslup sızıntısı (gündelik sorular, `deney_plani_v1.md` §6.6 işaret listesi; saklanan karşılık için `deney_plani_v1.md` açık karar 6) | Sızıntılı cevap **oranı** ≤ `hazir` oranı + 10 pp | 50 soruda yaklaşık 5 cevaplık artışa kadar tolerans; daha fazlası kurum dilinin gündelik kullanıma taştığını gösterir. Oran olarak yazıldı, böylece saklanan bölümün boyutundan bağımsız | bekliyor |
+| 3.7 | Üslup sızıntısı (gündelik sorular, `deney_plani_v1.md` §6.6 işaret listesi; geliştirme: `genel_kontrol_v1` tamamı; saklanan: `genel_kontrol_v2`, `deney_plani_v1.md` karar 6a) | Sızıntılı cevap **oranı** ≤ `hazir` oranı + 10 pp | 50 soruda yaklaşık 5 cevaplık artışa kadar tolerans; daha fazlası kurum dilinin gündelik kullanıma taştığını gösterir. Oran olarak yazıldı, böylece saklanan bölümün boyutundan bağımsız | bekliyor |
 | 3.8 | Çoktan seçmelide harf çıkarılamayan cevap oranı | ≤ %3 | Daha yüksek oran 3.1'i biçim sorununa dönüştürür | bekliyor |
 
 ## 3A. "Gerekirse karışım" tetikleyicisi (doğrulama aşaması, geliştirme %30; taban çizgisi `hazir`)
@@ -68,7 +68,7 @@ Karar (kullanıcı, 2026-11-23): genel Türkçe verisi eğitime **yalnızca** a�
 | T.4 | WMT16 EN→TR chrF (150) | 1,0 puan | bekliyor |
 | T.5 | Vikipedi perplexity (150) | göreli artış %10 | bekliyor |
 | T.6 | Aya ikili karşılaştırması (75) | kaybetme − kazanma 10 pp | bekliyor |
-| T.7 | **Gündelik sorularda üslup sızıntısı** (`genel_kontrol` geliştirme bölümü, gündelik sorular) | sızıntılı cevap oranı `hazir` oranının en fazla **10 pp** üstünde olabilir | bekliyor |
+| T.7 | **Gündelik sorularda üslup sızıntısı** (`genel_kontrol_v1`, 50 gündelik soru) | sızıntılı cevap oranı `hazir` oranının en fazla **10 pp** üstünde olabilir | bekliyor |
 | T.8 | Çoktan seçmelide harf çıkarılamayan cevap oranı | mutlak %3 | bekliyor |
 
 **Neden final eşikleriyle aynı sayılar:** iki tür hatanın maliyeti eşit değil.
