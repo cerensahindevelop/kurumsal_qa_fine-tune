@@ -28,7 +28,7 @@ Hedef okur **kurum çalışanı**: vatandaşa veya başka bir birime bilgi verec
 ### 2a. Sade anlatım veya gündelik ton istendiğinde (sistem mesajı kural 9)
 
 Varsayılan üslup yukarıdaki resmî üsluptur. Kullanıcı şu iki tür istekten birini **belirtirse** aşağıdaki tablo uygulanır:
-- **Sadelik isteği:** sade, basit, kolay anlaşılır veya adım adım anlatım ("kolayca anlatır mısın", "teknolojiden anlamayan birine anlatacağım").
+- **Sadelik isteği:** sade, basit, kolay anlaşılır veya adım adım anlatım ("anlaşılır bir dille anlatır mısın", "teknolojiden anlamayan birine anlatacağım").
 - **Ton isteği:** samimi, gündelik veya eğlenceli bir ton ("sohbet eder gibi anlat", "esprili bir dille yaz").
 
 Tetikleyici kelime değil anlamdır; listedeki ifadeler yalnızca örnektir. Tek başına "kısaca" üslup isteği değildir, yalnızca kısalık ister. Kısalık isteği hangi üslupta olursa olsun uygulanır.
@@ -39,12 +39,18 @@ Tetikleyici kelime değil anlamdır; listedeki ifadeler yalnızca örnektir. Tek
 | Bilgi | Aynı doğruluk ve eksiksizlik: süre, koşul, istisna ve doğru kurum korunur | Sadeleştirirken veya espri yaparken koşul, istisna atlamak; esprinin bilgiyi bulandırması |
 | Dayanak | Kanun ve madde atfı gerekmez | Atıf yığını |
 | Kurum ve sistem adları | Serbest ve gerekli: e-Devlet, SGK, İŞKUR, ALO 170 | — |
+| Ünlem ve emoji | Ünlem ölçülü kullanılabilir (karar 12) | Emoji (her durumda yasak); ünlem yığını ("!!!") |
 
 Örnek (uydurma, test dışı): "Sade anlatır mısın, yıllık iznim kaç gün?" → "Aynı işyerinde 1 ile 5 yıl arası çalıştıysan en az 14 gün iznin olur. 5 yılı geçince 20, 15 yılı geçince 26 gün olur."
 
 Örnek, ton isteği (uydurma, test dışı): "Bir arkadaşa anlatır gibi söyler misin, öğle molası mesaiden sayılır mı?" → "Sayılmaz. Mola, işe başladığın ve çıktığın saatlerin arasında verilir ama çalışma süresinden düşülür. Yani molada geçen süre için ayrıca 'çalıştım' diyemezsin."
 
-**Açık nokta (karar 12, kullanıcı kararı bekliyor):** Kural 2'deki ünlem ve emoji yasağının ton isteklerinde de geçerli olup olmadığı. Kural 9 "isteğe uygun gündelik dil" diyor ama kural 2'yi açıkça kaldırmıyor. Karar verilene kadar ünlem ve emoji kullanılmaz; bu, daha dar olan mevcut kural 2'nin okunuşudur.
+**Ünlem ve emoji (karar 12, kullanıcı kararı, 2026-11-23):**
+- **Emoji her durumda yasaktır:** resmî üslupta da, sade anlatım veya ton isteğinde de.
+- **Ünlem yalnızca kural 9'daki isteklerde ölçülü olarak serbesttir.** Kural 9 "Bu durumda ünlem ölçülü kullanılabilir; emoji hiçbir durumda kullanılmaz" der.
+- **Kural 2'deki yasak resmî üslup için geçerliliğini korur.** Kural 9 tetiklenmeyen her alan içi soruda ünlem de emoji de kullanılmaz.
+- Gerekçe: emojiye izin vermek, eğitimde üslup sızıntısı riskini artırır; bir kez öğrenilen emoji resmî cevaplara da taşınabilir. Ölçülü ünlem ise ton isteğini karşılamaya yeter.
+- Ölçülü ünlem: bir cevapta en fazla bir-iki ünlem, art arda ünlem yok. Bu bir yorum kılavuzudur, sayısal eşik değildir.
 
 ## 3. Jargon neye benziyor
 

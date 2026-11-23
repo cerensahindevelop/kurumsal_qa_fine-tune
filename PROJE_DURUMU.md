@@ -104,8 +104,9 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
   - GK2-050 "Kısaca ve sade bir dille anlatır mısın?" olarak düzeltildi.
   - 15 `b` sorusunun hepsi istek içeriyor. CSV ve `kilit_manifesti_v4.json` yeniden üretildi.
   - v1 `b` sorularında aynı denetimi yalnızca kullanıcı yapabilir.
-12. **Ton isteklerinde ünlem/emoji:** kural 2'deki yasak ton isteklerinde (kural 9) de geçerli mi? Karar verilene kadar geçerli sayılır (`cevap_standardi_v1.md` §2a, plan karar 9).
-13. **"kolayca anlatır mısın" örneği:** kural 9'daki bu örnek GK2-036'da aynen geçiyor (ölçüldü, alt dize araması). Diğer üç örnek v2'de geçmiyor. Seçenekler: bırakmak ya da "anlaşılır bir dille anlatır mısın" gibi bir ifadeyle değiştirmek. Kullanıcı onayı olmadan değiştirilmedi.
+- ~~12. Ton isteklerinde ünlem/emoji~~ kapandı ("01: karar 12-13 kapatıldı"): emoji her durumda yasak; ünlem yalnızca kural 9'daki isteklerde ölçülü olarak serbest. Kural 9'un sonuna "Bu durumda ünlem ölçülü kullanılabilir; emoji hiçbir durumda kullanılmaz." eklendi. Kural 2'deki yasak resmî üslup için geçerli (`cevap_standardi_v1.md` §2a).
+- ~~13. "kolayca anlatır mısın" örneği~~ kapandı: örnek "anlaşılır bir dille anlatır mısın" ile değiştirildi. Ölçüldü: yeni ifade ve çekirdeği "anlaşılır bir dille" v1'de 0/60, v2'de 0/60. v1 yalnızca sayı basan `src/veri/ifade_say.py` ile denetlendi. Betiğin doğruluğu v2'de bilinen iki eşleşmeyle sınandı (1/1).
+14. **Kural 9'daki "Bu durumda" göndermesi:** cümle, "Böyle bir istek yoksa yukarıdaki resmî üslubu koru." cümlesinin hemen ardından geliyor. Dil bilgisi açısından en yakın durum "istek yok" durumu olduğu için, model "Bu durumda"yı resmî üsluba bağlayabilir; bu, kararın tersi olur. Ayrıca cümle sadelik isteklerini de kapsıyor, yalnızca ton isteklerini değil. Kullanıcı talimatı ("kural 9'un sonuna") uygulandı; olası düzeltmeler sohbette önerildi, kullanıcı kararı bekliyor.
 8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
@@ -137,6 +138,7 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 ### Değişen çalıştırılabilir kod veya komut yolları
 - Yeni: `python -m src.veri.girdi_ozeti --girdi ... --cikti ... --kilit-cikti ...` (README "01" bölümü).
 - Değişti: `src/veri/girdi_ozeti.py` artık `--ek-kilitli` seçeneğini kabul ediyor ve `01_sss/*` desenini varsayılan olarak kilitli sayıyor.
+- Yeni: `python -m src.veri.ifade_say --girdi <jsonl ...> --ifade "<ifade>"`. Bir ifadenin kaç kayıtta geçtiğini sayar, içerik ve kimlik basmaz; kilitli setlerde de kullanılabilir (karar 13).
 - Yeni: `python -m src.veri.onay_csv --girdi inceleme/genel_kontrol_v2_taslak.jsonl --cikti inceleme/genel_kontrol_v2_onay.csv` (karar 6c).
 - Değişti: girdi özeti komutunun çıktıları artık `env/<tarih>_girdi_sha256_v5.json` ve `degerlendirme/kilit_manifesti_v5.json`.
 - Değişti: `src/veri/onay_csv.py` sonunda onay dağılımını yazıyor. "düzelt"/"duzelt", "hayır"/"hayir" ve büyük/küçük harf aynı sayılıyor (`normal_onay`); hücredeki yazım değişmiyor. evet/hayir/duzelt dışındaki değerler kimlikle listeleniyor.
