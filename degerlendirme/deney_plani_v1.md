@@ -431,8 +431,12 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
 ### `genel_kontrol_v2` kilitleme akışı (karar 6a ve 6c)
 
 1. Kullanıcı CSV'de onaylar veya düzeltir. Düzeltmeleri JSONL'e ben işlerim.
+   - **Tamamlandı (2026-11-23, "01: genel_kontrol_v2 onaylandı"):** 60/60 kayıt "evet". `b` bilgi öğeleri: 14 "evet", GK2-044 "düzelt".
+   - GK2-044'ün 4. öğesi kullanıcının CSV'deki metniyle değiştirildi. Gerekçe: 1475 sayılı Kanun md. 14'e göre kıdem tazminatını yalnızca 4857 md. 25/II (ahlak ve iyi niyet) kaldırır; işçinin haklı nedenle feshi (md. 24) de tazminat doğurur.
+   - Bilgi öğeleri ayrı bir asistan oturumunda ikincil kaynaklarla kontrol edildi; birincil mevzuat metniyle tek tek karşılaştırılmadı (`rapor/rapor_plani_v1.md` §4.4).
+   - Onaylı taslak `kilit_manifesti_v5.json` ile kilitlendi.
 2. 02'deki çakışma denetimi: v2, eğitim adaylarına, genel Türkçe havuzuna, `genel_kontrol_v1`'e, geliştirme kapsam dışı setine, doğrulamaya, teste ve tuzak setine karşı denetlenir. Test veya tuzak içeren yakın eşleşmeler yalnızca kimlikle `inceleme/` CSV'sine yazılır.
-3. Son hâl `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `kilit_manifesti_v5.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `kilit_manifesti_v3.json` karar 6c'den sonraki taslağı, `kilit_manifesti_v4.json` GK2-050 düzeltmesinden sonraki taslağı kilitler.
+3. Son hâl `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `kilit_manifesti_v6.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `kilit_manifesti_v3.json` karar 6c'den sonraki taslağı, `kilit_manifesti_v4.json` GK2-050 düzeltmesinden sonraki taslağı, `kilit_manifesti_v5.json` kullanıcı onaylı (GK2-044 düzeltilmiş) taslağı kilitler.
 4. Taşımadan sonra bu yol ve taslak için Read deny kuralı eklenmesini öneriyorum: `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/degerlendirme/saklanan/**)` ve `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme/genel_kontrol_v2_*)`. Bunun nedeni: v2'yi ben yazdım, yani içeriğini biliyorum; deny kuralı üslup istemini ve ayarları geliştirirken v2'yi yeniden açmamı engeller. Bu sınırlama `rapor/rapor_plani_v1.md` §4.4'te.
 
 ## 9. Gösterim: uydurma bir soruyla mini puanlama

@@ -34,7 +34,8 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 | `inceleme/genel_kontrol_v2_taslak.jsonl`, `inceleme/genel_kontrol_v2_onay.csv` | Saklanan üslup sızıntısı seti taslağı (60) ve onay kuyruğu (karar 6a) |
 | `degerlendirme/kilit_manifesti_v2.json`, `env/2026-11-23_girdi_sha256_v2.json` | 27 kilitli dosya: v1'deki 25 + ham `01_sss` + v2 taslağı (ilk `b` yorumu) |
 | `degerlendirme/kilit_manifesti_v3.json`, `env/2026-11-23_girdi_sha256_v3.json` | 27 kilitli dosya; v2'den farkı yalnızca yeniden yazılmış `b` grubuyla taslağın özeti (karar 6c) |
-| `degerlendirme/kilit_manifesti_v4.json`, `env/2026-11-23_girdi_sha256_v4.json` | **Geçerli manifest.** 27 kilitli dosya; v3'ten farkı yalnızca GK2-050 düzeltmesiyle taslağın özeti |
+| `degerlendirme/kilit_manifesti_v4.json`, `env/2026-11-23_girdi_sha256_v4.json` | 27 kilitli dosya; v3'ten farkı yalnızca GK2-050 düzeltmesiyle taslağın özeti |
+| `degerlendirme/kilit_manifesti_v5.json`, `env/2026-11-23_girdi_sha256_v5.json` | **Geçerli manifest.** 27 kilitli dosya; v4'ten farkı yalnızca kullanıcı onaylı, GK2-044 düzeltilmiş taslağın özeti |
 | `src/veri/onay_csv.py` | JSONL taslağından onay CSV'si üretir; dolu hücreleri kimliğe göre korur (karar 6c) |
 
 `.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
@@ -89,10 +90,12 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
   - §6.3'teki puanlama kuralı **kullanıcı tarafından kabul edildi**: kural 4'e uygun biçimde verilmeyen dönemsel TL tutarı eksik sayılmaz. Kesin onayı eşiklerle birlikte senior verecek.
 
 ### Açık kararlar (kullanıcı)
-7. **`genel_kontrol_v2` onayı:** `inceleme/genel_kontrol_v2_onay.csv` doldurulacak.
-   - İki onay sütunu var: kayıt onayı ve, `b` satırlarında, `bilgi_ogeleri` doğruluğu.
-   - Kontrol listesi `deney_plani_v1.md` karar 6'da.
-   - Onaydan sonra önerilen Read deny kuralı eklenmeli: `degerlendirme/saklanan/**`, `inceleme/genel_kontrol_v2_*`.
+7. **`genel_kontrol_v2`:** onay kapandı ("01: genel_kontrol_v2 onaylandı"); taşıma ve deny kuralı açık.
+   - Ölçüldü: 60/60 kayıt "evet". `b` bilgi öğeleri: 14 "evet", GK2-044 "düzelt". CSV'deki tek içerik farkı GK2-044'ün 4. öğesiydi.
+   - GK2-044'ün 4. öğesi kullanıcının metniyle aynen taslağa işlendi. Gerekçe: 1475 md. 14'e göre kıdem tazminatını yalnızca 4857 md. 25/II kaldırır; işçinin haklı nedenle feshi (md. 24) de tazminat doğurur.
+   - Bilgi öğesi kontrolünün kapsamı (ikincil kaynaklar, birincil metinle tek tek karşılaştırma yok) rapor planı §4.4'e sınırlama olarak yazıldı.
+   - Taslak yeniden üretilen CSV ile bayt bayt aynı (ölçüldü). Onaylı taslak `kilit_manifesti_v5.json` ile kilitlendi.
+   - **Açık:** taşıma 02'deki çakışma denetiminden sonra yapılacak (kullanıcı kararı). Taşımadan sonra önerilen Read deny kuralı eklenmeli: `degerlendirme/saklanan/**`, `inceleme/genel_kontrol_v2_*`.
 - ~~9. `b` grubu ile `sistem_v1` gerilimi~~: karar 9 ile kapandı (aşağıda).
 - ~~`genel_kontrol_v2` sade anlatım isteği denetimi~~ kapandı.
   - GK2-036 kullanıcı kararıyla değişmedi; "kolayca anlatır mısın, bilgisayardan pek anlamaz" açık bir istektir.
@@ -103,7 +106,7 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
-  - `01_sss/*` deseni listeye eklendi. Yeni `--ek-kilitli` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `kilit_manifesti_v4.json`.
+  - `01_sss/*` deseni listeye eklendi. Yeni `--ek-kilitli` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `kilit_manifesti_v5.json`.
 - **02'de Türkçe değerlendirme bölmesi:**
   - Dosya başına %30 / %70, seed 42, geliştirmede ≥ 50 kayıt.
   - Alt grubu olan dosyalarda (TurkishMMLU ders, `genel_kontrol` soru türü) katmanlı.
@@ -111,7 +114,7 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
   - Beklenen boyutlar `deney_plani_v1.md` §6.5'te.
   - `genel_kontrol_v1` ve `turkishmmlu_dev` bölünmez (karar 6). `genel_kontrol_v2` saklanan bölümdür.
 - 02'deki çakışma denetimine `inceleme/genel_kontrol_v2_taslak.jsonl` (onaylı hâli) de girer. Karşılaştırılacak setler: eğitim adayları, genel Türkçe havuzu, `genel_kontrol_v1`, geliştirme kapsam dışı seti, doğrulama, test ve tuzak.
-- v2 onaylanınca: `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, `kilit_manifesti_v5.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
+- v2 onaylandı ama henüz taşınmadı. 02'deki çakışma denetiminden sonra `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, `kilit_manifesti_v6.json` üretilir ve hiçbir model çalışmadan önce commit edilir. Denetimde değişiklik gerekirse yeniden kullanıcı onayı alınır.
 - v2'nin `b` soruları SSS konularına yakın (işsizlik ödeneği, yıllık izin, ihbar, süt izni vb.). 02'deki çakışma denetiminde test ve tuzakla yakın eşleşme çıkabilir; çıkarsa yalnızca kimlikle CSV'ye yazılır.
 - **03 için önceden kayıtlı veri dönüşümleri** (`deney_plani_v1.md` karar 10 ve 11). İkisi de betikle yapılır, değişen kimlikleri yazar ve belirsiz kayıtları `inceleme/` kuyruğuna gönderir. Kilitli doğrulama ve test referanslarına dokunulmaz.
   1. **Kurum ağzı:** eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ve çekimli biçimleri `kaynak` alanına göre kurum adıyla değiştirilir.
@@ -131,5 +134,6 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 - Yeni: `python -m src.veri.girdi_ozeti --girdi ... --cikti ... --kilit-cikti ...` (README "01" bölümü).
 - Değişti: `src/veri/girdi_ozeti.py` artık `--ek-kilitli` seçeneğini kabul ediyor ve `01_sss/*` desenini varsayılan olarak kilitli sayıyor.
 - Yeni: `python -m src.veri.onay_csv --girdi inceleme/genel_kontrol_v2_taslak.jsonl --cikti inceleme/genel_kontrol_v2_onay.csv` (karar 6c).
-- Değişti: girdi özeti komutunun çıktıları artık `env/<tarih>_girdi_sha256_v4.json` ve `degerlendirme/kilit_manifesti_v4.json`.
+- Değişti: girdi özeti komutunun çıktıları artık `env/<tarih>_girdi_sha256_v5.json` ve `degerlendirme/kilit_manifesti_v5.json`.
+- Değişti: `src/veri/onay_csv.py` sonunda onay dağılımını yazıyor. "düzelt"/"duzelt", "hayır"/"hayir" ve büyük/küçük harf aynı sayılıyor (`normal_onay`); hücredeki yazım değişmiyor. evet/hayir/duzelt dışındaki değerler kimlikle listeleniyor.
 - Düzeltildi: `src/veri/onay_csv.py` artık betiğin kendi "-" yer tutucusunu "dolu satır" saymıyor. Önceki sürüm 45 yanlış "korunan" satır bildiriyordu; içerik farkı yoktu.

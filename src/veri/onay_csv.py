@@ -7,6 +7,8 @@ Kullanım:
 - Yalnızca asistanın yazdığı, kilitli olmayan taslaklar için kullanılır (test/tuzak için değil).
 - Çıktı zaten varsa, doldurulmuş onay/not hücreleri kimliğe göre korunur.
 - `bilgi_ogeleri` alanı olan kayıtlarda öğeler " | " ile birleştirilir ve ayrı bir bilgi onayı sütunu açılır.
+- Sonunda onay dağılımını yazar. "düzelt"/"duzelt", "hayır"/"hayir" ve büyük/küçük harf aynı sayılır;
+  hücredeki yazım değiştirilmez. evet/hayir/duzelt dışındaki değerler kimlikleriyle listelenir.
 """
 import argparse
 import csv
@@ -16,6 +18,14 @@ from pathlib import Path
 ONAY = "onay (evet/hayir/duzelt)"
 BILGI_ONAY = "bilgi_ogeleri_dogru_mu (evet/hayir/duzelt)"
 DOLDURULAN = [ONAY, BILGI_ONAY, "not"]
+GECERLI = {"evet", "hayir", "duzelt"}
+_TR = str.maketrans({"ı": "i", "İ": "i", "ü": "u", "Ü": "u", "ö": "o", "Ö": "o",
+                     "ş": "s", "Ş": "s", "ğ": "g", "Ğ": "g", "ç": "c", "Ç": "c"})
+
+
+def normal_onay(deger: str) -> str:
+    """Onay hücresini karşılaştırma için sadeleştirir: "Düzelt", "düzelt", "duzelt" -> "duzelt"."""
+    return deger.strip().translate(_TR).lower()
 
 
 def main() -> None:
@@ -51,6 +61,20 @@ def main() -> None:
     korunan = sum(1 for k in kayitlar
                   if any(eski.get(k["id"], {}).get(s, "").strip() not in ("", "-") for s in DOLDURULAN))
     print(f"{len(kayitlar)} satır yazıldı -> {a.cikti} (korunan dolu satır: {korunan})")
+
+    # Onay dağılımı: yazım farkları (ü/u, ı/i, büyük/küçük harf) aynı değer sayılır.
+    for s in (ONAY, BILGI_ONAY):
+        sayim: dict[str, int] = {}
+        tanimsiz = []
+        for k in kayitlar:
+            d = normal_onay(eski.get(k["id"], {}).get(s, ""))
+            if s == BILGI_ONAY and "bilgi_ogeleri" not in k:
+                continue  # yer tutuculu satır
+            d = d or "(boş)"
+            sayim[d] = sayim.get(d, 0) + 1
+            if d not in GECERLI and d != "(boş)":
+                tanimsiz.append(k["id"])
+        print(f"{s}: {dict(sorted(sayim.items()))}" + (f" | tanımsız değer: {tanimsiz}" if tanimsiz else ""))
 
 
 if __name__ == "__main__":

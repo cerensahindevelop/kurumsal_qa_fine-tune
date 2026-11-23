@@ -25,7 +25,7 @@ Proje kuralları: `CLAUDE.md` · Güncel durum: `PROJE_DURUMU.md`
 - Ham veri: `/home/aipc/Desktop/fine_tuneVeriler`
 - Hazırlanmış veri: `/home/aipc/Desktop/Gruplu Veriler`
 
-Test, tuzak ve Türkçe değerlendirme setleri kilitlidir. Bu setlere yalnızca sayı, kimlik ve SHA-256 özeti yazan betikler dokunur. Kilitli dosyaların listesi ve özetleri: `degerlendirme/kilit_manifesti_v4.json` (geçerli sürüm).
+Test, tuzak ve Türkçe değerlendirme setleri kilitlidir. Bu setlere yalnızca sayı, kimlik ve SHA-256 özeti yazan betikler dokunur. Kilitli dosyaların listesi ve özetleri: `degerlendirme/kilit_manifesti_v5.json` (geçerli sürüm).
 
 ## Çalıştırma sırası
 
@@ -38,13 +38,14 @@ Her komut proje kökünden çalıştırılır. Yollarda boşluk olduğu için t�
 python -m src.veri.girdi_ozeti \
   --girdi "/home/aipc/Desktop/Gruplu Veriler" /home/aipc/Desktop/fine_tuneVeriler \
   --ek-kilitli inceleme/genel_kontrol_v2_taslak.jsonl \
-  --cikti env/$(date +%F)_girdi_sha256_v4.json \
-  --kilit-cikti degerlendirme/kilit_manifesti_v4.json
-# (v1 manifesti --ek-kilitli olmadan ve 01_sss deseni eklenmeden üretilmişti; v2, b grubu yeniden yazılmadan önceki taslağı; v3, GK2-050 düzeltmesinden önceki taslağı kilitler.)
+  --cikti env/$(date +%F)_girdi_sha256_v5.json \
+  --kilit-cikti degerlendirme/kilit_manifesti_v5.json
+# (v1 manifesti --ek-kilitli olmadan ve 01_sss deseni eklenmeden üretilmişti; v2, b grubu yeniden yazılmadan önceki taslağı; v3, GK2-050 düzeltmesinden önceki taslağı; v4, kullanıcı onayından ve GK2-044 düzeltmesinden önceki taslağı kilitler.)
 # genel_kontrol_v2 onaylanıp degerlendirme/saklanan/ altına taşınınca --ek-kilitli o yolu gösterir
-# ve çıktı kilit_manifesti_v5.json olur.
+# ve çıktı kilit_manifesti_v6.json olur.
 
-# 1b) Asistanın yazdığı taslaklar için insan onay kuyruğu (dolu hücreler kimliğe göre korunur)
+# 1b) Asistanın yazdığı taslaklar için insan onay kuyruğu (dolu hücreler kimliğe göre korunur;
+#     sonunda onay dağılımını yazar, "düzelt"/"duzelt" aynı sayılır)
 python -m src.veri.onay_csv \
   --girdi inceleme/genel_kontrol_v2_taslak.jsonl \
   --cikti inceleme/genel_kontrol_v2_onay.csv

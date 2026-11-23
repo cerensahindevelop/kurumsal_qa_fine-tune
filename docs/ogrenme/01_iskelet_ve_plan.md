@@ -181,3 +181,23 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 **Kontrol sorusu:** Eğitim cevaplarındaki "Kurumumuz" ifadesini değiştirip test referanslarındakini neden değiştirmiyoruz?
 *Cevap:* Test referansları kilitlidir ve sonuçlar görülmeden belirlenmiş ölçüdür. Onları değiştirmek, ölçüyü sonuca göre ayarlamak olurdu. Bunun bedeli, iki modelde de chrF'in hafifçe düşmesidir; bu bedel rapora sınırlama olarak yazıldı.
+
+## 9. `genel_kontrol_v2` onayının işlenmesi (`src/veri/onay_csv.py`)
+
+**Girdi:** kullanıcının doldurduğu `inceleme/genel_kontrol_v2_onay.csv` ve taslak `inceleme/genel_kontrol_v2_taslak.jsonl`. **Çıktı:** onaylı taslak, onay dağılımı ve yeni kilit manifesti (`kilit_manifesti_v5.json`).
+
+- **Blok 1, farkı bulmak.** CSV ile JSONL alan alan karşılaştırıldı. Tek içerik farkı GK2-044'ün 4. bilgi öğesiydi. Düzeltme JSONL'de yalnızca o dizge değiştirilerek işlendi, böylece başka satır değişmedi.
+- **Blok 2, yazım normalleştirmesi (normalization).** İnsanlar aynı değeri farklı yazabilir: "düzelt", "Düzelt", "duzelt". `normal_onay` Türkçe harfleri ASCII karşılığına çevirir ve küçük harfe indirir. Bu yalnızca sayımda kullanılır; hücredeki yazım korunur. evet/hayir/duzelt dışında kalan bir değer çıkarsa betik o kaydın kimliğini listeler. Böylece yanlış yazım sessizce kaybolmaz.
+- **Blok 3, gidiş-dönüş kontrolü (round-trip).** Düzeltilmiş JSONL'den CSV yeniden üretildi. Sonuç kullanıcının dosyasıyla bayt bayt aynı çıktı. Bu, iki dosyanın birbirine tam uyduğunu ve hiçbir onay hücresinin kaybolmadığını gösterir.
+- **Blok 4, kilit.** Onaylı taslağın özeti yeni manifest sürümüne yazıldı. Eski manifestlerin üzerine yazılmaz; her sürüm o anki hâlin kanıtıdır.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):**
+- Hücreler: `düzelt`, `Duzelt `, `evet`, `tamam`.
+- Sayım: `duzelt` 2, `evet` 1, tanımsız `tamam` 1. "tamam" yazan kaydın kimliği ekrana basılır.
+
+**Gerçek çalışma:** `onay` sütununda 60 "evet"; bilgi öğesi sütununda 14 "evet" ve 1 "duzelt" (ölçüldü).
+
+**Üç cümlelik özet:** Kullanıcının onay tablosundaki tek düzeltme taslağa aynen işlendi ve başka hiçbir satır değişmedi. Betik artık "düzelt" ile "duzelt"i aynı sayıyor ve tanımadığı değerleri kimlikleriyle gösteriyor. Onaylı taslak yeni bir manifest sürümüyle kilitlendi; saklanan klasörüne taşıma 02'deki çakışma denetiminden sonra yapılacak.
+
+**Kontrol sorusu:** Normalleştirmeyi neden yalnızca sayımda yapıp hücredeki "düzelt" yazımını değiştirmiyoruz?
+*Cevap:* CSV insanın kaydıdır. Betik onu kendi biçimine çevirseydi kullanıcının yazdığı değişmiş olurdu ve gidiş-dönüş kontrolü (dosyanın bayt bayt aynı kalması) anlamını yitirirdi. Karşılaştırma için sadeleştirmek yeterli.
