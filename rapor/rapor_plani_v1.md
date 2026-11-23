@@ -84,5 +84,18 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
   - İlk taslakta `b_kurum_gayriresmi` grubu yanlış yorumlanmıştı. Kullanıcının v1 kontrolünden sonra grup, kullanıcının verdiği tanıma göre yeniden yazıldı (karar 6c).
   - Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
 - **`b` grubunun bilgi öğeleri asistan tarafından yazıldı.** v2'deki `bilgi_ogeleri` kullanıcı onayından geçer, ama bağımsız mevzuat kontrolünden geçmez. 3.9'daki doğruluk ölçümü "onaylı öğelere uygunluk"tur. v1'de bu alan olmadığı için geliştirme bölümünde `b` doğruluğu yalnızca referanssız yargıç puanıyla raporlanır.
-- **`b` grubu ile `sistem_v1` arasında gerilim** (açık karar 9). Sistem mesajı alan içi sorularda kurum yazışması dili ve dayanak istiyor; `b` grubu sade anlatım bekliyor. `hazir` ve adaptörler aynı sistem mesajını kullandığı için fark ölçümü adildir, ama `b` grubunda mutlak sızıntı oranları sistem mesajından etkilenir. Karar 9'un sonucu rapora yazılır.
+- **Sade anlatım kuralı açık istekle tetiklenir** (karar 9, `sistem_v1` kural 9).
+  - Açık istek içermeyen `b` sorularında model varsayılan resmî üsluba döner.
+  - v2'deki `b` soruları bu açıdan denetlendi; v1'deki `b` sorularını yalnızca kullanıcı denetleyebilir.
+  - Eğitim verisinde sade anlatım örneği yoktur. Adaptörün bu kuralı korumayı unutması mümkündür ve `b` sızıntısı bunu ölçer.
+- **Kurum ağzı yalnızca eğitim tarafında düzeltildi** (karar 10).
+  - Eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ifadeleri 03'te kurum adıyla değiştirilir. Kilitli doğrulama ve test referanslarına ise dokunulmaz; bu ifadeler orada kalır.
+  - Sistem mesajı iki modele de kurum adı kullanmasını söylediği için, bu ifadeleri içeren referanslarda chrF hem `hazir`/`hazir_istemli` hem adaptör için hafifçe düşebilir.
+  - Etki iki tarafa da uygulandığı için farkı büyük ölçüde götürmesi beklenir (tahmin). Raporda bu ifadeleri içeren referans sayısı verilir. Bu sayı 02'deki toplu sayımla, içerik basılmadan ölçülür.
+  - Yargıç ve insan bilgi puanı kurum adının yazılış biçiminden etkilenmez.
+- **Dönemsel TL tutarları** (karar 11). Model dönemsel tutarın rakamını vermez. Referansta bu rakam varsa:
+  - sayı recall'u düşer;
+  - chrF hafifçe düşer;
+  - bilgi puanı için §6.3'teki ek kural önerisi (senior onayı bekliyor) uygulanır.
+  Tutar içeren referansların sayısı ayrıca raporlanır.
 - **Kapsam:** pilot açık verilerle yapıldı. Sonuçlar kurum verisine doğrudan genellenemez; aynı akış orijinal modelden yeniden çalıştırılacak.

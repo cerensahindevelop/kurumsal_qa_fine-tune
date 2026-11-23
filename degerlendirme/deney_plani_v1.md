@@ -110,6 +110,7 @@ Ayrıntılar:
 Ek kurallar:
 - Kaldırılmış bir uygulamayı yürürlükteymiş gibi anlatmak kritik hatadır.
 - Referansta olmayan ve doğrulanamayan kesin bir rakam **kritik hata değildir**. Bunun yerine "doğrulanamayan iddia" olarak işaretlenir ve insan değerlendiriciye gider.
+- Referanstaki dönemsel bir TL tutarını sistem mesajı kural 4'e uygun biçimde vermemek eksik sayılmaz. Bunun için cevabın hesaplama yolunu doğru söylemesi ve kontrol önermesi gerekir. Bu kural öneri durumundadır ve senior onayı bekliyor (§8, karar 11).
 
 | Puan | Tanım |
 |---|---|
@@ -175,7 +176,7 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
     1. Kurum ağzı: "Kurumumuz", "Bakanlığımız", "Sayın".
     2. Bürokratik kalıp: "gerekmektedir", "ilgili mevzuat çerçevesinde", "hususunda", "arz ederim", "bilgilerinize sunulur", "tarafınızca", "müracaat ediniz".
     3. Resmî kip yoğunluğu: cümlelerin en az yarısı `-mektedir/-maktadır` ile bitiyor.
-  - **Ayrıca sayılan, sızıntı sayılmayan:** mevzuat atfı (`\d{3,4} sayılı`, "madde"). Bunun nedeni `sistem_v1` kural 1'in alan içi sorularda dayanak belirtmeyi istemesidir; bu atıf sızıntı sayılsaydı sistem mesajına uymak cezalandırılırdı. Atıf oranı ikincil olarak raporlanır (açık karar 9).
+  - **Ayrıca sayılan, sızıntı sayılmayan:** mevzuat atfı (`\d{3,4} sayılı`, "madde"). Bunun nedeni `sistem_v1` kural 1'in alan içi sorularda dayanak belirtmeyi istemesidir; bu atıf sızıntı sayılsaydı sistem mesajına uymak cezalandırılırdı. Atıf oranı ikincil olarak raporlanır. Karar 9'dan sonra sistem mesajı kural 9 da sade anlatım istendiğinde atıf gerektirmiyor.
 - **Ölçüt:** sızıntılı cevap oranı (yüzde) = sızıntılı / gündelik soru sayısı (a + b = 50). Adaptörün oranı `hazir` modelin oranıyla karşılaştırılır. a ve b grubunun oranları ayrıca raporlanır.
 - Bu işaret listeleri eşik onayıyla birlikte dondurulur ve sonradan değiştirilmez.
 - **`b` grubunda bilgi doğruluğu ayrıca puanlanır.**
@@ -265,7 +266,7 @@ Dosya: `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru, taslak, onay bekli
 
 ## 8. Kararlar ve açık kararlar
 
-Kararlar 1–6 kullanıcı tarafından 2026-11-23'te verildi. Karar 6, ilk beş kararı işlerken ortaya çıkan bir çakışma üzerine verildi. Karar 6c, kullanıcının v1'i kontrol etmesinden sonra verildi. Açık karar 9 kullanıcıyı bekliyor.
+Kararlar 1–6 kullanıcı tarafından 2026-11-23'te verildi. Karar 6, ilk beş kararı işlerken ortaya çıkan bir çakışma üzerine verildi. Karar 6c, kullanıcının v1'i kontrol etmesinden sonra verildi. Kararlar 9–11 (sistem mesajı) aynı gün verildi.
 
 ### Karar 1 (verildi): genel Türkçe verisi yalnızca gerileme görülürse eğitime girer
 
@@ -371,26 +372,52 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
 - `bilgi_ogeleri` asistan tarafından yazıldı ve bağımsız mevzuat kontrolünden geçmedi. Kullanıcı onayı bu yüzden şarttır (CSV'deki ayrı sütun). Onaylanmayan öğe puanlamada kullanılmaz.
 - `b` soruları artık SSS konularına yakın: işsizlik ödeneği, yıllık izin, ihbar ve süt izni gibi. 02'deki çakışma denetiminde test ve tuzak setiyle yakın eşleşme çıkma olasılığı arttı. Çıkan eşleşmeler kurala göre yalnızca kimlikle `inceleme/` CSV'sine yazılır; kararı kullanıcı verir.
 
-### Açık karar 9: `b` grubu ve `sistem_v1` arasındaki gerilim
+### Karar 9 (verildi, kapandı): `b` grubu ve `sistem_v1` gerilimi
 
-`sistem_v1.txt` değiştirilmedi. Not edilen nokta şu: `b` soruları sistem mesajının konu alanına (ÇSGB, SGK, İŞKUR) girer. Bu yüzden, son paragraftaki "genel dil görevlerinde kurum üslubunu dayatma" istisnası değil, kurallar 1–8 uygulanır. Bu kuralların ikisi `b` grubunun beklentisiyle gerilim yaratır:
+**Sorun (karar 6c'de not edildi):** `b` soruları alan içidir. Bu yüzden onlara `sistem_v1`'in kural 1'i (dayanak belirt) ve kural 2'si (kurum yazışmasına uygun dil) uygulanıyordu. `b` ise sade, adım adım bir anlatım bekler. Sistem mesajı, kullanıcının sade anlatım istemesi durumunu düzenlemiyordu.
 
-| `sistem_v1` kuralı | `b` beklentisi | Gerilim |
-|---|---|---|
-| Kural 2: "Kurum yazışmalarına uygun, nesnel ve saygılı bir dil kullan. Sohbet kalıpları … kullanma." | Sabırlı, sade, gündelik bir anlatım | **Kısmi.** Resmî ama sade bir dil mümkündür (bürokratik kalıp olmadan nesnel anlatım). Ancak "kurum yazışmalarına uygun" ifadesi modeli "-mektedir" yoğunluğuna ve kalıplara itebilir. |
-| Kural 1: "dayanağı (kanun adı ve sayısı, madde) belirt" | Basit anlatım | **Kısmi.** Mevzuat atfı `b`'de sızıntı sayılmadı (§6.6), ama sade anlatımı ağırlaştırabilir. |
-| Kural 1: "Önce sorunun doğrudan cevabını ver" | Adım adım anlatım | Yok. Önce cevap, sonra adımlar verilebilir. |
+**Karar (kullanıcı, 2026-11-23):** `sistem_v1.txt`'ye kural 9 eklendi:
+> "Kullanıcı açıkça sade, basit veya adım adım anlatım isterse, bilgiyi doğru ve eksiksiz tutarak gündelik bir dille, bürokratik kalıp kullanmadan ver; kanun ve madde atfı gerekmez. Böyle bir istek yoksa yukarıdaki resmî üslubu koru."
 
-**Sonuç:**
-- Sistem mesajı kullanıcı sade anlatım istediğinde ne yapılacağını söylemiyor.
-- `hazir` taban çizgisi aynı sistem mesajını kullandığı için karşılaştırma adildir: sızıntı **farkı** ölçülür.
-- Yine de `b` grubunda iki sistem de sistem mesajı yüzünden yüksek sızıntı gösterebilir. Bu, ölçümün duyarlılığını düşürür.
+- Varsayılan davranış resmî kalır. Kural yalnızca **açık** bir istekle çalışır.
+- Dosya yerinde düzeltildi, yeni sürüm açılmadı. Gerekçe: dosya henüz hiçbir eğitim veya değerlendirmede kullanılmadı ve CLAUDE.md bu adı kullanıyor. Eski hâl git geçmişindedir (commit `b4ebb4e` ve öncesi).
+- `cevap_standardi_v1.md` §2a bu kuralı ayrıntılandırır.
 
-**Kullanıcının vermesi gereken karar** (seçenekler; sistem mesajını ben değiştirmiyorum):
-1. `sistem_v1` olduğu gibi kalır ve gerilim rapora sınırlama olarak yazılır.
-2. Bir `sistem_v2` yazılır ve kurallara "kullanıcı sade anlatım isterse aynı bilgiyi bürokratik kalıp olmadan, adım adım ver" cümlesi eklenir. Bu, tek sistem mesajı kuralı gereği eğitim, değerlendirme ve servisi birlikte değiştirir. Bu yüzden eğitim verisi üretilmeden önce, yani 02–03'ten önce karar verilmelidir.
+**Ölçüme etkisi:**
+- `b` grubunda mevzuat atfı artık sistem mesajı tarafından da istenmiyor. Sızıntı sayılmamaya devam eder (§6.6) ama ikincil olarak raporlanır.
+- Kural açık bir istekle tetiklendiği için `b` sorularının her birinde açık bir sade anlatım isteği bulunmalıdır. v2 taslağı bu açıdan denetlendi: GK2-036 ("kolayca") ve GK2-050 ("kısaca") açık istek içermiyor. Düzeltme önerisi kullanıcı onayında.
+- v1'in `b` soruları için aynı denetimi yalnızca kullanıcı yapabilir. Açık istek içermeyen v1 `b` soruları, geliştirme bölümünde varsayılan (resmî) davranışı ölçer.
+- **Eğitim verisine etkisi:** SSS'ler gündelik dille sorulmuş olsa da sade anlatım isteği içermez. Bu yüzden eğitim hedefi resmî kalır. Kural 9'u eğitim verisiyle ayrıca öğretmek gerekip gerekmediği doğrulamada `b` sızıntısına bakılarak değerlendirilir. Bu bir tahmindir: tetikleyici T.7 bu durumu kapsar.
 
-Karar `cevap_standardi_v1.md` incelemesiyle birlikte verilebilir.
+### Karar 10 (verildi): kurum ağzı yok, kurumlar adıyla anılır
+
+**Karar (kullanıcı, 2026-11-23):** model kurumları adıyla anar: SGK, İŞKUR, Çalışma ve Sosyal Güvenlik Bakanlığı. "Kurumumuz", "Bakanlığımız" gibi ifadeler kullanmaz. Kural `sistem_v1.txt` kural 2'ye ve `cevap_standardi_v1.md` §2'ye işlendi.
+
+**Gerekçe:** model üç kurumun konularını cevaplar. "Kurumumuz" ifadesi hangi kurumun kastedildiğini belirsiz bırakır ve yanlış kurum izlenimi verebilir. Bu ifade aynı zamanda §6.6'daki sızıntı işaretlerinden biridir.
+
+**03 için not (önceden kayıtlı):**
+- Eğitim cevaplarındaki (onaylı SSS ve sentetik çiftler) "Kurumumuz", "Bakanlığımız" ve çekimli biçimleri ("Kurumumuzca", "Bakanlığımıza" vb.) kaydın `kaynak` alanına göre kurum adıyla değiştirilir: SGK → "SGK" / "Sosyal Güvenlik Kurumu", İŞKUR → "İŞKUR" / "Türkiye İş Kurumu", ÇSGB → "Çalışma ve Sosyal Güvenlik Bakanlığı".
+- Belirsiz olanlar otomatik değiştirilmez, `inceleme/` altındaki bir kuyruğa gider. Belirsiz sayılanlar: kaynak alanı eksik, metin başka bir kurumu kastediyor, ya da çekim eki düzgün aktarılamıyor.
+- Değişiklik bir betikle yapılır. Betik değişen kayıt sayısını ve kimlikleri yazar. Few-shot havuzu bu değiştirilmiş eğitim grubundan seçilir.
+- **Kilitli doğrulama ve test referanslarına dokunulmaz.** Bu referanslardaki "Kurumumuz" ifadeleri olduğu gibi kalır. Sınırlama `rapor/rapor_plani_v1.md` §4.4'te.
+
+**Kurum verisi turu:** veri tek bir kurumdan gelecekse, kurum çalışanına "Kurumumuz" demek doğal olabilir. Bu kural o turda tek kurum için yeniden değerlendirilir. Kararla birlikte `sistem_v2` ve `cevap_standardi_v2` yazılır.
+
+### Karar 11 (verildi): sistem mesajı kural 4, tutar ile süre/oran ayrımı
+
+**Karar (kullanıcı, 2026-11-23):** kural 4 şu metinle değiştirildi:
+> "Kanunda belirlenmiş süre, gün sayısı ve oranları ver. Dönemsel olarak güncellenen TL tutarlarının (asgari ücret, prim tavanı/tabanı, kıdem tazminatı tavanı, işsizlik ödeneği üst sınırı gibi) rakamını verme; nasıl hesaplandığını söyle ve güncel tutarın resmî kaynaktan kontrol edilmesini öner."
+
+`cevap_standardi_v1.md` §4 buna uyduruldu. Eski metin "oran isteyen soruyu" da bilgi yok tetikleyicisi sayıyordu.
+
+**03'teki eskimiş tutar nötrleştirme kuralıyla uyum.** Bu kural şu ana kadar hiçbir proje dosyasında yazılı değildi. Ham veri README'si yalnızca SSS rakamlarının ve 2011–2017 kitapçıklarının eskimiş olabileceğini söylüyor. Bu yüzden kural burada 03 için önceden kayda alınır:
+- Eğitim cevaplarındaki dönemsel TL tutarları kaldırılır ve yerine hesaplama yolu ile "güncel tutarın resmî kaynaktan kontrol edilmesi" önerisi yazılır. Bu, kural 4'ün istediği cevabın aynısıdır.
+- Kanunda belirlenmiş süre, gün sayısı ve oranlar korunur. Kural 4 de bunları vermeyi istiyor.
+- Tutarın dönemsel mi yoksa kanunda sabit mi olduğu belirsizse kayıt `inceleme/` kuyruğuna gider.
+
+**Neden uyumlu:** eğitim hedefi ile sistem mesajı aynı davranışı ister. Modele hem "rakam verme" denip hem de eğitimde rakamlı cevap öğretilseydi iki sinyal çatışırdı. Eskimiş tutarı ezberlemek de kritik hata üretirdi (§6.3).
+
+**Puanlamaya etkisi (öneri, senior onayı bekliyor):** kilitli referanslarda dönemsel TL tutarı bulunabilir. Bir cevap bu tutarın rakamını kural 4'e uygun biçimde vermiyorsa, hesaplama yolunu doğru söylüyorsa ve kontrol öneriyorsa, bu durum §6.3'te ne "önemli koşul eksik" ne de kritik hata sayılır. Kural hem `hazir` hem adaptörler için aynıdır. Sayı karşılaştırmasında (§6.7) dönemsel TL tutarları recall hesabının dışında tutulur ve ayrıca raporlanır.
 
 ### `genel_kontrol_v2` kilitleme akışı (karar 6a ve 6c)
 

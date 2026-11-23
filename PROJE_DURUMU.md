@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-23 (01 açık kararları, karar 6 ve karar 6c işlendi) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı kararları 9–11 işlendi) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -78,14 +78,21 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6 ve karar 6c işlendi)
      - `b` için sızıntı ölçütü yeniden tanımlandı (`deney_plani_v1.md` §6.6): kurum ve sistem adları serbest, bürokratik kalıplar yasak. Mevzuat atfı ayrıca sayılır, sızıntı sayılmaz.
      - `b` doğruluğu için `esikler_v1.md` 3.9 eklendi. 3.7 ve T.7 gruba göre ölçüte bağlandı; gerekçe `esikler_v1.md` §3 sonunda ve plan karar 6c'de.
 
+### Sistem mesajı kararları (kullanıcı, 2026-11-23) — "01: sistem mesajı kararları" commit'iyle işlendi
+`sistem_v1.txt` yerinde düzeltildi, yeni sürüm açılmadı. Dosya henüz hiçbir eğitim veya değerlendirmede kullanılmamıştı; eski hâl git geçmişinde (`b4ebb4e`). Ayrıntılar `deney_plani_v1.md` §8'de.
+- **Karar 9, sade anlatım:** yeni kural 9 eklendi. Kullanıcı açıkça sade, basit veya adım adım anlatım isterse model doğru ve eksiksiz bilgiyi gündelik dille, bürokratik kalıpsız ve atıfsız verir. Varsayılan üslup resmî kalır. `cevap_standardi_v1.md` §2a. Açık karar 9 kapandı.
+- **Karar 10, kurum ağzı:** kural 2'ye eklendi. Model kurumları adıyla anar, "Kurumumuz" / "Bakanlığımız" demez. `cevap_standardi_v1.md` §2. 03 notu aşağıda. Kurum verisi turunda bu kural tek kurum için yeniden değerlendirilecek.
+- **Karar 11, tutar ile süre/oran ayrımı:** kural 4 değiştirildi. Kanunda belirlenmiş süre, gün sayısı ve oranlar verilir. Dönemsel TL tutarlarının rakamı verilmez; hesaplama yolu söylenir ve resmî kaynaktan kontrol önerilir. `cevap_standardi_v1.md` §4 uyduruldu.
+  - 03'teki eskimiş tutar nötrleştirme kuralı daha önce hiçbir dosyada yazılı değildi. Plan karar 11'de önceden kayda alındı ve kural 4 ile uyumu gösterildi.
+  - Puanlamaya ilişkin ek kural önerisi `deney_plani_v1.md` §6.3'te; senior onayı bekliyor.
+
 ### Açık kararlar (kullanıcı)
 7. **`genel_kontrol_v2` onayı:** `inceleme/genel_kontrol_v2_onay.csv` doldurulacak.
    - İki onay sütunu var: kayıt onayı ve, `b` satırlarında, `bilgi_ogeleri` doğruluğu.
    - Kontrol listesi `deney_plani_v1.md` karar 6'da.
    - Onaydan sonra önerilen Read deny kuralı eklenmeli: `degerlendirme/saklanan/**`, `inceleme/genel_kontrol_v2_*`.
-9. **`b` grubu ile `sistem_v1` gerilimi** (`deney_plani_v1.md` açık karar 9). `b` soruları alan içidir, bu yüzden `sistem_v1` kural 1 (dayanak belirt) ve kural 2 (kurum yazışmasına uygun dil) uygulanır; `b` ise sade, adım adım anlatım bekler.
-   - Seçenekler: `sistem_v1` kalır ve durum rapora sınırlama olarak yazılır; ya da `sistem_v2`'ye "sade anlatım istenirse bürokratik kalıpsız ver" kuralı eklenir.
-   - Eğitim verisi üretilmeden önce karar verilmeli. `sistem_v1.txt`'ye dokunulmadı.
+- ~~9. `b` grubu ile `sistem_v1` gerilimi~~: karar 9 ile kapandı (aşağıda).
+- **`genel_kontrol_v2` için ek iş (karar 9'dan):** GK2-036 ("kolayca") ve GK2-050 ("kısaca") açık bir sade anlatım isteği içermiyor. Düzeltme önerisi sohbette verildi; kullanıcı onaylamadan dosya değiştirilmez. v1 `b` sorularında aynı denetimi yalnızca kullanıcı yapabilir.
 8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
@@ -100,6 +107,10 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6 ve karar 6c işlendi)
 - 02'deki çakışma denetimine `inceleme/genel_kontrol_v2_taslak.jsonl` (onaylı hâli) de girer. Karşılaştırılacak setler: eğitim adayları, genel Türkçe havuzu, `genel_kontrol_v1`, geliştirme kapsam dışı seti, doğrulama, test ve tuzak.
 - v2 onaylanınca: `degerlendirme/saklanan/genel_kontrol_v2.jsonl` yoluna taşınır, `kilit_manifesti_v4.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
 - v2'nin `b` soruları SSS konularına yakın (işsizlik ödeneği, yıllık izin, ihbar, süt izni vb.). 02'deki çakışma denetiminde test ve tuzakla yakın eşleşme çıkabilir; çıkarsa yalnızca kimlikle CSV'ye yazılır.
+- **03 için önceden kayıtlı veri dönüşümleri** (`deney_plani_v1.md` karar 10 ve 11). İkisi de betikle yapılır, değişen kimlikleri yazar ve belirsiz kayıtları `inceleme/` kuyruğuna gönderir. Kilitli doğrulama ve test referanslarına dokunulmaz.
+  1. **Kurum ağzı:** eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ve çekimli biçimleri `kaynak` alanına göre kurum adıyla değiştirilir.
+  2. **Eskimiş tutar:** dönemsel TL tutarları kaldırılır, yerine hesaplama yolu ve kontrol önerisi yazılır. Kanunda belirlenmiş süre, gün ve oranlar korunur.
+- 02'deki toplu sayımlarda doğrulama ve test referanslarında "Kurumumuz/Bakanlığımız" ve TL tutarı içeren kayıtların **yalnızca sayısı** çıkarılmalı; içerik basılmamalı. Bu sayılar rapor sınırlaması için gerekiyor.
 - Sızıntı puanlama betiği işaret listesini kaydın `grup` alanına göre seçmeli (`a` / `b`), dosyadaki `yasak_kalip` alanını kullanmamalı (§6.6).
 - 11'deki insan formu için 50 test sorusu, cevaplar üretilmeden önce kimlikle seçilir (seed 42, kaynağa göre katmanlı). Bu seçim 11'in ilk adımıdır, 02'de yapılmaz.
 - Kilitli setler yalnızca toplu sayı, kimlik ve SHA-256 yazan betiklerle açılır. Çakışma denetiminde test ve tuzak içeren çiftler yalnızca kimlikle `inceleme/` CSV'sine yazılır.

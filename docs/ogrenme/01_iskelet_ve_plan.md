@@ -164,4 +164,20 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Üç cümlelik özet:** `b` grubu artık kurum işlemini gündelik dille soran ve sade anlatım bekleyen sorulardan oluşuyor. Bu grupta kurum adları serbest, yasak olan bürokratik kalıplar. Sadeleşmenin bilgi kaybına yol açmadığını görmek için doğruluk, kullanıcının onayladığı bilgi öğelerine göre ayrıca puanlanıyor.
 
 **Kontrol sorusu:** Neden `b` grubunda mevzuat atfı ("4447 sayılı Kanun") sızıntı sayılmadı, ama ayrıca sayılıyor?
-*Cevap:* Çünkü `sistem_v1` kural 1 alan içi sorularda dayanak belirtmeyi istiyor. Bu atıf sızıntı sayılsaydı, sistem mesajına uyan model cezalandırılırdı. Atıf yine de sade anlatımı ağırlaştırabilir; bu gerilim açık karar 9'da kullanıcıya bırakıldı.
+*Cevap:* Çünkü `sistem_v1` kural 1 alan içi sorularda dayanak belirtmeyi istiyor. Bu atıf sızıntı sayılsaydı, sistem mesajına uyan model cezalandırılırdı. Atıf yine de sade anlatımı ağırlaştırabilir. Bu gerilim karar 9 ile çözüldü: sistem mesajı kural 9, sade anlatım istendiğinde atıf gerektirmiyor.
+
+## 8. Sistem mesajı kararları 9–11 (`istemler/sistem_v1.txt`, `istemler/cevap_standardi_v1.md`)
+
+**Girdi:** kullanıcının kararları. **Çıktı:** sistem mesajındaki üç değişiklik.
+- **Kural 2'ye ek, kurum ağzı yok.** Model üç kurumun konularını cevapladığı için "Kurumumuz" belirsizdir. Kurumlar adıyla anılır. Eğitim verisi 03'te buna uydurulur; kilitli referanslar değişmez.
+- **Kural 4, tutar ile süre/oran ayrımı.** Kanundaki süreler ve oranlar sabittir, verilir. TL tutarları dönemseldir ve eğitim verisinde eskimiş olabilir. Bu yüzden rakam yerine hesaplama yolu verilir.
+- **Kural 9, sade anlatım.** Varsayılan resmî üsluptur. Açık bir istek gelirse aynı bilgi gündelik dille verilir. Kural açık istekle tetiklendiği için ölçüm sorularında bu isteğin açıkça bulunması gerekir.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** "İşsizlik maaşı ne kadar?"
+- Kural 4'e uygun: "Günlük ödenek, son dört aylık prime esas kazançların günlük ortalamasının %40'ıdır; aylık tutar asgari ücretin brüt tutarının %80'ini geçemez. Güncel tutarı İŞKUR'dan kontrol etmeniz önerilir."
+- Uygun değil: "Aylık 12.345 TL." Bu rakam uydurma; doğru olsa bile kısa sürede eskir.
+
+**Üç cümlelik özet:** Sistem mesajı artık kurumları adıyla anıyor ve "Kurumumuz" demiyor. Kanundaki süre ve oranları veriyor, dönemsel TL tutarları yerine hesaplama yolunu söylüyor. Kullanıcı açıkça sade anlatım isterse aynı bilgiyi bürokratik kalıp ve atıf olmadan veriyor.
+
+**Kontrol sorusu:** Eğitim cevaplarındaki "Kurumumuz" ifadesini değiştirip test referanslarındakini neden değiştirmiyoruz?
+*Cevap:* Test referansları kilitlidir ve sonuçlar görülmeden belirlenmiş ölçüdür. Onları değiştirmek, ölçüyü sonuca göre ayarlamak olurdu. Bunun bedeli, iki modelde de chrF'in hafifçe düşmesidir; bu bedel rapora sınırlama olarak yazıldı.
