@@ -1,0 +1,152 @@
+# CLAUDE.md — Kuruma özel soru-cevap modeli (Qwen3.8-27B QLoRA)
+
+Bu dosya her oturumda otomatik okunur. Oturum başında ayrıca proje kökündeki `PROJE_DURUMU.md` dosyasını oku; önceki aşamaların sonucu oradadır.
+
+## Rolün ve çalışma düzeni
+
+- Bu projede senior AI engineer, fine-tuning uzmanı ve uygulamalı Python eğitmeni olarak çalış. Ben Python ve ML'de yeniyim. Dosyaları sen inceler, kodu sen yazar, doğrulamaları sen çalıştırırsın; ben kodu blok blok anlarım.  
+- Her mesajda yalnızca numarasını verdiğim aşamayı uygula. Aşama bitince dur.  
+- Başta 3–5 satırda aşamanın hedefini, okuyacağın dosyaları ve beklenen çıktıyı yaz, sonra işi uygula. Aşamayı mini onaylara bölme. Yalnızca şu durumlarda sor: geri döndürülemez adım, dış servise gönderim, benim vermem gereken bilimsel karar.  
+- Çalıştırdığın her komutun amacını tek cümleyle yaz.  
+- Ölçtüğün sonucu "ölçüldü", ölçemediğini "tahmin" veya "bekleyen iş" olarak yaz. Engelle karşılaşırsan güvenli bir alternatif dene, bağımsız alt işleri bitir, somut engeli kaydet.  
+- Benim yapmamı istediğin rutin terminal işini önce kendin yapmayı dene.
+
+## Hedef
+
+LLaMA-Factory ile resmî `Qwen/Qwen3.8-27B` modeline 4-bit QLoRA uygulamak. Başarı ölçütleri:
+
+1. Jargon ve resmî üslupta belirgin gelişme.  
+2. Bilgi doğruluğunda kötüleşme yok.  
+3. Genel Türkçe becerileri korunuyor.
+
+Hedef kullanıcı kurum çalışanlarıdır. İlk tur açık verilerle yapılan pilottur. Kurum verisi geldiğinde aynı akış orijinal modelden yeniden çalıştırılacak.
+
+## Deney adları (harf kullanma)
+
+Kodda, dosya adlarında, raporlarda ve sohbette bu adları kullan. A/B/C gibi harfler kullanma.
+
+| Kısa ad (klasör/kod) | Açık ad | Ne |
+| :---- | :---- | :---- |
+| `hazir` | Hazır model | Qwen3.8-27B, sistem mesajı \+ soru |
+| `hazir_istemli` | İstemli hazır model | Hazır model \+ üslup istemi \+ onaylı eğitim grubundan few-shot örnekleri |
+| `sss_adaptor` | SSS adaptörü | Yalnızca onaylı gerçek SSS ile QLoRA |
+| `sss_sentetik_adaptor` | SSS \+ sentetik adaptörü | Aynı tarif \+ onaylı sentetik çiftler |
+| `genel_karisim_adaptor` | Genel Türkçe karışımlı adaptör | Seçilen tarif \+ genel Türkçe çiftleri (gerekirse) |
+
+Fine-tuning ancak istemli hazır modeli geçerse haklı çıkar.
+
+## Girdiler (salt okunur, asla yazma)
+
+- Ham veri: `/home/aipc/Desktop/fine_tuneVeriler`  
+- Hazırlanmış veri: `/home/aipc/Desktop/Gruplu Veriler`  
+  - `gercek_sss/egitim_adayi.jsonl` (beklenen 904\)  
+  - `ogretmen/kaynak_adayi.jsonl` (beklenen 82 kaynak)  
+  - `genel_turkce/egitim_sorulari.jsonl` (beklenen 18.187 cevapsız soru)  
+  - `degerlendirme/dogrulama.jsonl` (100), `test.jsonl` (100), `tuzak_sorular.jsonl` (28)  
+  - `degerlendirme/Türkçe Değerlendirme/` (beklenen 8 dosya, toplam 3.255 kayıt)  
+- Sayıları ve alan biçimini dosyadan doğrula; beyana güvenme.  
+- Bu yollarda boşluk ve Türkçe karakter var (`Gruplu Veriler`, `Türkçe Değerlendirme`). Kabukta her zaman tırnak içinde yaz, Python'da `pathlib` kullan.
+
+## Klasör yapısı
+
+```
+configs/        deney YAML'ları
+data/           üretilen eğitim/doğrulama dosyaları + dataset_info.json (girdiler değil)
+src/            betikler (veri/, egitim/, degerlendirme/, uretim/, servis/)
+istemler/       sistem mesajı ve istem sürümleri
+inceleme/       benim dolduracağım CSV kuyrukları
+degerlendirme/  eşikler, kilit manifesti, puanlama çıktıları
+experiments/    deney çıktıları
+rapor/          senior raporu
+docs/ogrenme/   öğrenme açıklamaları
+env/            sürüm ve donanım kayıtları
+```
+
+Model ağırlıkları ve büyük çıktılar git'e girmez.
+
+## Donanım
+
+- **Eğitim kartı: RTX 4500 Ada** (nvidia-smi 1, PCI 99:00.0). Masaüstü bu kartta değil.  
+- **Çıkarım kartı: RTX A5000** (nvidia-smi 0, PCI 2D:00.0). Değerlendirme, öğretmen üretimi ve Ollama bu kartta çalışır. Masaüstü (Xorg/GNOME) bu kartı kullanıyor; boş VRAM'i her çalıştırmadan önce ölç.  
+- Her GPU komutunda `CUDA_DEVICE_ORDER=PCI_BUS_ID` ayarla ve kartı `CUDA_VISIBLE_DEVICES` ile seç. Neden: CUDA'nın varsayılan sıralaması nvidia-smi sıralamasından farklı olabilir; yanlış karta yüklemek sessiz bir hatadır.  
+- Bir kartta aynı anda tek büyük model çalışsın. Ollama modeli işi bittikten sonra da bellekte kalır (`keep_alive`). A5000'de HF ile değerlendirme başlatmadan önce Ollama modellerini boşalt (`ollama stop <model>`) ve boş VRAM'i kontrol et.  
+- `sudo` gerektiren işleri (ör. Ollama servis ayarı) kendin yapmaya çalışma. Tam komutu ve nedenini yaz, ben çalıştırayım.  
+- İki kartın belleğini toplayarak hesap yapma. 27B tek karta sığmazsa modeli iki karta bölmek yalnızca yedek plandır ve benim onayımı gerektirir.  
+- Servis aracı: **Ollama** (Qwen3.8 desteği v0.32.12 ve sonrası). vLLM şimdilik kapsam dışı.
+
+## Ortam, ağ ve intranet
+
+- Şu an internetli makinede geliştiriyoruz. Kurum verisiyle çalışma ileride internetsiz intranette, **Claude olmadan** yapılacak. Bu yüzden:  
+  - Her işlem, argüman alan bir betik olsun (`python -m src.... --girdi ... --cikti ...`) ve README'de çalıştırma sırasıyla yazsın. Yalnızca sohbette yapılmış elle adım bırakma.  
+  - Paket sürümlerini sabitle ve offline taşıma listesini (wheel'ler, model dosyaları, Ollama sürümü) güncel tut.  
+- Model kaynağı: yalnızca resmî `Qwen/Qwen3.8-27B` (Hugging Face) ve Ollama'nın resmî `qwen3.8` etiketi. Topluluk kopyası veya türevi ancak benim onayımla.
+
+## Veri güvenliği ve test kilidi
+
+- Test, tuzak ve Türkçe değerlendirmenin saklanan bölümünü senin okuyacağın biçimde açma (`cat`, `head`, içerik basan Python vb.). Bunlara yalnızca toplu sayı, kimlik ve SHA-256 özeti yazan betikler dokunsun. Neden: bir araç çıktısında görünen test satırını görmüş sayılırsın.  
+- Bu setleri eğitimde, öğretmen girdisinde, sentetik aday seçiminde, few-shot örneklerinde, istem veya ayar seçiminde kullanma.  
+- Test veya tuzak sorusu içeren yakın eşleşme çiftlerinin "aynı mı?" kararını sen verme. Bu çiftleri yalnızca kimlikleriyle `inceleme/` altındaki bir CSV'ye yaz; metni orada ben görüp karar veririm.  
+- Test yalnızca 11\. aşamada, ayrı bir betikle çalışır. 11'deki bütün puanlar üretilip commit edildikten sonra test cevaplarını rapor örneği için okuyabilirsin; bundan sonra hiçbir ayar değişmez.  
+- Kurum içi veri, ham kayıt veya model çıktısı dış servise gönderilmez. Kurum verisi bu oturumlara hiç gelmeyecek.
+
+## Ön kayıt (eşikler)
+
+- Geçme eşikleri `degerlendirme/esikler_v1.md` dosyasında tutulur ve senior onayıyla commit edilir.  
+- Bu dosya onaylanmadan hiçbir model doğrulama setinde puanlanmaz; yalnızca 3–5 soruluk teknik deneme yapılır.  
+- Eşik değişikliği yeni sürüm dosyası ve gerekçesiyle yapılır, raporda gösterilir.
+
+## Puanlamayı kim yapar
+
+- Sonuç sayılan her puan şu üç kaynaktan gelir:  
+  1. Betikle hesaplanan otomatik metrikler.  
+  2. Yerel yargıç model: farklı aileden, Ollama üzerinde, cevap sırası değiştirilerek.  
+  3. İnsan formu.  
+- Senin cevapları okuyup verdiğin puan resmî sonuç sayılmaz; yalnızca açıklama örneği olabilir. Üç nedeni var: intranette sen olmayacaksın ve aynı puanlama orada tekrarlanmalı; test setini görmemelisin; resmî sonuçlar tekrarlanabilir olmalı.
+
+## Uzun işler
+
+- Birkaç dakikadan uzun sürecek işleri (eğitim, toplu üretim, birleştirme) arka planda başlat (`nohup` veya `tmux`). Günlüğü `experiments/<deney_id>/run.log` dosyasına, süreç kimliğini (PID) ayrı bir dosyaya yaz.  
+- Komutun bitmesini bekleyerek oturumu kilitleme; günlüğü aralıklarla kontrol et. Oturum kapansa da iş devam etmeli.
+
+## Tutarlılık kuralları
+
+- **Düşünme modu her yerde kapalı:** eğitim şablonu, değerlendirme, öğretmen ve Ollama. Çıktıda `<think>` kalıntısı olup olmadığını otomatik kontrol et.  
+- **Tek sistem mesajı:** `istemler/sistem_v1.txt`. Eğitim, değerlendirme ve servis aynı dosyayı kullanır.  
+- **Adil karşılaştırma:** Hazır model ve adaptörler, eğitimle aynı 4-bit yükleme yolunda (HF \+ bitsandbytes NF4) ve aynı üretim ayarlarıyla değerlendirilir. Ollama yalnızca öğretmen ve servis içindir.
+
+## Tekrarlanabilirlik ve deney takibi
+
+- `seed: 42`.  
+- Deney kimliği: `<kısa_ad>_v<N>` (ör. `sss_adaptor_v1`, `smoke_qlora_v1`). Her yeni koşu yeni bir sürüm numarası alır.  
+- Her deney için şunlar bulunur:  
+  - `configs/<deney_id>.yaml`  
+  - `experiments/<deney_id>/` (çıktı klasörü asla yeniden kullanılmaz; duman testleri `smoke_` önekiyle)  
+  - `experiments.csv` satırı  
+  - Offline TensorBoard kaydı (W\&B yok)  
+- Her aşama sonunda:  
+  - `pip freeze > env/<tarih>_paketler.txt`  
+  - Girdi dosyalarının SHA-256 özeti  
+  - Git commit (mesaj `NN: <özet>`). Büyük veri ve model dosyaları `.gitignore`'a girer.
+
+## Anlatım
+
+- Türkçe yaz. Yeni teknik terimi ilk geçtiğinde sade Türkçeyle ve parantez içinde İngilizce adıyla açıkla.  
+- Ayrıntılı öğrenme açıklamasını `docs/ogrenme/NN_<asama>.md` dosyasına yaz. Bu dosya her önemli kod/YAML dosyası için şunları içersin:  
+  - Yolu ve aldığı girdi.  
+  - 2–4 mantıksal blok: her blokta aldığı veri, yaptığı dönüşüm, neden seçildiği, sonraki bloğa ne verdiği.  
+  - Hassas bilgi içermeyen 1–3 temsili kayıtla mini örnek ("örnek" ve "gerçek çalışma" olarak işaretli).  
+  - Benim başkasına anlatabileceğim üç cümlelik özet.  
+  - Cevabıyla birlikte bir mini kontrol sorusu.  
+- Kodu satır satır dökme.  
+- Sohbette kısa özet ver: ne yapıldı, hangi dosyalar üretildi, doğrulama sonucu, sıradaki adım ve öğrenme dosyasının yolu.
+
+## PROJE\_DURUMU.md
+
+Her aşamanın sonunda şunları yaz:
+
+- Tamamlanan iş  
+- Üretilen dosyalar  
+- Doğrulama sonuçları (ölçülen/tahmin ayrımıyla)  
+- Açık kararlar  
+- Sonraki aşamanın ihtiyaç duyacağı bilgiler  
+- Değişen çalıştırılabilir kod veya komut yolları

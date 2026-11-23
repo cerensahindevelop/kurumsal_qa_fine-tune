@@ -1,0 +1,23 @@
+# Donanım ve sürüm kaydı — 2026-11-23 (01)
+## OS
+Ubuntu 24.04.5 LTS
+7.0.0-43-generic
+## GPU
+index, name, pci.bus_id, memory.total [MiB], memory.used [MiB], driver_version
+0, NVIDIA RTX A5000, 00000000:2D:00.0, 24564 MiB, 917 MiB, 615.71.09
+1, NVIDIA RTX 4500 Ada Generation, 00000000:99:00.0, 24570 MiB, 15 MiB, 615.71.09
+## CUDA (sürücü)
+
+## Python
+Python 3.13.13
+/home/aipc/miniconda3/bin/python3
+## Ollama
+ollama version is 0.35.1
+NAME                       ID              SIZE      MODIFIED     
+nomic-embed-text:latest    0a109f422b47    274 MB    5 weeks ago     
+qwen2.5-coder:14b          9ec8897f747e    9.0 GB    5 weeks ago     
+qwen3.6:35b                a7eb95c53bcf    22 GB     6 weeks ago     
+qwen2.5:32b                9f13ba1299af    19 GB     7 weeks ago     
+qwen2.5:14b                7cdf5a0187d5    9.0 GB    6 months ago    
+## git
+git version 2.43.0

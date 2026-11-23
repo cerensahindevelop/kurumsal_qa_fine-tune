@@ -1,0 +1,40 @@
+# --- Model ağırlıkları ve büyük ikili dosyalar ---
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.gguf
+*.onnx
+models/
+hf_cache/
+.cache/
+
+# --- Deney çıktıları: küçük metin dosyaları (config, metrik JSON, run.log, TensorBoard) kalır ---
+experiments/**/checkpoint-*/
+experiments/**/adapter_model*
+experiments/**/optimizer.pt
+experiments/**/merged/
+experiments/**/*.pid
+
+# --- Üretilen veri: kurum verisinde sızıntıyı önlemek için JSONL'ler git'e girmez ---
+data/**/*.jsonl
+data/**/*.parquet
+!data/dataset_info.json
+
+# --- Model cevapları (büyük ve kurum verisinde hassas) ---
+degerlendirme/cevaplar/
+degerlendirme/**/*_cevaplar.jsonl
+
+# --- Python / ortam ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+wheels/
+
+# --- Gizli / yerel ayarlar ---
+.env
+.claude/settings.local.json

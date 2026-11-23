@@ -1,0 +1,4045 @@
+{
+ "olusturma": "2026-11-23T11:13:20+03:00",
+ "dosyalar": [
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "README.md",
+   "bayt": 4521,
+   "satir": 34,
+   "sha256": "9df92ec4439cb30778c7e98dd72353d50eed5592fa00871f41958917153953fa",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/aya_eval_tr.jsonl",
+   "bayt": 97587,
+   "satir": 250,
+   "sha256": "7ffb4db1b7fcd937e61690f40485fd351375aead92275e7619250fdab006997e",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/gecturk_test_500.jsonl",
+   "bayt": 111025,
+   "satir": 500,
+   "sha256": "736e3a4b9490ce574b561b7ff9478bcdb76762e540ac38c5b712c23a939136d1",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/genel_kontrol_v1.jsonl",
+   "bayt": 22003,
+   "satir": 60,
+   "sha256": "406eadcf3b4143934e1fe6d33156b18dbc7bbd72123c19a2f8b6371f8aef1a95",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/turkishmmlu_dev.jsonl",
+   "bayt": 27241,
+   "satir": 45,
+   "sha256": "2c970c1accd807638097cfdc77af700667cbb5684066cf130ad21506474f8e44",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/turkishmmlu_test.jsonl",
+   "bayt": 508219,
+   "satir": 900,
+   "sha256": "ba596b8e33c04b3b066012ba952015719380c1c63528fbfce0ef1d46a1021365",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/vikipedi_perplexity_500.jsonl",
+   "bayt": 281546,
+   "satir": 500,
+   "sha256": "5cc7c3a2bce7e802366b88ec6a27c6d1575a95c4e6fc369b50e561eb4dc8ac73",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/wmt16_entr_test_500.jsonl",
+   "bayt": 138129,
+   "satir": 500,
+   "sha256": "fe89762a508db82acefa7de3626a5cafbdff254b9ef73bfdf479ea7f3fa01aab",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/Türkçe Değerlendirme/xlsum_tr_test_500.jsonl",
+   "bayt": 1659804,
+   "satir": 500,
+   "sha256": "5ffec999d96b5ffe341ddebecde32869690996b3021714fdbb6a1c988b007f0f",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/dogrulama.jsonl",
+   "bayt": 64749,
+   "satir": 100,
+   "sha256": "2de5fc99b70515b5563fa1ffcd91a6798f7d0a66306497e3819187bc1dabc166",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/test.jsonl",
+   "bayt": 57998,
+   "satir": 100,
+   "sha256": "2303a2c99c3df9ac8fe058a95a095268dfde88a3aa3a3cf3cb7905440e6c75a9",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "degerlendirme/tuzak_sorular.jsonl",
+   "bayt": 19108,
+   "satir": 28,
+   "sha256": "9cc65b8b8dc135dd4d8aa90f7a2ba92b5118b00a844e31e769fb990717c3670d",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "genel_turkce/egitim_sorulari.jsonl",
+   "bayt": 5799943,
+   "satir": 18187,
+   "sha256": "760290c4573c2bba63e10b7385b360bc7744487c546387f9b8b3133e58d54f4d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "gercek_sss/egitim_adayi.jsonl",
+   "bayt": 523488,
+   "satir": 904,
+   "sha256": "f73bd50e864bfead5b20416f501ee533bd6bdd1d1748a67b74d9512cf3cca30e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/Gruplu Veriler",
+   "yol": "ogretmen/kaynak_adayi.jsonl",
+   "bayt": 2187722,
+   "satir": 82,
+   "sha256": "e284edcfa0b9fa7af9a4f04768b62c87ec582f1899a8b9b0a7ef49d5773f0abf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "01_sss/sss_birlesik.jsonl",
+   "bayt": 2458132,
+   "satir": 1699,
+   "sha256": "830d67600620fad48b138174c672917756f44749bb46a0bf4dceb04bde4b190e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/00_10_soruda_tekstil_sektorunde_is_sagligi_ve_guvenligi_onlemleri.pdf",
+   "bayt": 2699187,
+   "satir": null,
+   "sha256": "62a9de9c0b1b0318fe34720f4535f41c46a50e59c49b8700445827e6116a99eb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/01_10_adimda_tekstil_sektorunde_kobiler_icin_duzenli_calisma_kosullari.pdf",
+   "bayt": 433656,
+   "satir": null,
+   "sha256": "b3cfd22a450ffb3967b5dcd27a0929ab39683ba04eed6a775320332e684266fb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/02_30_soruda_cocuk_ve_genc_iscilere_ozel_calisma_kosullari.pdf",
+   "bayt": 327445,
+   "satir": null,
+   "sha256": "e316ba4cbed82e2533cd02284daa409eb0dad1025d9ffb49ca3cdf5d6b3c46ce",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/03_50_soruda_kadin_iscilere_ozel_calisma_kosullari.pdf",
+   "bayt": 438839,
+   "satir": null,
+   "sha256": "4cf3dd87c522f547cbd5228f451699e10c7e2d6e59f64c2776ac353598f8786b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/04_40_soruda_is_kanununda_ucret.pdf",
+   "bayt": 328966,
+   "satir": null,
+   "sha256": "cec1c1f47c0b36121cf48a3119cb320e4f3bc13033bc9d5edc07ad2d5b259f5c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/05_30_soruda_iscinin_dinlenme_hakki.pdf",
+   "bayt": 267180,
+   "satir": null,
+   "sha256": "ac89dc683f06acddb620281a529126fdacec14243700b755b43aa034417795c1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/06_50_soruda_is_kanununda_calisma_sureleri.pdf",
+   "bayt": 440753,
+   "satir": null,
+   "sha256": "b7428773025f51fd866476294133dffe91e07f0c1ae869faca0fd36b7cce6126",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/07_is_kanunlari_ve_turk_borclar_kanuna_gore_sozlesme_turleri.pdf",
+   "bayt": 576356,
+   "satir": null,
+   "sha256": "127613e3bcfbe22d2949fd39c8b0b19c4cc6467f34a7f565ecb47cd3855488c5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/08_metal_sektorundeki_isyerlerinde_gaz_tupleri_icin_kullanim_ve_guvenlik_.pdf",
+   "bayt": 1219955,
+   "satir": null,
+   "sha256": "443d5e81bf922c1643ceacd64372821163b4278d18ee2e7a3ca49106c0a028af",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/09_kimya_sanayi_sektorunde_seveso_ii_direktifi_kapsamindaki_endustrilerde.pdf",
+   "bayt": 2981886,
+   "satir": null,
+   "sha256": "6f4cc6b3d3c0b21bc8394380e4bc4412cef8620353c94ce686978506feff4895",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/10_is_teftisi_nedir_is_mufettisi_kimdir.pdf",
+   "bayt": 716729,
+   "satir": null,
+   "sha256": "902978176ad9a78d8e6e578b05a62544cbd73bdf81a54309e9bf68141d8021cb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/11_30_soruda_iscinin_dinlenme_hakki.pdf",
+   "bayt": 852071,
+   "satir": null,
+   "sha256": "aec61d52aab7b97294c3b05033a32e46df69786110ec9fe40b3a9fb98e7b22ca",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/12_30_soruda_cocuk_ve_genc_iscilere_ozel_calisma_kosullari.pdf",
+   "bayt": 616906,
+   "satir": null,
+   "sha256": "528b6556b833f989e9ad6ff3846f37f8e6d882bf9a5ad9f1fad3c10771de80f0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/13_60_soruda_kadin_iscilere_ozel_calisma_kosullari.pdf",
+   "bayt": 1762801,
+   "satir": null,
+   "sha256": "66d332036016bba8ed1d0e8a75ba60c6f58152f782675b4abec270ad0aabe555",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/14_yapi_isyerleri_is_sagligi_ve_guvenligi_el_kitabi.pdf",
+   "bayt": 5576887,
+   "satir": null,
+   "sha256": "6999ac95fcbb166e682f7db500bd3bbeec04cc11f81ef411d6c491b2bc73bb9f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/15_40_soruda_is_kanunu_nda_ucret.pdf",
+   "bayt": 3157351,
+   "satir": null,
+   "sha256": "d346b99ba798ba82add9234dbd246180b33851efa550c2782a1062dd1ed7f05d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/16_40_soruda_is_kanunu_ndan_dogan_tazminat_haklarimiz.pdf",
+   "bayt": 3664760,
+   "satir": null,
+   "sha256": "78c39f92a5a63825c8c6f76d613352397212dd044fd9ca2fe15f16a1d32b3be8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/17_50_soruda_is_kanunu_nda_calisma_sureleri.pdf",
+   "bayt": 3999985,
+   "satir": null,
+   "sha256": "37c40dd6e937ab3391ce4dc05f18fa44988880196e6f48ef28a371e3c085acea",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/18_yeralti_ve_yerustu_maden_isletmelerinde_is_sagligi_ve_guvenligi_rehber.pdf",
+   "bayt": 8058969,
+   "satir": null,
+   "sha256": "c76c01ea22c8ad029883d30a39b52badd3e5605b8a797b1b1cc14b2677707884",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/19_yapi_sektoru_is_guvenligi_el_kitabi.pdf",
+   "bayt": 2529624,
+   "satir": null,
+   "sha256": "a638509334507a6d04376709d8940a41797c2fdf5c4dbd998aa8a0d72afd52e3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/20_is_teftis_rehberi.pdf",
+   "bayt": 35517775,
+   "satir": null,
+   "sha256": "9e2f2fc3437d5ca333211cce37c496da71bfe478b732641b9b63a1098c145409",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/21_is_teftis_sistemi_hakkinda_genel_uygulama_rehberi.pdf",
+   "bayt": 7538488,
+   "satir": null,
+   "sha256": "61c124d4eccfa8826752c2479e42f6768bfbad0bc9c0fae82bcd7e717d09f338",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/22_yapi_islerinde_is_sagligi_ve_guvenligi_yonetimi.pdf",
+   "bayt": 15618217,
+   "satir": null,
+   "sha256": "b7ad0355ea8b4d19309f468e8d00ea726d3b0ef7a9f2db14b922a744b56105e3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/23_kimya_sektoru_isyerlerinde_is_sagligi_ve_guvenligi_rehberi.pdf",
+   "bayt": 9152791,
+   "satir": null,
+   "sha256": "3d7ffd2e6880d8cce78e983891f5773601e9e7c59e63b89d2b94053e10ffcd4f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/24_metal_sektoru_isyerlerinde_is_sagligi_ve_guvenligi_rehberi.pdf",
+   "bayt": 5937005,
+   "satir": null,
+   "sha256": "636a45290ddeefaba23acc78904861c0c0db38122351a1b06eb6dc702ad05b39",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/25_is_teftis_sistemi_hakkinda_genel_uygulama_rehberi.pdf",
+   "bayt": 9248169,
+   "satir": null,
+   "sha256": "06343b95ddf3e130e3f79d8b2370585f62cfdc624df47973248c9e08ed8e2130",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/26_is_teftis_kurulu_baskanligi_hizmet_ici_egitim_yonergesi.pdf",
+   "bayt": 3740914,
+   "satir": null,
+   "sha256": "50c093eac8c2b8ad89dc012bc61abca7ca68dbbcc6e336e3b88e0e5153b07c33",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/27_is_teftisi_rehberi.pdf",
+   "bayt": 34574222,
+   "satir": null,
+   "sha256": "ad886951ac2f90bc95f30d74d8452d512d0661b02583f7c4f35bb0d9da47d439",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/csgb_rtb_diger_yayinlar/28_projelendirilmis_teftis_rehberi.pdf",
+   "bayt": 28866337,
+   "satir": null,
+   "sha256": "a2c63ab495ff7ccb28d33d6caab301be8e84b2dd7eb197a1423057dde4a00dd1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/el_kitaplari_metin.jsonl",
+   "bayt": 5461719,
+   "satir": 39,
+   "sha256": "cfb4014d54241a630c77bde910d4a0488e86d13527da2baa05880a96dde28032",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/01_isg_de_toplu_korunma_yontemleri.pdf",
+   "bayt": 6679189,
+   "satir": null,
+   "sha256": "1bb41e0466c11bd45ecd710d57ca7cd9694c49a2df2b8ef32114a53c5b489173",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/02_metal_sekillendirmede_guvenlik_isg_onlemleri.pdf",
+   "bayt": 15151457,
+   "satir": null,
+   "sha256": "f7cecf6517916a82d2b4f015aea0613bcc9917357bbc50e54b497b1fe8f1a5bc",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/03_is_teftis_ve_rehberlik_nedir.pdf",
+   "bayt": 4134343,
+   "satir": null,
+   "sha256": "3d5fa36e8fa63fe24d903080aaee0586eca59188eeaa1ba47e17de6e82b2e247",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/04_bakim_ve_onarim_calismalarinda_risk_yonetimi.pdf",
+   "bayt": 3105830,
+   "satir": null,
+   "sha256": "ebdc297066a228bf319d1ad2c27aecd8171213b79be781f93e3696e2d9d8222c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/05_calisma_sureleri_ve_ucret.pdf",
+   "bayt": 6915682,
+   "satir": null,
+   "sha256": "ee1dcf3248cbf8be42afc6cc15b316b1f4bb1e0ab9855cc6de1e5cac2a3673f8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/06_is_kanunu_temel_kavramlar_isci_ve_isveren_borclari.pdf",
+   "bayt": 8881861,
+   "satir": null,
+   "sha256": "ab9269329474b8edab8784735aedb18327702a2bc63125be1244c7d23020e886",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/07_is_sozlesmesinin_sona_ermesi_ve_feshe_bagli_alacaklar.pdf",
+   "bayt": 11344959,
+   "satir": null,
+   "sha256": "fbccd63a769a001974b2a8260e026ceb970307e51cf21da4e9f21634be12392a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/08_isg_egitimi.pdf",
+   "bayt": 7056528,
+   "satir": null,
+   "sha256": "e4f83c073929e7839eef59ab0cbed5a0051a23560a39c37dc1c896202381ea9e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/09_meslek_hastaliklari.pdf",
+   "bayt": 7240019,
+   "satir": null,
+   "sha256": "f70c8b9148e4bcf081785821cc4a9c84f6a1d19af312e39ac29953a3aa84cf81",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "02_el_kitaplari/itkb_teftis_rehberlik_serisi/10_dinlenme_hakki_ve_sureleri.pdf",
+   "bayt": 7399562,
+   "satir": null,
+   "sha256": "e9faecd4dea64a8585a10177e8a93afd43b75511b73b641c7303a09af3e9ef7c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/iskur/iskur_veri_sozlugu.pdf",
+   "bayt": 3043268,
+   "satir": null,
+   "sha256": "935a1973aed8e5fb0657d820c2de344c8639c9933f542b41bc2573e0a8bdc863",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/iskur/istihdam_fuari_duzenleme_rehberi.pdf",
+   "bayt": 1317312,
+   "satir": null,
+   "sha256": "55d22fec706dede1d90767c325de30da99d9ec2615f770885d977408f80f1775",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/iskur_bilgi_sayfalari.jsonl",
+   "bayt": 203724,
+   "satir": 45,
+   "sha256": "fb53e45545ca2394e516d456ecee2574495ac0bcddb65dd8a62780d6e6f4c172",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/rehber_brosur_metin.jsonl",
+   "bayt": 2149945,
+   "satir": 17,
+   "sha256": "31aa9762c3fbd977bed76e0990f6c684b1f46df1848c09488c3618b58bfb4397",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/00_dezavantajli_gruplar_emeklilik_rehberi_2025.docx",
+   "bayt": 290245,
+   "satir": null,
+   "sha256": "75fe1cc93b47e7312f6e447f383173ac5337f70aeeb75a498933714137b12c9f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/01_kontrol_muayene_brosuru.pdf",
+   "bayt": 2339462,
+   "satir": null,
+   "sha256": "f03eedfdf3fd79ae588e0137c8d89985ad4ed4db07c0b605dfafa58a3183f36b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/02_yurt_disi_sosyal_guvenlik_rehberi.pdf",
+   "bayt": 2643338,
+   "satir": null,
+   "sha256": "6e1cb9f4ab70cec5506b3bc49bb4a853ecf7c0500c821904b5152ecc7cea52a1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/03_sosyal_guvenlik_sozlugu.pdf",
+   "bayt": 8401916,
+   "satir": null,
+   "sha256": "c99723c14c7b5c2ea1c1f270591f148c6f7b43ae97d856f6b29e9cf8b8de3a05",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/04_kurum_tanitim_kitabi.pdf",
+   "bayt": 6386301,
+   "satir": null,
+   "sha256": "2ba57e0dc928bc0144b11ffa3b52458817cb82c1f84188168345fcd9749c198e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/05_gss_sistemi_kitabi.pdf",
+   "bayt": 5246885,
+   "satir": null,
+   "sha256": "4cd5d08a879ecb9128d0d3d0471a551099d95e29fc01e176cfe6c6d631b9230d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/06_yurtdisi_borclanma_haklar.pdf",
+   "bayt": 14743233,
+   "satir": null,
+   "sha256": "6f55ca24b342f963f78a44bfe0c980665b0c19fccaecba0eedef9d0da396c608",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/07_idari_asama_uyusmazlik_rehberi.pdf",
+   "bayt": 33743336,
+   "satir": null,
+   "sha256": "1801b9d1196ad827073bec2259fd6b3b5bbe63dd4532a4b5555775aa40ca0ba4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/08_asgari_iscilik_uzlasma_rehberi.pdf",
+   "bayt": 20552255,
+   "satir": null,
+   "sha256": "4ab8d4ebfa44d310662980e772dc25901a43c8dbc19fa12b24c9b90c515a2d45",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/09_istege_bagli_sigortalilik.pdf",
+   "bayt": 25318336,
+   "satir": null,
+   "sha256": "0235a72bc93ca6762493161d67a7cafc11558d2afc1f3486e5a690adc2b9ea57",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/10_primler_rehberi.pdf",
+   "bayt": 18368817,
+   "satir": null,
+   "sha256": "15564d2795aac35fd7828cce7654d1c708caf64ecfef3e998c234e35ff12b458",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/11_genel_saglik_sigortasi.pdf",
+   "bayt": 18871942,
+   "satir": null,
+   "sha256": "2ca72e0257bbbb14f191734db9b6fa1c45b6cdf1614c3aa9cf4b55b57660dc0c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/12_tum_yonleriyle_maluliyet.pdf",
+   "bayt": 1062666,
+   "satir": null,
+   "sha256": "04be07dd4ad24822c5ad5454cc8650086a8b27eb8fb90aa4357bb6b97b33d9bf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/13_3201_yurtdisi_borclanma_brosuru.pdf",
+   "bayt": 2575110,
+   "satir": null,
+   "sha256": "6756d97e80592e1380c52ea030a8d0acda04734b9b6593b94c38a98e9c33dc55",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "03_rehber_brosur/sgk/14_sosyal_guvenlik_terimleri.pdf",
+   "bayt": 7704063,
+   "satir": null,
+   "sha256": "9744729c80625e84269f3d6c3375df567563eb105add3aa7ac8b14e302a051bb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/iskur/iskur_genelge_katalog.csv",
+   "bayt": 11135,
+   "satir": 51,
+   "sha256": "d4c2bdc31e6944d66243717886d5f0f624c3d5b84d67994b73fdb014c745f42b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/iskur/iskur_genelgeler.jsonl",
+   "bayt": 1783899,
+   "satir": 50,
+   "sha256": "8b6761f9ae6e0a97794067766089db0c8a95c630d840906fe19f0446da0714ea",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/iskur/iskur_gov_tr_dosyalari/aih_genelgesi_2025-1_degisiklikler_islenmis.docx",
+   "bayt": 184902,
+   "satir": null,
+   "sha256": "a21fed2cd65e4d0a4073281f2b9154813a5585fd9ad1d01491ac936ff245771c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/iskur/iskur_gov_tr_dosyalari/aih_yonetmeligi_rg_2022-04-08.pdf",
+   "bayt": 377593,
+   "satir": null,
+   "sha256": "71ea6770946f91e660510da5b6d585e0a4b91cd46740853a3d2d835df76593d5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/iskur/iskur_gov_tr_dosyalari/engelli_eski_hukumlu_komisyon_genelgesi_2015-1.docx",
+   "bayt": 105659,
+   "satir": null,
+   "sha256": "5f18e5be387801d0eda80acb0ec931dc9e20a5ab19fa4a219496cec68c2800f0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/iskur/iskur_gov_tr_dosyalari/niyep_mesleki_egitim_kurslari_genelgesi.docx",
+   "bayt": 73474,
+   "satir": null,
+   "sha256": "fa726b874ba605ddea0def573a1ff25cbc61cd3a62f0de886293834b36597aab",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2004-16_106308.pdf",
+   "bayt": 235102,
+   "satir": null,
+   "sha256": "3b544620bacdd2cafffd8093311a84551fa5da0ebc5cd2849caad61c67649164",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2005-16_106309.pdf",
+   "bayt": 412555,
+   "satir": null,
+   "sha256": "0629904a6733d93325a3fb808b9f13ff38971b94b0f9de00688f0e9122432589",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2005-16_128282.pdf",
+   "bayt": 211053,
+   "satir": null,
+   "sha256": "ac4c5b1d256a1bc8d773b53af9508b431d5adf2663241d7c629c3420dbed40f6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2005-16_128283.pdf",
+   "bayt": 498414,
+   "satir": null,
+   "sha256": "bc55d6e571bc2e31bd1e94dc77d06c9454e29b030a71f11161639ef11503ccb6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2005-16_128284.pdf",
+   "bayt": 466462,
+   "satir": null,
+   "sha256": "ba1054e283f2c36a0434959c35ea52b42ccb9f9990df2b7b0ad3f1d53b2cc63a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2006-16_106310.pdf",
+   "bayt": 465041,
+   "satir": null,
+   "sha256": "10c08d81aca9ae813a68120a4cc32cd5a2e5f18c7370b19bb7f80738e9f81cbd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2007-48_106311.pdf",
+   "bayt": 255576,
+   "satir": null,
+   "sha256": "90d7047fdd5f08ffd9d04b01a0b45b9a80b158d314b9956c1c368401dab2c3a8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2007-81_24197.pdf",
+   "bayt": 273516,
+   "satir": null,
+   "sha256": "a3f5fdc6de471e07dd44d37f72a4d7233a7044691903daf2ddd4188f19326f32",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-22_59232.pdf",
+   "bayt": 115902,
+   "satir": null,
+   "sha256": "8904c8fe6057397ee437583fe432907a04f3d1e4d4b0139ac6a918131ed7ebc0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-22_74709.pdf",
+   "bayt": 163373,
+   "satir": null,
+   "sha256": "db21934b7099a7561524f763b5519bbdadeef52893d9ad99b532c6a10823630d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-31_106312.pdf",
+   "bayt": 437457,
+   "satir": null,
+   "sha256": "827bca6c565fea904129fae6a0ddd8016934933c691d1f03cef76d6c4085e184",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-39_136252.pdf",
+   "bayt": 408724,
+   "satir": null,
+   "sha256": "29292c2db8acd03f364337ef43100631538f1180d237e717ea8e467ff6632b9d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-39_57312.pdf",
+   "bayt": 200526,
+   "satir": null,
+   "sha256": "bcb95928c71842a645e09b55e7d4d04af3787d0cdb7b9c79cae980d34d5a9ea8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-40_136253.pdf",
+   "bayt": 1134694,
+   "satir": null,
+   "sha256": "e1ff84f95c644304f28174edaf7b321484f40906f1b979adbc77e3825f37e14f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-40_57311.pdf",
+   "bayt": 546710,
+   "satir": null,
+   "sha256": "bfa986b1a239e977c45ff9be1ff93a8d92d8812ab2e6fb232c2bb0cad9c3ee40",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-52_136248.pdf",
+   "bayt": 193638,
+   "satir": null,
+   "sha256": "4249451fb61ad0f653804ce4bd1afd1db2e9cc3d093fc33020a6f055e47ac39f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-52_56056.pdf",
+   "bayt": 156800,
+   "satir": null,
+   "sha256": "3a57665eaa8150d618404914ea06914d01396652e515aca63137ab1c94c71a83",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-73_106313.pdf",
+   "bayt": 10172503,
+   "satir": null,
+   "sha256": "7a4a82ccb67e32957627a5fcaf86b55165f5046684bd07e3972d39e4466424af",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-77_106314.pdf",
+   "bayt": 4652078,
+   "satir": null,
+   "sha256": "64478c5aef0a13b8abc6af80bae7f893d6c612a80dabee7ddb5db7f67fbcd3a3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-85_106315.pdf",
+   "bayt": 9742772,
+   "satir": null,
+   "sha256": "83ee4cfbd757539dbff448b9f8fc8f6b9505c3f53a2181e93f7f1d117d82de98",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-86_57309.pdf",
+   "bayt": 294603,
+   "satir": null,
+   "sha256": "114eecb3d3b081fbde79116d72902d5ad894f925ea1e75bc2444ea4297a29687",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-87_68863.pdf",
+   "bayt": 291021,
+   "satir": null,
+   "sha256": "5b423ddf63b6e7017481b0e6959f10a59dc9191289924ae06bf0e3e9a4c108b6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-88_74301.pdf",
+   "bayt": 491877,
+   "satir": null,
+   "sha256": "c984ca5d1af5739b651431e64b0190a938a7ce4a393d68fcae49e91183744350",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2008-93_106316.pdf",
+   "bayt": 10838909,
+   "satir": null,
+   "sha256": "7582e46265c65fac3a041dbd80a907d3d4e07c813cb4c9c8c62daebded12c23c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-113_106322.pdf",
+   "bayt": 8269767,
+   "satir": null,
+   "sha256": "7c6b7d1cb0d48c01782991b39ceb6dbfa718120360330f39d4cf1b0a03c29939",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-12_106317.pdf",
+   "bayt": 367657,
+   "satir": null,
+   "sha256": "9d4c217d0db204511ff8bb917a654de49630d8c7242d8b3426c02021d0c42525",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-139_106323.pdf",
+   "bayt": 4140330,
+   "satir": null,
+   "sha256": "d83a6e164577e375fa68298dda3e78b58cee9e9e9140bcacaeef4666e6133a32",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-149_106324.pdf",
+   "bayt": 9034768,
+   "satir": null,
+   "sha256": "d4cae51db7e73cc1861b3fcb0169114b0d2f335f597cd156d00383035fb2aac7",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-21_106318.pdf",
+   "bayt": 2632352,
+   "satir": null,
+   "sha256": "e4cf45679d264744ee90c4eea1fbdde4415b6a89d7e19b081d97b2d739b18e87",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-29_57308.pdf",
+   "bayt": 197135,
+   "satir": null,
+   "sha256": "6b76bb8b29fb9b3995db2cfdc602001863c95308e6d5afd2945ea265f2318e9a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-29_59275.pdf",
+   "bayt": 126870,
+   "satir": null,
+   "sha256": "383468cc8f2e6bf3ca554322ebd72b67294fbf519bd9f1a391eafb27b72c6ef7",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-37_24545.pdf",
+   "bayt": 565652,
+   "satir": null,
+   "sha256": "f6e972b8cba3e9b2639f91bfca51c2af5d0c470bf65c809834f102d81c6983f6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-46_106325.pdf",
+   "bayt": 224924,
+   "satir": null,
+   "sha256": "e71af955a1d0265cbbbae7a97618cdda6ebe0bb369905d4de8e64baae2ad87c7",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-52_106319.pdf",
+   "bayt": 225171,
+   "satir": null,
+   "sha256": "fb1972cdaa35f47eaee7db5ac08c3707bb113345fd5a3a3a5cafaec4c00cbcd4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-61_106320.pdf",
+   "bayt": 5101919,
+   "satir": null,
+   "sha256": "d772f86e3c0d591605f458f028229401578822594b339045662c038de913a611",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-92_57307.pdf",
+   "bayt": 241717,
+   "satir": null,
+   "sha256": "ae99ba24cb7885fbde58c22dc40396a547d42df9d723f57f49d5470d9f63245d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2009-94_128289.pdf",
+   "bayt": 259597,
+   "satir": null,
+   "sha256": "59bcbc2dee011c9f8ad080b11b58bc82c309549f06be1891df0c13323ec2453b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-107_75238.pdf",
+   "bayt": 744453,
+   "satir": null,
+   "sha256": "3c5cc93cf5dfcf6e5a581de944ce96fd47974d1697176f236df65d803f0a682b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-109_106327.pdf",
+   "bayt": 114384,
+   "satir": null,
+   "sha256": "18f977b0dbdccdb33deea632d9a916be92b8ae1e99e6505b0e4f839b61145ceb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-117_131754.pdf",
+   "bayt": 176679,
+   "satir": null,
+   "sha256": "2f2ebfc7fca3fe79852f452bba8049f3cc0c0f9895792080259df1b4a3bd5881",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-129_68865.pdf",
+   "bayt": 47097,
+   "satir": null,
+   "sha256": "20a35bd3b9bdec65fb020275f377ccebb163b64d67a314b46750e2b0bfc2dc58",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-17_74112.pdf",
+   "bayt": 634500,
+   "satir": null,
+   "sha256": "09b9eb1c6890e6f4e6c055c07e0a41137420ab4803fb7c5e359be8f2219fa587",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-33_106326.pdf",
+   "bayt": 313113,
+   "satir": null,
+   "sha256": "98b219c8881b1a955ebef74881747ba90adb41725a205ece7e9843ab31a8bccb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-52_136255.pdf",
+   "bayt": 69420,
+   "satir": null,
+   "sha256": "83f4f7dec137f0573cb9e59e0f2ae7fb2d752d6fe8ec0479e54e9db1d0c74b30",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-52_57305.pdf",
+   "bayt": 69421,
+   "satir": null,
+   "sha256": "b2677b7ee9a557a9de11446dc76664272e52dfbe38dd0624cb6e8213be788a83",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-5_136254.pdf",
+   "bayt": 97322,
+   "satir": null,
+   "sha256": "71eadbc32bf2b233e1a7fb76d46bf7f35bea17225db2c3ca8dbf5dde990619dd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-68_68864.pdf",
+   "bayt": 324418,
+   "satir": null,
+   "sha256": "767f9d3e330da4b989086e560724b8a515c6797c54a6b7a63a2c60c9df471883",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-83_57303.pdf",
+   "bayt": 259428,
+   "satir": null,
+   "sha256": "bd4ae2a1ce3cf089af0e8d288c0adb8b8a8a3d92451abe64ce15e9724665c325",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-83_73830.pdf",
+   "bayt": 259428,
+   "satir": null,
+   "sha256": "bd4ae2a1ce3cf089af0e8d288c0adb8b8a8a3d92451abe64ce15e9724665c325",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2010-91_68886.pdf",
+   "bayt": 8309933,
+   "satir": null,
+   "sha256": "13b1cd8823c5ab6b22d834436369ce863206705787204a4da86136336da0898e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-10_106239.pdf",
+   "bayt": 118664,
+   "satir": null,
+   "sha256": "2d7607a73349e10686d17446a26bb267c3ac3ff71baafa92b5d6ff06ebc35028",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-10_24040.pdf",
+   "bayt": 118664,
+   "satir": null,
+   "sha256": "2d7607a73349e10686d17446a26bb267c3ac3ff71baafa92b5d6ff06ebc35028",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-13_191381.pdf",
+   "bayt": 621549,
+   "satir": null,
+   "sha256": "68460100e3b737426848d9e24b21629607a32d785f3f1edc03e29db81f4fe9e3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-13_208479.pdf",
+   "bayt": 581663,
+   "satir": null,
+   "sha256": "261da29431276807e31ff954646521db9aa69df1dabf370e82b197247a62db57",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-13_209168.pdf",
+   "bayt": 716429,
+   "satir": null,
+   "sha256": "dd880e590cfded758cb54b37d02fa4d08c82c645229b9c39ca3176da64ebb02f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-19_74213.pdf",
+   "bayt": 246047,
+   "satir": null,
+   "sha256": "657d7fe9f6480623f4a545327a54f7e271599e5f829cf7f3ec23f739a851c474",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-23_67958.pdf",
+   "bayt": 1331435,
+   "satir": null,
+   "sha256": "d01dea09f0b1629d0c4ce2d58a5bd35754b8ae3d2d1df8dbd0a783a99b69cfd3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-24_57299.pdf",
+   "bayt": 387411,
+   "satir": null,
+   "sha256": "9e8bed3b1f21be1f03af38f73eed828acaefb02a0f3f21acd77971573f1d15cf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-25_105918.pdf",
+   "bayt": 105105,
+   "satir": null,
+   "sha256": "017e5bdebb3d5c90886ff2786018432057eea89c10042706744fbb19b5958b37",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-25_72679.pdf",
+   "bayt": 105105,
+   "satir": null,
+   "sha256": "017e5bdebb3d5c90886ff2786018432057eea89c10042706744fbb19b5958b37",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-30_136249.pdf",
+   "bayt": 179505,
+   "satir": null,
+   "sha256": "f978f6b32af952c6017c91814c0318867581cd4b3fdd13407d853635bb523eca",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-32_74214.pdf",
+   "bayt": 635744,
+   "satir": null,
+   "sha256": "cec46db864d1abe9557d65cf6de3e8ba0f5f1515c47c9aebb7867aeadf6d30fb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-33_55309.pdf",
+   "bayt": 233381,
+   "satir": null,
+   "sha256": "7a89d2f687429fb6cbac4728821504bb857578d932e44104ff35750f534b3be7",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-39_57296.pdf",
+   "bayt": 286196,
+   "satir": null,
+   "sha256": "25a969bf6f97f413aa94d726ef620b10fb656b54d10d8b723c447ab83035cbaf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-45_106328.pdf",
+   "bayt": 633867,
+   "satir": null,
+   "sha256": "ae4238fe22bf948aa71a59a29f75c3827d3503f4e494b850f796356bb22f3fcb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-46_24852.pdf",
+   "bayt": 218725,
+   "satir": null,
+   "sha256": "73f5881964ec9cce8ee4fa36944c256e367169adab19d4957d80445b08bd4b6e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-46_57295.pdf",
+   "bayt": 218725,
+   "satir": null,
+   "sha256": "73f5881964ec9cce8ee4fa36944c256e367169adab19d4957d80445b08bd4b6e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-48_143480.pdf",
+   "bayt": 1001876,
+   "satir": null,
+   "sha256": "bcd4f2740edabbcf707638114fdfd67d8ddd26427d4066dab3ada5f4145f4603",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-49_24183.pdf",
+   "bayt": 491350,
+   "satir": null,
+   "sha256": "9b4551cbea13273f6fd46f933b85eb645ae68c80fca07222fbf7ad981fed023b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-52_105980.pdf",
+   "bayt": 851892,
+   "satir": null,
+   "sha256": "6c2be03530d66002a1d258b20f8cc51c433ad2b2f1dc113b92b7fbce7be9d663",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-53_57294.pdf",
+   "bayt": 929091,
+   "satir": null,
+   "sha256": "b50b3764b51dd66f70995139e77ffef394238845399d9a05422c61cdda860f08",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-66_73820.pdf",
+   "bayt": 124751,
+   "satir": null,
+   "sha256": "88682b14bbf6e6888f6ea806ae3e62793b6b0b077e7ff66645fd5fc0c766f16b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-67_57292.pdf",
+   "bayt": 82053,
+   "satir": null,
+   "sha256": "1375cefc6125384ca8bf522a47c5ee224544bbd2cde624406c8d308efa55ba01",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-71_136250.pdf",
+   "bayt": 168979,
+   "satir": null,
+   "sha256": "44c1263ab8a4f01144a82ec4eb9fc69d46cbb57a5231e1eea6ddc93cbdb7173d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2011-9_68887.pdf",
+   "bayt": 38927,
+   "satir": null,
+   "sha256": "041f401218bc03dce648d34d540261c09cec333e2b546f27fbe22db3ebb3c057",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-11_75239.pdf",
+   "bayt": 874423,
+   "satir": null,
+   "sha256": "62cdd779c60a7cb526b3eaffaedb6c0f318c9d39145ab4aebc52c1e25fea1e6a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-14_75240.pdf",
+   "bayt": 908529,
+   "satir": null,
+   "sha256": "e3373bad1377892073b9f9da725ec14040ec0d5f355507361529520ab9f2c2c1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-15_75241.pdf",
+   "bayt": 713371,
+   "satir": null,
+   "sha256": "af245a86cad49a1e058a9cbfe9da823fbdc2a763bb629628d1252c623bc28671",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-19_73823.pdf",
+   "bayt": 35953,
+   "satir": null,
+   "sha256": "a303fe678fbe226d7aac915a14ac162c7f719b844841694ee165a069a73884b9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-20_73822.pdf",
+   "bayt": 330167,
+   "satir": null,
+   "sha256": "b7309746d52d255334f9be6a1278cdf56d0a34759238b5940e863c76e2ffaa19",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-24_143481.pdf",
+   "bayt": 290744,
+   "satir": null,
+   "sha256": "bcb92fe07164ea77680f3d10448e8ad83cbd1746ad9cb4cb12bc75542829793e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-26_57289.pdf",
+   "bayt": 1877530,
+   "satir": null,
+   "sha256": "4f476dd451826959c3a9ec800381b35c63eea68467ddfeaba4cbfea60bfe15b8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-2_57291.pdf",
+   "bayt": 241845,
+   "satir": null,
+   "sha256": "0cd4a8c5fd64acabe3b9668df72bdc805a2789e63e0aedacd994a71c1ee43660",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-2_74355.pdf",
+   "bayt": 402206,
+   "satir": null,
+   "sha256": "3ce38ad88bf98d8ae6b0a1da8be37b5d9708bd174d605c8c8456dcc4c49d5147",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-38_68869.pdf",
+   "bayt": 321478,
+   "satir": null,
+   "sha256": "09109b142978a2dfb443b3f218ac20d15899499c33341172888ca3509105fa7a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-41_132250.pdf",
+   "bayt": 531967,
+   "satir": null,
+   "sha256": "df073bfc55713e4ec7b0dec797adaaca07aa1057defdd4c68bd21c19c445191a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2012-41_24225.pdf",
+   "bayt": 4487,
+   "satir": null,
+   "sha256": "947ef61b8c3dee1d6a5b0bf1c0392a56af2e73e0b0227fbd5278c91e7a194800",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-10_67775.pdf",
+   "bayt": 572586,
+   "satir": null,
+   "sha256": "c6f712cab492b6a80249101a80c3f3326cd0cac071d9c83369bd4d8957b596a5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-11_208060.pdf",
+   "bayt": 10329128,
+   "satir": null,
+   "sha256": "94526f99ab46e915d98fb1ae569412f4bfd1f8865c36b774dcf4ff18da831e3f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-11_82660.pdf",
+   "bayt": 10886705,
+   "satir": null,
+   "sha256": "ec81a25e2d0857429e5eab00c4dfd58578cecc2b17da91d9bb338248935638e4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-14_57282.pdf",
+   "bayt": 398132,
+   "satir": null,
+   "sha256": "1fae1100f790ba886bd4713d03362a583b2f6011a9d394c61849d63cd328e0f5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-18_143482.pdf",
+   "bayt": 131640,
+   "satir": null,
+   "sha256": "025d1b1c7ea30ceff6747c93d8a3843f85eaa63eff6ba9dd6714dc6f1a6d2d87",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-25_57281.pdf",
+   "bayt": 84111,
+   "satir": null,
+   "sha256": "07f23aeb91633bca5a942e79bef27bb807063cf0883d021f2e999b28129e072c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-27_74257.pdf",
+   "bayt": 939401,
+   "satir": null,
+   "sha256": "baed584d794c124fbf10467ad5a9ea137c807f025759108fba29ea9413a88937",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-30_106335.pdf",
+   "bayt": 322146,
+   "satir": null,
+   "sha256": "f6a6c62aa5a15694c0c7d5addace1bb6ca14aa4afc266e60f9704d52d1370f6c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-30_74733.pdf",
+   "bayt": 646758,
+   "satir": null,
+   "sha256": "aa30a25325042b04826af63e5970f63341c90f4a9b15d6d29e12c76320b856a3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-34_24946.pdf",
+   "bayt": 401092,
+   "satir": null,
+   "sha256": "504a514bc5846dd070e3ba5aeccd62ea90b7f775ef2ac6ef135a98ab14c645df",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-37_57278.pdf",
+   "bayt": 464447,
+   "satir": null,
+   "sha256": "7d9bee2630b6f40f87470ae30274624468bdaa63ecd3206bc9137796733c8308",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-39_183081.pdf",
+   "bayt": 135308,
+   "satir": null,
+   "sha256": "b0a3acb5c73754c3b9a2d10cbe5ed15af8b9961c1aedf25530bc5dfd9d33d7f9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-39_68891.pdf",
+   "bayt": 153766,
+   "satir": null,
+   "sha256": "866da4cc76b595e3fd814eee49c400b03aece1c165eccbdbc922bab7ed0f3a88",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-40_74216.pdf",
+   "bayt": 267210,
+   "satir": null,
+   "sha256": "84e198da5023f69638a7811eef2968235ea68c5d5b2ce6cba9d8007ec4160cbf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-41_57276.pdf",
+   "bayt": 268236,
+   "satir": null,
+   "sha256": "86168bb0ad2c5ae40d7946083f1a576d7803c20266debf8d47fb1639b56daa62",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-8_74258.pdf",
+   "bayt": 885163,
+   "satir": null,
+   "sha256": "754c0f84d66c91a07b708b802133f8c5384fca31fab835735c6360e9f0f409d6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2013-9_55305.pdf",
+   "bayt": 452682,
+   "satir": null,
+   "sha256": "a8bdf6b9fc0dec11dee16387a28bb7635914e18ab89f02e4e1e41d9225c0a8ed",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-10_57273.pdf",
+   "bayt": 83725,
+   "satir": null,
+   "sha256": "f5f0e605464c9c81da62f83803782928444bc5de51aba94196518c8e3c4d5701",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-11_68874.pdf",
+   "bayt": 91294,
+   "satir": null,
+   "sha256": "23cb87ab28277feff324c91450f6d5c37b9efbb71467366e2dab8d72cae16c76",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-13_72660.pdf",
+   "bayt": 209780,
+   "satir": null,
+   "sha256": "5dd7393816bb179bf4ac1d58d15345990f3e7bdb177769e369f4485863a5050b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-15_74217.pdf",
+   "bayt": 121926,
+   "satir": null,
+   "sha256": "2ee7f4cd1c5af0774b55214218bd4eeb99ac5991ca04a06ebd277cbb00016bf2",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-19_143483.pdf",
+   "bayt": 86064,
+   "satir": null,
+   "sha256": "89fb6095e5520eb03a866abf2a4c382873e26d23b0fda4b75456e871620dc0c0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-20_68109.pdf",
+   "bayt": 263323,
+   "satir": null,
+   "sha256": "65846b3ed0f215157725531e6c5c45d790eb6b3a3dca06d71e8a426f46b64bcb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-22_68876.pdf",
+   "bayt": 92694,
+   "satir": null,
+   "sha256": "a43e897db02190b64070586394a24f61d8537861f4d345e10a72341dbc6afbe3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-26_57271.pdf",
+   "bayt": 1187757,
+   "satir": null,
+   "sha256": "e24023bee1d394096f58adff784c1640d6e4c2c7462e7cd8959ae9af94462a77",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-27_143484.pdf",
+   "bayt": 394043,
+   "satir": null,
+   "sha256": "e3b804a0f233d2c27cc3661c6a96261c1d4633c03a5461579e10ee176a297d6b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-28_57270.pdf",
+   "bayt": 5086997,
+   "satir": null,
+   "sha256": "b3e3c2790b0d073477b59439931a61e71c0ed590ca68fb8488369e74aea8892a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-28_69818.pdf",
+   "bayt": 38629,
+   "satir": null,
+   "sha256": "05d8909d99df2b6ba354bd2c1fdf2d32e198839611ff615639fdbfcf2e0d88fe",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-30_75242.pdf",
+   "bayt": 6499419,
+   "satir": null,
+   "sha256": "86c764e32eaf70d3742446ae03b230315104475c27cf25bbf41ef780cff6e555",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-31_57266.pdf",
+   "bayt": 132473,
+   "satir": null,
+   "sha256": "8e19f0dc99ae1c40bfab4c34bb75be3c234e11fd7775e422774f6a25df556d70",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-3_72678.pdf",
+   "bayt": 255932,
+   "satir": null,
+   "sha256": "01936dbb4f1480d1d8179c41dc733800b5e8dbfa8521fb7d904842c3d9fd5140",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-5_57275.pdf",
+   "bayt": 367110,
+   "satir": null,
+   "sha256": "b73f7d7850cfa505d6344913e6f725a47b1adfe1b85d77a95b583a95ba3d2c15",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2014-7_68872.pdf",
+   "bayt": 80461,
+   "satir": null,
+   "sha256": "c401d7d46815d776d265fe2521a5216bfda31f6105cff1188ad217189e7af1a5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-10_106331.pdf",
+   "bayt": 224745,
+   "satir": null,
+   "sha256": "808cb8b01372fea7e9f23bc41e24f163559d0a861fcee551288940311c07dbd0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-11_57268.pdf",
+   "bayt": 1483817,
+   "satir": null,
+   "sha256": "2868fee4a8b8abcf95c9e238f3dc5e351940363c7f5397c26b62817b9e0e6965",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-12_106332.pdf",
+   "bayt": 253560,
+   "satir": null,
+   "sha256": "4087464eff00bb0dba19005631958fa68f4e64875ab6c55f4f38bb885c8f3116",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-13_57254.pdf",
+   "bayt": 8017688,
+   "satir": null,
+   "sha256": "bc75fdc03364d7e82336739927aca89ca258206943bd5766a4efdbe4c9eb9ba2",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-14_57372.pdf",
+   "bayt": 952532,
+   "satir": null,
+   "sha256": "7bee7358d098743984836792ec07e073e1ca876af643e57cff5cb53417f7e025",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-15_57370.pdf",
+   "bayt": 110015,
+   "satir": null,
+   "sha256": "20a79163e2fdb2724b538f89a654d34ed049dae4ad4c83491f2916421f896be4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-16_57369.pdf",
+   "bayt": 111114,
+   "satir": null,
+   "sha256": "1c635906d202550fa509a3bdd9ba2e8acb93ec75ababa3aae32e1447d1d2eb99",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-17_59271.pdf",
+   "bayt": 533499,
+   "satir": null,
+   "sha256": "bcf629c1935da783e7874bad28d9c0c4b3f0212c35d7d390747af634d7793d50",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-18_75246.pdf",
+   "bayt": 1583117,
+   "satir": null,
+   "sha256": "3470ae6dc2b0115cb049c2ac0be23ff5527c3ba878ce367578dd75ad033ae25f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-19_57360.pdf",
+   "bayt": 531121,
+   "satir": null,
+   "sha256": "cb244a5f8f3d65349a609130396f3a7a6af788b57ebe0461c5a8c2251cf534b3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-1_106330.pdf",
+   "bayt": 363639,
+   "satir": null,
+   "sha256": "e6a7b30056fcf1ea402202511238307de7eacc31b3a894e7eda7a48e5ac74d4e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-1_57379.pdf",
+   "bayt": 1565324,
+   "satir": null,
+   "sha256": "4f0836b18526f19e33acd7962757b221ef8c1b6c1281477ac04f9ca3b5b1b6e9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-1_61238.pdf",
+   "bayt": 492005,
+   "satir": null,
+   "sha256": "219f29814f5bb62567db38e48b37318c1b2907fc69fd061e437cea9b652a7c3b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-1_74365.pdf",
+   "bayt": 262436,
+   "satir": null,
+   "sha256": "e18722f26fff2585c810d0d2403a4541d34860f6e607a27d8de1f5ce1b7efed1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-20_57954.pdf",
+   "bayt": 995656,
+   "satir": null,
+   "sha256": "e45d5c9da9ce45046a5d776da7bf0471c71bec719fd731eb62240e4acdbe1e01",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-23_60371.pdf",
+   "bayt": 16999411,
+   "satir": null,
+   "sha256": "1d5ecd7216c73c0e923447f82e9e610773ffcb2c72c4f5de32255b216cba1f8c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-25_139737.pdf",
+   "bayt": 602145,
+   "satir": null,
+   "sha256": "a8e1466797dd39d4d8e2ecaccf3265489ed38afe84339c013adcf01ef53fba9f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-25_212633.pdf",
+   "bayt": 668562,
+   "satir": null,
+   "sha256": "ddf07f57b947f2573f46c56b86924c02f6d1a7f08372f73966d76af9ed0e390a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-2_143485.pdf",
+   "bayt": 126920,
+   "satir": null,
+   "sha256": "bb4417f7136e6a345c46b09afb8b57002b2ae707bb4766399cf8066070ed8bbe",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-6_57374.pdf",
+   "bayt": 79559,
+   "satir": null,
+   "sha256": "1035b97c5031f22267547bde84af35c62a558d8abab07bf56f5d6801bb676bfd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-6_68881.pdf",
+   "bayt": 79559,
+   "satir": null,
+   "sha256": "1035b97c5031f22267547bde84af35c62a558d8abab07bf56f5d6801bb676bfd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-8_57258.pdf",
+   "bayt": 783552,
+   "satir": null,
+   "sha256": "b2f19d080a44346f575b18c78bc99e3220a6c7cf7800a2373f37bfd31e6eb457",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2015-9_143486.pdf",
+   "bayt": 119786,
+   "satir": null,
+   "sha256": "6486f244621fc8b857f032af0aa8df5aadfd178b1afd83faef1494ec111391d3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-11_57262.pdf",
+   "bayt": 1845778,
+   "satir": null,
+   "sha256": "5457ebae02aa3670eae42648fea531a18bcbb5f57541531a73010dd18e2b918c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-12_74851.pdf",
+   "bayt": 357487,
+   "satir": null,
+   "sha256": "96151bab765797c5f7bebe4138c46fe902aa7d91e16b99ef30b9bb4d47e488b1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-15_75214.pdf",
+   "bayt": 79373,
+   "satir": null,
+   "sha256": "a6e43a11bfef8068118eaf3c7f84b61ce32bdf41b6c8efa2b590ff50950d26bb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-16_75318.pdf",
+   "bayt": 191934,
+   "satir": null,
+   "sha256": "f1492f8c10a55cdce7d048ee2314e867dfd1a2dc9f73058d3cc4e4ca9b7cd3a5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-17_75464.pdf",
+   "bayt": 788159,
+   "satir": null,
+   "sha256": "50b3dd2afee57122143b1313b64de523e84ac715a2f74ab008f32357c65d9c29",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-18_75556.pdf",
+   "bayt": 903902,
+   "satir": null,
+   "sha256": "389c5006f1c13a081fd6abf2fb95f34ba08207a354662bfd06e8931770de05c2",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-1_106333.pdf",
+   "bayt": 510744,
+   "satir": null,
+   "sha256": "ccbd02a6655bce4f04b990b31673ef2432b7d6f5989f911c5e9f54921fa9bc05",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-20_75695.pdf",
+   "bayt": 618813,
+   "satir": null,
+   "sha256": "a0bb5442354933d5f6d9e646c46d936da0369d8a57d5baf445c6cd565d1a18bc",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-21_143421.pdf",
+   "bayt": 1427365,
+   "satir": null,
+   "sha256": "039e52af2eab3e49eca57557e0c662b144d36462a5174bae1e35e9abd62a5cd7",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-21_208980.pdf",
+   "bayt": 1427637,
+   "satir": null,
+   "sha256": "c547081d1dbcfc6c3bfba3a213e5aa3dbf281eb65c80b67301a94814eafdbd6a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-22_82452.pdf",
+   "bayt": 345601,
+   "satir": null,
+   "sha256": "91dc03cadf9adf29c5a24518b556ff5f691785d341641eca89035ced32fd1513",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-23_82704.pdf",
+   "bayt": 141219,
+   "satir": null,
+   "sha256": "6c408253088e59324ab4de013d5bd3e4816c8960e74659635c404d5073247825",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-24_83370.pdf",
+   "bayt": 903271,
+   "satir": null,
+   "sha256": "c979e309958c767e2dc6fec91511d6cc902b4b42fe2cf8619a5c8ad7b222e70d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-25_83656.pdf",
+   "bayt": 520706,
+   "satir": null,
+   "sha256": "90ec2ab1f81ebdbcedf68f51cea3c02136d9130760437f14dd630636c84ef437",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-26_87394.pdf",
+   "bayt": 2070605,
+   "satir": null,
+   "sha256": "1e8c818d93925c6066e205de2deeaeb08e9dbf5064f6ae8d95ecff312d975362",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-28_87497.pdf",
+   "bayt": 762962,
+   "satir": null,
+   "sha256": "5c5a525f004f570408a9a46b9410e38e343bf6f4c9c063dc6dafbc3229bfbec8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-29_95114.pdf",
+   "bayt": 225284,
+   "satir": null,
+   "sha256": "50bf6e20ef75af84185882d4ece193e905d4f7de59316335c75cec69e46936b1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-4_106334.pdf",
+   "bayt": 657564,
+   "satir": null,
+   "sha256": "5878de7b666170c604e8e3014dae39e6db3e2b5c873eb2d65071fbe1f4daf481",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-5_72271.pdf",
+   "bayt": 1923374,
+   "satir": null,
+   "sha256": "ed325f1a45d95d09fae1a57e0f36b21d4370dce3af969a32889c5875fe0fdfb0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-6_74356.pdf",
+   "bayt": 115177,
+   "satir": null,
+   "sha256": "dac4f6020cea63008ef95c147d9a48b0b5ae79652a027bd0b6e261e8cf971688",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-6_74607.pdf",
+   "bayt": 115177,
+   "satir": null,
+   "sha256": "dac4f6020cea63008ef95c147d9a48b0b5ae79652a027bd0b6e261e8cf971688",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-6_74734.pdf",
+   "bayt": 115177,
+   "satir": null,
+   "sha256": "dac4f6020cea63008ef95c147d9a48b0b5ae79652a027bd0b6e261e8cf971688",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-9_74357.pdf",
+   "bayt": 5197169,
+   "satir": null,
+   "sha256": "c0478b27eada099109d85f0ba9e74b2f63c782bfb7d209000cf4b96913aa58bc",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2016-9_74731.pdf",
+   "bayt": 1881886,
+   "satir": null,
+   "sha256": "8658220dd2f36beb580a1755b33026c6fefba1e0892561b3ee0c917a16480062",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-10_104000.pdf",
+   "bayt": 680738,
+   "satir": null,
+   "sha256": "4f63fddd931f158e6b4ec5ae3375d9d5c719930e34db5f2fdb0a53344b8aa8cc",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-11_104166.pdf",
+   "bayt": 495493,
+   "satir": null,
+   "sha256": "236b2ab4d02512e7ac085eae098c19ad913fcff1c99572e100a001b864229e31",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-12_104268.pdf",
+   "bayt": 171943,
+   "satir": null,
+   "sha256": "7ff4458c4a73af29b7aa4b191041257a1a232ab30c02aaefbd47e3ada4b47386",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-16_104887.pdf",
+   "bayt": 10487405,
+   "satir": null,
+   "sha256": "cc27d7997e16c11012bfb02af6b3bb5c975b245f933141bd20a36f7c0ff17047",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-17_104923.pdf",
+   "bayt": 2078131,
+   "satir": null,
+   "sha256": "4883096f87547f32ed9da534287cdf591ecf8d651a69e49c50de16c50ea37ad2",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-18_104999.pdf",
+   "bayt": 600517,
+   "satir": null,
+   "sha256": "08b06178fe1feb04f68e72fecdc99d63d9474fb89a24ad1967722b4b39963b63",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-19_105353.pdf",
+   "bayt": 519985,
+   "satir": null,
+   "sha256": "d36850e8ee29c5d25570ed3b24ddebb86e1a3c7b680f989b49eddb475c8722f9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-1_104520.pdf",
+   "bayt": 999767,
+   "satir": null,
+   "sha256": "1c964d526ec0cfdd14667ccc3ac7c95d40619871d861e519675d00690e65f358",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-1_105981.pdf",
+   "bayt": 106894,
+   "satir": null,
+   "sha256": "503019efaca5fd0c3e01f3c1d60d16e654d7ec7a1dd871d77bd298579956e873",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-1_105984.pdf",
+   "bayt": 999767,
+   "satir": null,
+   "sha256": "09003f281ffe7cce742bc24dc7c9c8ed57420aac657ac4eb22bf1ce3dc79b655",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-1_95550.pdf",
+   "bayt": 1034064,
+   "satir": null,
+   "sha256": "5c2d2b41892aea5b17da41838c732747189011ac57aac918af1d8e89fd6986dd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-21_105985.pdf",
+   "bayt": 23471793,
+   "satir": null,
+   "sha256": "6d92590dde84da8db9c4591e9563714618387a14017d871488ff85c68be7b82f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-22_106231.pdf",
+   "bayt": 1603562,
+   "satir": null,
+   "sha256": "b76ee3f512edfa10ca42db3df2c2ced00c64053dcf87747ae9827655c0be6137",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-24_128157.pdf",
+   "bayt": 448856,
+   "satir": null,
+   "sha256": "f425412280b97b4505ef8931b93ec63d33367825917ce49a0a127e5913a909ad",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-25_134571.pdf",
+   "bayt": 398809,
+   "satir": null,
+   "sha256": "aa25fc93b1dbce096f54a8f2b3e0a788c6e4da8f6197c829f5214967bf9ba21c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-26_134444.pdf",
+   "bayt": 1261100,
+   "satir": null,
+   "sha256": "9d278920725814065c93854bc491883a3a6118683d11bad1d616639d75ecce2b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-26_211332.pdf",
+   "bayt": 929428,
+   "satir": null,
+   "sha256": "f91bdb0cfdb4ddc4672aac1699e01c6c9fdd07cdca0c8fcfbf00f6188ee16b38",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-30_139245.pdf",
+   "bayt": 8481902,
+   "satir": null,
+   "sha256": "a4a961843b76c12688404c91e89508fd91655bfe7d086cc224473aec6fae296b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-31_139230.pdf",
+   "bayt": 1734490,
+   "satir": null,
+   "sha256": "2ace7e518376c80532258033d8f6452c975126b395764214120579522c2defb6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-32_139326.pdf",
+   "bayt": 188148,
+   "satir": null,
+   "sha256": "bfc2c8060ec097a2a2082cec427ba3c3730a323c722f977d40cd8958da6105b6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-5_96023.pdf",
+   "bayt": 188507,
+   "satir": null,
+   "sha256": "4983dcf2286dae13b709daaf11bba33af9d3e5cd2679290fe3717abf2732aac0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-6_96319.pdf",
+   "bayt": 14228718,
+   "satir": null,
+   "sha256": "6a63c9d402cb845bcd675fa0eecb4c6d3dd0aecf07e31ca4e86c5989fbb943fa",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-7_96320.pdf",
+   "bayt": 10708959,
+   "satir": null,
+   "sha256": "153ba10922ed9b0ff37423db526daf5c802ce36c7dc57ef582eebef7c97dbecd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2017-9_96578.pdf",
+   "bayt": 6200601,
+   "satir": null,
+   "sha256": "f2c538a97c54d983913bbf0394143808d84f445e19829e49c6375adec21aee86",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-11_140412.pdf",
+   "bayt": 6224037,
+   "satir": null,
+   "sha256": "f73ff48af1bc611d3142774da9f1ed17ba5ef37917483082f2a5fe8d75c92b3f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-12_140649.pdf",
+   "bayt": 1744054,
+   "satir": null,
+   "sha256": "26c633b26a4023a55b71089e732e7ffea9211a62314ba130a54ff4c8990ab01c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-17_142584.pdf",
+   "bayt": 8447476,
+   "satir": null,
+   "sha256": "b12fe9f3e69e85a870c313187bad2209f196e7834dc3c9a676b5575513ae0b21",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-18_142615.pdf",
+   "bayt": 2550238,
+   "satir": null,
+   "sha256": "b76807f1f96f49b005186627a01d419baa786b23899794486086e59b6ab3b099",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-19_142739.pdf",
+   "bayt": 485283,
+   "satir": null,
+   "sha256": "be67e8318ff8acc90a6404d4386abc8ba6145a1a679b505501be8a392db10394",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-20_142865.pdf",
+   "bayt": 14275802,
+   "satir": null,
+   "sha256": "82c3f81df07a5fd61c1ba6044d55732edeed12bf078c9e2c846c890a5b604344",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-21_142864.pdf",
+   "bayt": 33576701,
+   "satir": null,
+   "sha256": "ce1093abe8ebe43b1bc0868faef34cbfba132195fee49759ca2e48b5ec88bad5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-22_142932.pdf",
+   "bayt": 26411060,
+   "satir": null,
+   "sha256": "b0ba9f8dbeb80332093e34a75ee3c9e81e5b3a237f07cf11ad54b86a6a66299c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-23_142940.pdf",
+   "bayt": 17763928,
+   "satir": null,
+   "sha256": "42cc4a40470664a4439ab6d93e2054840cc1ad96731865fbe28952b2d39e3654",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-24_143094.pdf",
+   "bayt": 1743962,
+   "satir": null,
+   "sha256": "be44469095e86d98b6f36c7b9d1e82e4dcea6d34a8b6406d9e5217fa859995e8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-28_143408.pdf",
+   "bayt": 4417237,
+   "satir": null,
+   "sha256": "a8cbe2b40e3ae727dfd15f92c3671e3970e4057ad8758640b80087365cdcb49b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-29_143479.pdf",
+   "bayt": 881484,
+   "satir": null,
+   "sha256": "aed49f00f69f662d4d77373b6e7a9e2a620052067b38d252a06e592f9a29c45a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-2_139594.pdf",
+   "bayt": 189352,
+   "satir": null,
+   "sha256": "5b723c0c35dc2e36e6ea6d0acfd9e495effb26f8894ab675e9e876c2fd4fb6c4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-30_143774.pdf",
+   "bayt": 1414256,
+   "satir": null,
+   "sha256": "e2e97c0a2624267d55e3943680674a54a19b86c54a7f9982e0cd75794a0d64ee",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-31_143784.pdf",
+   "bayt": 10103913,
+   "satir": null,
+   "sha256": "a478c4f1b65121382ab78e55d6432b91cb65c1ab14696ff3ec783072d905cdc8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-32_144010.pdf",
+   "bayt": 2354647,
+   "satir": null,
+   "sha256": "98628b05146ff772d80d2479957d614bc8010f5da4582d32a71134c9f3adf9f5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-35_145367.pdf",
+   "bayt": 2208495,
+   "satir": null,
+   "sha256": "61120acd3b3c15db75263bf8c80d577a50d6e49d3d42e2cb0690ecaf03fee3af",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-36_144336.pdf",
+   "bayt": 293813,
+   "satir": null,
+   "sha256": "4d783bbf2fb5bc65a637a5c8c2045dd61c4944821d461845c0c4f96c2a628926",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-37_145458.pdf",
+   "bayt": 6447608,
+   "satir": null,
+   "sha256": "c42aca1049fe4cfdf45f0ef7153133e63d2fd9854142e23149cd1bbb5def64a4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-38_146631.pdf",
+   "bayt": 8031747,
+   "satir": null,
+   "sha256": "cc251f4ea9147130b2d50c6d984f0821655fe54062828a3ca6bb2ad30976566b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-38_183144.pdf",
+   "bayt": 7985085,
+   "satir": null,
+   "sha256": "3e318821447a2b8d8d4006cd26f0a59c755fda0d534c3aa9f0d8e42a983a3221",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-38_183611.pdf",
+   "bayt": 7987777,
+   "satir": null,
+   "sha256": "4f0f1bb67cf9881e5d3d3f8678d5827da5df85828f0a226ea0534f1efb959a80",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-38_187274.pdf",
+   "bayt": 8102280,
+   "satir": null,
+   "sha256": "c543d25e3f30c29b5ca70e8c028c6e680a2237fa50bd62fa275bf8e2c98a346b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-38_205326.pdf",
+   "bayt": 5820543,
+   "satir": null,
+   "sha256": "c1e6bf71d73af987f14955fadd838eba8ad8796736323c06a2e73a25784554ca",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-38_209056.pdf",
+   "bayt": 8022035,
+   "satir": null,
+   "sha256": "f9f427095e0dbd7b9e0f5f14fb9bf2b5c68869ae2b8d806b082cdbfa2bf9ce42",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-39_146955.pdf",
+   "bayt": 51567703,
+   "satir": null,
+   "sha256": "323a348232058c0df2944a7610383982073a806c7ea640cb8849cc74bd606480",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-3_139701.pdf",
+   "bayt": 913295,
+   "satir": null,
+   "sha256": "0ca8e8ccaebb2f86c982447f200508e5074821455738b656fa646c022a01da55",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-4_139702.pdf",
+   "bayt": 330041,
+   "satir": null,
+   "sha256": "1064f47a85713fcd7e9cea0ed3bb32d21f88411220e3bb58e8433d7b5a60fc32",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-5_139703.pdf",
+   "bayt": 6178397,
+   "satir": null,
+   "sha256": "ee3e669867931fcc0f3db3dae63895c0ecde2392df6101a28eeda120c2744024",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-7_142948.pdf",
+   "bayt": 10262818,
+   "satir": null,
+   "sha256": "e08fc955463299a2236fe8f1cb86baad0f4ca017c4de3a20ba69387f15f11ed9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2018-8_179336.pdf",
+   "bayt": 9220470,
+   "satir": null,
+   "sha256": "d5c3bed3742d8cabf2ea9a523150834a77b150a4372c7f6d280f0ea1a3f91cb6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-10_151339.pdf",
+   "bayt": 2306894,
+   "satir": null,
+   "sha256": "6112984cab1e19283fa551cd54a7092852615a02c469f868dc3ccee956d6f6d4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-11_151411.pdf",
+   "bayt": 1629584,
+   "satir": null,
+   "sha256": "5fbdd5f6cb89faaecf8b2beb4cbfb785118944547f92ffb80f2ca1b8dd5103b9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-12_151423.pdf",
+   "bayt": 1787747,
+   "satir": null,
+   "sha256": "74312f2cec8a5de0a633283e611c5d4eaa8134e3285ea90e2a23288d057f0b58",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-14_151556.pdf",
+   "bayt": 12962044,
+   "satir": null,
+   "sha256": "6cb83bae9e0c028a0a2aba70563ea3ca3b3857efaef5d7ad41a53602bb7e8a7b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-15_151575.pdf",
+   "bayt": 12802709,
+   "satir": null,
+   "sha256": "99af6270440fd2ffa6074bb9677bef7b5dd6a10d478db22984a05326140d728a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-16_154286.pdf",
+   "bayt": 155626,
+   "satir": null,
+   "sha256": "dcee06e6d6c4259569488a0b43d8aac5335ecec1ccbf90ddf3a1435571f23f26",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-17_154304.pdf",
+   "bayt": 1161448,
+   "satir": null,
+   "sha256": "9ec70759a28f04c669e0186f5318eea4fcbc82b32e997c11633cca0906c9979a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-18_154497.pdf",
+   "bayt": 1817992,
+   "satir": null,
+   "sha256": "236d6ef73cdf1f23f6767dd63f2ae0eae067f2152e8da08d6afa9553b10103c4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-18_206601.pdf",
+   "bayt": 1463799,
+   "satir": null,
+   "sha256": "2dfed979bc5d7039ad0cefdf7b6a5bcc790aa6949416bf06d3f3bd914c39b28a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-18_206900.pdf",
+   "bayt": 2759356,
+   "satir": null,
+   "sha256": "a9bb1d132046297b29a64f54daf30a8217785427c85ed7c92b60cd9597105462",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-1_148905.pdf",
+   "bayt": 6854785,
+   "satir": null,
+   "sha256": "2f596cc7b4322bd519a7f40dee23b2e1962e2ab12f37e9b19dfbf10147f8db35",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-20_155604.pdf",
+   "bayt": 205401,
+   "satir": null,
+   "sha256": "79374f86b23d3093be4aff657a79e9483e06d05c2e4b65404c706304bea42201",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-2_148995.pdf",
+   "bayt": 17365729,
+   "satir": null,
+   "sha256": "509102f0fd14acca5ed20c887035ceac6aae1f9a467c1461011b3899e7d0e82b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-6_150485.pdf",
+   "bayt": 6001496,
+   "satir": null,
+   "sha256": "9dc8e92f1cd893ff8e9fcddacabec2d6c08e9f9b7f554e907479e3241a532de9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-7_150654.pdf",
+   "bayt": 14826789,
+   "satir": null,
+   "sha256": "af26e74b68efbefb2f0ecc6aff7072b49c9c3da8bded3c413f6952c79c12387e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-8_150665.pdf",
+   "bayt": 15804406,
+   "satir": null,
+   "sha256": "03e4e51e7420d863132af0fc47de409209af7fcb2b328b30f3c5934f036253ae",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2019-9_151186.pdf",
+   "bayt": 1719381,
+   "satir": null,
+   "sha256": "5ddfbd6eed9f2ad6dfb6c0680c74672f01e32aece23a9c500e716783e1eee8d0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-10_160767.pdf",
+   "bayt": 442437,
+   "satir": null,
+   "sha256": "a60c39b3323e93cfeee5bb5025a4a311d641b6bd34a797e37d901fb04e37dfbf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-12_160868.pdf",
+   "bayt": 11864,
+   "satir": null,
+   "sha256": "ceba88e743b7db39d1a31d7381e23ca852850793d718e757c080842c52466a44",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-13_160912.pdf",
+   "bayt": 650446,
+   "satir": null,
+   "sha256": "967433ea2ef7e2a4886acac06ba14405cea389fa2246d104e11be46e1cbd91df",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-14_160911.pdf",
+   "bayt": 658885,
+   "satir": null,
+   "sha256": "66db76f39147bc95c2e54077247eb9a1fa94f67d1f1a10c735e8c4789edfc5cc",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-15_162109.pdf",
+   "bayt": 7985085,
+   "satir": null,
+   "sha256": "3e318821447a2b8d8d4006cd26f0a59c755fda0d534c3aa9f0d8e42a983a3221",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-15_163193.pdf",
+   "bayt": 127075,
+   "satir": null,
+   "sha256": "251719790813d0eed86b4c86867b7113da2c16a5e05415ddb977893bcb4f036c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-16_161021.pdf",
+   "bayt": 646584,
+   "satir": null,
+   "sha256": "4f4e1186b7f66f7c0eeab1203ae7aa5e1a5a1f79bb0268f47a3277c40cb3b34a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-17_163140.pdf",
+   "bayt": 636865,
+   "satir": null,
+   "sha256": "b00271c63453867b4f06106b0429986c69c55561282131a27249273e0382ce7e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-18_163254.pdf",
+   "bayt": 511805,
+   "satir": null,
+   "sha256": "40bf06efa300b31b4ba90335efb30e616f96978b08aa89d63b64a52e9e4d53cf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-19_163267.pdf",
+   "bayt": 681098,
+   "satir": null,
+   "sha256": "d837fecde6b3afc9c6bcd8502b3d3fb22447cbae58aad70940290859434f2810",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-1_159271.pdf",
+   "bayt": 73533,
+   "satir": null,
+   "sha256": "75c02b6821e0514748b8c761eb0c4a4ec80a032de992d56f659425744c77bada",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-20_163634.pdf",
+   "bayt": 2088959,
+   "satir": null,
+   "sha256": "94d750d9bc111c5c4de08d0749aaba8f9b8e3daa3a45ce94f0b92b8d44e1be8b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-20_204732.pdf",
+   "bayt": 11927517,
+   "satir": null,
+   "sha256": "a575952e25e01bb04ffdf7faa216b6cc576f56ae176d17263551902c48a3959b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-20_207850.pdf",
+   "bayt": 12326959,
+   "satir": null,
+   "sha256": "744946fa3a88d170e95b8f42d5e6b9da32b41fbad66b642c36c54fc84d335e75",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-20_208977.pdf",
+   "bayt": 12363947,
+   "satir": null,
+   "sha256": "f60d09995db998ea0c8ad8aa609a40832c24f973eece8585ea9847f8504f179b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-21_163301.pdf",
+   "bayt": 730815,
+   "satir": null,
+   "sha256": "86b6d019ee475715812b1a1336c8ad8a72b256131ae92313240a58fd6c5a967c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-22_183589.pdf",
+   "bayt": 4546948,
+   "satir": null,
+   "sha256": "b9eb007efb956def86aa65566940d969ee46d7a0499c23f8f27d78ff771607b9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-22_206602.pdf",
+   "bayt": 4584005,
+   "satir": null,
+   "sha256": "221efb624bf077982b8e3d99feee4ea75226a0800d2f78428032b884cb1227f2",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-25_163463.pdf",
+   "bayt": 461042,
+   "satir": null,
+   "sha256": "63748edf50135ee79426012ee2ea3063171ef41f9beb4eb45579c85a31d6ead7",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-26_163516.pdf",
+   "bayt": 672968,
+   "satir": null,
+   "sha256": "60e8b20e8689d6ffe4d0054be2bd128cfb3e0a248db81afaa00001fa08dad27b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-27_163674.pdf",
+   "bayt": 567220,
+   "satir": null,
+   "sha256": "77e682276c9acfafa0d7ca080d9eb3865362ca02cd5f713125c265dabc1b180f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-28_164819.pdf",
+   "bayt": 491285,
+   "satir": null,
+   "sha256": "29dd9d17595dfbf028b0e5635eb64d257d13c05f4823aa85ea093e72180c6aa0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-29_164818.pdf",
+   "bayt": 506308,
+   "satir": null,
+   "sha256": "2e6a2c663239514142a6b00ebd819cca636a86fdda423dfcb846f8e554237f14",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-2_159279.pdf",
+   "bayt": 149064,
+   "satir": null,
+   "sha256": "e656bb333b98179bd378fb9674e17d195e5960c60f51bde88675933513efd439",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-30_164823.pdf",
+   "bayt": 599133,
+   "satir": null,
+   "sha256": "96af0c533aa7be239a3aff7ca5ddf4b56e2335bcf41c676792d443303d042396",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-31_165959.pdf",
+   "bayt": 500684,
+   "satir": null,
+   "sha256": "1090b69c56b4a79d24e0baaa475802555afae31ed0f7bb1030e845ce2ea13b9d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-32_165958.pdf",
+   "bayt": 501074,
+   "satir": null,
+   "sha256": "11453e8578ecb39ad3077f700fa44b7e03f0c12c4ff19e32558e7ee6e2a4a4e4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-33_165957.pdf",
+   "bayt": 487320,
+   "satir": null,
+   "sha256": "47390505b7a4e44c8dfe68744fbeb25a381b259a97b0293ec9527e0ecc759add",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-34_166960.pdf",
+   "bayt": 60150,
+   "satir": null,
+   "sha256": "9b5333b2cee0395af79ca5041a466f092066812a73bcd2e7b78b061be2e05856",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-35_167035.pdf",
+   "bayt": 179401,
+   "satir": null,
+   "sha256": "247997d6996a5fafb2918fcc5af3129d310740f45bb76be8cc321cd0fa1e2b6f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-36_167149.pdf",
+   "bayt": 622294,
+   "satir": null,
+   "sha256": "0f1938fe5983f355534a72174b9d882771bbeb0de7956ce62c8f26f811785957",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-37_167150.pdf",
+   "bayt": 632884,
+   "satir": null,
+   "sha256": "05601260fd48820efbe927f31ab735d0cb4d021f0320362625e77219e5322824",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-38_167224.pdf",
+   "bayt": 477475,
+   "satir": null,
+   "sha256": "914f3e30a4399bd8fc1bec150b406fdcafdc365a6611aa1ce62dc422b2ba73aa",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-3_159495.pdf",
+   "bayt": 517701,
+   "satir": null,
+   "sha256": "9efa977c5aad1325d94f561435207b68989a2d1f54741ebe9360f930d44a7e41",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-40_167518.pdf",
+   "bayt": 674435,
+   "satir": null,
+   "sha256": "eca4b2669ce012072d9c233eef96d4f431d9685778c58a4beb61526ee99eb36c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-41_167590.pdf",
+   "bayt": 285008,
+   "satir": null,
+   "sha256": "1f023c82c668440f86100ef21819e7e7d09df406724029d1437afa39d465ed2e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-42_167622.pdf",
+   "bayt": 23431,
+   "satir": null,
+   "sha256": "062c4c2e6a5bc8d4c35b2f861a370c74c066016fcf4156a3feac25b229b50abe",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-44_168018.pdf",
+   "bayt": 516372,
+   "satir": null,
+   "sha256": "9952d891086630533ec74447f7548711074f640874b924f812f25a3013f557ff",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-45_168255.pdf",
+   "bayt": 523993,
+   "satir": null,
+   "sha256": "3a7e8aaa6b6bc1ed0809ab129a1624f6756fc8a13c8bb732a87953d24c9979c9",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-46_168311.pdf",
+   "bayt": 180687,
+   "satir": null,
+   "sha256": "e73be74a6b4973c673ff839eda597be23929b7abb3efd5b07ce1224f83768e25",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-47_168402.pdf",
+   "bayt": 540145,
+   "satir": null,
+   "sha256": "00145fd561a02f7612d5fa49bafd0cd11dfaa519ae38266dd25786da9213f2a3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-48_168446.pdf",
+   "bayt": 505860,
+   "satir": null,
+   "sha256": "2f8335c9fb7d67c6a780a29c12fa025f224cbfd0492ddc3857ce9c74732e2597",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-49_168550.pdf",
+   "bayt": 221619,
+   "satir": null,
+   "sha256": "8331a5f6f83dafc6303de21497a89c5c88175be6db86d47cf60ebfa9632a5f1f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-4_151561.pdf",
+   "bayt": 1026807,
+   "satir": null,
+   "sha256": "e129979f58369f55ce49d88f0b7b67a47b1ea325c988f089bf10e60ad3e23b28",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-50_168551.pdf",
+   "bayt": 223952,
+   "satir": null,
+   "sha256": "a80d7bb7aeb1135b920b19ad15e0c47adb36fd93c56d6272d7e021f2c2fd277c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-51_168689.pdf",
+   "bayt": 437711,
+   "satir": null,
+   "sha256": "75137ce92f53084aab48c74bd9d8608079ba162c6d95735324c968a3c8a1855f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-52_169791.pdf",
+   "bayt": 69237,
+   "satir": null,
+   "sha256": "6befefdc7f9dc57d7e4ed340c05b18b233c2a3786cee61289df3cc39e91ee42e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-53_169911.pdf",
+   "bayt": 599491,
+   "satir": null,
+   "sha256": "2014af9b2acc2ee1e2f99810d9e24db81a684fbe5c24c8ec85539a1de4f9bbb3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-5_159936.pdf",
+   "bayt": 402357,
+   "satir": null,
+   "sha256": "ff42c7798739da63666d3fa4c6d134238d55f4f7bb2c3fe85ef680857dd97223",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-5_204889.pdf",
+   "bayt": 613360,
+   "satir": null,
+   "sha256": "05e4bb90e93418354d5fe14f29f1f2c37073e2d67b7358aa5bbe6f55595e0fe0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-6_160215.pdf",
+   "bayt": 677994,
+   "satir": null,
+   "sha256": "dfada1be8dd62f4a8cba8e5dc6129a01b440776c220277f473cf609a5e56a3ec",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-8_163670.pdf",
+   "bayt": 1066370,
+   "satir": null,
+   "sha256": "6f42b5d9c06db991ce9dc2184c5a189febd538e9625829bf4dedd8063a6a0587",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2020-8_208831.pdf",
+   "bayt": 4020792,
+   "satir": null,
+   "sha256": "a8af20571a0153c522243262e1c60e5bb0cb544bf070cf09f078482fbaa76958",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-11_179475.pdf",
+   "bayt": 21936,
+   "satir": null,
+   "sha256": "bdae7a269a8e920d557e6e09e8ebf4f2fd12efa42c6b17854873ff8299dd8189",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-12_175864.pdf",
+   "bayt": 11700,
+   "satir": null,
+   "sha256": "1b6fb9e286470fb24aef78f78b9ba76f52de619dfc38d015b84feb075a09e00d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-13_176983.pdf",
+   "bayt": 29637,
+   "satir": null,
+   "sha256": "4b1ed12e8581363e5f96b202cf66e7a46af9c8af2e5100db10eadbfb18c8874b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-14_177014.pdf",
+   "bayt": 135924,
+   "satir": null,
+   "sha256": "a9a06e521ae6993e5d218c7d2cef3dc438208e2fd8a937f4fda30f7b3bae2de8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-15_177108.pdf",
+   "bayt": 578644,
+   "satir": null,
+   "sha256": "4ff4852aff6116dd9a7fccbf1cb0530b76740e2d6b7b1b6f2b82641d9216f596",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-16_177062.pdf",
+   "bayt": 106054,
+   "satir": null,
+   "sha256": "e8ee91a8f18ee85f6911445d19e4cc2695a328b4e0b0ec4c6e18273e3c4f3350",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-18_179337.pdf",
+   "bayt": 99102,
+   "satir": null,
+   "sha256": "a523c54057c5f0dce88f6e02a9873a8946d51feba24eecb699399a888855fbcd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-19_179476.pdf",
+   "bayt": 74747,
+   "satir": null,
+   "sha256": "5c4aa8fe38ce78d1854911fd520e95ce671d8092831e662afda417ce732fb778",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-1_170109.pdf",
+   "bayt": 154998,
+   "satir": null,
+   "sha256": "54709c90fe2e6526ce255261b1b384e4d9aa0396776d84f8f53b369308c2be22",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-20_179409.pdf",
+   "bayt": 539598,
+   "satir": null,
+   "sha256": "93b6e5d704b003e84c87027da8dea42e4b9d07200de47baa597ad1c618de01d1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-21_179562.pdf",
+   "bayt": 7789717,
+   "satir": null,
+   "sha256": "2d0a9a828cb7bfd648024b1212931d2b8a939c4dbbd93b815df0ebead0343917",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-22_179506.pdf",
+   "bayt": 551315,
+   "satir": null,
+   "sha256": "94d22cbd9a0b33728905ea1478f78623dff29dbda50aa5bbb0cf03b04161090c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-23_182985.pdf",
+   "bayt": 11387,
+   "satir": null,
+   "sha256": "bb259684ec8856869d941e26c321875f143b47a3742b0384d87a0b3c010f0c5c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-24_180020.pdf",
+   "bayt": 296415,
+   "satir": null,
+   "sha256": "1c256c4a3724e33a8004f1c7761812c658172655fc0831cd9e9f35256fe300c1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-26_180160.pdf",
+   "bayt": 63784,
+   "satir": null,
+   "sha256": "302e2cae3d01f313e66d5ab8242c18a392a6fb9502b2227da8b4df3088c22299",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-27_180486.pdf",
+   "bayt": 192770,
+   "satir": null,
+   "sha256": "938f873af5de50e05e19b029832671fd805df073ee60d86928a742a62e2743bd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-28_180489.pdf",
+   "bayt": 401014,
+   "satir": null,
+   "sha256": "f47cdab5736846cbf9ae44e3ab5ec06ea6fe7e46b83c1a7a9be3974f7fbdafe8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-2_179478.pdf",
+   "bayt": 678198,
+   "satir": null,
+   "sha256": "7ccc113909f0248daa170fdf2fd0dc5309fd45e323300ed5560861db6ff5584b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-30_180745.pdf",
+   "bayt": 10158,
+   "satir": null,
+   "sha256": "a4b4ba6420a86262ef2cfd0f01675a3f16886bb66c68e3ccfdc7f8ab39dd706a",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-32_182945.pdf",
+   "bayt": 546936,
+   "satir": null,
+   "sha256": "17b46815e2dedb6127b03dfdcad1b8f78285a97bf9280ef806cb5f30f79c65c8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-33_183162.pdf",
+   "bayt": 117234,
+   "satir": null,
+   "sha256": "193502972a5f4d51c561a6cda0976916ac8c780fcd6de76eb82def133e5a51f6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-34_183204.pdf",
+   "bayt": 492996,
+   "satir": null,
+   "sha256": "f388e06e0b83ac94e776be9196d3fbe7f578f2991fc72232f34f4302fe5a38e2",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-36_183348.pdf",
+   "bayt": 91925,
+   "satir": null,
+   "sha256": "f78e488f639fc4109dd55767fd8d30f55abbbdd8a752c5357c6f972b45d0ba4f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-37_183512.pdf",
+   "bayt": 283576,
+   "satir": null,
+   "sha256": "efff22b6b37e01a7d275b00caae67be5f6bda34d63aedfff6c2665e552769a83",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-38_183961.pdf",
+   "bayt": 4031626,
+   "satir": null,
+   "sha256": "a4614b1923b9cc33d4c238ffaddc658deca0b8b63be85977d9330a5760e7925f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-3_170619.pdf",
+   "bayt": 96792,
+   "satir": null,
+   "sha256": "5dc643df05ddd53300ec41f7d607e218359aa073dde40acf74e7ba83400569bb",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-5_173181.pdf",
+   "bayt": 27471,
+   "satir": null,
+   "sha256": "71b6afa6236643cdc792e82da5d764fd3f9cdbcc55afebbe37e15c8d819b0ffd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-6_179479.pdf",
+   "bayt": 793069,
+   "satir": null,
+   "sha256": "48d5f311da6ad46692f7c115e0bb08c81d9ddbeda0965dd2be21de841b8f4486",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-7_174320.pdf",
+   "bayt": 490047,
+   "satir": null,
+   "sha256": "e7fb40cd64dc5a7d6a30875a49bcf286979dfc3777dba19053b34153fa41ac49",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-8_175593.pdf",
+   "bayt": 118060,
+   "satir": null,
+   "sha256": "273a336c2ae325969ba2027358ab4bd95df4e2ffffdcc9b84aa0c76e2c8e56f4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2021-9_175715.pdf",
+   "bayt": 270393,
+   "satir": null,
+   "sha256": "d455d2e6cebea88239fca1495506d51dfdb3d6cab4580d32b12eb413d58c6600",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-11_190448.pdf",
+   "bayt": 139094,
+   "satir": null,
+   "sha256": "df30e0cc8ce34d6517b1ea84a6e848bc451a3d22e1f84c23e65e52b6c6a1016c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-13_190549.pdf",
+   "bayt": 142835,
+   "satir": null,
+   "sha256": "fefcb71486d4f4fcf13ada3fd53346d9bda999cfed4f4bc2cfed9b2d31634065",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-14_190673.pdf",
+   "bayt": 35585,
+   "satir": null,
+   "sha256": "2dc9790ea97b0d18de6cd9c54a7805ece76adef29ebfb2aa90478bb5d1293d28",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-19_191190.pdf",
+   "bayt": 355377,
+   "satir": null,
+   "sha256": "3c828b96832112b4266dc296bb6dfa4992422b5f480e466c82d64d3b5d85e030",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-1_184550.pdf",
+   "bayt": 101814,
+   "satir": null,
+   "sha256": "d23a6392ee227e5142959e5c43eaf4b98b90e42dca876d24fc6d68c1eb4fca41",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-20_192072.pdf",
+   "bayt": 50760,
+   "satir": null,
+   "sha256": "31d327d940fc161888768d531a2373bfef7c7f7babf0cad7546b3d460547f96d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-22_192112.pdf",
+   "bayt": 99390,
+   "satir": null,
+   "sha256": "71813eddbb525aa877dcdf283fb9555624429c1939628106df5987d496423942",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-25_193652.pdf",
+   "bayt": 67518,
+   "satir": null,
+   "sha256": "aeea7b46fda7ad66fe274559da195028581b5fba2d6191ee6055f435ccc098ee",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-26_192348.pdf",
+   "bayt": 107458,
+   "satir": null,
+   "sha256": "aff3996a1a2caa719d490b6cfe21a69798ede85f9688c722b4130c2e78b95521",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-2_186777.pdf",
+   "bayt": 9030,
+   "satir": null,
+   "sha256": "8f7c02377dc61b44fba4b675da28b813445f94269d55c0bd95808847981baf2f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-3_186970.pdf",
+   "bayt": 104598,
+   "satir": null,
+   "sha256": "b4194973e62c0c085f6b7b813c9037bba4f81f9414c0e7aaa4be6de851a12843",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2022-6_187287.pdf",
+   "bayt": 634316,
+   "satir": null,
+   "sha256": "e847b95bc5adb0ad63c5bbdd28c7ebd9f5f2961a591f4806facd0b4ddc86b86f",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-12_196212.pdf",
+   "bayt": 328626,
+   "satir": null,
+   "sha256": "870daaa58ffb6d3b44f09051bdb1b5019a12a79ba431c0d88d5be6e0fb3e9faa",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-13_196344.pdf",
+   "bayt": 97897,
+   "satir": null,
+   "sha256": "462a862c4422c863b2850edafb2ec29eff5132f51997d64b353f5dabf6557f2d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-14_196372.pdf",
+   "bayt": 1336510,
+   "satir": null,
+   "sha256": "fc664caf2440cddc888049ea13d79c071bb7857c202fd4a5b7508f7b3954d54c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-15_196396.pdf",
+   "bayt": 103052,
+   "satir": null,
+   "sha256": "aa6abf6e1b25303fc4e3a1b5bdffc974b1f278764bf2334940c4521669d24313",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-16_196443.pdf",
+   "bayt": 47799,
+   "satir": null,
+   "sha256": "8023a911f3c0c0d45280a11a7150f1936ad0a73950dc5688c14c29d088bcf9e1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-17_196539.pdf",
+   "bayt": 64900,
+   "satir": null,
+   "sha256": "aa2a25e48ed38c11f5ec4163f632031de38537b623f9144799b8126d9aef1dbd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-18_196604.pdf",
+   "bayt": 83577,
+   "satir": null,
+   "sha256": "573747aaf07c28e0b1c6f986983222b61ca531d0d1385be89ec86dbff4c84422",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-19_196680.pdf",
+   "bayt": 216110,
+   "satir": null,
+   "sha256": "0005035367686c13e7e78851c323f19d60612a2f582fe7257d4299162e9505cc",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-1_193576.pdf",
+   "bayt": 701502,
+   "satir": null,
+   "sha256": "7bb923a39d99ecee333683d5b61ccbd457f0264013171bf67b151cecc071bcf0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-20_198185.pdf",
+   "bayt": 476774,
+   "satir": null,
+   "sha256": "a77eb6bb7df5a87fcc3b11bb32eae351b75dabd7b3b43e2031f6848d00eba799",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-21_198247.pdf",
+   "bayt": 63632,
+   "satir": null,
+   "sha256": "a670250dce81be487f314cbb9a8c119b9a7ed7d0a62567363add4f8c8c04831d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-22_198419.pdf",
+   "bayt": 137839,
+   "satir": null,
+   "sha256": "4c8c56364d3830bc16f70f642982829c825ed7d3300f8af234a66e9c2cf0e3e7",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-23_198420.pdf",
+   "bayt": 78670,
+   "satir": null,
+   "sha256": "78b45400daba2703c7ea1dea168054b35afa991f3f5ef1ea77bf0a52ca33337e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-24_198553.pdf",
+   "bayt": 232679,
+   "satir": null,
+   "sha256": "74d39f37723e7e62ad02df7b66c66cab44506404035cde59b67fc7db8121b477",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-25_198876.pdf",
+   "bayt": 345583,
+   "satir": null,
+   "sha256": "38b0c03c0c0b7ad46569708a87976df3c9f0c6d7c612fa68b7cc7c20f471d8e4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-26_199481.pdf",
+   "bayt": 55571,
+   "satir": null,
+   "sha256": "cdda5dad329c3e82d90c864809eecf04073770e2ca62a814b266e7ce85ef36da",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-28_200148.pdf",
+   "bayt": 495173,
+   "satir": null,
+   "sha256": "16eb8575e100aba5857f89282b6dec878e972c1926ecc92e58c434a99d870430",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-3_193580.pdf",
+   "bayt": 146412,
+   "satir": null,
+   "sha256": "d3eba898823ed9e0fae7897701a6208e6c0024acce2dbda319faed55a1fbb10e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-6_193788.pdf",
+   "bayt": 8266,
+   "satir": null,
+   "sha256": "98979e9d60d6a5ee7a0ddd8f02e1a3933fe64d146048b23a15aa05aef2cb5448",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-7_193878.pdf",
+   "bayt": 19460,
+   "satir": null,
+   "sha256": "ce7178c1083b6395d042001804738e776c0a79ed5ed4eecdfc141265bef63734",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-8_194052.pdf",
+   "bayt": 98289,
+   "satir": null,
+   "sha256": "bcd0a59c05c4e7c6eadf30489aab8df30d20b440c14215a587587d6ba9e64618",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2023-9_194083.pdf",
+   "bayt": 46186,
+   "satir": null,
+   "sha256": "b4e41eab9e9f05de56ccb0bb8af0f7faa1518255e5fe3a6052f8149ff05fda66",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-11_203696.pdf",
+   "bayt": 299144,
+   "satir": null,
+   "sha256": "551e03ac8abc2445a71fb5179ae3c05e7ee1c85bb3c98f798187bd6e91594e2b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-12_203304.pdf",
+   "bayt": 3175859,
+   "satir": null,
+   "sha256": "5ad50b0a8402ad721b50bca1dd26c1796f9f5736f8477f93eff1001961a77eb6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-12_208531.pdf",
+   "bayt": 1378450,
+   "satir": null,
+   "sha256": "9e49ed4520d91c9d710bb7d562cd46394f4fa3770c38f2c96e8b8385b4944628",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-13_204091.pdf",
+   "bayt": 284913,
+   "satir": null,
+   "sha256": "56af6e44e0b4a3588929bf72d0a9c93155452e9e1d1d0ca0a1802074b087f59e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-14_204416.pdf",
+   "bayt": 50551,
+   "satir": null,
+   "sha256": "4699ab22cc2448c6253820d7da0c34741c804d0e25adfd32b5fc550a88ff6388",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-15_204667.pdf",
+   "bayt": 926938,
+   "satir": null,
+   "sha256": "d42ec103f1bfbd16effa2d9e764a3acb9563d0139c842aa3dcb8c934b4b0d795",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-16_204699.pdf",
+   "bayt": 187638,
+   "satir": null,
+   "sha256": "ffbb8fa7f4a62ddce4af9963a0976e2f0c291e1bc309e0cf1ae0ef41088d8817",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-17_204731.pdf",
+   "bayt": 40629,
+   "satir": null,
+   "sha256": "73905c3bb00862a5886fbdc5c23f119239f825032c5d8d6fb71ba95024aa5af3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-2_200451.pdf",
+   "bayt": 146081,
+   "satir": null,
+   "sha256": "bbbc79c696ba925d073a4dc667156b1600cc67efa6f59eeeb2bd1f2fea1ef346",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-3_200971.pdf",
+   "bayt": 357093,
+   "satir": null,
+   "sha256": "d87e79f61c3d849b1132d7edf8e65d54c76efa81d89178726d7515c58db3a70e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-7_202543.pdf",
+   "bayt": 62095,
+   "satir": null,
+   "sha256": "58f8caabf4ffae6e29faa9e641ad4e149f2932c26e05df2c4546edf346b551a8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2024-8_202766.pdf",
+   "bayt": 389513,
+   "satir": null,
+   "sha256": "69b65edd6680e9914f5c382dbb2ddcdfc88483c78d445664c4bf9deffc6c44e6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-10_206628.pdf",
+   "bayt": 73000,
+   "satir": null,
+   "sha256": "1ef1b6b8542602da5c68ef69d30b5a40a5a2d47a9f1f93e45fbd5d470d32be20",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-11_206902.pdf",
+   "bayt": 59651,
+   "satir": null,
+   "sha256": "40cc993c4a03762c13d505428b2d5ec481ae36ab080f954b142f90767f2777b5",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-12_207847.pdf",
+   "bayt": 100730,
+   "satir": null,
+   "sha256": "016263084ead31f40f69550b96f45ef2227665c7b01744816492eae1641beeaf",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-13_207848.pdf",
+   "bayt": 133212,
+   "satir": null,
+   "sha256": "bbc70c5879e568a08c6da3d46f427a9e9417b0e197f3fae5e766c9d917900a7d",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-15_207875.pdf",
+   "bayt": 166706,
+   "satir": null,
+   "sha256": "558f7a376d2fa33cd0d496664b917cd45cc0aa1c12b8a60ef3c51f5755535d71",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-17_208440.pdf",
+   "bayt": 222540,
+   "satir": null,
+   "sha256": "3debb90bd2e27c92785c80129cbd5928d252a19a0fb0d6dffedf76829e8f5486",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-2_204989.pdf",
+   "bayt": 112919,
+   "satir": null,
+   "sha256": "c59e2f79cd88ca4f26f842ae97cad6555423c270ce4d9d4c4a558aeb5fce2b82",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-3_205422.pdf",
+   "bayt": 54132,
+   "satir": null,
+   "sha256": "5d8f50a7d5e1a95fb02062fd2ab1cbb1b54acb75fb0f0e46f8998c135391a649",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-4_205268.pdf",
+   "bayt": 541106,
+   "satir": null,
+   "sha256": "627eedea65c5eb52ef912e5a6ea11510105fa88b06ec3783ebb0bf3465ca8a18",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-6_205315.pdf",
+   "bayt": 90105,
+   "satir": null,
+   "sha256": "5ebdd2800d7df2f873c7746fea2a256f4b72cd2dfd5bc81a273670374bcbbbcd",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-7_205541.pdf",
+   "bayt": 48517,
+   "satir": null,
+   "sha256": "fd4b5a21c87f539b7d3eb364f77ccc57f3bdc6d524e028c5d555a54026bb9521",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-8_205539.pdf",
+   "bayt": 11338,
+   "satir": null,
+   "sha256": "4e69296702cb3d7c470179c3913c124e7e60641c84ab9e114a5bf6739d4ac242",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2025-9_205540.pdf",
+   "bayt": 498334,
+   "satir": null,
+   "sha256": "73c4ec95d96789c3b83f473346db08786168514b7c1e463468716bc61e42408b",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-11_208971.pdf",
+   "bayt": 99463,
+   "satir": null,
+   "sha256": "0ecd7e4b4709948343479459e34c80fb85345e6dfd77cdb826f15368731da8e0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-12_208976.pdf",
+   "bayt": 125444,
+   "satir": null,
+   "sha256": "fbda30703059f76ba1afe7aa87ec228762ff7c76b166dceb819b022ac493ee5c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-13_208981.pdf",
+   "bayt": 2715834,
+   "satir": null,
+   "sha256": "d1477635e1305b83b75bc8f478e02d5ea8cb4454f6236ed4508366cdb1ae5a77",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-15_209136.pdf",
+   "bayt": 164566,
+   "satir": null,
+   "sha256": "755d95aaf6020284c3da47dddc6d650c154e05c02d07881fe733dc3b21e0b929",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-16_209152.pdf",
+   "bayt": 201607,
+   "satir": null,
+   "sha256": "75b5e0099e2b93682442bbc1e6a407c09f7161c87b919ccdfed290d3206fe311",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-17_212566.pdf",
+   "bayt": 102589,
+   "satir": null,
+   "sha256": "d215e9aa473735aa0d3a1e20e5567b0fc17ba51ecc9e2503edc16a7d6e3f0f0e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-19_209294.pdf",
+   "bayt": 142351,
+   "satir": null,
+   "sha256": "9267d35156fa1950b25810560907a3b6598b94c86d0dd192c41e11c56865856c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-1_208438.pdf",
+   "bayt": 136618,
+   "satir": null,
+   "sha256": "01cb79a844a828b35031ce3ca5b7bd35339cc0ffdd667ed6334fa5e30782f91e",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-20_211322.pdf",
+   "bayt": 59544,
+   "satir": null,
+   "sha256": "b03e1b0b1e02a161f830706f07a1a8701b30606cb6d52c690d40c031d92fd5f8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-21_212419.pdf",
+   "bayt": 181522,
+   "satir": null,
+   "sha256": "b57fb535938bc3cc479b92bb4cb24788856ba103b6581ebdc32354ffcf1aae57",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-22_212606.pdf",
+   "bayt": 100763,
+   "satir": null,
+   "sha256": "8f538672b9da050730e7741921acf4a0581d4e5d92fdc9ef07e774ae6fdf6901",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-23_212706.pdf",
+   "bayt": 184469,
+   "satir": null,
+   "sha256": "41f095efd4e71f6bfcaa690473cd14ee4aa9f7b50c6b5c56cdaab885a4deb560",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-2_208439.pdf",
+   "bayt": 127427,
+   "satir": null,
+   "sha256": "facff8450dace22af3b0ec6444afbe442e4c89f7d09e1059e167a98a3948fa27",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-3_208478.pdf",
+   "bayt": 58066,
+   "satir": null,
+   "sha256": "2b298f5bf3d018ec39d65a000f86c9910c429b6cc5aa4a16b4280c7b3225f804",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-7_208529.pdf",
+   "bayt": 149036,
+   "satir": null,
+   "sha256": "e67cae6a06827243f7614d6bb116711b51ea536ad7bdfef7b4fdd3ab0316666c",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-8_208685.pdf",
+   "bayt": 320101,
+   "satir": null,
+   "sha256": "909404b907a7c72fb8c11c39d5ce70043c8ba6111af3a761d056d093bde475c4",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/2026-9_208833.pdf",
+   "bayt": 48296,
+   "satir": null,
+   "sha256": "9e268b79941c141b90ed7b629da97504c53b0fb4024c3a8aaf729e8bc1fcabee",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/pdf/sayisiz_202865.pdf",
+   "bayt": 63283,
+   "satir": null,
+   "sha256": "eba1e5b6ee6fbc32a71e46710e77700dd2bce57a120808df4b57fe6a05d05580",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/sgk_genelge_katalog.csv",
+   "bayt": 112157,
+   "satir": 401,
+   "sha256": "28ea22c319a9203ab30e2511ba1a6dba28ff517328581e56813156b0f6bd8949",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "04_genelgeler/sgk/sgk_genelgeler.jsonl",
+   "bayt": 51183229,
+   "satir": 400,
+   "sha256": "8e7d6a629f2c94dd0d9fa807ab67d75b64645d9feba104b989cc5b8a2199aca6",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/README.md",
+   "bayt": 9031,
+   "satir": 75,
+   "sha256": "ea9fc5ca5201d3f0f9dc5ad4e7c4c47c604e202b12cc86bdb3e974842620a424",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/egitimden_cikarilacaklar.jsonl",
+   "bayt": 700,
+   "satir": 3,
+   "sha256": "df62b461b4810687cbd03fcc054ebe715bd720fd5d6f72c546e0cc92e141fe3f",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/otomatik_kontrol.py",
+   "bayt": 1626,
+   "satir": 32,
+   "sha256": "0e0c0a5ce61a2130056b5130a574a9786a5b98de301b60a72ba9fce099b21f22",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/tuzak_sorular.jsonl",
+   "bayt": 22713,
+   "satir": 28,
+   "sha256": "786e9461b946525bc8a78c8bc9f07c7cb790d3ce26b8a89124b4ac7b11bf4a72",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "05_tuzak_sorular/yargic_promptu.md",
+   "bayt": 3473,
+   "satir": 103,
+   "sha256": "a7b1e04ab19725b91784b32f49983507cb34c5f446aba41ba7266d587793d025",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/KATALOG_genel.csv",
+   "bayt": 2135,
+   "satir": 11,
+   "sha256": "0890aa65f70ebaaa633028d187955404db6009c3ded53b8b9e289296008169b3",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/README.md",
+   "bayt": 2952,
+   "satir": 44,
+   "sha256": "958ad081e355ebe3397eac1b22f4a2fc7430860028ae4afe4e5a39fb8824a2f1",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/aya_eval_tr.jsonl",
+   "bayt": 97625,
+   "satir": 250,
+   "sha256": "7024f7c4ab275d9f2958c69e564a3d26f08d036d7fe97ccfeedf00f399d188f8",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/gecturk_test_500.jsonl",
+   "bayt": 111025,
+   "satir": 500,
+   "sha256": "736e3a4b9490ce574b561b7ff9478bcdb76762e540ac38c5b712c23a939136d1",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/genel_kontrol_v1.jsonl",
+   "bayt": 22003,
+   "satir": 60,
+   "sha256": "406eadcf3b4143934e1fe6d33156b18dbc7bbd72123c19a2f8b6371f8aef1a95",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/turkishmmlu_dev.jsonl",
+   "bayt": 27241,
+   "satir": 45,
+   "sha256": "2c970c1accd807638097cfdc77af700667cbb5684066cf130ad21506474f8e44",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/turkishmmlu_test.jsonl",
+   "bayt": 508219,
+   "satir": 900,
+   "sha256": "ba596b8e33c04b3b066012ba952015719380c1c63528fbfce0ef1d46a1021365",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/uslup_kontrol.py",
+   "bayt": 1312,
+   "satir": 26,
+   "sha256": "79d36d1215c481aec8bcbb38c8466f0127e6a880e318c3c30857bd9b62e6809d",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/uslup_yargic_promptu.md",
+   "bayt": 1219,
+   "satir": 30,
+   "sha256": "afc03b4bc31daaa8219fa87551982fff17a4987a6d5af631096b56844646a0c1",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/vikipedi_perplexity_500.jsonl",
+   "bayt": 299678,
+   "satir": 500,
+   "sha256": "150b84b1260ce0dd617dde79843091dddc5b977ab052e12b1206d6982bd4bd93",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/wmt16_entr_test_500.jsonl",
+   "bayt": 138183,
+   "satir": 500,
+   "sha256": "1d064669288de644009e2a99e05d5a28313cc06076995266f996c48309e7091f",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/degerlendirme/xlsum_tr_test_500.jsonl",
+   "bayt": 1736059,
+   "satir": 500,
+   "sha256": "0896162d0a94fba6fe904e97e279938359d6f6e9d58c378a92606ef38311bd8b",
+   "kilitli": true
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/egitim/aya_tr_train.jsonl",
+   "bayt": 2243930,
+   "satir": 4046,
+   "sha256": "b668f6a2c58503e02af9e8f9e4839c6dd2cba46f038437677a16a2b63bd36cb8",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/egitim/instructurca_orneklem.jsonl",
+   "bayt": 41553525,
+   "satir": 24000,
+   "sha256": "ef8a0baac56931a207a01dfa142844a32137b2882f6419ab8b0113274f58e968",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "06_genel_turkce/indir_genel_turkce.py",
+   "bayt": 9705,
+   "satir": 193,
+   "sha256": "23be41d93a4a60a829fd4f06594cc850976290cc172db1d13ae871920a038fa0",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "KATALOG.csv",
+   "bayt": 20844,
+   "satir": 62,
+   "sha256": "ca9902795a65f4ec9a6ed1fff4dfa9f6872150b0a8a407854054bc5095e635cc",
+   "kilitli": false
+  },
+  {
+   "kok": "/home/aipc/Desktop/fine_tuneVeriler",
+   "yol": "README.md",
+   "bayt": 3815,
+   "satir": 55,
+   "sha256": "59885a5b7e746477d20e916974d453e6772c77578e4a28d406ac358836841d52",
+   "kilitli": false
+  }
+ ]
+}

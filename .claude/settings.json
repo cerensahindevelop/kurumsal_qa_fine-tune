@@ -1,0 +1,16 @@
+
+{
+  "permissions": {
+    "deny": [
+      "Read(//home/aipc/Desktop/Gruplu Veriler/degerlendirme/test.jsonl)",
+      "Read(//home/aipc/Desktop/Gruplu Veriler/degerlendirme/tuzak_sorular.jsonl)",
+      "Read(//home/aipc/Desktop/Gruplu Veriler/degerlendirme/T*rk*e*/**)",
+      "Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/kanarya.txt)",
+      "Read(//home/aipc/Desktop/fine_tuneVeriler/05_tuzak_sorular/**)",
+      "Read(//home/aipc/Desktop/fine_tuneVeriler/01_sss/**)",
+      "Read(//home/aipc/Desktop/fine_tuneVeriler/06_genel_turkce/degerlendirme/**)",
+      "Edit(//home/aipc/Desktop/Gruplu Veriler/**)",
+      "Edit(//home/aipc/Desktop/fine_tuneVeriler/**)"
+    ]
+  }
+}
