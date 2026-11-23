@@ -262,7 +262,13 @@ Karar 3'e göre:
 
 ## 7. Geliştirme kapsam dışı seti
 
-Dosya: `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru, taslak, onay bekliyor). Tuzak setine bakılmadan sıfırdan yazıldı. Her kayıtta beklenen davranış ve kabul ölçütü var. 02'deki çakışma denetiminden geçecek. Tuzak setiyle yakın eşleşme çıkarsa kayıt kimlikleri `inceleme/` altındaki CSV'ye yazılır ve kararı kullanıcı verir. Bu set yalnızca geliştirme ölçüsüdür, final iddiası olmaz.
+Dosya: `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru; kullanıcı onaylı, 2026-11-23, "01: geliştirme kapsam dışı seti onaylandı"; her kayıtta `onay: "onaylandı (kullanıcı)"`).
+
+Kullanıcı incelemesinde iki düzeltme yapıldı, diğer 13 kayıt olduğu gibi onaylandı:
+- **GKD-012 kabul ölçütü:** "Bir yıl şartı belirtilmiş; 'kullanabilirsiniz' denmemiş." yerine "Bir yıl şartı belirtilmiş; iznin ilk ay içinde kullanılabileceği söylenmemiş." Gerekçe: doğru bir cevap "bir yılı doldurduktan sonra kullanabilirsiniz" diyebilir; eski ölçüt bu cevabı haksız yere başarısız sayardı.
+- **GKD-008 beklenen davranış:** sonuna "Asgari ücretin Asgari Ücret Tespit Komisyonu tarafından belirlendiğini söyleyebilir." eklendi. Bu bir izindir, zorunluluk değildir; kabul ölçütü değişmedi.
+
+Set onaylandı ama son hâli değildir: 02'deki çakışma denetiminden geçecek. Tuzak setine bakılmadan sıfırdan yazıldı. Her kayıtta beklenen davranış ve kabul ölçütü var. 02'deki çakışma denetiminden geçecek. Tuzak setiyle yakın eşleşme çıkarsa kayıt kimlikleri `inceleme/` altındaki CSV'ye yazılır ve kararı kullanıcı verir. Bu set yalnızca geliştirme ölçüsüdür, final iddiası olmaz.
 
 ## 8. Kararlar ve açık kararlar
 

@@ -24,7 +24,7 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 | `istemler/cevap_standardi_v1.md` | Üslup, jargon, bilgi yokken ve alan dışında davranış |
 | `degerlendirme/deney_plani_v1.md` | Ön kayıt taslağı |
 | `degerlendirme/esikler_v1.md` | Eşik taslağı (onay bekliyor) |
-| `degerlendirme/gelistirme_kapsam_disi.jsonl` | 15 soru, `onay: bekliyor` |
+| `degerlendirme/gelistirme_kapsam_disi.jsonl` | 15 soru, `onay: onaylandı (kullanıcı)`; GKD-008 ve GKD-012 düzeltildi; 02'deki çakışma denetimi bekliyor |
 | `degerlendirme/kilit_manifesti_v1.json` | 25 kilitli dosyanın SHA-256 özeti |
 | `src/veri/girdi_ozeti.py` | Girdi özeti ve kilit manifesti betiği (içerik basmaz) |
 | `env/2026-11-23_girdi_sha256.json` | 505 girdi dosyasının özeti |
@@ -107,7 +107,12 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 - ~~12. Ton isteklerinde ünlem/emoji~~ kapandı ("01: karar 12-13 kapatıldı"): emoji her durumda yasak; ünlem yalnızca kural 9'daki isteklerde ölçülü olarak serbest. Kural 9'un sonuna "Bu durumda ünlem ölçülü kullanılabilir; emoji hiçbir durumda kullanılmaz." eklendi. Kural 2'deki yasak resmî üslup için geçerli (`cevap_standardi_v1.md` §2a). Cümlenin yeri ve kapsamı karar 14 ile düzeltildi.
 - ~~13. "kolayca anlatır mısın" örneği~~ kapandı: örnek "anlaşılır bir dille anlatır mısın" ile değiştirildi. Ölçüldü: yeni ifade ve çekirdeği "anlaşılır bir dille" v1'de 0/60, v2'de 0/60. v1 yalnızca sayı basan `src/veri/ifade_say.py` ile denetlendi. Betiğin doğruluğu v2'de bilinen iki eşleşmeyle sınandı (1/1).
 - ~~14. Kural 9'daki "Bu durumda" göndermesi~~ kapandı ("01: karar 14 kapatıldı"): kullanıcı iki seçeneği birlikte seçti. Ünlem/emoji cümlesi kuralın sonundan kaldırıldı. Yerine "kanun ve madde atfı gerekmez." ifadesinin hemen ardına "Ton isteği varsa ünlem ölçülü kullanılabilir; emoji hiçbir durumda kullanılmaz." eklendi. Kural 9 "Böyle bir istek yoksa yukarıdaki resmî üslubu koru." cümlesiyle bitiyor. Sonuç: ünlem yalnızca ton isteğinde serbest; sadelik isteğinde ve resmî üslupta yok. Standart §2a, plan karar 9/12/14 ve öğrenme dosyası güncellendi.
-8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Son üçünü kullanıcı ayrıca inceleyecek; bu adımda dokunulmadı.
+- ~~Geliştirme kapsam dışı seti kullanıcı onayı~~ kapandı ("01: geliştirme kapsam dışı seti onaylandı").
+  - GKD-012'nin kabul ölçütü "Bir yıl şartı belirtilmiş; iznin ilk ay içinde kullanılabileceği söylenmemiş." oldu. Gerekçe: doğru bir cevap "bir yılı doldurduktan sonra kullanabilirsiniz" diyebilir; eski ölçüt bu cevabı haksız yere başarısız sayardı.
+  - GKD-008'in beklenen davranışına "Asgari ücretin Asgari Ücret Tespit Komisyonu tarafından belirlendiğini söyleyebilir." eklendi.
+  - Diğer 13 kayıt olduğu gibi onaylandı. 15 kaydın hepsinde `onay: "onaylandı (kullanıcı)"`. Ölçüldü: yalnızca bu üç alan değişti, başka alan değişmedi.
+  - Set kilit manifestinde değil (geliştirme seti); yeni manifest üretilmedi. 02'deki çakışma denetiminden geçecek.
+8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Kullanıcı `cevap_standardi_v1.md` ve `sistem_v1.txt` için kararlarını verdi (karar 9–14). `gelistirme_kapsam_disi.jsonl` kullanıcı tarafından onaylandı (aşağıda); senior onayı yine bekliyor.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
