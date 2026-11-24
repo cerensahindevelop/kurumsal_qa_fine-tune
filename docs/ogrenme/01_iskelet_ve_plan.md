@@ -251,3 +251,22 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 **Kontrol sorusu:** 4.1'de toleransı −1'den −3'e çıkarmak neden "daha güvenli" değildir?
 *Cevap:* Tolerans büyüdükçe yanlış alarm azalır ama gerçek bir kötüleşmeyi yakalama gücü de düşer: 3 soruluk bir kötüleşme −1'de yaklaşık üçte iki, −3'te yalnızca üçte bir civarında yakalanır. Daha gevşek eşik, iyi modeli haksız düşürmez ama kötü modeli de kaçırır.
+
+## 11. Açık kararlar 17–20: Holm ailesi, birleşik etiket, yargıç yedek yolu, kalibrasyon soruları
+
+Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `degerlendirme/esikler_v1.md` §8 (değişiklik 5–8) ve yeni §9. Girdisi kullanıcının dört kararı.
+
+**Blok 1: Holm ailesi (karar 17).** Girdi: üç ikincil üslup+jargon testi (sentetik katkısı, istemin katkısı, adaptör vs `hazir`). Dönüşüm: üç p değeri birlikte Holm ile düzeltilir. Neden: düzeltmesiz üç iddiada en az bir yanlış iddia riski %14,3 (ölçüldü). Sonraki bloğa: 5.1'in eşiği artık sabit; 100 kesin kararda 61–63 galibiyet.
+
+**Blok 2: birleşik etiket (karar 18).** Girdi: 100 test sorusunda kritik hata etiketleri; 50'si insandan, hepsi yargıç + betikten. Dönüşüm: insanın baktığı 50 soruda insan etiketi kullanılır, diğerlerinde yargıç + betik. Neden: insanın üstünlüğü korunur, ama bir uyarı eşiği (2.1b) bir kritik eşiği (2.1) silemez. Bunun için insan formuna ayrı bir "kritik hata var/yok" alanı eklendi; "Hayır" kritik hatayla aynı şey değil. Sonraki bloğa: 2.1 aynı eşikle hesaplanır.
+
+**Blok 3: yedek yol (karar 19) ve kalibrasyon soruları (karar 20).** Girdi: iki yargıç adayının kalibrasyon sonucu. Dönüşüm: biri geçerse o kullanılır; ikisi de kalırsa tuzak insan puanıyla, kritik 2.1 50 insan sorusunda +2 eşiğiyle ölçülür. Kalibrasyonun 40 sorusu istem ayarında da kullanılır; bunun bedeli rapora sınırlama olarak yazıldı.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** insan formundaki 50 soruda yargıç adaptöre 4 kritik hata, insan 2 kritik hata verdi; `hazir_istemli`'ye ikisi de 3 kritik hata verdi. Kalan 50 soruda yargıç adaptöre 6, `hazir_istemli`'ye 3 kritik hata verdi. Birleşik sayım 8'e 6 (fark +2, geçti); yalnızca yargıçla 10'a 6 (fark +4, kritik eşik aşılırdı).
+
+**Açık kalan (karar 21):** insan formu `hazir`'ı kapsamadığı için birleşik etiket ve yedek yol `hazir` karşılaştırmasında aynı biçimde uygulanamıyor. Şimdilik `hazir` karşılaştırmasında iki taraf da yargıç + betikle sayılıyor.
+
+**Üç cümlelik özet:** İnsanın yargıçtan güvenilir olduğu kabulü korundu, ama bu üstünlük eşiklerde değil tek tek kayıtlarda kullanılıyor; böylece kritik bir eşik bir uyarı eşiğiyle silinemiyor. Yargıç kalibrasyondan kalırsa kritik eşikler ölçülmeden kalmıyor, önceden yazılmış bir insan puanlamasına geçiliyor. Holm ailesi üç testle sabitlendi ve kalibrasyon soruları istem ayarında kullanılacak; bu son kararın bedeli rapora sınırlama olarak yazıldı.
+
+**Kontrol sorusu:** `hazir` karşılaştırmasında adaptörün etiketlerini insandan, `hazir`'ınkileri yargıçtan almak neden sorunlu?
+*Cevap:* İki taraf farklı ölçüm aracıyla sayılmış olur. İnsan yargıçtan daha katı ya da daha yumuşaksa, fark modeller arasındaki farkı değil ölçüm araçları arasındaki farkı yansıtır.

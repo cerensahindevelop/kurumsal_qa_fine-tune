@@ -48,7 +48,7 @@ Ortak kurallar:
 5. Yargıç ile insan formu arasındaki uyum.
 
 İkincil karşılaştırmalarda birden fazla test yapılacağı için Holm düzeltmesi uygulanır. Bunlar keşif niteliğinde raporlanır.
-- Holm ailesinin tanımı `esikler_v1.md` §8, değişiklik 5'te. Önerilen aile m = 3: yukarıdaki ikincil 1, 2 ve 3'ün üslup+jargon işaret testleri. Kullanıcı kararı bekliyor (2026-11-24).
+- Holm ailesi (kullanıcı kararı, 2026-11-24; `esikler_v1.md` §8, değişiklik 5): m = 3, yukarıdaki ikincil 1, 2 ve 3'ün üslup+jargon işaret testleri. Birincil uç nokta ve bilgi testleri aileye girmez; bilgi testleri "kötüleşme yok" eşikleriyle yönetilir.
 - Bütün ikili karşılaştırmalar `esikler_v1.md` §7'deki kurala göre raporlanır: kazanma / beraberlik / kayıp sayıları ve p değeri birlikte; kazanma oranı tek başına yazılmaz.
 
 ## 4. Sentetik veri katkısı (önceden planlanan karşılaştırma)
@@ -139,6 +139,7 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
 
 - Her soru "başarılı / başarısız" olarak işaretlenir. Sonuç adet olarak raporlanır: tuzak için **NN/28**, geliştirme seti için **NN/15**. Kategori dağılımı ayrıca verilir.
 - Karar iki kaynaktan gelir: otomatik kontrol (anahtar ifade ve sayı uydurma denetimi) ve yerel yargıç. İkisi çelişirse soru insan formuna gider.
+- Yargıç adaylarının ikisi de kalibrasyondan kalırsa (§6.8 madde 5) adaptör ve `hazir_istemli`'nin 28 tuzak cevabını insan, kör olarak ve yukarıdaki ölçütlerle puanlar (`esikler_v1.md` §9.2; kullanıcı kararı, 2026-11-24).
 - Ham verideki `05_tuzak_sorular/otomatik_kontrol.py` ve `yargic_promptu.md` şimdi kullanılmaz (bkz. §8, karar 5). 11. aşamada en fazla ek kontrol olarak çalışabilir; sonucu ayrı raporlanır ve birincil puanı değiştirmez.
 
 ### 6.5 Genel Türkçe (görev bazında)
@@ -222,8 +223,8 @@ Adaylar (A5000: 24.564 MiB; masaüstü yaklaşık 0,9 GB kullanıyor, ölçüld�
 2. Her iki aday aynı çiftleri, aynı istemle ve iki sırada puanlar.
 3. Ölçülenler: (a) beraberlik hariç insanla uyum yüzdesi ve Cohen kappa (şans düzeltmeli uyum katsayısı); (b) sıra tutarlılığı (iki sırada aynı karar).
 4. Eşiği (`esikler_v1.md`) geçen adaylar arasında kural şu: `gemma4:26b`, `gemma4:12b`'den uyumda **5 yüzde puandan fazla** önde değilse ve sıra tutarlılığında da 5 puandan fazla önde değilse **küçük model (`gemma4:12b`) seçilir**. Gerekçe: daha hızlı, daha az VRAM, intranette daha kolay taşınır.
-5. Hiçbir aday eşiği geçemezse yargıç sonuçları yalnızca ikincil gösterge sayılır; birincil karar 11. aşamadaki kör insan formuna (50 soru, §6.9) geçer.
-6. Kalibrasyonda kullanılan çiftler daha sonra istem ayarında kullanılmaz.
+5. Hiçbir aday eşiği geçemezse yargıç sonuçları yalnızca ikincil gösterge sayılır; birincil karar 11. aşamadaki kör insan formuna (50 soru, §6.9) geçer. Kritik 2.1 ve 4.2'nin yedek ölçümü `esikler_v1.md` §9.2'de (kullanıcı kararı, 2026-11-24).
+6. Kalibrasyon soruları istem ayarından çıkarılmaz; doğrulamanın 100 sorusunun hepsi istem ayarında kullanılır (kullanıcı kararı, 2026-11-24; önceki kural "kalibrasyon çiftleri istem ayarında kullanılmaz" idi). Doğrulama sonuçları bu nedenle iyimser olabilir; final iddiası yalnızca kilitli testten gelir (`rapor/rapor_plani_v1.md` §4.4).
 
 **Kullanım biçimi:**
 - İkili karşılaştırma (pairwise): yargıç iki cevabı görür ve hangisinin daha iyi olduğunu söyler. "A daha iyi / B daha iyi / eşit" ve kısa bir gerekçe JSON biçiminde döner.
@@ -254,10 +255,11 @@ Karar 3'e göre:
 | Bölüm | Gösterilen | Sorulan |
 |---|---|---|
 | 1. Üslup ve jargon | Soru + cevap. **Referans cevap gösterilmez** | Üslup 0–2, jargon 0–2 (§6.1, §6.2 tanımları formda yazılı); isteğe bağlı not |
-| 2. Bilgi doğruluğu | Soru + **referans cevap** + cevap | "Referansla aynı süre, tutar, koşul ve istisnayı söylüyor mu?" → Evet / Kısmen / Hayır. "Kısmen" veya "Hayır" seçilirse farklı olan öğe işaretlenir: süre, tutar, koşul, istisna, diğer (kurum, tarih). Ayrıca "referans eskimiş olabilir" kutusu ve isteğe bağlı not |
+| 2. Bilgi doğruluğu | Soru + **referans cevap** + cevap | "Referansla aynı süre, tutar, koşul ve istisnayı söylüyor mu?" → Evet / Kısmen / Hayır. "Kısmen" veya "Hayır" seçilirse farklı olan öğe işaretlenir: süre, tutar, koşul, istisna, diğer (kurum, tarih). Ayrıca **"Kritik hata var mı?" → Var / Yok** (§6.3 tanımı formda yazılı; 2026-11-24 eklendi), "referans eskimiş olabilir" kutusu ve isteğe bağlı not |
 
 - Bölüm 1, Bölüm 2'den önce bitirilir. Neden: referans görüldükten sonra üslup puanı referansa benzerliğe kayabilir.
 - Puanlama dönüşümü: Evet = 2, Kısmen = 1, Hayır = 0 (§6.3 ölçeğiyle uyumlu). "Hayır" sayısı eşik 2.1b'ye girer.
+- "Kritik hata var/yok" alanı, bu 50 soruda 2.1'in kayıt etiketi olur ve yargıç + betik etiketinin yerini alır (kullanıcı kararı, 2026-11-24; `esikler_v1.md` §9.1). Neden ayrı alan: "Hayır" kritik hatayla aynı şey değildir; ana hüküm yanlış ama kritik hata olmayan cevap da "Hayır" alabilir.
 - Form `inceleme/insan_formu_v1.csv` olarak üretilir; 11. aşamadan önce boş bir örnek sürümüyle teknik deneme yapılır.
 - Sınırlamalar (tek değerlendirici, referansla karşılaştırma) `rapor/rapor_plani_v1.md` §4'te.
 
