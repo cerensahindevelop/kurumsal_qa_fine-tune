@@ -14,12 +14,10 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
    - üretim ayarları;
    - yargıç seçimi (kalibrasyon sonuçları);
    - insan formu.
-3. **Birincil sonuç:** seçilen adaptör vs `hazir_istemli` (yargıç üslup+jargon; insan formu, 50 soru).
+3. **Birincil sonuç:** seçilen adaptör vs `hazir` (yargıç üslup+jargon; insan formu, 50 soru). 2026-11-24'ten beri; istemle karşılaştırma kapsam dışı (§4.4).
 4. **Koruma koşulları:** bilgi doğruluğu, genel Türkçe (saklanan bölüm), tuzak (NN/28).
 5. **İkincil sonuçlar:**
    - sentetik katkısı;
-   - istem katkısı;
-   - `hazir` ile fark;
    - üslup sızıntısı;
    - yargıç–insan uyumu;
    - varsa `genel_karisim_adaptor` ve tetikleyici sonucu (§3A).
@@ -71,18 +69,19 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 
 ### 4.4 Diğer
 
-- **Yargıç kalibrasyonu ile istem ayarı aynı soruları kullanır** (kullanıcı kararı, 2026-11-24). Yargıç kalibrasyonunun 40 sorusu istem ayarında da kullanıldı; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir.
-- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; 2.1'in `hazir` karşılaştırması yalnızca betik kısmıyla sayılır; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir; ikincil iddialar için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (`esikler_v1.md` §9.2). Yalnızca bir istem türünde kalınırsa bunlar yalnızca o türe dayanan eşiklere uygulanır (§9.3).
-- **Normal yolda 2.1 iki karşılaştırmada farklı kaynaklarla sayılır:** `hazir_istemli` karşılaştırmasında 50 soru insandan (birleşik etiket), `hazir` karşılaştırmasında 100 soru yargıç + betikten (`esikler_v1.md` §9.1). İki sonuç bu yüzden doğrudan karşılaştırılmaz. Bu durumda raporun yöntem bölümü hangi eşiğin hangi kaynaktan geldiğini tabloyla gösterir.
+- **Yargıç kalibrasyonu ile adaptör seçimi aynı soruları kullanır** (karar 20'nin ilkesi, 2026-11-24; istem ayarı `hazir_istemli` ile birlikte kapsam dışı kaldı). Yargıç kalibrasyonunun 40 sorusu doğrulamadaki adaptör ayar ve tarif seçiminde de kullanıldı; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir. Ayrıca kalibrasyon çiftleri `hazir` ile ilk `sss_adaptor` koşusundan geldiği için yargıç, seçilecek adaptörün üslubuna benzeyen cevaplarla sınanmış olur; diğer adaptörler için uyum ayrıca ölçülmez.
+- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir; ikincil iddialar için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (`esikler_v1.md` §9.2). Yalnızca bir istem türünde kalınırsa bunlar yalnızca o türe dayanan eşiklere uygulanır (§9.3).
+- **2.1'in etiketleri iki kaynaktan gelir:** 50 insan sorusunda iki tarafın (adaptör ve `hazir`) etiketi insandan, kalan 50 soruda iki tarafınki de yargıç + betikten (`esikler_v1.md` §9.1). Etiket kaynağına göre ayrı sayımlar da raporlanır.
+- **Fine-tuning iyi bir istemle karşılaştırılmadı.** Bu çalışma fine-tuning'in iyi bir istemden üstün olup olmadığını sınamadı; proje sahibinin talebiyle kapsam dışı bırakıldı. Hazır modele karşı üslup kazancı beklenen bir sonuçtur, istemle elde edilebilecek kazançtan ayrıştırılmamıştır.
 - **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 40 çiftle sınar (beraberlikler çıkınca daha az; %75 uyumun belirsizliği 40 çiftte yaklaşık ±13 pp, `esikler_v1.md` §8).
 - **Üslup sızıntısı ölçütü:** önceden belirlenmiş bir işaret listesine dayanır. Listedeki ifadeleri kullanmadan gerçekleşen sızıntıyı kaçırabilir.
 - **Saklanan `genel_kontrol_v2` asistan tarafından yazıldı.**
-  - Sorunu: istemi ve ayarları geliştiren asistan bu setin içeriğini biliyor.
+  - Sorunu: sistem mesajını yazan ve ayarları seçen asistan bu setin içeriğini biliyor (2026-11-24'ten beri istem ayarı yok; `hazir_istemli` kapsam dışı).
   - Önlemler:
     - v2, hiçbir model cevabı görülmeden yazılıp SHA-256 ile kilitlendi.
     - Taşındıktan sonra Read deny kapsamına alınması önerildi.
-    - İstem ve ayar seçiminde kullanılmaz.
-  - Kalan risk: geliştirilen istemlerin v2'deki soru türlerine bilinçsizce uyması tamamen dışlanamaz.
+    - Sistem mesajı, ayar ve checkpoint seçiminde kullanılmaz.
+  - Kalan risk: sistem mesajının ve seçilen ayarların v2'deki soru türlerine bilinçsizce uyması tamamen dışlanamaz.
 - **Geliştirme ve saklanan sızıntı setleri arasında yorum farkı olabilir.** v1 ve v2 farklı zamanlarda yazıldı ve v1'in içeriği v2 yazılırken görülmedi. Bu yüzden iki set arasında konu ve zorluk farkı olabilir.
   - İlk taslakta `b_kurum_gayriresmi` grubu yanlış yorumlanmıştı. Kullanıcının v1 kontrolünden sonra grup, kullanıcının verdiği tanıma göre yeniden yazıldı (karar 6c).
   - Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
@@ -99,7 +98,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
   - Geliştirme ile saklanan bölüm arasındaki `b` sızıntı farkı yorumlanırken istek türü dağılımı da birlikte verilir.
 - **Kurum ağzı yalnızca eğitim tarafında düzeltildi** (karar 10).
   - Eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ifadeleri 03'te kurum adıyla değiştirilir. Kilitli doğrulama ve test referanslarına ise dokunulmaz; bu ifadeler orada kalır.
-  - Sistem mesajı iki modele de kurum adı kullanmasını söylediği için, bu ifadeleri içeren referanslarda chrF hem `hazir`/`hazir_istemli` hem adaptör için hafifçe düşebilir.
+  - Sistem mesajı iki modele de kurum adı kullanmasını söylediği için, bu ifadeleri içeren referanslarda chrF hem `hazir` hem adaptör için hafifçe düşebilir.
   - Etki iki tarafa da uygulandığı için farkı büyük ölçüde götürmesi beklenir (tahmin). Raporda bu ifadeleri içeren referans sayısı verilir. Bu sayı 02'deki toplu sayımla, içerik basılmadan ölçülür.
   - Yargıç ve insan bilgi puanı kurum adının yazılış biçiminden etkilenmez.
 - **Dönemsel TL tutarları** (karar 11). Model dönemsel tutarın rakamını vermez. Referansta bu rakam varsa:

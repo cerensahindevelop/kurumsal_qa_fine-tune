@@ -28,12 +28,11 @@ Kodda, dosya adlarında, raporlarda ve sohbette bu adları kullan. A/B/C gibi ha
 | Kısa ad (klasör/kod) | Açık ad | Ne |
 | :---- | :---- | :---- |
 | `hazir` | Hazır model | Qwen3.8-27B, sistem mesajı \+ soru |
-| `hazir_istemli` | İstemli hazır model | Hazır model \+ üslup istemi \+ onaylı eğitim grubundan few-shot örnekleri |
 | `sss_adaptor` | SSS adaptörü | Yalnızca onaylı gerçek SSS ile QLoRA |
 | `sss_sentetik_adaptor` | SSS \+ sentetik adaptörü | Aynı tarif \+ onaylı sentetik çiftler |
 | `genel_karisim_adaptor` | Genel Türkçe karışımlı adaptör | Seçilen tarif \+ genel Türkçe çiftleri (gerekirse) |
 
-Fine-tuning ancak istemli hazır modeli geçerse haklı çıkar.
+Fine-tuning proje sahibinin talebidir; istemle karşılaştırma kapsam dışıdır. Hazır model, üslup gelişimi ve gerileme kontrolleri için taban çizgisidir.
 
 ## Girdiler (salt okunur, asla yazma)
 

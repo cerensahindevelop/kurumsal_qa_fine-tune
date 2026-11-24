@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -18,7 +18,7 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
 - **Eşik kararları (kullanıcı, 2026-11-24; onaydan önce, aynı dosyaya işlendi):**
   - Yalnızca 2.1, 3.7 ve 4.2 kritik; §2–§4'teki diğer 14 eşik uyarı. Uyarı aşılırsa kırmızı bayrak, betikle seçilen kayıtların insan incelemesi ve senior kararı gelir. Süreç `esikler_v1.md` §6.2'de tanımlı.
   - §1'deki birincil sonuç cümlesi bu ayrıma göre yeniden yazıldı. §3A tetikleyicisi bu ayrımdan etkilenmiyor.
-  - 4.1 "adaptör ≥ `hazir_istemli` − 2" oldu.
+  - 4.1 "adaptör ≥ `hazir_istemli` − 2" oldu (2026-11-24'te `hazir_istemli` kapsamdan çıkınca "adaptör ≥ `hazir` − 2").
   - Yargıç kalibrasyonu 40 çifte çıktı (`esikler_v1.md` 0.3 ve 0.5, `deney_plani_v1.md` §6.8 ve §6.9, `rapor_plani_v1.md` §4).
   - Raporlama kuralı (`esikler_v1.md` §7): kazanma oranı tek başına yazılmaz; kazanma / beraberlik / kayıp sayıları ve p değeri birlikte verilir.
   - Holm ailesi önerildi; karar kullanıcıda (açık karar 17).
@@ -56,6 +56,13 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
   - (c) Yargıç üslup türünde kalırsa T.6 tetiklemez, "ölçülemedi" diye raporlanır; diğer T'ler çalışır (§3A, §9.3).
   - Üç uygulama yorumu (#2 tekrar, #20 "en iyisi", #24 `referans_sorunu`) kullanıcı tarafından onaylandı.
   - Yeni çalışma kuralı ve "Varsayılan olarak uygulananlar" bölümü eklendi (aşağıda). Bu turda 6 varsayılan uygulandı.
+- **`hazir_istemli` kapsamdan çıkarıldı (kullanıcı kararı, 2026-11-24; `esikler_v1.md` §8 değişiklik 12).** Fine-tuning proje sahibinin talebidir; istemle karşılaştırma kapsam dışıdır. `hazir` üslup gelişiminin ve gerileme kontrollerinin taban çizgisidir. Hiçbir eşiğin sayısal değeri değişmedi:
+  - `CLAUDE.md` (kullanıcı izniyle): deney tablosundan `hazir_istemli` satırı kaldırıldı; "haklı çıkar" cümlesi değiştirildi. Masaüstündeki üst dizin kopyası (`/home/aipc/Desktop/CLAUDE.md`) değiştirilmedi.
+  - §1 birincil çift adaptör vs `hazir`; insan formu adaptör ve `hazir`'ı karşılaştırır. §2 yalnızca `hazir`. 4.1 "≥ `hazir` − 2". Birleşik etiket `hazir` karşılaştırmasında; karar 21a/21b sadeleşti.
+  - Holm kaldırıldı: H2 kalktı, H3 birincil oldu; tek ikincil test (5.1) α = 0,05. Galibiyet tablosunda yalnızca α = 0,05 sütunu kaldı.
+  - Kritik kontrol 3'e indi (aile düzeyinde yanlış alarm %14,3, ölçüldü).
+  - Deney planı §5 (few-shot, üslup istemi) "kapsam dışı"; rapor planına kullanıcının sınırlama cümlesi eklendi.
+  - Varsayılanlar V7–V10 (kalibrasyon kaynağı ve 06/07 sırası dahil).
   - `esikler_v1_aciklama.md`: §9'a "birleşik etiket" ve "yedek yol" alt bölümleri, sözlüğe 2 terim; "fark ettiklerim" 30 madde (3, 4, 6, 21, 23, 26 güncellendi; 28–30 yeni).
 
 ### Üretilen dosyalar
@@ -211,6 +218,10 @@ Satır numaraları 2026-11-24 commit'indeki `degerlendirme/esikler_v1.md` içind
 | V4 | Ortalama farkı eşiklerinde (2.3, 3.9 ortalama) yalnızca "en olumsuz 20" vardı. | En olumsuz 20 + en olumlu 20 + rastgele 10. | `esikler_v1.md`:177 |
 | V5 | "En fazla 40 kayıt" sınırı tek yön için yazılmıştı; iki yönde tek sınır bir yönü kırpabilirdi. Ayrıca yön görünürse değerlendirici yanlı olabilirdi. | Her yönde en fazla 40 kayıt; aynı seçim kuralı ve etiket şeması; CSV'de yön gösterilmez, kayıtlar seed 42 ile karışık sıralanır. | `esikler_v1.md`:180 |
 | V6 | Uyarı incelemesindeki düzeltmelerin kritik eşiklere taşınıp taşınmadığı yazılı değildi (2.4, 2.1'in alt kümesi); taşınırsa bir uyarı incelemesi kritik sonucu dolaylı olarak kaldırabilirdi. | Taşınmaz: kritik eşikler (2.1, 3.7, 4.2) özgün etiketlerle, 2.1'de §9.1'deki birleşik etiketlerle hesaplanır. Kritik/uyarı ayrımını korur, değiştirmez. | `esikler_v1.md`:201 (§6.2 U.5) |
+| V7 | `hazir_istemli` çıkınca yargıç kalibrasyonunun çift kaynağı (`hazir` vs `hazir_istemli`) ortadan kalktı. | Kaynak: `hazir` ile ilk `sss_adaptor` koşusunun (`sss_adaptor_v1`, son checkpoint) doğrulama cevapları; 40 soru seed 42 ile kaynağa göre katmanlı. **Sıraya etkisi:** 06'da yalnızca `hazir`'ın doğrulama cevapları üretilir ve otomatik metrikler hesaplanır; yargıçla puanlama yapılamaz. Kalibrasyon ve yargıç seçimi 07'de, ilk adaptörün doğrulama cevaplarından sonra yapılır. Yargıca dayanan bütün doğrulama puanlamaları (checkpoint/tarif seçimi, `sss_sentetik_adaptor`, K.2) kalibrasyondan sonra gelir. 06 ve 07'nin içeriği depoda tanımlı değil; bu sıra, aşamaların senin numaralandırmana göre bir tahminidir. | `esikler_v1.md`:28 (0.3); `deney_plani_v1.md` §2 madde 2, §6.8 madde 1 |
+| V8 | 4.3'teki "aday ayarlar (istem, checkpoint)" ifadesinde istem artık aday değil. | "(checkpoint, tarif)" olarak düzeltildi. | `esikler_v1.md`:140; `esikler_v1_aciklama.md` 4.3 |
+| V9 | Karar 20'nin konusu olan istem ayarı kalktı; ama kalibrasyonun 40 sorusu artık adaptör seçiminde aynı iyimserlik sorununu taşıyor. | Karar 20'nin ilkesi adaptör ayar/tarif seçimine taşındı: kalibrasyon soruları seçimden çıkarılmaz. Rapor sınırlaması buna göre yeniden yazıldı; ayrıca yargıcın yalnızca `sss_adaptor` üslubuyla sınandığı eklendi. | `deney_plani_v1.md` §6.8 madde 6; `rapor_plani_v1.md` §4.4 |
+| V10 | `genel_kontrol_v2` sınırlaması artık var olmayan "istem geliştirme"den söz ediyordu. | "Sistem mesajı ve seçilen ayarlar" olarak düzeltildi; risk aynı kaldı. | `rapor_plani_v1.md` §4.4 (`genel_kontrol_v2` maddesi) |
 
 ### Onaya hazır dosyalar (senior onayı bekliyor)
 - **Onaylanacaklar:** `degerlendirme/esikler_v1.md`, `degerlendirme/deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `istemler/cevap_standardi_v1.md`, `istemler/sistem_v1.txt`, `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru).
@@ -237,7 +248,7 @@ Satır numaraları 2026-11-24 commit'indeki `degerlendirme/esikler_v1.md` içind
 - 11'deki insan formu için 50 test sorusu, cevaplar üretilmeden önce kimlikle seçilir (seed 42, kaynağa göre katmanlı). Bu seçim 11'in ilk adımıdır, 02'de yapılmaz.
 - Kilitli setler yalnızca toplu sayı, kimlik ve SHA-256 yazan betiklerle açılır. Çakışma denetiminde test ve tuzak içeren çiftler yalnızca kimlikle `inceleme/` CSV'sine yazılır.
 - `gelistirme_kapsam_disi.jsonl` 02'deki çakışma denetimine dahil edilmeli.
-- Few-shot havuzu yalnızca onaylı eğitim grubundan oluşur (karakter 3–5 gram TF-IDF, k=4).
+- Few-shot havuzu, üslup istemi ve istem ayarı **kapsam dışı** (2026-11-24, `hazir_istemli` çıkarıldı; `deney_plani_v1.md` §5). Bütün sistemler yalnızca `sistem_v1` ile çalışır.
 - Yargıç adayları: `gemma4:12b` ve `gemma4:26b`. Kalibrasyon ancak eşik onayından ve doğrulama cevapları üretildikten sonra yapılır. Seçim kuralı `esikler_v1.md` 0.5'te.
 - Üretim ayarı önerisi: greedy, `max_new_tokens=512`, `seed=42`, düşünme kapalı. Yükleme: HF + bitsandbytes NF4.
 - Proje Python ortamı henüz kurulmadı. `pip freeze` şimdilik temel miniconda ortamından (Python 3.13.13).
@@ -246,10 +257,10 @@ Satır numaraları 2026-11-24 commit'indeki `degerlendirme/esikler_v1.md` içind
 - **Eşik kararlarından doğan işler (2026-11-24):**
   - Uyarı incelemesi için kayıt seçme betiği `src/degerlendirme/uyari_kuyrugu.py` yazılacak (bekleyen iş): 11'den önce, 4.3 kullanılacaksa doğrulama aşamasından önce. Kurallar `esikler_v1.md` §6.2'de: seed 42, eşik başına en fazla 40 kayıt, yalnızca kimlik basar, çıktısı `inceleme/uyari_<deney_id>_<esik>.csv`.
   - Bütün puanlama ve rapor betikleri ikili karşılaştırmaları §7 biçiminde yazmalı: kazanma / beraberlik / kayıp, beraberliğin eşit ve sıra tutarsız ayrımı, p değeri.
-  - Yargıç kalibrasyon seti doğrulamadan 40 çift olacak. Kalibrasyon soruları istem ayarından çıkarılmaz; istem ayarı 100 doğrulama sorusunun hepsini kullanır (karar 20).
+  - Yargıç kalibrasyon seti doğrulamadan 40 çift olacak: `hazir` ile ilk `sss_adaptor` koşusunun (`sss_adaptor_v1`, son checkpoint) doğrulama cevapları (V7). Kalibrasyon soruları adaptör ayar ve tarif seçiminden çıkarılmaz (V9).
 - **Açık kararlar 17–20'den doğan işler (2026-11-24):**
   - İnsan formu betiği (11) bilgi bölümüne "Kritik hata var mı? Var / Yok" alanını koymalı; §6.3 tanımı formda yazılı olmalı.
-  - 2.1 puanlama betiği etiket kaynağını kayıt başına yazmalı (`insan` / `yargic_betik`) ve §9.1'e göre birleştirmeli; birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında.
+  - 2.1 puanlama betiği etiket kaynağını kayıt başına yazmalı (`insan` / `yargic_betik`) ve §9.1'e göre birleştirmeli. §2 yalnızca `hazir` ile karşılaştırılır; 50 insan sorusunda iki tarafın (adaptör, `hazir`) etiketi de insandan gelir.
   - Kalibrasyon betiği uyumu, kappayı ve sıra tutarlılığını her aday × istem türü (üslup+jargon, bilgi) için ayrı yazmalı ve seçimi tür başına yapmalı (§9.3). 0.5'te yalnızca uyum karşılaştırılır. Aya, üslup türünün yargıcıyla puanlanır.
 - **Senior öncesi netleştirmelerden doğan işler (2026-11-24):**
   - Bütün eşik betikleri sınır kuralını uygulamalı: ham değerle karşılaştırma, eşiğe eşit değer geçer. "Kaybetme − kazanma" paydası bütün kayıtlar.

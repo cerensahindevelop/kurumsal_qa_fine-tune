@@ -1,6 +1,7 @@
 # kurum-qa-finetune
 
 Kurum çalışanları için resmî üsluplu soru-cevap modeli: resmî `Qwen/Qwen3.8-27B` üzerine LLaMA-Factory ile 4-bit QLoRA.
+Fine-tuning proje sahibinin talebidir; istemle karşılaştırma kapsam dışıdır. Hazır model (`hazir`), üslup gelişimi ve gerileme kontrolleri için taban çizgisidir.
 İlk tur açık verilerle (ÇSGB, SGK, İŞKUR) yapılan bir pilottur. Kurum verisi geldiğinde aynı akış orijinal modelden yeniden çalıştırılır.
 
 Proje kuralları: `CLAUDE.md` · Güncel durum: `PROJE_DURUMU.md`

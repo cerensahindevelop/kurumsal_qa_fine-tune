@@ -1,6 +1,6 @@
 # Deney planı v1 (ön kayıt taslağı)
 
-Durum: taslak (01, 2026-11-23; aynı gün kullanıcının açık kararlarıyla güncellendi, bkz. §8), senior onayı: bekliyor
+Durum: taslak (01, 2026-11-23; aynı gün kullanıcının açık kararlarıyla güncellendi, bkz. §8; 2026-11-24'te `hazir_istemli` kapsamdan çıkarıldı, `esikler_v1.md` §8 değişiklik 12), senior onayı: bekliyor
 Rapor planı ve sınırlamalar: `rapor/rapor_plani_v1.md`
 Eşikler: `degerlendirme/esikler_v1.md` · Cevap standardı: `istemler/cevap_standardi_v1.md` · Sistem mesajı: `istemler/sistem_v1.txt`
 
@@ -13,13 +13,13 @@ Bu plan **hiçbir model cevabı görülmeden** yazıldı. Onaylandıktan sonra y
 | Kısa ad | Girdi | Eğitim verisi | Nerede değerlendirilir |
 |---|---|---|---|
 | `hazir` | `sistem_v1` + soru | — | doğrulama, test |
-| `hazir_istemli` | `sistem_v1` + üslup istemi + k=4 benzer few-shot + soru | — | doğrulama, test |
 | `sss_adaptor` | `sistem_v1` + soru | onaylı gerçek SSS | doğrulama, test |
 | `sss_sentetik_adaptor` | `sistem_v1` + soru | aynı tarif + onaylı sentetik çiftler | doğrulama, test |
 | `genel_karisim_adaptor` | `sistem_v1` + soru | seçilen tarif + genel Türkçe çiftleri (%10 veya %20) | yalnızca `esikler_v1.md` §3A tetikleyicisi çalışırsa oluşur |
 
 Ortak kurallar:
-- **Adaptörler yalnızca `istemler/sistem_v1.txt` ile değerlendirilir.** Üslup istemi ve few-shot verilmez. Adaptörün kazancı istemden değil eğitimden gelmeli.
+- **Bütün sistemler (`hazir` dahil) yalnızca `istemler/sistem_v1.txt` ile değerlendirilir.** Üslup istemi ve few-shot kullanılmaz. Böylece adaptör ile `hazir` arasındaki fark eğitimden gelir.
+- `hazir_istemli` (istemli hazır model) 2026-11-24 kullanıcı kararıyla kapsam dışıdır: fine-tuning proje sahibinin talebidir; istemle karşılaştırma yapılmaz (§5).
 - Hepsi aynı yükleme yolunda (HF `transformers` + bitsandbytes NF4 4-bit) ve aynı üretim ayarlarıyla çalışır. Önerilen ayarlar: açgözlü çözümleme (greedy decoding: her adımda en olası belirteci seçme, `do_sample=false`), `max_new_tokens=512`, `seed=42`, düşünme modu kapalı (`enable_thinking=False`).
 - Her çıktıda `<think>` kalıntısı otomatik aranır. Tek bir kalıntı bulunursa o koşu geçersiz sayılır.
 - Bütün koşular A5000'de (çıkarım kartı) yapılır. Başlamadan önce Ollama modelleri boşaltılır ve boş VRAM ölçülür.
@@ -27,55 +27,39 @@ Ortak kurallar:
 ## 2. Değerlendirme sırası
 
 1. **Eşik onayı:** `esikler_v1.md` onaylanıp commit edilene kadar doğrulamada puanlama yapılmaz. O zamana kadar yalnızca 3–5 soruluk teknik deneme yapılır.
-2. **Doğrulama (100 soru):** önce `hazir` ve `hazir_istemli`, sonra adaptörler. Ayar ve tarif seçimi (öğrenme oranı, epoch, sentetik oranı) yalnızca doğrulamada, geliştirme kapsam dışı setinde ve Türkçe değerlendirmenin geliştirme bölümünde (%30) yapılır.
+2. **Doğrulama (100 soru):** önce `hazir`, sonra adaptörler. Yargıç kalibrasyonu `hazir` ile ilk `sss_adaptor` koşusunun doğrulama cevaplarıyla yapılır; yargıca dayanan bütün doğrulama puanlamaları (checkpoint ve tarif seçimi, K.2) kalibrasyondan **sonra** gelir (§6.8; `PROJE_DURUMU.md` V7). Ayar ve tarif seçimi (öğrenme oranı, epoch, sentetik oranı) yalnızca doğrulamada, geliştirme kapsam dışı setinde ve Türkçe değerlendirmenin geliştirme bölümünde (%30) yapılır.
    - Tarif seçildikten sonra genel Türkçe tetikleyicisi (`esikler_v1.md` §3A) **bir kez** ölçülür. Tetikleyici çalışırsa `genel_karisim_adaptor` eğitilir.
-3. **Kilitleme:** test öncesinde seçilen adaptör, bütün ayarlar ve test betiği commit edilir. Test sistem listesi de sabitlenir: `hazir`, `hazir_istemli`, `sss_adaptor`, `sss_sentetik_adaptor` ve oluşmuşsa `genel_karisim_adaptor`.
+3. **Kilitleme:** test öncesinde seçilen adaptör, bütün ayarlar ve test betiği commit edilir. Test sistem listesi de sabitlenir: `hazir`, `sss_adaptor`, `sss_sentetik_adaptor` ve oluşmuşsa `genel_karisim_adaptor`.
 4. **Test (11. aşama, tek sefer):** test, tuzak ve Türkçe değerlendirmenin saklanan bölümü ayrı bir betikle çalışır. Puanlar commit edildikten sonra hiçbir ayar değişmez.
 
 ## 3. Birincil ve ikincil sonuçlar
 
-**Birincil sonuç (tek ana karşılaştırma):** seçilen adaptör ile `hazir_istemli` testte karşılaştırılır.
+**Birincil sonuç (tek ana karşılaştırma):** seçilen adaptör ile `hazir` testte karşılaştırılır (2026-11-24'ten beri; önceki rakip `hazir_istemli` kapsam dışı).
 - Birincil uç nokta (primary endpoint: başarının tek ana ölçüsü): yerel yargıcın **üslup+jargon** ikili karşılaştırmasında seçilen adaptörün kazanma / beraberlik / kayıp sayıları; ölçüt iki yönlü kesin işaret testinde p < 0,05 (beraberlikler hariç). Kararın iki sırada da tutarlı olması gerekir; tutarsız karar beraberlik sayılır. İlk taslaktaki "≥ %60" koşulu 2026-11-24'te kaldırıldı; hiçbir zaman bağlayıcı değildi (`esikler_v1.md` 1.1 ve gereken galibiyet tablosu).
 - Birincil uç noktanın geçerli sayılması için şu koruma koşulları da sağlanmalı: bilgi doğruluğunda kötüleşme yok, genel Türkçe korunuyor, tuzak davranışı kötüleşmiyor (eşikler `esikler_v1.md` dosyasında).
   - Onaydan önce değişiklik (2026-11-24, kullanıcı kararı): koruma eşiklerinden yalnızca 2.1, 3.7 ve 4.2 kritiktir; biri aşılırsa birincil sonuç "kaldı" olur. Diğerleri uyarı eşiğidir: aşılırsa raporda kırmızı bayrakla gösterilir, insan incelenen kayıtların etiketlerini düzeltir ve eşik yeniden hesaplanır. Hâlâ aşılıyorsa birincil sonuç "çekinceli" olur; senior kararı yalnızca servise çıkış hakkındadır ve sonucu "geçti"ye çeviremez (`esikler_v1.md` §1, §6; 2026-11-24). Sonuç üç değerlidir: geçti / çekinceli / kaldı.
-- **Fine-tuning ancak bu karşılaştırma geçerse haklı çıkar.**
+- **Fine-tuning proje sahibinin talebidir; istemle karşılaştırma kapsam dışıdır. Hazır model, üslup gelişimi ve gerileme kontrolleri için taban çizgisidir.** Birincil sonuç, eğitimin üslubu `hazir`'a göre geliştirip geliştirmediğini ve bir şeyi bozup bozmadığını söyler; istemle elde edilebilecek kazançtan ayrıştırmaz (`rapor/rapor_plani_v1.md` §4.4).
 
 **İkincil sonuçlar** (raporlanır, ana iddia yapılmaz):
-1. Sentetik verinin katkısı: `sss_sentetik_adaptor` ile `sss_adaptor` testte karşılaştırılır (bkz. §4).
-2. İstemin katkısı: `hazir_istemli` ile `hazir` karşılaştırılır.
-3. Adaptörün `hazir` modele göre farkı.
-4. Genel Türkçe görevleri, üslup sızıntısı, tuzak adetleri ve otomatik metrikler.
-5. Yargıç ile insan formu arasındaki uyum.
+1. Sentetik verinin katkısı: `sss_sentetik_adaptor` ile `sss_adaptor` testte karşılaştırılır (bkz. §4). Tek ikincil hipotez testidir.
+2. Genel Türkçe görevleri, üslup sızıntısı, tuzak adetleri ve otomatik metrikler.
+3. Yargıç ile insan formu arasındaki uyum.
 
-İkincil karşılaştırmalarda birden fazla test yapılacağı için Holm düzeltmesi uygulanır. Bunlar keşif niteliğinde raporlanır.
-- Holm ailesi (kullanıcı kararı, 2026-11-24; `esikler_v1.md` §8, değişiklik 5): m = 3, yukarıdaki ikincil 1, 2 ve 3'ün üslup+jargon işaret testleri. Birincil uç nokta ve bilgi testleri aileye girmez; bilgi testleri "kötüleşme yok" eşikleriyle yönetilir.
+Holm düzeltmesi uygulanmaz (2026-11-24, `esikler_v1.md` §8 değişiklik 12): istemin katkısı testi kapsamdan çıktı, adaptör vs `hazir` birincil oldu; geriye tek ikincil test (5.1) kaldığı için çoklu karşılaştırma yoktur. Bilgi testleri "kötüleşme yok" eşikleriyle yönetilir.
 - Bütün ikili karşılaştırmalar `esikler_v1.md` §7'deki kurala göre raporlanır: kazanma / beraberlik / kayıp sayıları ve p değeri birlikte; kazanma oranı tek başına yazılmaz.
 
 ## 4. Sentetik veri katkısı (önceden planlanan karşılaştırma)
 
 Hangi adaptör seçilirse seçilsin, `sss_adaptor` ve `sss_sentetik_adaptor` ikisi de dondurulup teste girer. "Sentetik veri katkı sağladı" iddiası yalnızca şu koşullarla yapılır:
-- Test setinde, üslup+jargon ikili karşılaştırmasında `sss_sentetik_adaptor` öndeyse (iki yönlü işaret testi, Holm düzeltmesinden sonra p<0,05),
+- Test setinde, üslup+jargon ikili karşılaştırmasında `sss_sentetik_adaptor` öndeyse (iki yönlü işaret testi, p<0,05; Holm yok, tek ikincil test),
 - ve bilgi ikili karşılaştırmasında geride değilse,
 - ve kritik hata sayısı `sss_adaptor`'a göre artmamışsa (fark ≤ +2).
 
 Güç notu (tahmin): 100 test sorusunda beraberlik olmasa bile işaret testinin anlamlı olması için yaklaşık 61/39 bir ayrışma gerekir. Beraberlik çoksa gereken ayrışma daha da büyür. Küçük bir katkı bu boyutla gösterilemeyebilir. O durumda rapora "katkı gösterilemedi" yazılır, "katkı yok" yazılmaz.
 
-## 5. İstemli hazır modelde few-shot seçimi
+## 5. İstemli hazır modelde few-shot seçimi (kapsam dışı)
 
-**Öneri: soruya benzerliğe göre seçim (retrieval).** Sabit örnek seti yalnızca ek bir kontrol olarak denenir.
-
-| | Sabit few-shot | Benzerliğe göre few-shot |
-|---|---|---|
-| Rakip gücü | Zayıf. Örnekler konuyla ilgisiz olabilir | Güçlü. Model aynı konudaki resmî cevapları görür |
-| Adillik | Fine-tuning'i yapay olarak iyi gösterebilir | Adaptörün işini zorlaştırır, bu yüzden adil bir kıyas olur |
-| Tekrarlanabilirlik | Çok yüksek | Yüksek (deterministik dizin) |
-| Sızıntı riski | Düşük | Havuz yalnızca onaylı eğitim grubu olduğu sürece düşük |
-
-Ayrıntılar:
-- Havuz: yalnızca onaylı eğitim grubu (02 sonrası `gercek_sss` onaylıları; sentetikler onaylanırsa ayrıca denenir). Doğrulama, test ve tuzak setleri havuza hiç girmez.
-- Benzerlik ölçüsü: karakter 3–5 gram TF-IDF (terim sıklığı–ters belge sıklığı) üzerinde kosinüs benzerliği. Gerekçe: Türkçe eklemeli bir dil; karakter n-gram "tazminatı/tazminatın" gibi biçimleri yakalıyor. Ayrıca model gerektirmiyor, deterministik çalışıyor ve intranette kolay. Çok dilli bir gömme modeli (embedding: metni sayı vektörüne çeviren model) doğrulamada alternatif olarak denenebilir.
-- k=4 örnek kullanılır, örnekler benzerlik sırasına göre dizilir. Bir örnek soruyla neredeyse aynıysa (benzerlik ≥ 0,9) atlanır, böylece cevap kopyalanmaz.
-- Üslup istemi `istemler/uslup_istemi_v1.txt` olarak ayrı bir aşamada yazılır ve yalnızca doğrulamada ayarlanır.
+2026-11-24 kullanıcı kararıyla `hazir_istemli` projeden çıkarıldı: fine-tuning proje sahibinin talebidir ve istemle karşılaştırma kapsam dışıdır. Bu yüzden few-shot seçimi (k=4, benzerliğe göre), üslup istemi (`istemler/uslup_istemi_v1.txt`) ve istem ayarı yapılmaz. Bölümün ilk taslağı git geçmişinde durur (`b82019a`).
 
 ## 6. Puanlama
 
@@ -139,7 +123,7 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
 
 - Her soru "başarılı / başarısız" olarak işaretlenir. Sonuç adet olarak raporlanır: tuzak için **NN/28**, geliştirme seti için **NN/15**. Kategori dağılımı ayrıca verilir.
 - Karar iki kaynaktan gelir: otomatik kontrol (anahtar ifade ve sayı uydurma denetimi) ve yerel yargıç. İkisi çelişirse soru insan formuna gider.
-- Yargıç adaylarının ikisi de kalibrasyondan kalırsa (§6.8 madde 5) adaptör ve `hazir_istemli`'nin 28 tuzak cevabını insan, kör olarak ve yukarıdaki ölçütlerle puanlar (`esikler_v1.md` §9.2; kullanıcı kararı, 2026-11-24).
+- Yargıç adaylarının ikisi de kalibrasyondan kalırsa (§6.8 madde 5) adaptör ve `hazir`'ın 28 tuzak cevabını insan, kör olarak ve yukarıdaki ölçütlerle puanlar (`esikler_v1.md` §9.2; kullanıcı kararı, 2026-11-24).
 - Ham verideki `05_tuzak_sorular/otomatik_kontrol.py` ve `yargic_promptu.md` şimdi kullanılmaz (bkz. §8, karar 5). 11. aşamada en fazla ek kontrol olarak çalışabilir; sonucu ayrı raporlanır ve birincil puanı değiştirmez.
 
 ### 6.5 Genel Türkçe (görev bazında)
@@ -219,12 +203,12 @@ Adaylar (A5000: 24.564 MiB; masaüstü yaklaşık 0,9 GB kullanıyor, ölçüld�
 "Bilgime göre" yazan tarihler ve bütün VRAM değerleri, yargıç kurulum aşamasında `ollama show` ile ve gerçek bellek ölçümüyle doğrulanacak (bekleyen iş).
 
 **Öneri ve seçim kuralı:** asıl adaylar `gemma4:12b` ve `gemma4:26b`. Seçim kalibrasyonla yapılır:
-1. **Kalibrasyon seti:** doğrulama setinden 40 soru için iki farklı sistemin cevap çifti (2026-11-24, onaydan önce 20–30'dan 40'a çıkarıldı; gerekçe ve hesap `esikler_v1.md` §8, değişiklik 3). Kullanıcı (insan) bu çiftleri kör olarak puanlar: üslup+jargon ve bilgi için ayrı ayrı A daha iyi / B daha iyi / eşit. Kalibrasyon, eşik onayı ve doğrulama cevaplarının üretilmesinden sonra yapılır.
+1. **Kalibrasyon seti:** doğrulama setinden 40 soru için iki farklı sistemin cevap çifti (2026-11-24, onaydan önce 20–30'dan 40'a çıkarıldı; gerekçe ve hesap `esikler_v1.md` §8, değişiklik 3). Kullanıcı (insan) bu çiftleri kör olarak puanlar: üslup+jargon ve bilgi için ayrı ayrı A daha iyi / B daha iyi / eşit. Kalibrasyon, eşik onayı ve doğrulama cevaplarının üretilmesinden sonra yapılır. **Kaynak (2026-11-24, varsayılan V7):** çiftler `hazir` ile ilk `sss_adaptor` koşusunun (`sss_adaptor_v1`, son checkpoint) doğrulama cevaplarından gelir; 40 soru seed 42 ile kaynağa göre katmanlı seçilir. Bu yüzden kalibrasyon ilk adaptör eğitilip doğrulama cevapları üretildikten sonra yapılır; yargıca dayanan doğrulama puanlamaları ondan sonra gelir.
 2. Her iki aday aynı çiftleri, aynı istemle ve iki sırada puanlar.
 3. Ölçülenler: (a) beraberlik hariç insanla uyum yüzdesi ve Cohen kappa (şans düzeltmeli uyum katsayısı); (b) sıra tutarlılığı (iki sırada aynı karar). İkisi de **üslup+jargon** ve **bilgi** istemleri için ayrı ayrı hesaplanır; bir aday bir istem türünü yalnızca o türde iki eşiği de sağlarsa geçer. Madde 4 ve 5 de istem türü başına ayrı uygulanır; iki tür farklı adaylarla puanlanabilir (kullanıcı kararı, 2026-11-24; `esikler_v1.md` §9.3).
 4. Seçim her istem türü için ayrı yapılır (`esikler_v1.md` 0.5; 2026-11-24'te yeniden yazıldı). İki aday da o türde 0.3 ve 0.4'ü geçtiyse `gemma4:26b` yalnızca **uyumda** `gemma4:12b`'yi **5 yüzde puandan fazla** geçerse seçilir; aksi hâlde **küçük model (`gemma4:12b`)**. Yalnızca biri geçtiyse o seçilir. Tek yargıç kuralı yoktur: iki tür farklı adaylarla puanlanabilir (kullanıcı kararı). Gerekçe: daha hızlı, daha az VRAM, intranette daha kolay taşınır.
 5. Hiçbir aday eşiği geçemezse yargıç sonuçları yalnızca ikincil gösterge sayılır; birincil karar 11. aşamadaki kör insan formuna (50 soru, §6.9) geçer. Kritik 2.1 ve 4.2'nin yedek ölçümü `esikler_v1.md` §9.2'de (kullanıcı kararı, 2026-11-24). Adaylar yalnızca bir istem türünde kalırsa yedek yol yalnızca o türe dayanan eşiklere uygulanır (§9.3).
-6. Kalibrasyon soruları istem ayarından çıkarılmaz; doğrulamanın 100 sorusunun hepsi istem ayarında kullanılır (kullanıcı kararı, 2026-11-24; önceki kural "kalibrasyon çiftleri istem ayarında kullanılmaz" idi). Doğrulama sonuçları bu nedenle iyimser olabilir; final iddiası yalnızca kilitli testten gelir (`rapor/rapor_plani_v1.md` §4.4).
+6. Kalibrasyon soruları doğrulamadaki adaptör ayar ve tarif seçiminden çıkarılmaz; doğrulamanın 100 sorusunun hepsi seçimde kullanılır. Bu, karar 20'nin ilkesinin adaptör seçimine taşınmasıdır; karar 20'nin konusu olan istem ayarı `hazir_istemli` ile birlikte kapsam dışı kaldı (2026-11-24, varsayılan V9). Doğrulama sonuçları bu yüzden iyimser olabilir; final iddiası yalnızca kilitli testten gelir (`rapor/rapor_plani_v1.md` §4.4).
 
 **Kullanım biçimi:**
 - İkili karşılaştırma (pairwise): yargıç iki cevabı görür ve hangisinin daha iyi olduğunu söyler. "A daha iyi / B daha iyi / eşit" ve kısa bir gerekçe JSON biçiminde döner.
@@ -240,7 +224,7 @@ Karar 3'e göre:
 
 **Kapsam:**
 - **Ne zaman:** 11. aşamada, test cevapları üretildikten sonra.
-- **Ne:** yalnızca birincil karşılaştırma, yani seçilen adaptör ile `hazir_istemli`.
+- **Ne:** yalnızca birincil karşılaştırma, yani seçilen adaptör ile `hazir`.
 - **Kaç soru:** testten 50 soru, toplam 100 cevap. Sorular, cevaplar üretilmeden önce kimlikle seçilir: seed 42, kaynağa göre (SGK / ÇSGB / İŞKUR) katmanlı. Seçim betiği yalnızca kimlik yazar.
 - **Değerlendirici:** tek kişi (proje sahibi).
 
@@ -291,7 +275,7 @@ Kararlar 1–6 kullanıcı tarafından 2026-11-23'te verildi. Karar 6, ilk beş 
    - Sentetik çiftler eklendikçe bu sayı artar.
    - Cevaplar öğretmen veya hazır modelle üretilir; kalite kontrolü insan emeği ister.
    Bu iş gerileme hiç olmasa da yapılmış olur.
-2. **Ana soruyu temiz ölçmek.** Birincil soru "kurum SSS'siyle (ve sentetikle) eğitim, istemli hazır modeli geçiyor mu?". Her adaptöre genel Türkçe karıştırmak SSS sinyalini sulandırabilir ve üslup kazancını küçültebilir. Ayrıca sentetik katkısını (ikincil iddia) üçüncü bir değişkenle karıştırır.
+2. **Ana soruyu temiz ölçmek.** Birincil soru "kurum SSS'siyle (ve sentetikle) eğitim, üslubu hazır modele göre geliştiriyor mu ve bir şeyi bozuyor mu?" (2026-11-24'te güncellendi; ilk yazımda rakip istemli hazır modeldi). Her adaptöre genel Türkçe karıştırmak SSS sinyalini sulandırabilir ve üslup kazancını küçültebilir. Ayrıca sentetik katkısını (ikincil iddia) üçüncü bir değişkenle karıştırır.
 3. **Koşullu kuralın riski artık ölçülebilir.** Eski kararın asıl gerekçesi gerilemeyi önlemekti. Bunu artık iki yolla yapıyoruz:
    - Türkçe değerlendirmenin geliştirme/saklanan ayrımı (karar 2) sayesinde gerileme testten önce, ayrı bir bölümde ölçülür.
    - Tetikleyici final eşikleriyle aynı sayılarda, yani hassas ayarlı. Gerekçe §3A'da.
@@ -315,7 +299,7 @@ Her dosya sabit seed (42) ile %30 geliştirme / %70 saklanan olarak bölünür; 
 
 ### Karar 3 (verildi): kör insan değerlendirmesi
 
-- **Ne zaman ve ne:** 11. aşamada, yalnızca birincil karşılaştırma için (seçilen adaptör vs `hazir_istemli`).
+- **Ne zaman ve ne:** 11. aşamada, yalnızca birincil karşılaştırma için (seçilen adaptör vs `hazir`; 2026-11-24'e kadar `hazir_istemli`).
 - **Kaç soru ve kim:** testten 50 soru, tek değerlendirici (proje sahibi).
 - **Form:** iki bölüm.
   - Üslup ve jargon bölümünde referans cevap gösterilmez.

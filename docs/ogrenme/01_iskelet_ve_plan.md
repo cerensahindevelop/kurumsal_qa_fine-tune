@@ -68,7 +68,7 @@ Yeni terimler:
 **Üç cümlelik özet:** Sistem mesajı modelin rolünü, alanını ve bilgi yokken nasıl davranacağını tanımlar. Aynı metin eğitimde, değerlendirmede ve serviste kullanılır; böylece model eğitimde ne gördüyse kullanımda da onu görür. Alan dışı soruları genel dil görevlerinden ayırmak, genel Türkçe becerisini korumak için şarttır.
 
 **Kontrol sorusu:** Adaptörü değerlendirirken neden üslup istemi ve few-shot örnekleri vermiyoruz?
-*Cevap:* Adaptörün kazancının eğitimden mi yoksa istemden mi geldiğini ayırmak için. İstem kazancı zaten `hazir_istemli` sistemde ölçülüyor.
+*Cevap:* Adaptör ile hazır model arasındaki farkın eğitimden geldiğinden emin olmak için: ikisi de aynı sistem mesajıyla çalışır. (2026-11-24 öncesinde istem kazancı `hazir_istemli` sisteminde ölçülecekti; bu sistem kapsam dışı bırakıldı, bkz. §13.)
 
 ---
 
@@ -79,7 +79,7 @@ Yeni terimler:
 **Blok 1: sistemler ve sıra.** Beş sistem tanımlanır. Önce doğrulamada ayar seçilir, sonra testte tek bir kez ölçülür. Neden: test yalnızca bir kez kullanılırsa, üzerinde ayar yapılmamış olur.
 
 **Blok 2: birincil ve ikincil sonuç.**
-- Tek ana karşılaştırma: seçilen adaptör ile `hazir_istemli`.
+- Tek ana karşılaştırma: seçilen adaptör ile `hazir` (2026-11-24'e kadar `hazir_istemli`; bkz. §13).
 - Sentetik katkısı ön kayıtlı bir ikincil iddiadır.
 - Neden: çok sayıda karşılaştırma şans eseri bir "kazanç" üretebilir. Ana iddiayı tek bir karşılaştırmaya bağlamak bunu önler.
 
@@ -262,7 +262,7 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `degerle
 
 **Blok 3: yedek yol (karar 19) ve kalibrasyon soruları (karar 20).** Girdi: iki yargıç adayının kalibrasyon sonucu. Dönüşüm: biri geçerse o kullanılır; ikisi de kalırsa tuzak insan puanıyla, kritik 2.1 50 insan sorusunda +2 eşiğiyle ölçülür. Kalibrasyonun 40 sorusu istem ayarında da kullanılır; bunun bedeli rapora sınırlama olarak yazıldı.
 
-**Mini örnek (örnek, uydurma; gerçek çalışma değil):** insan formundaki 50 soruda yargıç adaptöre 4 kritik hata, insan 2 kritik hata verdi; `hazir_istemli`'ye ikisi de 3 kritik hata verdi. Kalan 50 soruda yargıç adaptöre 6, `hazir_istemli`'ye 3 kritik hata verdi. Birleşik sayım 8'e 6 (fark +2, geçti); yalnızca yargıçla 10'a 6 (fark +4, kritik eşik aşılırdı).
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** insan formundaki 50 soruda yargıç adaptöre 4 kritik hata, insan 2 kritik hata verdi; `hazir`'a ikisi de 3 kritik hata verdi. Kalan 50 soruda yargıç adaptöre 6, `hazir`'a 3 kritik hata verdi. Birleşik sayım 8'e 6 (fark +2, geçti); yalnızca yargıçla 10'a 6 (fark +4, kritik eşik aşılırdı).
 
 **Açık kalan (karar 21):** insan formu `hazir`'ı kapsamadığı için birleşik etiket ve yedek yol `hazir` karşılaştırmasında aynı biçimde uygulanamıyor. Şimdilik `hazir` karşılaştırmasında iki taraf da yargıç + betikle sayılıyor.
 
@@ -287,3 +287,20 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `degerle
 
 **Kontrol sorusu:** Uyarı incelemesi yalnızca adaptör aleyhine kayıtlara bakıp onları düzeltirse yeniden hesap neden yanlı olur?
 *Cevap:* Ölçüm yanılgıları iki yönde de olur. Yalnızca adaptörü haksız yere kötü gösteren yanılgılar düzeltilip adaptörü haksız yere iyi gösterenler bırakılırsa, düzeltilmiş değer sistematik olarak adaptör lehine kayar (açık karar 23).
+
+## 13. `hazir_istemli` kapsamdan çıkarıldı: taban çizgisi artık hazır model
+
+**Yol ve girdi:** `degerlendirme/esikler_v1.md` §8 değişiklik 12, `degerlendirme/deney_plani_v1.md` §1–§5 ve §6.8, `rapor/rapor_plani_v1.md` §4.4, `CLAUDE.md` deney tablosu. Girdi: kullanıcının proje kararı (fine-tuning doğrudan iş olarak verildi).
+
+**Blok 1: birincil soru değişti.** Önce soru "eğitim, iyi bir istemden daha mı iyi?" idi; şimdi "eğitim, üslubu hazır modele göre geliştirdi mi ve bir şeyi bozdu mu?". Birincil çift seçilen adaptör vs `hazir`; 1.1, 1.2 ve bütün bilgi eşikleri bu çifte uygulanır. Eşik değerleri aynı kaldı.
+
+**Blok 2: sadeleşmeler.** §2 tek karşılaştırmaya indi; insan formu artık `hazir`'ı kapsadığı için birleşik etiket iki tarafa da uygulanabiliyor (eski 21a/21b ayrımı gereksiz). Holm ailesinin üç testinden biri kalktı, biri birincil oldu; tek ikincil test kaldığı için Holm kaldırıldı. Kritik kontrol sayısı 4'ten 3'e indi (aile düzeyinde yanlış alarm %18,5 → %14,3; ölçüldü).
+
+**Blok 3: kalibrasyonun yeri değişti.** Kalibrasyon çiftleri önce `hazir` ve `hazir_istemli`'den gelecekti; ikisi de eğitimden önce hazırdı. Yeni kaynak `hazir` ve ilk `sss_adaptor` koşusu. Sonuç: kalibrasyon ilk adaptör eğitildikten sonra yapılabilir ve yargıca dayanan bütün doğrulama puanlamaları ondan sonra gelir.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** doğrulamada `hazir` ve `sss_adaptor_v1` cevapları üretildi. 40 soru seed 42 ile seçildi; insan 40 çifti kör puanladı; iki yargıç adayı da aynı çiftleri iki sırada puanladı. 12b üslupta %80 uyum ve %86 sıra tutarlılığıyla geçti ve seçildi. Ancak bundan sonra checkpoint seçimi yargıçla yapıldı.
+
+**Üç cümlelik özet:** Fine-tuning doğrudan talep edildiği için "istemden üstün mü?" sorusu kapsamdan çıktı ve hazır model hem üslup gelişiminin hem gerilemenin taban çizgisi oldu. Eşik değerleri değişmedi; ama tek bir karşılaştırma kaldığı için birleşik etiket, yedek yol ve çoklu karşılaştırma kuralları sadeleşti. Bunun bedeli rapora yazıldı: hazır modele karşı üslup kazancı beklenen bir sonuçtur ve istemle elde edilebilecek kazançtan ayrıştırılmamıştır.
+
+**Kontrol sorusu:** Holm düzeltmesi neden tamamen kaldırıldı da m = 2 ile devam edilmedi?
+*Cevap:* Ailenin üç testinden H2 (istemin katkısı) kapsamdan çıktı, H3 (adaptör vs `hazir`) ise birincil uç nokta oldu ve kendi α'sıyla aile dışında kaldı. Geriye tek ikincil test (5.1) kaldı; tek testte çoklu karşılaştırma sorunu yoktur.
