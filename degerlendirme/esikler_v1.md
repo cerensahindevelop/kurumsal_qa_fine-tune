@@ -1,3 +1,5 @@
+Sade açıklama: esikler_v1_aciklama.md (bağlayıcı değildir; çelişki olursa bu dosya geçerlidir).
+
 # Geçme eşikleri v1 (ön kayıt)
 
 Durum: TASLAK (01, 2026-11-23; aynı gün açık kararlarla güncellendi: §1.2, §2.1, §3, yeni §3A)

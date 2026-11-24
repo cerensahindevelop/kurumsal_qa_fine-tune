@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı kararları 9–11 ve kural 9 tetikleyicisi işlendi) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -37,6 +37,7 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 | `degerlendirme/kilit_manifesti_v4.json`, `env/2026-11-23_girdi_sha256_v4.json` | 27 kilitli dosya; v3'ten farkı yalnızca GK2-050 düzeltmesiyle taslağın özeti |
 | `degerlendirme/kilit_manifesti_v5.json`, `env/2026-11-23_girdi_sha256_v5.json` | **Geçerli manifest.** 27 kilitli dosya; v4'ten farkı yalnızca kullanıcı onaylı, GK2-044 düzeltilmiş taslağın özeti |
 | `src/veri/onay_csv.py` | JSONL taslağından onay CSV'si üretir; dolu hücreleri kimliğe göre korur (karar 6c) |
+| `degerlendirme/esikler_v1_aciklama.md` | Eşiklerin sade açıklaması (bağlayıcı değil): her eşik için arka plan, ne, neden, olmasaydı, katkı, uydurma örnek; düşünme modu ek bölümü; terim sözlüğü; "Açıklarken fark ettiklerim" (22 madde). `esikler_v1.md`'ye yalnızca en üste atıf satırı eklendi (2026-11-24) |
 
 `.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
 
@@ -52,6 +53,11 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
 - Ollama 0.35.1 kurulu (≥ 0.32.12 gerekli). Kurulu modeller: `qwen3.6:35b`, `qwen2.5:*`, `nomic-embed-text`. `qwen3.8` ve `gemma4` henüz indirilmedi.
 - Gösterim metrikleri (geçici el yazımı chrF): Cevap 1 chrF 62,1 ve sayı recall 5/5; Cevap 2 chrF 27,4 ve sayı recall 1/5.
 - İşaret testi kontrolü: 100 soruda anlamlılık için ≥ 61/39 gerekiyor.
+- Eşik açıklaması (2026-11-24):
+  - `esikler_v1.md` farkı yalnızca en üstteki atıf satırı (+2 satır, git diff).
+  - Kilitli 27 dosyanın 27'si `kilit_manifesti_v5.json` ile aynı SHA-256 (yalnızca sayı basan kontrol). Girdi değişmedi; yeni manifest üretilmedi.
+  - Açıklamadaki p değerleri, kappa ve standart hatalar uydurma sayılar üzerinde formülle hesaplandı; veri kullanılmadı.
+  - Paket kaydı: `env/2026-11-24_paketler.txt` (temel miniconda ortamı).
 
 **Tahmin / bekleyen iş:**
 - Kayıt düzeyinde JSON doğrulaması, kimlik benzersizliği ve çakışma denetimi (02).
@@ -113,6 +119,14 @@ Son güncelleme: 2026-11-23 (01 açık kararları, karar 6, 6c ve sistem mesajı
   - Diğer 13 kayıt olduğu gibi onaylandı. 15 kaydın hepsinde `onay: "onaylandı (kullanıcı)"`. Ölçüldü: yalnızca bu üç alan değişti, başka alan değişmedi.
   - Set kilit manifestinde değil (geliştirme seti); yeni manifest üretilmedi. 02'deki çakışma denetiminden geçecek.
 8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Kullanıcı `cevap_standardi_v1.md` ve `sistem_v1.txt` için kararlarını verdi (karar 9–14). `gelistirme_kapsam_disi.jsonl` kullanıcı tarafından onaylandı (aşağıda); senior onayı yine bekliyor.
+15. **Düşünme modu yan deneyi** (açık, karar 06'da verilecek): `hazir` model doğrulama setinde düşünme açık ve kapalı çalıştırılıp bilgi doğruluğu (bilgi puanı, kritik hata) ve süre karşılaştırılsın mı? Ana planda yok, hiçbir eşiği etkilemez. Yapılırsa 0.1'i bilerek ihlal ettiği için ayrı bir deney kimliğiyle yürütülmeli. Gerekçe: düşünme kapalılığının çok adımlı sorulardaki (ör. kıdem + ihbar birlikte) bedeli ölçülmedi. Ayrıntı `esikler_v1_aciklama.md`, 0.1 ek bölümü.
+16. **Eşik açıklamasında listelenen zayıf noktalar** (açık, senior kararı): `esikler_v1_aciklama.md` §10'da 22 madde var. Hiçbiri düzeltilmedi. Öne çıkanlar:
+    - 1.1'deki %60 koşulu hiç bağlayıcı değil (100 kararda p < 0,05 için %61 gerekir; ölçüldü, formülle).
+    - §0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.
+    - Yargıç kalibrasyondan kalırsa yargıca dayalı koruma eşiklerinin durumu yazılmamış.
+    - "Kaybetme − kazanma" eşiklerinde payda belirsiz.
+    - §3A'daki sekiz ölçütlü tetikleyicinin neredeyse her zaman çalışması olası (tahmin).
+    - Ele alınacaksa eşik onayından **önce** yapılmalı; onaydan sonra `esikler_v2.md` gerekir.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
