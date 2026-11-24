@@ -196,6 +196,10 @@ Açık karar kalmadı. Yeni belirsizlikler açık karar olarak değil, aşağıd
 - Eşik paketiyle ilgili yeni bir belirsizlik bulunursa açık karar **açılmaz**. Asistan kendi önerdiği çözümü uygular ve aşağıdaki listeye yazar: tek cümlelik sorun, uygulanan çözüm, dosya/satır. Kullanıcı listeyi topluca gözden geçirir.
 - **İstisna:** çözüm bir eşik **değerini** veya **kritik/uyarı ayrımını** değiştirecekse, uygulamadan önce kullanıcıya sorulur.
 
+### Çalışma kuralı: GitHub'a gönderim (kullanıcı, 2026-11-24)
+- Uzak depo: `origin` = https://github.com/cerensahindevelop/kurumsal_qa_fine-tune (`main`, ilk gönderim `38dcb32`).
+- Aşama sonlarında yalnızca yerel commit yapılır. `git push` her seferinde **kullanıcıya sorulur** ve yalnızca onay gelirse yapılır.
+
 ### Varsayılan olarak uygulananlar (kullanıcının toplu gözden geçirmesini bekliyor)
 Satır numaraları 2026-11-24 commit'indeki `degerlendirme/esikler_v1.md` içindir. Hiçbiri bir eşik değerini veya kritik/uyarı ayrımını değiştirmiyor.
 
