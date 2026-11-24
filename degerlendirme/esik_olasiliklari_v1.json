@@ -1,0 +1,238 @@
+{
+  "aile_yanlis_alarm_alfa_0_05": {
+    "17_koruma_esigi": 0.5818796647808229,
+    "21_koruma_esigi_s2_iki_taban": 0.6594383737118852,
+    "4_kritik_2.1x2_3.7_4.2": 0.18549375000000012,
+    "3_kritik_2.1x1_3.7_4.2": 0.1426250000000001
+  },
+  "tuzak_4_1": {
+    "bagimsiz": [
+      {
+        "basari_orani": 0.7,
+        "yanlis_alarm_tol1": 0.3307524358872708,
+        "yanlis_alarm_tol2": 0.23271001630177157,
+        "yanlis_alarm_tol3": 0.1532947233344977,
+        "yakalama_tol1": 0.6646635234988116,
+        "yakalama_tol2": 0.5574858753521886,
+        "yakalama_tol3": 0.4456796831955767
+      },
+      {
+        "basari_orani": 0.75,
+        "yanlis_alarm_tol1": 0.321270724596309,
+        "yanlis_alarm_tol2": 0.21955087355948089,
+        "yanlis_alarm_tol3": 0.13929911592121572,
+        "yakalama_tol1": 0.6707454865405087,
+        "yakalama_tol2": 0.5594698566238351,
+        "yakalama_tol3": 0.44306534160494443
+      },
+      {
+        "basari_orani": 0.8,
+        "yanlis_alarm_tol1": 0.30719454927663514,
+        "yanlis_alarm_tol2": 0.20057377603687881,
+        "yanlis_alarm_tol3": 0.11996563700643313,
+        "yakalama_tol1": 0.6797103315497214,
+        "yakalama_tol2": 0.5623500032393907,
+        "yakalama_tol3": 0.4390737809259497
+      },
+      {
+        "basari_orani": 0.85,
+        "yanlis_alarm_tol1": 0.28534628282264834,
+        "yanlis_alarm_tol2": 0.17255572098763072,
+        "yanlis_alarm_tol3": 0.09343747584690261,
+        "yakalama_tol1": 0.6929286262159162,
+        "yakalama_tol2": 0.5664822996926469,
+        "yakalama_tol3": 0.4328642165361912
+      },
+      {
+        "basari_orani": 0.9,
+        "yanlis_alarm_tol1": 0.2478591083564538,
+        "yanlis_alarm_tol2": 0.12907068280354075,
+        "yanlis_alarm_tol3": 0.057689177479158193,
+        "yakalama_tol1": 0.7132082427117346,
+        "yakalama_tol2": 0.5724791378083303,
+        "yakalama_tol3": 0.42250679002547414
+      }
+    ],
+    "eslesik": [
+      {
+        "ayrisma_orani": 0.1,
+        "yanlis_alarm_tol1": 0.1752100272362562,
+        "yanlis_alarm_tol2": 0.06375888354172013,
+        "yanlis_alarm_tol3": 0.018466309163359007,
+        "yakalama_tol1": 0.738765533115102,
+        "yakalama_tol2": 0.579201603026584,
+        "yakalama_tol3": 0.4078780436057012
+      },
+      {
+        "ayrisma_orani": 0.15,
+        "yanlis_alarm_tol1": 0.22638675534395764,
+        "yanlis_alarm_tol2": 0.10706373467955835,
+        "yanlis_alarm_tol3": 0.04241755130950726,
+        "yakalama_tol1": 0.7164335307556084,
+        "yakalama_tol2": 0.5733855701739337,
+        "yakalama_tol3": 0.4207601265290433
+      },
+      {
+        "ayrisma_orani": 0.2,
+        "yanlis_alarm_tol1": 0.25970296607085397,
+        "yanlis_alarm_tol2": 0.14213950355385563,
+        "yanlis_alarm_tol3": 0.06768500504342462,
+        "yakalama_tol1": 0.699451245294756,
+        "yakalama_tol2": 0.5684617661613259,
+        "yakalama_tol3": 0.4296472223444503
+      },
+      {
+        "ayrisma_orani": 0.25,
+        "yanlis_alarm_tol1": 0.2833441073046184,
+        "yanlis_alarm_tol2": 0.17008140655902104,
+        "yanlis_alarm_tol3": 0.09121903777818931,
+        "yakalama_tol1": 0.6859643016263162,
+        "yakalama_tol2": 0.5643236943750246,
+        "yakalama_tol3": 0.436185918463714
+      },
+      {
+        "ayrisma_orani": 0.3,
+        "yanlis_alarm_tol1": 0.3011903736717972,
+        "yanlis_alarm_tol2": 0.19269371152716983,
+        "yanlis_alarm_tol3": 0.11225168519189763,
+        "yakalama_tol1": 0.6749103202919383,
+        "yakalama_tol2": 0.5608148701078423,
+        "yakalama_tol3": 0.4412320191469715
+      }
+    ],
+    "kesin": [
+      {
+        "ayrisma_orani": 0.1,
+        "yakalama_tol1": 0.8392112790752709,
+        "yakalama_tol2": 0.6323128516078025,
+        "yakalama_tol3": 0.36768714839219546
+      },
+      {
+        "ayrisma_orani": 0.15,
+        "yakalama_tol1": 0.7872004990318217,
+        "yakalama_tol2": 0.6053034625072372,
+        "yakalama_tol3": 0.394696537492765
+      },
+      {
+        "ayrisma_orani": 0.2,
+        "yakalama_tol1": 0.7527323633824818,
+        "yakalama_tol2": 0.5902354809391713,
+        "yakalama_tol3": 0.40976451906083017
+      },
+      {
+        "ayrisma_orani": 0.25,
+        "yakalama_tol1": 0.7281085163935541,
+        "yakalama_tol2": 0.5802436707019272,
+        "yakalama_tol3": 0.4197563292980729
+      },
+      {
+        "ayrisma_orani": 0.3,
+        "yakalama_tol1": 0.7094572649457469,
+        "yakalama_tol2": 0.5729831409830257,
+        "yakalama_tol3": 0.4270168590169727
+      }
+    ]
+  },
+  "kalibrasyon": [
+    {
+      "cift": 20,
+      "uyum_yari_genislik_pp": 18.977269827915187,
+      "wilson_alt_pp": 53.129912060741134,
+      "wilson_ust_pp": 88.81382993000237,
+      "bes_pp_kac_cift": 1.0,
+      "bir_cift_kac_pp": 5.0,
+      "kappa_yari_genislik": 0.3795453965583037
+    },
+    {
+      "cift": 25,
+      "uyum_yari_genislik_pp": 16.973786145029635,
+      "wilson_alt_pp": 55.520175599023545,
+      "wilson_ust_pp": 87.8202117629569,
+      "bes_pp_kac_cift": 1.25,
+      "bir_cift_kac_pp": 4.0,
+      "kappa_yari_genislik": 0.3394757229005927
+    },
+    {
+      "cift": 30,
+      "uyum_yari_genislik_pp": 15.494875929835644,
+      "wilson_alt_pp": 57.2997655292291,
+      "wilson_ust_pp": 87.0245647326983,
+      "bes_pp_kac_cift": 1.5,
+      "bir_cift_kac_pp": 3.3333333333333335,
+      "kappa_yari_genislik": 0.3098975185967129
+    },
+    {
+      "cift": 32,
+      "uyum_yari_genislik_pp": 15.002849106950903,
+      "wilson_alt_pp": 57.89344086290853,
+      "wilson_ust_pp": 86.74759914885746,
+      "bes_pp_kac_cift": 1.6,
+      "bir_cift_kac_pp": 3.125,
+      "kappa_yari_genislik": 0.30005698213901805
+    },
+    {
+      "cift": 40,
+      "uyum_yari_genislik_pp": 13.418956183725692,
+      "wilson_alt_pp": 59.806038451464794,
+      "wilson_ust_pp": 85.812881425612,
+      "bes_pp_kac_cift": 2.0,
+      "bir_cift_kac_pp": 2.5,
+      "kappa_yari_genislik": 0.26837912367451383
+    }
+  ],
+  "holm_sinirlari": {
+    "m=1": [
+      0.05
+    ],
+    "m=2": [
+      0.025,
+      0.05
+    ],
+    "m=3": [
+      0.016666666666666666,
+      0.025,
+      0.05
+    ],
+    "m=4": [
+      0.0125,
+      0.016666666666666666,
+      0.025,
+      0.05
+    ],
+    "m=6": [
+      0.008333333333333333,
+      0.01,
+      0.0125,
+      0.016666666666666666,
+      0.025,
+      0.05
+    ]
+  },
+  "isaret_testi_gereken_galibiyet": {
+    "alfa=0.0500": {
+      "n=60": 39,
+      "n=80": 50,
+      "n=100": 61
+    },
+    "alfa=0.0250": {
+      "n=60": 40,
+      "n=80": 51,
+      "n=100": 62
+    },
+    "alfa=0.0167": {
+      "n=60": 40,
+      "n=80": 52,
+      "n=100": 63
+    },
+    "alfa=0.0125": {
+      "n=60": 41,
+      "n=80": 52,
+      "n=100": 63
+    },
+    "alfa=0.0083": {
+      "n=60": 41,
+      "n=80": 53,
+      "n=100": 64
+    }
+  }
+}

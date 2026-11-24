@@ -37,6 +37,7 @@ Ortak kurallar:
 **Birincil sonuç (tek ana karşılaştırma):** seçilen adaptör ile `hazir_istemli` testte karşılaştırılır.
 - Birincil uç nokta (primary endpoint: başarının tek ana ölçüsü): yerel yargıcın **üslup+jargon** ikili karşılaştırmasında seçilen adaptörün kazanma oranı. Beraberlikler hariç tutulur, kararın iki sırada da tutarlı olması gerekir.
 - Birincil uç noktanın geçerli sayılması için şu koruma koşulları da sağlanmalı: bilgi doğruluğunda kötüleşme yok, genel Türkçe korunuyor, tuzak davranışı kötüleşmiyor (eşikler `esikler_v1.md` dosyasında).
+  - Onaydan önce değişiklik (2026-11-24, kullanıcı kararı): koruma eşiklerinden yalnızca 2.1, 3.7 ve 4.2 kritiktir; biri aşılırsa birincil sonuç "kaldı" olur. Diğerleri uyarı eşiğidir: aşılırsa raporda kırmızı bayrakla gösterilir, kayıtlar insan tarafından incelenir ve nihai karar senior ile verilir (`esikler_v1.md` §1, §6).
 - **Fine-tuning ancak bu karşılaştırma geçerse haklı çıkar.**
 
 **İkincil sonuçlar** (raporlanır, ana iddia yapılmaz):
@@ -47,6 +48,8 @@ Ortak kurallar:
 5. Yargıç ile insan formu arasındaki uyum.
 
 İkincil karşılaştırmalarda birden fazla test yapılacağı için Holm düzeltmesi uygulanır. Bunlar keşif niteliğinde raporlanır.
+- Holm ailesinin tanımı `esikler_v1.md` §8, değişiklik 5'te. Önerilen aile m = 3: yukarıdaki ikincil 1, 2 ve 3'ün üslup+jargon işaret testleri. Kullanıcı kararı bekliyor (2026-11-24).
+- Bütün ikili karşılaştırmalar `esikler_v1.md` §7'deki kurala göre raporlanır: kazanma / beraberlik / kayıp sayıları ve p değeri birlikte; kazanma oranı tek başına yazılmaz.
 
 ## 4. Sentetik veri katkısı (önceden planlanan karşılaştırma)
 
@@ -215,7 +218,7 @@ Adaylar (A5000: 24.564 MiB; masaüstü yaklaşık 0,9 GB kullanıyor, ölçüld�
 "Bilgime göre" yazan tarihler ve bütün VRAM değerleri, yargıç kurulum aşamasında `ollama show` ile ve gerçek bellek ölçümüyle doğrulanacak (bekleyen iş).
 
 **Öneri ve seçim kuralı:** asıl adaylar `gemma4:12b` ve `gemma4:26b`. Seçim kalibrasyonla yapılır:
-1. **Kalibrasyon seti:** doğrulama setinden 20–30 soru için iki farklı sistemin cevap çifti. Kullanıcı (insan) bu çiftleri kör olarak puanlar: üslup+jargon ve bilgi için ayrı ayrı A daha iyi / B daha iyi / eşit. Kalibrasyon, eşik onayı ve doğrulama cevaplarının üretilmesinden sonra yapılır.
+1. **Kalibrasyon seti:** doğrulama setinden 40 soru için iki farklı sistemin cevap çifti (2026-11-24, onaydan önce 20–30'dan 40'a çıkarıldı; gerekçe ve hesap `esikler_v1.md` §8, değişiklik 3). Kullanıcı (insan) bu çiftleri kör olarak puanlar: üslup+jargon ve bilgi için ayrı ayrı A daha iyi / B daha iyi / eşit. Kalibrasyon, eşik onayı ve doğrulama cevaplarının üretilmesinden sonra yapılır.
 2. Her iki aday aynı çiftleri, aynı istemle ve iki sırada puanlar.
 3. Ölçülenler: (a) beraberlik hariç insanla uyum yüzdesi ve Cohen kappa (şans düzeltmeli uyum katsayısı); (b) sıra tutarlılığı (iki sırada aynı karar).
 4. Eşiği (`esikler_v1.md`) geçen adaylar arasında kural şu: `gemma4:26b`, `gemma4:12b`'den uyumda **5 yüzde puandan fazla** önde değilse ve sıra tutarlılığında da 5 puandan fazla önde değilse **küçük model (`gemma4:12b`) seçilir**. Gerekçe: daha hızlı, daha az VRAM, intranette daha kolay taşınır.
@@ -258,7 +261,7 @@ Karar 3'e göre:
 - Form `inceleme/insan_formu_v1.csv` olarak üretilir; 11. aşamadan önce boş bir örnek sürümüyle teknik deneme yapılır.
 - Sınırlamalar (tek değerlendirici, referansla karşılaştırma) `rapor/rapor_plani_v1.md` §4'te.
 
-**Ayrı iş: yargıç kalibrasyonu.** 20–30 doğrulama çifti için insan puanlaması doğrulama aşamasında yapılır (§6.8). Bu, 11'deki insan formuyla karıştırılmaz.
+**Ayrı iş: yargıç kalibrasyonu.** 40 doğrulama çifti için insan puanlaması doğrulama aşamasında yapılır (§6.8). Bu, 11'deki insan formuyla karıştırılmaz.
 
 ## 7. Geliştirme kapsam dışı seti
 

@@ -50,6 +50,11 @@ python -m src.veri.onay_csv \
   --girdi inceleme/genel_kontrol_v2_taslak.jsonl \
   --cikti inceleme/genel_kontrol_v2_onay.csv
 
+# 1c) Eşik gerekçelerindeki olasılıklar (veri okumaz; tam olasılık hesabı)
+#     Aile düzeyinde yanlış alarm, 4.1 tuzak toleransı, kalibrasyon belirsizliği, Holm sınırları
+python -m src.degerlendirme.esik_olasiliklari \
+  --cikti degerlendirme/esik_olasiliklari_v1.json
+
 # 2) Paket ve donanım kaydı
 pip freeze > env/$(date +%F)_paketler.txt
 nvidia-smi --query-gpu=index,name,pci.bus_id,memory.total,memory.used,driver_version --format=csv > env/$(date +%F)_donanim.txt

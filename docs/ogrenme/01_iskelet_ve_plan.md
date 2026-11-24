@@ -206,3 +206,48 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 **Kontrol sorusu:** Normalleştirmeyi neden yalnızca sayımda yapıp hücredeki "düzelt" yazımını değiştirmiyoruz?
 *Cevap:* CSV insanın kaydıdır. Betik onu kendi biçimine çevirseydi kullanıcının yazdığı değişmiş olurdu ve gidiş-dönüş kontrolü (dosyanın bayt bayt aynı kalması) anlamını yitirirdi. Karşılaştırma için sadeleştirmek yeterli.
+
+## 10. Eşik kararları ve `src/degerlendirme/esik_olasiliklari.py`
+
+**Girdi:** yok; betik veri okumaz, yalnızca `--cikti` (JSON yolu) ve isteğe bağlı `--kotulesme` (4.1 için gerçek kötüleşme, varsayılan 3 soru) alır. **Çıktı:** `degerlendirme/esik_olasiliklari_v1.json` ve ekranda özet. Bu sayılar `esikler_v1.md` §8'deki "ölçüldü" değerlerinin kaynağıdır. Kavramların sade anlatımı `degerlendirme/esikler_v1_aciklama.md` §9–§10'da.
+
+- **Blok 1, aile düzeyinde yanlış alarm.**
+  - Alır: kontrol sayısı k, tek kontrolün yanlış alarm olasılığı (%5).
+  - Dönüşüm: 1 − 0,95ᵏ.
+  - Neden: koruma eşiklerinin hepsi zorunluyken sonucun şans eseri düşme olasılığını göstermek; kritik/uyarı ayrımının gerekçesi.
+  - Sonraki bloğa: yok, bağımsız bir hesap.
+- **Blok 2, 4.1 tuzak toleransı.**
+  - Alır: 28 soru, başarı oranları ve ayrışma oranları.
+  - Dönüşüm: "adaptör − istemli" farkının olasılık dağılımı. Bağımsız binom modelinde iki dağılımın birleşimiyle, eşleştirilmiş modelde soru soru ilerleyen bir toplamla (her soru −1, 0 veya +1 ekler), "kesin" modelde adaptörün tam 3 soruda kaybettiği varsayımıyla hesaplanır. Tolerans −1, −2, −3 için hem yanlış alarm hem yakalama olasılığı çıkar.
+  - Neden üç model: gerçek dünyada iki model aynı sorularda benzer davranır (eşleştirme); tek bir varsayıma bağlı kalmak sonucu olduğundan kesin gösterirdi. Benzetim (simulation) yerine tam hesap kullanıldı, böylece seed gerekmez ve sonuç her makinede aynıdır.
+- **Blok 3, kalibrasyon belirsizliği.**
+  - Alır: çift sayısı (20–40) ve %75 uyum.
+  - Dönüşüm: normal yaklaşımla %95 yarı genişlik, Wilson aralığı, 5 pp'nin kaç çifte denk geldiği, kappa için kaba belirsizlik.
+  - Neden: 40 çift kararının gerekçesini sayıyla göstermek.
+- **Blok 4, Holm sınırları ve gereken galibiyet.**
+  - Alır: aile boyutu m ve kesin karar sayısı n.
+  - Dönüşüm: α/m, α/(m−1)… sınırları ve işaret testinde bu sınırları geçmek için gereken en az galibiyet.
+  - Neden: Holm ailesi seçeneklerinin 5.1'e bedelini göstermek.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** 3 kontrol, her biri %5 → 1 − 0,95³ = %14,3. 28 soruda iki eşit model, her soruda %10 ihtimalle farklı sonuç: fark ortalama 0'dır ama ±2 soru oynaması sıradandır.
+
+**Gerçek çalışma (ölçüldü):**
+- 17 eşikte %58,2; 21'de %65,9; 4 kritik kontrolde %18,5.
+- 4.1 yanlış alarm: −1'de %17,5–33,1, −2'de %6,4–23,3.
+- 4.1, 3 soruluk kötüleşmeyi yakalama: −1'de %66,5–83,9, −2'de %55,7–63,2, −3'te %36,8–44,6.
+- Kalibrasyon: 25 çiftte ±17,0 pp, 40 çiftte ±13,4 pp.
+- Holm m = 3'te 100 kararda 61–63 galibiyet gerekiyor.
+
+**Kullanıcının verdiği sayılarla fark:** yalnızca −2'nin yakalama olasılığında. Verilen değer yaklaşık %68'di, ölçülen %56–63. Diğer sayılar örtüşüyor.
+
+**Eşik dosyasındaki değişiklikler (kullanıcı kararı, onaydan önce):**
+- Yalnızca 2.1, 3.7 ve 4.2 kritik; diğer koruma eşikleri uyarı. Uyarı aşılırsa betik kayıt seçer, insan etiketler, senior karar verir (`esikler_v1.md` §6).
+- 4.1 −2 oldu.
+- Kalibrasyon 40 çifte çıktı.
+- Kazanma oranı hiçbir zaman tek başına yazılmaz (§7).
+- Holm ailesi m = 3 olarak önerildi; karar kullanıcıda.
+
+**Üç cümlelik özet:** Çok sayıda zorunlu eşik, her biri küçük bir yanlış alarm olasılığı taşısa bile, iyi bir modeli şans eseri düşürebilir; bu yüzden yalnızca üç eşik kritik bırakıldı ve diğerleri yazılı bir incelemeye bağlandı. 4.1'in toleransı, yanlış alarm ile yakalama gücü arasında ölçülmüş bir pazarlıkla −2'ye çekildi; asıl güvence kritik 4.2'dir. Bütün sayılar veri okumayan, tekrar çalıştırıldığında aynı sonucu veren bir betikten geliyor.
+
+**Kontrol sorusu:** 4.1'de toleransı −1'den −3'e çıkarmak neden "daha güvenli" değildir?
+*Cevap:* Tolerans büyüdükçe yanlış alarm azalır ama gerçek bir kötüleşmeyi yakalama gücü de düşer: 3 soruluk bir kötüleşme −1'de yaklaşık üçte iki, −3'te yalnızca üçte bir civarında yakalanır. Daha gevşek eşik, iyi modeli haksız düşürmez ama kötü modeli de kaçırır.

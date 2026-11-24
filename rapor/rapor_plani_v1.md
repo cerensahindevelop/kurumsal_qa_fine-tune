@@ -71,7 +71,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 
 ### 4.4 Diğer
 
-- **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 20–30 çiftle sınar.
+- **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 40 çiftle sınar (beraberlikler çıkınca daha az; %75 uyumun belirsizliği 40 çiftte yaklaşık ±13 pp, `esikler_v1.md` §8).
 - **Üslup sızıntısı ölçütü:** önceden belirlenmiş bir işaret listesine dayanır. Listedeki ifadeleri kullanmadan gerçekleşen sızıntıyı kaçırabilir.
 - **Saklanan `genel_kontrol_v2` asistan tarafından yazıldı.**
   - Sorunu: istemi ve ayarları geliştiren asistan bu setin içeriğini biliyor.

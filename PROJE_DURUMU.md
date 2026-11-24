@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -15,6 +15,16 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · So
 - Geliştirme kapsam dışı seti için 15 soruluk taslak yazıldı (tuzak setine bakılmadan).
 - Girdi SHA-256 özeti ve kilit manifesti üretildi. Paket ve donanım kaydı alındı.
 - Eğitim başlatılmadı. Hiçbir model çalıştırılmadı.
+- **Eşik kararları (kullanıcı, 2026-11-24; onaydan önce, aynı dosyaya işlendi):**
+  - Yalnızca 2.1, 3.7 ve 4.2 kritik; §2–§4'teki diğer 14 eşik uyarı. Uyarı aşılırsa kırmızı bayrak, betikle seçilen kayıtların insan incelemesi ve senior kararı gelir. Süreç `esikler_v1.md` §6.2'de tanımlı.
+  - §1'deki birincil sonuç cümlesi bu ayrıma göre yeniden yazıldı. §3A tetikleyicisi bu ayrımdan etkilenmiyor.
+  - 4.1 "adaptör ≥ `hazir_istemli` − 2" oldu.
+  - Yargıç kalibrasyonu 40 çifte çıktı (`esikler_v1.md` 0.3 ve 0.5, `deney_plani_v1.md` §6.8 ve §6.9, `rapor_plani_v1.md` §4).
+  - Raporlama kuralı (`esikler_v1.md` §7): kazanma oranı tek başına yazılmaz; kazanma / beraberlik / kayıp sayıları ve p değeri birlikte verilir.
+  - Holm ailesi önerildi; karar kullanıcıda (açık karar 17).
+  - Gerekçelerdeki olasılıklar betikle yeniden hesaplandı (`esikler_v1.md` §8).
+  - `esikler_v1_aciklama.md` güncellendi: yeni §9 (kritik/uyarı) ve §10 (raporlama), 4.1 yeniden yazıldı, örnekler yeni raporlama biçimine çevrildi, sözlüğe 5 terim eklendi, "fark ettiklerim" 27 maddeye çıktı.
+  - `docs/ogrenme/01_iskelet_ve_plan.md` §10 eklendi.
 
 ### Üretilen dosyalar
 | Dosya | Amaç |
@@ -37,7 +47,9 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · So
 | `degerlendirme/kilit_manifesti_v4.json`, `env/2026-11-23_girdi_sha256_v4.json` | 27 kilitli dosya; v3'ten farkı yalnızca GK2-050 düzeltmesiyle taslağın özeti |
 | `degerlendirme/kilit_manifesti_v5.json`, `env/2026-11-23_girdi_sha256_v5.json` | **Geçerli manifest.** 27 kilitli dosya; v4'ten farkı yalnızca kullanıcı onaylı, GK2-044 düzeltilmiş taslağın özeti |
 | `src/veri/onay_csv.py` | JSONL taslağından onay CSV'si üretir; dolu hücreleri kimliğe göre korur (karar 6c) |
-| `degerlendirme/esikler_v1_aciklama.md` | Eşiklerin sade açıklaması (bağlayıcı değil): her eşik için arka plan, ne, neden, olmasaydı, katkı, uydurma örnek; düşünme modu ek bölümü; terim sözlüğü; "Açıklarken fark ettiklerim" (22 madde). `esikler_v1.md`'ye yalnızca en üste atıf satırı eklendi (2026-11-24) |
+| `degerlendirme/esikler_v1_aciklama.md` | Eşiklerin sade açıklaması (bağlayıcı değil): her eşik için arka plan, ne, neden, olmasaydı, katkı, uydurma örnek; düşünme modu ek bölümü; terim sözlüğü; "Açıklarken fark ettiklerim" (22 madde). `esikler_v1.md`'ye yalnızca en üste atıf satırı eklendi (2026-11-24). Aynı gün eşik kararlarına göre güncellendi; "fark ettiklerim" 27 madde |
+| `src/degerlendirme/esik_olasiliklari.py` | Eşik gerekçelerindeki olasılıkları tam hesapla yeniden üretir (veri okumaz) |
+| `degerlendirme/esik_olasiliklari_v1.json` | Betiğin çıktısı; `esikler_v1.md` §8'deki "ölçüldü" sayılarının kaynağı |
 
 `.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
 
@@ -58,6 +70,14 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · So
   - Kilitli 27 dosyanın 27'si `kilit_manifesti_v5.json` ile aynı SHA-256 (yalnızca sayı basan kontrol). Girdi değişmedi; yeni manifest üretilmedi.
   - Açıklamadaki p değerleri, kappa ve standart hatalar uydurma sayılar üzerinde formülle hesaplandı; veri kullanılmadı.
   - Paket kaydı: `env/2026-11-24_paketler.txt` (temel miniconda ortamı).
+- Eşik kararlarının gerekçeleri (2026-11-24, `src/degerlendirme/esik_olasiliklari.py`, tam olasılık hesabı):
+  - 17 zorunlu eşikte en az birinin şansla aşılması %58,2 (kullanıcının sayısıyla aynı). §2'nin iki karşılaştırması sayılırsa 21 eşikte %65,9. Yeni hâlde 4 kritik kontrolde %18,5.
+  - 4.1, iki eşit modelde yanlış alarm: −1'de %17,5–33,1 (verilen %19–38), −2'de %6,4–23,3 (verilen %6–23, aynı).
+  - 4.1, 3 soruluk kötüleşmeyi yakalama: −1'de %66,5–83,9, −2'de %55,7–63,2, −3'te %36,8–44,6.
+  - **Fark:** kullanıcı −2'de yakalamayı yaklaşık %68 verdi; hiçbir modelde bu çıkmadı. −2, −1'e göre yakalama gücünden 11–21 pp kaybettiriyor. −3 için verilen %36, "kesin kötüleşme" modelinin alt ucuyla örtüşüyor.
+  - Kalibrasyon, %75 uyumda %95 yarı genişlik: 25 çiftte ±17,0 pp, 40 çiftte ±13,4 pp (verilenle aynı). 5 pp, 25 çiftte 1,25, 40 çiftte 2,0 çift. Kappa belirsizliği 40 çiftte yaklaşık ±0,27 (kaba).
+  - Açıklama örneklerindeki p değerleri ve kappa aynı betiğin `isaret_p` işleviyle hesaplandı.
+  - `esikler_v1.md` git farkında silinen satırlar yalnızca kararlarda adı geçen satırlar: durum satırı, 0.3, 0.5, §1 cümlesi, 2.1, 3.7, 4.1, 4.2, 5.1.
 
 **Tahmin / bekleyen iş:**
 - Kayıt düzeyinde JSON doğrulaması, kimlik benzersizliği ve çakışma denetimi (02).
@@ -120,13 +140,24 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · So
   - Set kilit manifestinde değil (geliştirme seti); yeni manifest üretilmedi. 02'deki çakışma denetiminden geçecek.
 8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Kullanıcı `cevap_standardi_v1.md` ve `sistem_v1.txt` için kararlarını verdi (karar 9–14). `gelistirme_kapsam_disi.jsonl` kullanıcı tarafından onaylandı (aşağıda); senior onayı yine bekliyor.
 15. **Düşünme modu yan deneyi** (açık, karar 06'da verilecek): `hazir` model doğrulama setinde düşünme açık ve kapalı çalıştırılıp bilgi doğruluğu (bilgi puanı, kritik hata) ve süre karşılaştırılsın mı? Ana planda yok, hiçbir eşiği etkilemez. Yapılırsa 0.1'i bilerek ihlal ettiği için ayrı bir deney kimliğiyle yürütülmeli. Gerekçe: düşünme kapalılığının çok adımlı sorulardaki (ör. kıdem + ihbar birlikte) bedeli ölçülmedi. Ayrıntı `esikler_v1_aciklama.md`, 0.1 ek bölümü.
-16. **Eşik açıklamasında listelenen zayıf noktalar** (açık, senior kararı): `esikler_v1_aciklama.md` §10'da 22 madde var. Hiçbiri düzeltilmedi. Öne çıkanlar:
-    - 1.1'deki %60 koşulu hiç bağlayıcı değil (100 kararda p < 0,05 için %61 gerekir; ölçüldü, formülle).
-    - §0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.
-    - Yargıç kalibrasyondan kalırsa yargıca dayalı koruma eşiklerinin durumu yazılmamış.
-    - "Kaybetme − kazanma" eşiklerinde payda belirsiz.
-    - §3A'daki sekiz ölçütlü tetikleyicinin neredeyse her zaman çalışması olası (tahmin).
+16. **Eşik açıklamasında listelenen zayıf noktalar** (açık, senior kararı): `esikler_v1_aciklama.md` §12'de 27 madde var.
+    - 2026-11-24 kararları 5, 19, 20 ve 21. maddeleri kısmen ele aldı ("güncelleme" notlarıyla işaretli). 23–27 bu kararlarla açığa çıktı.
+    - Hâlâ açık olanlardan öne çıkanlar:
+      - 1.1'deki %60 koşulu hiç bağlayıcı değil (100 kararda p < 0,05 için %61 gerekir; ölçüldü, formülle).
+      - §0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.
+      - Yargıç kalibrasyondan kalırsa yargıca dayalı eşiklerin durumu yazılmamış; artık kritik 2.1 ve 4.2 de bunlara dahil.
+      - "Kaybetme − kazanma" eşiklerinde payda belirsiz.
+      - §3A'daki sekiz ölçütlü tetikleyicinin neredeyse her zaman çalışması olası (tahmin).
     - Ele alınacaksa eşik onayından **önce** yapılmalı; onaydan sonra `esikler_v2.md` gerekir.
+17. **Holm ailesi** (açık, kullanıcı kararı; `esikler_v1.md` §8, değişiklik 5).
+    - Öneri A, m = 3: 11'de test setinde üç üslup+jargon işaret testi. H1 sentetik vs SSS adaptörü (5.1), H2 `hazir_istemli` vs `hazir`, H3 seçilen adaptör vs `hazir`.
+    - B: yalnızca 5.1, düzeltme yok. Plan §3'teki "Holm uygulanır" cümlesi değişir.
+    - C: m = 6, üç çift × (üslup+jargon, bilgi).
+    - 1.1, eşik biçimindeki ölçütler ve karışım adaptörünün karşılaştırmaları her seçenekte aile dışında.
+    - Bedel (ölçüldü): 100 kesin kararda 5.1 için A'da 61–63, B'de 61, C'de 61–64 galibiyet gerekir.
+18. **2.1b ile kritik 2.1** (açık, kullanıcı/senior kararı): 2.1b'deki "2.1 ile çelişirse insan kararı geçerlidir" kuralı değiştirilmedi. 2.1 aşılır ama 2.1b geçerse birincil sonuç "kaldı" mı olur, belli değil.
+19. **Yargıç kalırsa kritik 2.1 ve 4.2** (açık, kullanıcı/senior kararı): yargıç 0.3 veya 0.4'ü geçemezse bu iki kritik eşiğin nasıl ölçüleceği yazılı değil.
+20. **Kalibrasyon soruları ve istem ayarı** (açık, kullanıcı kararı): 40 çift doğrulamanın 40 sorusunu kapsayabilir. Plan §6.8 madde 6'daki yasak soruları da kapsıyorsa istem ayarına 60 soru kalır.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
@@ -154,6 +185,11 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · So
 - Proje Python ortamı henüz kurulmadı. `pip freeze` şimdilik temel miniconda ortamından (Python 3.13.13).
 - Qwen3.8 için LLaMA-Factory şablon adı (düşünme kapalı) doğrulanmadı (bekleyen iş).
 
+- **Eşik kararlarından doğan işler (2026-11-24):**
+  - Uyarı incelemesi için kayıt seçme betiği `src/degerlendirme/uyari_kuyrugu.py` yazılacak (bekleyen iş): 11'den önce, 4.3 kullanılacaksa doğrulama aşamasından önce. Kurallar `esikler_v1.md` §6.2'de: seed 42, eşik başına en fazla 40 kayıt, yalnızca kimlik basar, çıktısı `inceleme/uyari_<deney_id>_<esik>.csv`.
+  - Bütün puanlama ve rapor betikleri ikili karşılaştırmaları §7 biçiminde yazmalı: kazanma / beraberlik / kayıp, beraberliğin eşit ve sıra tutarsız ayrımı, p değeri.
+  - Yargıç kalibrasyon seti doğrulamadan 40 çift olacak. Açık karar 20 kapanmadan istem ayarına hangi soruların kalacağı kesinleşmez.
+
 ### Değişen çalıştırılabilir kod veya komut yolları
 - Yeni: `python -m src.veri.girdi_ozeti --girdi ... --cikti ... --kilit-cikti ...` (README "01" bölümü).
 - Değişti: `src/veri/girdi_ozeti.py` artık `--ek-kilitli` seçeneğini kabul ediyor ve `01_sss/*` desenini varsayılan olarak kilitli sayıyor.
@@ -162,3 +198,4 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi eklendi) · So
 - Değişti: girdi özeti komutunun çıktıları artık `env/<tarih>_girdi_sha256_v5.json` ve `degerlendirme/kilit_manifesti_v5.json`.
 - Değişti: `src/veri/onay_csv.py` sonunda onay dağılımını yazıyor. "düzelt"/"duzelt", "hayır"/"hayir" ve büyük/küçük harf aynı sayılıyor (`normal_onay`); hücredeki yazım değişmiyor. evet/hayir/duzelt dışındaki değerler kimlikle listeleniyor.
 - Düzeltildi: `src/veri/onay_csv.py` artık betiğin kendi "-" yer tutucusunu "dolu satır" saymıyor. Önceki sürüm 45 yanlış "korunan" satır bildiriyordu; içerik farkı yoktu.
+- Yeni: `python -m src.degerlendirme.esik_olasiliklari --cikti degerlendirme/esik_olasiliklari_v1.json [--kotulesme 3]`. Eşik gerekçelerindeki olasılıkları hesaplar, veri okumaz (README 01, adım 1c).
