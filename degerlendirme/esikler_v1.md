@@ -2,7 +2,7 @@ Sade açıklama: esikler_v1_aciklama.md (bağlayıcı değildir; çelişki olurs
 
 # Geçme eşikleri v1 (ön kayıt)
 
-Durum: TASLAK (01, 2026-11-23; aynı gün açık kararlarla güncellendi: §1.2, §2.1, §3, yeni §3A. 2026-11-24'te onaydan önce kullanıcı kararlarıyla güncellendi: kritik/uyarı ayrımı, 4.1, kalibrasyon 40 çift, raporlama kuralı, Holm ailesi önerisi; bkz. §6–§8. Aynı gün açık kararlar 17–20 kapatıldı: Holm ailesi, 2.1/2.1b birleşik etiketi, yargıç yedek yolu, kalibrasyon soruları; bkz. §8 değişiklik 5–8 ve yeni §9. Aynı gün açık karar 21 kapatıldı: §8 değişiklik 9, §9.1–§9.3. Aynı gün senior öncesi netleştirmeler ve açık karar 22: §8 değişiklik 10)
+Durum: TASLAK (01, 2026-11-23; aynı gün açık kararlarla güncellendi: §1.2, §2.1, §3, yeni §3A. 2026-11-24'te onaydan önce kullanıcı kararlarıyla güncellendi: kritik/uyarı ayrımı, 4.1, kalibrasyon 40 çift, raporlama kuralı, Holm ailesi önerisi; bkz. §6–§8. Aynı gün açık kararlar 17–20 kapatıldı: Holm ailesi, 2.1/2.1b birleşik etiketi, yargıç yedek yolu, kalibrasyon soruları; bkz. §8 değişiklik 5–8 ve yeni §9. Aynı gün açık karar 21 kapatıldı: §8 değişiklik 9, §9.1–§9.3. Aynı gün senior öncesi netleştirmeler ve açık karar 22: §8 değişiklik 10. Aynı gün açık karar 23: §8 değişiklik 11. Onaya hazır)
 Bu eşikler **hiçbir model cevabı görülmeden** önerildi ve hiçbir model cevabı görülmeden onaylanacak. Onaydan önce doğrulama setinde puanlama yapılmaz; yalnızca 3–5 soruluk teknik deneme yapılır. Bir eşik değişirse `esikler_v2.md` dosyası açılır, gerekçesi yazılır ve rapora eklenir.
 
 Tanımlar `degerlendirme/deney_plani_v1.md` §6'dadır. "Seçilen adaptör" = doğrulamada seçilen adaptör. "Yargıç" = kalibrasyonla seçilen yerel yargıç. "Fark" = adaptör eksi karşılaştırılan sistem. "pp" = yüzde puan.
@@ -100,7 +100,7 @@ Karar (kullanıcı, 2026-11-23): genel Türkçe verisi eğitime **yalnızca** a�
 
 **Ne zaman ölçülür:** doğrulamada SSS tarifi seçildikten sonra (`sss_adaptor` veya `sss_sentetik_adaptor`), **bir kez**. O adaptör ve `hazir`, Türkçe değerlendirmenin geliştirme bölümünde aynı ayarlarla çalıştırılır. Tetikleyiciyi aşmamak için ayar değiştirip yeniden ölçmek yasaktır; ölçüm yinelenirse bu rapora yazılır.
 
-**Kural:** aşağıdaki T satırlarından **en az biri** aşılırsa `genel_karisim_adaptor` eğitilir. Hiçbiri aşılmazsa genel Türkçe verisi eğitime girmez ve `genel_karisim_adaptor` oluşturulmaz.
+**Kural:** aşağıdaki T satırlarından **en az biri** aşılırsa `genel_karisim_adaptor` eğitilir. §6.2'deki inceleme ve yeniden hesap T satırlarına uygulanmaz; T.2–T.5 (chrF, perplexity) zaten kayıt düzeyinde düzeltilemez (karar 23b). Yargıç üslup+jargon türünde kalırsa T.6 tetiklemez ve "ölçülemedi" diye raporlanır; diğer T ölçütleri çalışmaya devam eder (karar 23c). Hiçbiri aşılmazsa genel Türkçe verisi eğitime girmez ve `genel_karisim_adaptor` oluşturulmaz.
 
 | # | Ölçüt (geliştirme kaydı, beklenen) | Tetikleme sınırı (T.1–T.7: `hazir` taban çizgisine göre izin verilen en fazla düşüş; T.8: değerlendirilen adaptörün mutlak oranı, `hazir`'ın oranı yalnızca raporlanır) | Senior onayı |
 |---|---|---|---|
@@ -171,12 +171,13 @@ Puanın kaynağı (kullanıcı kararı, 2026-11-23):
 
 | Eşik türü | Eşikler | İncelenecek kayıtlar |
 |---|---|---|
-| Sayım farkı | 2.1b, 2.4, 3.9 (kritik hata koşulu), 4.1 | Adaptörde olumsuz olup karşılaştırılan sistemde olumsuz olmayan **bütün** kayıtlar. Ters yöndekilerin (adaptör lehine olanların) yalnızca sayısı yazılır |
-| Mutlak oran | 3.8 | Adaptörde olumsuz olan **bütün** kayıtlar |
-| İkili karşılaştırma | 2.2, 3.6 | Adaptörün iki sırada da kaybettiği **bütün** kayıtlar |
-| Ortalama farkı | 2.3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.9 (ortalama koşulu) | Kayıt düzeyinde farkı en olumsuz **20** kayıt (eşitlikte seed 42 ile seçim) + kalan kayıtlardan seed 42 ile **10** rastgele kayıt. Rastgele kayıtlar, düşüşün birkaç kayıttan mı yoksa genelden mi geldiğini görmek için kontroldür |
+| Sayım farkı | 2.1b, 2.4, 3.1, 3.9 (kritik hata koşulu), 4.1 | **İki yöndeki bütün uyuşmayan kayıtlar:** adaptörde olumsuz olup karşılaştırılan sistemde olumsuz olmayanlar **ve** tersi (karar 23a). 3.1 için uyuşmayan kayıt: iki sistemden yalnızca birinin doğru bildiği soru |
+| Mutlak oran | 3.8 | Adaptörde olumsuz olan (harf çıkarılamayan) **bütün** kayıtlar + adaptörde harf çıkarılan kayıtlardan seed 42 ile **20** rastgele kayıt (ters yöndeki yanılgı: betiğin cevapta olmayan bir harfi çıkarması) |
+| İkili karşılaştırma | 2.2, 3.6 | Yargıcın iki sırada da tutarlı karar verdiği **bütün** kayıtlar: adaptörün kaybettikleri **ve** kazandıkları. Beraberlikler incelenmez |
+| Ortalama farkı | 2.3, 3.9 (ortalama koşulu) | Kayıt düzeyinde farkı en olumsuz **20** kayıt + en olumlu **20** kayıt (eşitlikte seed 42 ile seçim) + kalan kayıtlardan seed 42 ile **10** rastgele kayıt. Rastgele kayıtlar, farkın birkaç kayıttan mı yoksa genelden mi geldiğini görmek için kontroldür |
+| Düzeltilemez | 3.2, 3.3, 3.4, 3.5 | Kayıt incelenmez, yeniden hesap yapılmaz; aşılırsa sonuç doğrudan "çekinceli" olur (U.5, karar 23b) |
 
-- Bir eşik için en fazla 40 kayıt incelenir. Fazlaysa seed 42 ile 40 kayıt seçilir; toplam sayı ayrıca yazılır.
+- Bir eşik için **her yönde** en fazla 40 kayıt incelenir (adaptör aleyhine ve adaptör lehine ayrı ayrı). Fazlaysa o yönde seed 42 ile 40 kayıt seçilir; toplam sayı ayrıca yazılır. İki yönde aynı seçim kuralı ve aynı etiket şeması kullanılır; CSV'de kaydın yönü değerlendiriciye gösterilmez ve kayıtlar karışık sırayla verilir (seed 42).
 - §2'deki eşik hangi karşılaştırmada (`hazir` veya `hazir_istemli`) aşıldıysa o karşılaştırmanın kayıtları seçilir. İkisinde de aşıldıysa ikisi ayrı ayrı incelenir.
 
 **U.3 Kim.**
@@ -195,14 +196,16 @@ Puanın kaynağı (kullanıcı kararı, 2026-11-23):
 5. CSV ve özet, senior kararından **önce** `11: uyarı incelemesi <esik>` mesajıyla commit edilir.
 
 **U.5 Yeniden hesap, sonuç ve senior kararı** (2026-11-24, onaydan önce değişiklik).
-1. Betik eşiği yeniden hesaplar: `olcum_yanilgisi` etiketli kayıtlarda düzeltilmiş etiketle, diğer bütün kayıtlarda özgün etiketle.
+1. Betik eşiği yeniden hesaplar: `olcum_yanilgisi` etiketli kayıtlarda düzeltilmiş etiketle, diğer bütün kayıtlarda özgün etiketle. İki yöndeki düzeltmeler birlikte uygulanır (karar 23a).
+   - **Düzeltilemeyen eşikler (karar 23b):** 3.2–3.5 (chrF, perplexity) kayıt düzeyinde düzeltilemez; aşılırsa yeniden hesap yapılmaz ve sonuç doğrudan "çekinceli" olur. Bu bilinçli bir tercihtir: deterministik bir metriği sonuç görüldükten sonra kayıt kayıt ayıklamak, ölçümü yeniden tanımlamak olurdu.
+   - **Kritik eşiklere taşınmaz:** uyarı incelemesindeki etiket düzeltmeleri kritik eşiklere (2.1, 3.7, 4.2) uygulanmaz; kritik eşikler özgün (2.1'de §9.1'deki birleşik) etiketlerle hesaplanır. Örneğin 2.4 incelemesinde düzeltilen bir sayı çelişkisi 2.1'in sayımını değiştirmez.
 2. Yeniden hesaplanan değer eşiği geçerse uyarı kalkar. Kırmızı bayrak, özgün değer ve inceleme özeti raporda kalır.
 3. Hâlâ aşılıyorsa raporda "uyarı eşiği aşıldı" yazılır ve birincil sonuç **"çekinceli"** ilan edilir (§1).
 4. Senior kararı yalnızca **servise çıkış** hakkındadır. Özet dosyasının sonuna gerekçesi, onaylayanı ve tarihiyle yazılır ve ayrı bir commit'le kaydedilir. Senior kararı birincil sonucu "geçti"ye çeviremez.
 
 Rapor, her uyarı eşiği için özgün değeri, yeniden hesaplanan değeri, etiket dağılımını ve servis kararını birlikte gösterir.
 
-Not: hangi eşiklerde etiket düzeltmenin tanımlı olduğu ve kayıt seçiminin tek yönlü olması açık karar 23'tedir (§8 değişiklik 10).
+Kayıt seçiminin iki yönlü olması ve düzeltilemeyen eşikler karar 23 ile belirlendi (§8 değişiklik 11).
 
 **U.6 Bekleyen iş.** Kayıt seçme betiği (`src/degerlendirme/uyari_kuyrugu.py`) 11. aşamadan önce yazılacak.
 
@@ -320,15 +323,21 @@ Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklik
 - #24: uyarı incelemesi yalnızca kayıt etiketlerini düzeltir; eşik yeniden hesaplanır; hâlâ aşılıyorsa birincil sonuç "çekinceli". Senior kararı yalnızca servise çıkış hakkında (§1, §6.2).
 - Açık karar 22: Aya (3.6, T.6) üslup+jargon türüne bağlandı (§9.3). Tek yargıç kuralı eklenmedi.
 
-**Uygulama yorumları (kullanıcı itiraz ederse değişir):**
+**Uygulama yorumları (kullanıcı onayladı, 2026-11-24):**
 - §0'da "koşu tekrarlanır": greedy ve sabit seed ile aynı ayarlarla tekrar aynı çıktıyı verir. Bu yüzden tekrardan önce neden giderilir ve aynı düzeltme bütün sistemlere uygulanır. Testte düzeltme yalnızca puan üretilmeden önce yapılabilir.
 - 4.3'te "en iyisi", 4.3 puanı en yüksek olan aday olarak yazıldı; eşitlikte olağan seçim ölçütü.
 - Uyarı etiketlerinden `referans_sorunu` kalktı. Eskimiş referans yargıç veya betik yanılgısı değildir; yeni şemada `belirsiz` sayılır ve özgün etiket kalır. Formdaki "referans eskimiş olabilir" kutusu ve rapor planı §4.2'deki keşif analizi bundan etkilenmez.
 
-**Açığa çıkan, kullanıcı kararı gereken sorular (açık karar 23):**
-1. **Yeniden hesap tek yönlü.** U.2 yalnızca adaptör aleyhine kayıtları seçiyor. Yalnızca bunlar düzeltilip yeniden hesap yapılırsa ölçüm yanılgıları yalnızca adaptör lehine düzelir; karşı yöndeki yanılgılar (ör. `hazir`'a haksız verilmiş kritik hata, adaptörün kaçırılmış hatası) olduğu gibi kalır. Yeniden hesap bu yüzden adaptör lehine yanlıdır.
-2. **Sürekli otomatik metriklerde "etiket" yok.** 3.2–3.5 (chrF, perplexity) kayıt etiketiyle değil, betiğin deterministik hesabıyla ölçülür; inceleme bu değerleri düzeltemez. Etiket düzeltme 2.1b, 2.2, 2.4, 3.1 ve 3.8 (harf çıkarma), 3.6, 3.9 ve 4.1'de tanımlıdır; 2.3'te yalnızca sayı ayrıştırma hatası için.
-3. **T.6 yargıç uygunluğu olmadan.** Üslup+jargon türünde iki aday da kalırsa T.6'nın tetikleyici olarak çalışıp çalışmayacağı yazılı değil.
+**Açığa çıkan sorular (açık karar 23; 2026-11-24'te kapatıldı, değişiklik 11):**
+1. **Yeniden hesap tek yönlü.** U.2 yalnızca adaptör aleyhine kayıtları seçiyor. Yalnızca bunlar düzeltilip yeniden hesap yapılırsa ölçüm yanılgıları yalnızca adaptör lehine düzelir; karşı yöndeki yanılgılar (ör. `hazir`'a haksız verilmiş kritik hata, adaptörün kaçırılmış hatası) olduğu gibi kalır. Yeniden hesap bu yüzden adaptör lehine yanlıdır. → Kapandı: 23a.
+2. **Sürekli otomatik metriklerde "etiket" yok.** 3.2–3.5 (chrF, perplexity) kayıt etiketiyle değil, betiğin deterministik hesabıyla ölçülür; inceleme bu değerleri düzeltemez. Etiket düzeltme 2.1b, 2.2, 2.4, 3.1 ve 3.8 (harf çıkarma), 3.6, 3.9 ve 4.1'de tanımlıdır; 2.3'te yalnızca sayı ayrıştırma hatası için. → Kapandı: 23b.
+3. **T.6 yargıç uygunluğu olmadan.** Üslup+jargon türünde iki aday da kalırsa T.6'nın tetikleyici olarak çalışıp çalışmayacağı yazılı değil. → Kapandı: 23c.
+
+**Değişiklik 11: açık karar 23 (kullanıcı kararı, 2026-11-24).** Hiçbir eşik değeri ve kritik/uyarı ayrımı değişmedi.
+- (a) Yeniden hesap yapılan eşiklerde iki yöndeki uyuşmayan kayıtlar aynı yöntemle incelenir. Gerekçe: tek yönlü düzeltme sonucu sistematik olarak adaptör lehine kaydırır (§6.2 U.2, U.5).
+- (b) chrF ve perplexity eşikleri (3.2–3.5, T.2–T.5) kayıt düzeyinde düzeltilemez; aşılırlarsa sonuç doğrudan "çekinceli" olur (3.2–3.5) ya da tetikleyici çalışır (T.2–T.5). Bilinçli bir tercihtir (§6.2 U.5, §3A).
+- (c) Yargıç üslup+jargon türünde kalırsa T.6 tetiklemez ve "ölçülemedi" diye raporlanır; diğer T ölçütleri çalışır (§3A, §9.3).
+- Uygulanırken çıkan belirsizlikler kullanıcının kuralına göre açık karar açılmadan çözüldü ve `PROJE_DURUMU.md` "Varsayılan olarak uygulananlar" bölümüne yazıldı: 3.1'in sayım türüne alınması, 3.8'de ters yön için rastgele 20 kayıt, ikili karşılaştırmada iki yön ve beraberliklerin incelenmemesi, yön başına 40 kayıt sınırı ve kör sıralama, düzeltmelerin kritik eşiklere taşınmaması.
 
 ---
 
@@ -375,7 +384,7 @@ Bu bölüm iki istem türünde de kalma durumunu anlatır. Yalnızca bir türde 
 
 | Kalınan istem türü (iki aday da) | Ona dayanan eşikler | Ne olur |
 |---|---|---|
-| Üslup+jargon | 1.1; 5.1 ve Holm ailesi H1–H3; K.2'nin üslup+jargon koşulu; 3.6 ve T.6 (Aya, karar 22) | 1.2 tek başına birincil olur, 1.1 "güvenilirliği düşük". Üslup ikincil iddiaları yapılmaz ("güvenilir ölçüm yapılamadı, iddia yapılmadı"). K.2'deki koşul ve 3.6 "güvenilirliği düşük" notuyla raporlanır. T.6'nın bu durumda tetikleyici olarak çalışıp çalışmayacağı açık karar 23'te |
+| Üslup+jargon | 1.1; 5.1 ve Holm ailesi H1–H3; K.2'nin üslup+jargon koşulu; 3.6 ve T.6 (Aya, karar 22) | 1.2 tek başına birincil olur, 1.1 "güvenilirliği düşük". Üslup ikincil iddiaları yapılmaz ("güvenilir ölçüm yapılamadı, iddia yapılmadı"). K.2'deki koşul ve 3.6 "güvenilirliği düşük" notuyla raporlanır. T.6 tetiklemez ve "ölçülemedi" diye raporlanır; diğer T ölçütleri çalışır (karar 23c) |
 | Bilgi | 2.1, 2.2, 3.9, 4.1, 4.2, 4.3, 5.2, 5.3 | 2.1 ve 4.2 (ve 4.1) §9.2'deki insan yedeğine geçer; 2.1'in `hazir` karşılaştırması betik kısmıyla. Diğerleri "güvenilirliği düşük" |
 
 4. Tuzak (4.1–4.3) kendi istemiyle puanlanır, kalibrasyon çiftlerinde doğrudan sınanmaz. Kullanıcı kararıyla (karar 21d) tuzak eşikleri **bilgi** istem türünün kalibrasyonuna bağlıdır.

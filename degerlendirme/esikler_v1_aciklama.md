@@ -671,6 +671,8 @@ Kaçırma çok daha pahalı olduğu için, tetikleyici final eşiklerinden daha 
 
 **Ne yapılıyor.** Kaybetme − kazanma 10 pp'yi aşarsa tetikler.
 
+Yargıç üslup+jargon türünde kalırsa (Aya bu türe bağlı) T.6 tetiklemez ve "ölçülemedi" diye raporlanır; diğer T ölçütleri çalışmaya devam eder (karar 23c, 2026-11-24).
+
 **Neden.** 3.6 ile aynı eşik. 75 kayıtta tek bir kararın etkisi yaklaşık 1,3 pp'dir; tetikleyici bu yüzden hassastır, bu da istenen yöndür.
 
 **Olmasaydı ne olurdu.** Genel isteklerde kuru, resmî cevaplar geliştirmede görülür ama önlenmez; testte 3.6 kalır.
@@ -966,7 +968,7 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 **Arka plan.** Bir uyarı eşiği iki nedenle aşılabilir: model gerçekten gerilemiştir ya da ölçüm yanılmıştır (yargıç hatası, harf çıkarma hatası, sayı ayrıştırma hatası). İkisini ayırmanın tek güvenilir yolu kayıtlara bakmaktır. Ama sonuçları gördükten sonra bakmak, ön kaydın korumaya çalıştığı tehlikeyi geri getirir: işimize gelen yorumu seçmek. İlk yazımda senior, incelemeden sonra "birincil sonuç geçerli" diyebiliyordu; yani sonuç görüldükten sonra verilen bir karar sonucu değiştirebiliyordu. Yeni kural bu kapıyı kapatır. **Çekinceli**: 1.1 ve 1.2 sağlanmış, kritik eşik aşılmamış, ama bir uyarı eşiği düzeltmeden sonra da aşılmış bir sonuç.
 
 **Ne yapılıyor.** `esikler_v1.md` §6.2'deki adımlar:
-1. Puanlar commit edildikten sonra bir betik incelenecek kayıtları seçer (sayım farklarında adaptör aleyhine bütün kayıtlar, ikili karşılaştırmada kaybedilen bütün kayıtlar, ortalamalarda en olumsuz 20 + rastgele 10; en fazla 40; seed 42).
+1. Puanlar commit edildikten sonra bir betik incelenecek kayıtları **iki yönde** seçer: adaptör aleyhine olanlar ve adaptör lehine olanlar (karar 23a). Sayım farklarında iki yöndeki bütün uyuşmayan kayıtlar; ikili karşılaştırmada adaptörün tutarlı olarak kaybettiği ve kazandığı bütün kayıtlar; ortalamalarda en olumsuz 20 + en olumlu 20 + rastgele 10. Her yönde en fazla 40 kayıt, seed 42. Değerlendirici kaydın hangi yönden geldiğini görmez.
 2. İnsan her kayda bir etiket koyar: `gercek_hata` (olumsuz etiket doğru), `olcum_yanilgisi` (yargıç veya betik yanıldı; doğru etiket yazılır) veya `belirsiz` (özgün etiket kalır).
 3. Eşik düzeltilmiş etiketlerle **yeniden hesaplanır**. Yeni üretim yapılmaz; ayar ve eşik değeri değişmez.
 4. Yeniden hesaplanan değer eşiği geçerse uyarı kalkar; bayrak ve özgün değer raporda kalır. Hâlâ aşılıyorsa raporda "uyarı eşiği aşıldı" yazılır ve birincil sonuç **"çekinceli"** olur.
@@ -982,15 +984,18 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 
 **İşimize ne yarıyor.** Her uyarının sonu önceden bellidir: ya düzeltilmiş sayı eşiği geçer ya da sonuç "çekinceli" olur. Senior sunumunda "sonuç ne?" ve "servise çıkıyor muyuz?" soruları ayrı ayrı cevaplanır.
 
-**Sınır (açık karar 23).** İki nokta henüz yazılı değil:
-- Betik yalnızca adaptör aleyhine kayıtları seçtiği için düzeltme tek yönlüdür. Ters yöndeki yanılgılar düzeltilmezse yeniden hesap adaptör lehine kayar.
-- chrF ve perplexity (3.2–3.5) kayıt etiketiyle değil, deterministik bir hesapla ölçülür. İnceleme bu değerleri düzeltemez; bu eşikler aşılırsa sonuç pratikte doğrudan "çekinceli" olur.
+**Neden iki yön?** (karar 23a) Ölçüm yanılgıları iki yönde de olur: yargıç adaptöre haksız bir kayıp da yazabilir, haksız bir galibiyet de. Yalnızca adaptörün aleyhine olanlar düzeltilirse, düzeltilmiş değer sistematik olarak adaptör lehine kayar. İki yöne aynı kural uygulanınca düzeltme yansız olur. Değerlendiricinin kaydın yönünü görmemesi de aynı amaca hizmet eder.
+
+**Düzeltilemeyen eşikler.** (karar 23b) chrF ve perplexity (3.2–3.5; tetikleyicide T.2–T.5) kayıt etiketiyle değil, deterministik bir hesapla ölçülür. Bu eşikler aşılırsa inceleme yapılmaz ve sonuç doğrudan "çekinceli" olur. Bu bilinçli bir tercihtir: deterministik bir metriği sonuç görüldükten sonra kayıt kayıt ayıklamak, ölçümü yeniden tanımlamak olurdu.
+
+**Kritik eşiklere taşınmaz.** Uyarı incelemesindeki düzeltmeler 2.1, 3.7 ve 4.2'yi değiştirmez. Örneğin 2.4 incelemesinde düzeltilen bir sayı çelişkisi 2.1'in sayımını değiştirmez; yoksa bir uyarı incelemesi kritik bir sonucu dolaylı yoldan kaldırabilirdi.
 
 **Örnek (uydurma).** 3.1 aşıldı (TurkishMMLU farkı −2,6 pp; 630 soru).
 - Betik 30 kayıt seçti: adaptörün yanlış, hazır modelin doğru bildiği en olumsuz 20 soru ve 10 rastgele soru.
 - Değerlendirici 12 kayda `olcum_yanilgisi` dedi (adaptör doğru harfi açıklamanın içinde vermiş, betik çıkaramamış). Doğru harfi yazdı. 6'sına `gercek_hata`, 2'sine `belirsiz` dedi; 10 rastgele kayıtta sorun yok.
-- Yeniden hesap: adaptör 12 soru daha doğru → fark −2,6 + 12/630 × 100 ≈ −0,7 pp. Eşik (≥ −2,0) geçildi; uyarı kalktı, bayrak raporda kaldı.
-- Karşı örnek: yalnızca 3 kayıt düzeltilseydi fark yaklaşık −2,1 pp kalırdı. Eşiğe göre −2,1 aşıyor (sınır kuralı: yuvarlamadan önce karşılaştırılır) → sonuç "çekinceli".
+- Ters yön: adaptörün doğru, hazır modelin yanlış bildiği sorulardan da seçilenler incelendi. 4'ünde hazır modelin cevabı aslında doğruydu (harf çıkarılamamıştı) → hazır model 4 soru daha doğru.
+- Yeniden hesap: adaptör 12, hazır model 4 soru daha doğru → fark −2,6 + (12 − 4)/630 × 100 ≈ −1,3 pp. Eşik (≥ −2,0) geçildi; uyarı kalktı, bayrak raporda kaldı.
+- Karşı örnek: adaptör tarafında yalnızca 3 kayıt düzeltilseydi ve ters yönde 0 bulunsaydı fark yaklaşık −2,1 pp kalırdı. Eşiğe göre −2,1 aşıyor (sınır kuralı: yuvarlamadan önce karşılaştırılır) → sonuç "çekinceli".
 
 ### Birleşik etiket: 2.1 ile 2.1b birlikte nasıl çalışır? (2026-11-24 eklendi)
 
@@ -1113,7 +1118,7 @@ Kural tablo, grafik, özet cümle ve sunum için de geçerlidir.
 
 ## 12. Açıklarken fark ettiklerim
 
-Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alınacağı kullanıcı ve senior kararıdır. Hesaplar formülle yapıldı (ölçüldü); veri kullanılmadı. 2026-11-24'teki kullanıcı kararlarından sonra durumu değişen maddeler **(güncelleme)** diye işaretlendi; 23–27 yeni maddelerdir. Açık kararlar 17–20'nin kapatılmasından (2026-11-24) sonra durumu değişenler **(kapandı)** diye işaretlendi; 28–30 bu kararlarla ortaya çıkan yeni maddelerdir. Açık karar 21'den (2026-11-24) sonra 4 ve 28–30 da **(kapandı)** oldu. Senior öncesi netleştirmelerden (2026-11-24) sonra 1, 2, 6, 7, 8, 9, 12, 15, 20 ve 24 kapandı; 31–33 bu kararlarla ortaya çıkan yeni maddelerdir.
+Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alınacağı kullanıcı ve senior kararıdır. Hesaplar formülle yapıldı (ölçüldü); veri kullanılmadı. 2026-11-24'teki kullanıcı kararlarından sonra durumu değişen maddeler **(güncelleme)** diye işaretlendi; 23–27 yeni maddelerdir. Açık kararlar 17–20'nin kapatılmasından (2026-11-24) sonra durumu değişenler **(kapandı)** diye işaretlendi; 28–30 bu kararlarla ortaya çıkan yeni maddelerdir. Açık karar 21'den (2026-11-24) sonra 4 ve 28–30 da **(kapandı)** oldu. Senior öncesi netleştirmelerden (2026-11-24) sonra 1, 2, 6, 7, 8, 9, 12, 15, 20 ve 24 kapandı; 31–33 bu kararlarla ortaya çıkan yeni maddelerdir ve açık karar 23 ile kapandı.
 
 1. **1.1'deki "%60" koşulu hiçbir zaman bağlayıcı değil.** Test 100 soru olduğundan kesin karar sayısı en fazla 100'dür. 100 kesin kararda p < 0,05 için en az 61 galibiyet (%61) gerekir; 60/100'de p = 0,057. Kesin karar sayısı azaldıkça gereken oran yükselir (80'de %62,5, 50'de %66). Yani p koşulunu geçen her sonuç %60'ı zaten geçer. Gerçek eşik, beraberlik sayısına bağlı olarak %61–%75 arasında değişen işaret testi sınırıdır. **(kapandı)** %60 koşulu kaldırıldı; gereken galibiyet tablosu eklendi.
 2. **§0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.** Başlık "bunlar sağlanmazsa koşu puanlanmaz" diyor. 0.3 ve 0.4 ise sağlanmazsa koşunun durmasını değil, yargıcın ikincil göstergeye düşmesini öngörüyor (§1 sonundaki not da öyle). **(kapandı)** §0 ikiye ayrıldı: 0.1–0.2 geçerlilik koşulu, 0.3–0.5 yargıç uygunluğu.
@@ -1145,6 +1150,6 @@ Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alına
 28. **2.1'de birleşik etiket iki karşılaştırmaya aynı biçimde uygulanamıyor.** İnsan formu yalnızca adaptör ve `hazir_istemli` cevaplarını kapsıyor. `hazir` karşılaştırmasında adaptörün 50 etiketi insandan, `hazir`'ınkiler yargıçtan gelirse iki taraf farklı araçla sayılır. Şimdilik birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında uygulandı (açık karar 21). **(kapandı)** Kullanıcı onayladı (karar 21a).
 29. **Yedek yolda 2.1'in `hazir` karşılaştırması insanla ölçülemiyor.** Aynı nedenle: form `hazir`'ı kapsamıyor. Kritik 2.1'in iki karşılaştırmasından biri yedek yolda tanımsız kalıyor. Seçenekler: yalnızca betik kısmıyla (2.4 tanımı) sayıp "güvenilirliği düşük" yazmak ya da `hazir`'ı da insan formuna eklemek (50 cevap daha) (açık karar 21). **(kapandı)** Betik kısmıyla sayılır, "güvenilirliği düşük" (karar 21b).
 30. **Yedek yolda ikincil iddiaların durumu yazılmadı.** 5.1 ve Holm ailesinin üç testi tamamen yargıca dayanıyor ve uyarı eşiği değil. "Güvenilirliği düşük" kuralı uyarı eşikleri için yazıldı; bir yargıç sonucuyla "sentetik veri katkı sağladı" iddiası yapılıp yapılamayacağı belli değil (açık karar 21). **(kapandı)** İddia yapılmaz, "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (karar 21c).
-31. **Uyarı sonrası yeniden hesap tek yönlü.** U.2 yalnızca adaptör aleyhine kayıtları seçiyor. Yalnızca bunlar düzeltilirse ölçüm yanılgıları yalnızca adaptör lehine düzelir; ters yöndeki yanılgılar kalır ve yeniden hesap adaptör lehine kayar (açık karar 23).
-32. **chrF ve perplexity incelemeyle düzeltilemez.** 3.2–3.5 kayıt etiketine değil deterministik hesaba dayanıyor. Bu eşikler aşılırsa inceleme değeri değiştiremez; sonuç pratikte doğrudan "çekinceli" olur. Diğer uyarı eşiklerine göre farklı işledikleri yazılı değil (açık karar 23).
-33. **Yargıç üslup türünde kalırsa T.6'nın durumu yazılı değil.** Aya üslup türüne bağlandı; T.6 bir tetikleyici olduğu için "güvenilirliği düşük" notu yetmez, tetikleyip tetiklemeyeceği karar ister (açık karar 23).
+31. **Uyarı sonrası yeniden hesap tek yönlü.** U.2 yalnızca adaptör aleyhine kayıtları seçiyor. Yalnızca bunlar düzeltilirse ölçüm yanılgıları yalnızca adaptör lehine düzelir; ters yöndeki yanılgılar kalır ve yeniden hesap adaptör lehine kayar (açık karar 23). **(kapandı)** İki yöndeki uyuşmayan kayıtlar aynı yöntemle incelenir (karar 23a).
+32. **chrF ve perplexity incelemeyle düzeltilemez.** 3.2–3.5 kayıt etiketine değil deterministik hesaba dayanıyor. Bu eşikler aşılırsa inceleme değeri değiştiremez; sonuç pratikte doğrudan "çekinceli" olur. Diğer uyarı eşiklerine göre farklı işledikleri yazılı değil (açık karar 23). **(kapandı)** Bilinçli tercih olarak yazıldı: düzeltilemezler, aşılırlarsa doğrudan "çekinceli" (karar 23b).
+33. **Yargıç üslup türünde kalırsa T.6'nın durumu yazılı değil.** Aya üslup türüne bağlandı; T.6 bir tetikleyici olduğu için "güvenilirliği düşük" notu yetmez, tetikleyip tetiklemeyeceği karar ister (açık karar 23). **(kapandı)** T.6 tetiklemez, "ölçülemedi" diye raporlanır; diğer T ölçütleri çalışır (karar 23c).

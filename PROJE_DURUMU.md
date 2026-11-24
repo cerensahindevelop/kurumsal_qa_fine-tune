@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–22 kapatıldı; senior öncesi netleştirmeler) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -50,6 +50,12 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
   - Karar 22: Aya (3.6, T.6) üslup+jargon türüne bağlandı. Tek yargıç kuralı eklenmedi.
   - Rapor planı: özet üç değerli; 2.1b'nin oransal toleransı sınırlamaya yazıldı.
   - `esikler_v1_aciklama.md`: ilgili bölümler, 4 sözlük terimi; "fark ettiklerim" 33 madde (31–33 yeni).
+- **Açık karar 23 kapatıldı ve eşik paketi onaya hazır (kullanıcı, 2026-11-24; `esikler_v1.md` §8 değişiklik 11):**
+  - (a) Yeniden hesap yapılan uyarı eşiklerinde iki yöndeki uyuşmayan kayıtlar aynı yöntemle incelenir (§6.2 U.2, U.5).
+  - (b) 3.2–3.5 ve T.2–T.5 kayıt düzeyinde düzeltilemez; aşılırsa doğrudan "çekinceli" (T.2–T.5'te tetikleme). Bilinçli tercih olarak yazıldı.
+  - (c) Yargıç üslup türünde kalırsa T.6 tetiklemez, "ölçülemedi" diye raporlanır; diğer T'ler çalışır (§3A, §9.3).
+  - Üç uygulama yorumu (#2 tekrar, #20 "en iyisi", #24 `referans_sorunu`) kullanıcı tarafından onaylandı.
+  - Yeni çalışma kuralı ve "Varsayılan olarak uygulananlar" bölümü eklendi (aşağıda). Bu turda 6 varsayılan uygulandı.
   - `esikler_v1_aciklama.md`: §9'a "birleşik etiket" ve "yedek yol" alt bölümleri, sözlüğe 2 terim; "fark ettiklerim" 30 madde (3, 4, 6, 21, 23, 26 güncellendi; 28–30 yeni).
 
 ### Üretilen dosyalar
@@ -182,11 +188,30 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
 20. **Kalibrasyon soruları ve istem ayarı** (**kapandı**, kullanıcı kararı 2026-11-24): çıkarılmaz, 100 soru istem ayarında. `deney_plani_v1.md` §6.8 madde 6; `rapor_plani_v1.md` §4.4.
 21. **Birleşik etiket ve yedek yolun `hazir` ve ikincil iddialardaki uygulaması** (**kapandı**, kullanıcı kararı 2026-11-24): (a) iki taraf yargıç + betik; (b) yedekte betik kısmı + "güvenilirliği düşük"; (c) yedekte ikincil iddia yok; (d) kalibrasyon istem türü başına, yedek yol yalnızca kalınan türe. `esikler_v1.md` §8 değişiklik 9, §9.1–§9.3; `deney_plani_v1.md` §6.8 madde 3 ve 5; `rapor_plani_v1.md` §4.4.
 22. **Aya karşılaştırması yargıç kalırsa** (**kapandı**, kullanıcı kararı 2026-11-24): üslup+jargon türüne bağlandı. Tek yargıç kuralı eklenmedi. `esikler_v1.md` §9.3; `deney_plani_v1.md` §6.5 ve §6.8 madde 4.
-23. **Uyarı incelemesinin yeniden hesabı** (açık, kullanıcı/senior kararı; #24 işlenirken çıktı; `esikler_v1.md` §8 değişiklik 10):
-    - (a) **Tek yönlü düzeltme.** U.2 yalnızca adaptör aleyhine kayıtları seçiyor; yalnızca bunlar düzeltilirse yeniden hesap adaptör lehine kayar. Önerim: yeniden hesap yapılacak eşiklerde ters yöndeki kayıtlar da (sayım ve ikili karşılaştırmada bütün uyuşmayan kayıtlar, en fazla 40 + 40) aynı körlükte incelensin.
-    - (b) **chrF ve perplexity (3.2–3.5).** Bu değerlerde etiket yok; inceleme değeri değiştiremez ve aşım doğrudan "çekinceli" olur. Önerim: bunun bilinçli olduğu bir cümleyle yazılsın; değiştirmek isteniyorsa tek seçenek bu eşikleri yeniden hesap dışı ilan etmek.
-    - (c) **T.6, yargıç üslup türünde kalırsa.** Önerim: T.6 bu durumda tetiklemesin ve "ölçülemedi" diye raporlansın; diğer yedi T ölçütü otomatik olduğu için tetikleyici yine çalışır.
-    - Uygulama yorumları (itiraz edilmezse kalır): §0'daki tekrar, nedeni giderdikten sonra ve bütün sistemlere aynı düzeltmeyle; 4.3'te "en iyisi" = 4.3 puanı en yüksek; `referans_sorunu` etiketi kalktı, eskimiş referans `belirsiz` sayılır.
+23. **Uyarı incelemesinin yeniden hesabı** (**kapandı**, kullanıcı kararı 2026-11-24): (a) iki yönlü inceleme; (b) chrF ve perplexity düzeltilemez, bilinçli tercih; (c) yargıç üslupta kalırsa T.6 "ölçülemedi". Uygulama yorumları onaylandı. `esikler_v1.md` §3A, §6.2, §8 değişiklik 11, §9.3.
+
+Açık karar kalmadı. Yeni belirsizlikler açık karar olarak değil, aşağıdaki "Varsayılan olarak uygulananlar" listesine yazılır.
+
+### Çalışma kuralı: eşik paketindeki yeni belirsizlikler (kullanıcı, 2026-11-24)
+- Eşik paketiyle ilgili yeni bir belirsizlik bulunursa açık karar **açılmaz**. Asistan kendi önerdiği çözümü uygular ve aşağıdaki listeye yazar: tek cümlelik sorun, uygulanan çözüm, dosya/satır. Kullanıcı listeyi topluca gözden geçirir.
+- **İstisna:** çözüm bir eşik **değerini** veya **kritik/uyarı ayrımını** değiştirecekse, uygulamadan önce kullanıcıya sorulur.
+
+### Varsayılan olarak uygulananlar (kullanıcının toplu gözden geçirmesini bekliyor)
+Satır numaraları 2026-11-24 commit'indeki `degerlendirme/esikler_v1.md` içindir. Hiçbiri bir eşik değerini veya kritik/uyarı ayrımını değiştirmiyor.
+
+| # | Sorun (tek cümle) | Uygulanan çözüm | Dosya / satır |
+|---|---|---|---|
+| V1 | 3.1 (TurkishMMLU doğruluğu) "ortalama farkı" türündeydi; doğru/yanlış bir sayım olduğu için "iki yöndeki uyuşmayan kayıt" orada tanımsızdı. | 3.1 "sayım farkı" türüne alındı: uyuşmayan kayıt = iki sistemden yalnızca birinin doğru bildiği soru, iki yönde de. | `esikler_v1.md`:174 (§6.2 U.2) |
+| V2 | 3.8 mutlak bir orandır, karşılaştırılan sistem yoktur; "iki yön" tanımsızdı ve yalnızca olumsuz kayıtlara bakmak düzeltmeyi tek yönlü bırakıyordu. | Harf çıkarılamayan bütün kayıtlara ek olarak, harf çıkarılan kayıtlardan seed 42 ile 20 rastgele kayıt incelenir (betiğin cevapta olmayan harfi çıkarması). | `esikler_v1.md`:175 |
+| V3 | İkili karşılaştırmada (2.2, 3.6) "uyuşmayan kayıt" tanımsızdı. | Yargıcın iki sırada tutarlı karar verdiği bütün kayıtlar (adaptörün kayıpları ve kazançları) incelenir; beraberlikler iki yönde de incelenmez. | `esikler_v1.md`:176 |
+| V4 | Ortalama farkı eşiklerinde (2.3, 3.9 ortalama) yalnızca "en olumsuz 20" vardı. | En olumsuz 20 + en olumlu 20 + rastgele 10. | `esikler_v1.md`:177 |
+| V5 | "En fazla 40 kayıt" sınırı tek yön için yazılmıştı; iki yönde tek sınır bir yönü kırpabilirdi. Ayrıca yön görünürse değerlendirici yanlı olabilirdi. | Her yönde en fazla 40 kayıt; aynı seçim kuralı ve etiket şeması; CSV'de yön gösterilmez, kayıtlar seed 42 ile karışık sıralanır. | `esikler_v1.md`:180 |
+| V6 | Uyarı incelemesindeki düzeltmelerin kritik eşiklere taşınıp taşınmadığı yazılı değildi (2.4, 2.1'in alt kümesi); taşınırsa bir uyarı incelemesi kritik sonucu dolaylı olarak kaldırabilirdi. | Taşınmaz: kritik eşikler (2.1, 3.7, 4.2) özgün etiketlerle, 2.1'de §9.1'deki birleşik etiketlerle hesaplanır. Kritik/uyarı ayrımını korur, değiştirmez. | `esikler_v1.md`:201 (§6.2 U.5) |
+
+### Onaya hazır dosyalar (senior onayı bekliyor)
+- **Onaylanacaklar:** `degerlendirme/esikler_v1.md`, `degerlendirme/deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `istemler/cevap_standardi_v1.md`, `istemler/sistem_v1.txt`, `degerlendirme/gelistirme_kapsam_disi.jsonl` (15 soru).
+- **Destekleyici, bağlayıcı değil:** `degerlendirme/esikler_v1_aciklama.md`, `src/degerlendirme/esik_olasiliklari.py`, `degerlendirme/esik_olasiliklari_v1.json`.
+- Her dosyanın son commit'i `git log -1 --format=%h -- <dosya>` ile görülür. Onay, eşik dosyasının sonundaki "Senior onayı (genel)" satırına ve satırlardaki "bekliyor" sütununa ayrı bir commit'le yazılır.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
@@ -224,7 +249,7 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
   - Kalibrasyon betiği uyumu, kappayı ve sıra tutarlılığını her aday × istem türü (üslup+jargon, bilgi) için ayrı yazmalı ve seçimi tür başına yapmalı (§9.3). 0.5'te yalnızca uyum karşılaştırılır. Aya, üslup türünün yargıcıyla puanlanır.
 - **Senior öncesi netleştirmelerden doğan işler (2026-11-24):**
   - Bütün eşik betikleri sınır kuralını uygulamalı: ham değerle karşılaştırma, eşiğe eşit değer geçer. "Kaybetme − kazanma" paydası bütün kayıtlar.
-  - Uyarı kuyruğu betiği (`src/degerlendirme/uyari_kuyrugu.py`) `neden` (`gercek_hata` / `olcum_yanilgisi` / `belirsiz`) ve `duzeltilmis_etiket` sütunlarını üretmeli ve eşiği yeniden hesaplayan bir adım içermeli. Kapsamı açık karar 23'e bağlı.
+  - Uyarı kuyruğu betiği (`src/degerlendirme/uyari_kuyrugu.py`) `neden` (`gercek_hata` / `olcum_yanilgisi` / `belirsiz`) ve `duzeltilmis_etiket` sütunlarını üretmeli ve eşiği yeniden hesaplayan bir adım içermeli. Kayıt seçimi iki yönlü (yön başına en fazla 40, yön CSV'de gizli, karışık sıra; V1–V5). 3.2–3.5 için kuyruk üretilmez. Düzeltmeler kritik eşik hesabına girmez (V6).
   - Rapor betiği birincil sonucu üç değerle yazmalı: geçti / çekinceli / kaldı.
   - Doğrulama seçim betiği 4.3'ü seçim kısıtı olarak uygulamalı; K.2'nin pay seçimi kuralını içermeli.
 - **"Fark ettiklerim" 2. grup: ilgili aşamada çözülecekler (düzeltilmedi):**
