@@ -72,7 +72,8 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 ### 4.4 Diğer
 
 - **Yargıç kalibrasyonu ile istem ayarı aynı soruları kullanır** (kullanıcı kararı, 2026-11-24). Yargıç kalibrasyonunun 40 sorusu istem ayarında da kullanıldı; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir.
-- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir (`esikler_v1.md` §9.2). Bu durumda raporun yöntem bölümü hangi eşiğin hangi kaynaktan geldiğini tabloyla gösterir.
+- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; 2.1'in `hazir` karşılaştırması yalnızca betik kısmıyla sayılır; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir; ikincil iddialar için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (`esikler_v1.md` §9.2). Yalnızca bir istem türünde kalınırsa bunlar yalnızca o türe dayanan eşiklere uygulanır (§9.3).
+- **Normal yolda 2.1 iki karşılaştırmada farklı kaynaklarla sayılır:** `hazir_istemli` karşılaştırmasında 50 soru insandan (birleşik etiket), `hazir` karşılaştırmasında 100 soru yargıç + betikten (`esikler_v1.md` §9.1). İki sonuç bu yüzden doğrudan karşılaştırılmaz. Bu durumda raporun yöntem bölümü hangi eşiğin hangi kaynaktan geldiğini tabloyla gösterir.
 - **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 40 çiftle sınar (beraberlikler çıkınca daha az; %75 uyumun belirsizliği 40 çiftte yaklaşık ±13 pp, `esikler_v1.md` §8).
 - **Üslup sızıntısı ölçütü:** önceden belirlenmiş bir işaret listesine dayanır. Listedeki ifadeleri kullanmadan gerçekleşen sızıntıyı kaçırabilir.
 - **Saklanan `genel_kontrol_v2` asistan tarafından yazıldı.**

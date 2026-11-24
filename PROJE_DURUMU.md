@@ -1,6 +1,6 @@
 # PROJE_DURUMU
 
-Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–20 kapatıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–21 kapatıldı) · Son tamamlanan aşama: **01**
 
 ---
 
@@ -30,6 +30,12 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
   - 18: 2.1b'deki "çelişirse insan kararı geçerlidir" cümlesi kaldırıldı. İnsanın 50 sorudaki "kritik hata var/yok" etiketi 2.1'de yargıç + betik etiketinin yerini alır (birleşik etiket, §9.1). Bunun için insan formunun bilgi bölümüne ayrı bir "Kritik hata var mı?" alanı eklendi (`deney_plani_v1.md` §6.9); "Hayır" kritik hatayla aynı şey değildi.
   - 19: yargıç yedek yolu (§9.2). Önce diğer aday; ikisi de kalırsa tuzak insan puanıyla, kritik 2.1 50 insan sorusunda fark ≤ +2 ile, yargıca dayanan uyarılar "güvenilirliği düşük" notuyla. 1.1/1.2 kuralıyla tutarlılığı kontrol edildi; §1'deki tekil "yargıç" ifadesi "iki aday da" diye düzeltildi.
   - 20: kalibrasyon soruları istem ayarından çıkarılmaz (`deney_plani_v1.md` §6.8 madde 6); sınırlama `rapor_plani_v1.md` §4.4'e eklendi.
+- **Açık karar 21 kapatıldı (kullanıcı, 2026-11-24; `esikler_v1.md` §8 değişiklik 9, §9.1–§9.3):**
+  - (a) Normal yolda 2.1'in `hazir` karşılaştırması iki tarafta da yargıç + betikle.
+  - (b) Yedek yolda 2.1'in `hazir` karşılaştırması betik kısmıyla (2.4 tanımı), "güvenilirliği düşük".
+  - (c) Yedek yolda ikincil iddia yok: "güvenilir ölçüm yapılamadı, iddia yapılmadı".
+  - (d) 0.3/0.4'ün istem türü başına ayrı ölçüldüğü yazılı değildi (insan etiketi ve yargıç istemi ayrıydı, eşik hesabı tanımsızdı); ayrı ölçüm tanımlandı (§9.3). Yedek yol yalnızca kalınan türe dayanan eşiklere uygulanır. Sonuç: iki istem türü farklı adaylarla puanlanabilir.
+  - "Fark ettiklerim" 30 maddesi üç gruba ayrıldı (açık karar 16'da); hiçbiri düzeltilmedi.
   - `esikler_v1_aciklama.md`: §9'a "birleşik etiket" ve "yedek yol" alt bölümleri, sözlüğe 2 terim; "fark ettiklerim" 30 madde (3, 4, 6, 21, 23, 26 güncellendi; 28–30 yeni).
 
 ### Üretilen dosyalar
@@ -151,7 +157,11 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
   - Set kilit manifestinde değil (geliştirme seti); yeni manifest üretilmedi. 02'deki çakışma denetiminden geçecek.
 8. **Senior onayları:** `esikler_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `deney_plani_v1.md`, `rapor/rapor_plani_v1.md`, `cevap_standardi_v1.md`, `sistem_v1.txt`, `gelistirme_kapsam_disi.jsonl` (15 soru). Kullanıcı `cevap_standardi_v1.md` ve `sistem_v1.txt` için kararlarını verdi (karar 9–14). `gelistirme_kapsam_disi.jsonl` kullanıcı tarafından onaylandı (aşağıda); senior onayı yine bekliyor.
 15. **Düşünme modu yan deneyi** (açık, karar 06'da verilecek): `hazir` model doğrulama setinde düşünme açık ve kapalı çalıştırılıp bilgi doğruluğu (bilgi puanı, kritik hata) ve süre karşılaştırılsın mı? Ana planda yok, hiçbir eşiği etkilemez. Yapılırsa 0.1'i bilerek ihlal ettiği için ayrı bir deney kimliğiyle yürütülmeli. Gerekçe: düşünme kapalılığının çok adımlı sorulardaki (ör. kıdem + ihbar birlikte) bedeli ölçülmedi. Ayrıntı `esikler_v1_aciklama.md`, 0.1 ek bölümü.
-16. **Eşik açıklamasında listelenen zayıf noktalar** (açık, senior kararı): `esikler_v1_aciklama.md` §12'de 30 madde var (28–30, 17–20 kararlarıyla eklendi).
+16. **Eşik açıklamasında listelenen zayıf noktalar** (açık, senior kararı): `esikler_v1_aciklama.md` §12'de 30 madde var (28–30, 17–20 kararlarıyla eklendi; 4 ve 28–30 karar 21 ile kapandı).
+    - Gruplama (2026-11-24, düzeltme yapılmadı):
+      - **Senior onayından önce (10):** 1, 2, 6, 7, 8, 9, 12, 15, 20, 24.
+      - **İlgili aşamada (5):** 13 (rapor), 14 (2.1/2.4 puanlama betiği), 17 (sayı metriği betiği), 22 (üretim/puanlama betiği), 25 (uyarı kuyruğu betiği, 11'den önce).
+      - **Yalnızca not (15):** 3, 4, 5, 10, 11, 16, 18, 19, 21, 23, 26, 27, 28, 29, 30.
     - 2026-11-24 kararları 5, 19, 20 ve 21. maddeleri kısmen ele aldı ("güncelleme" notlarıyla işaretli). 23–27 bu kararlarla açığa çıktı.
     - Hâlâ açık olanlardan öne çıkanlar:
       - 1.1'deki %60 koşulu hiç bağlayıcı değil (100 kararda p < 0,05 için %61 gerekir; ölçüldü, formülle).
@@ -164,11 +174,8 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
 18. **2.1b ile kritik 2.1** (**kapandı**, kullanıcı kararı 2026-11-24): insan kararı kayıt etiketini değiştirir, eşik sonucunu değil. `esikler_v1.md` 2.1b, §8 değişiklik 6, §9.1; `deney_plani_v1.md` §6.9 (yeni "kritik hata var/yok" alanı).
 19. **Yargıç kalırsa kritik 2.1 ve 4.2** (**kapandı**, kullanıcı kararı 2026-11-24): `esikler_v1.md` §1, §8 değişiklik 7, §9.2; `deney_plani_v1.md` §6.4 ve §6.8 madde 5; `rapor_plani_v1.md` §4.4.
 20. **Kalibrasyon soruları ve istem ayarı** (**kapandı**, kullanıcı kararı 2026-11-24): çıkarılmaz, 100 soru istem ayarında. `deney_plani_v1.md` §6.8 madde 6; `rapor_plani_v1.md` §4.4.
-21. **Birleşik etiket ve yedek yolun `hazir` ve ikincil iddialardaki uygulaması** (açık, kullanıcı/senior kararı; 18 ve 19 işlenirken çıktı). İnsan formu yalnızca adaptör ve `hazir_istemli`'yi kapsıyor.
-    - (a) Normal yolda 2.1'in `hazir` karşılaştırması: adaptörün 50 etiketi insandan, `hazir`'ınkiler yargıçtan gelirse iki taraf farklı araçla sayılır. **Şimdilik uygulanan yorum:** birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında; `hazir` karşılaştırmasında iki taraf da yargıç + betik (`esikler_v1.md` §9.1 notu). Onay veya değişiklik gerekiyor.
-    - (b) Yedek yolda 2.1'in `hazir` karşılaştırması insanla ölçülemiyor. Seçenekler: yalnızca betik kısmıyla (2.4 tanımı) say ve "güvenilirliği düşük" yaz; ya da yedek yolda `hazir`'ın aynı 50 cevabını da insan formuna ekle (+50 cevap). Önerim ilki: kritik koruma asıl olarak birincil çiftte anlamlı, `hazir`'a göre kötüleşme 2.4 ile yine görülür.
-    - (c) Yedek yolda 5.1 ve H2/H3 tamamen yargıca dayanıyor ve uyarı eşiği değil. Önerim: bu durumda ikincil iddia yapılmaz, sonuçlar "güvenilirliği düşük, iddia yapılmadı" diye raporlanır.
-    - (d) 0.3/0.4 yalnızca bir istem türünde (üslup veya bilgi) kalırsa yedek yolun hangi eşiklere işleyeceği yazılı değil (`esikler_v1_aciklama.md` §12 madde 4).
+21. **Birleşik etiket ve yedek yolun `hazir` ve ikincil iddialardaki uygulaması** (**kapandı**, kullanıcı kararı 2026-11-24): (a) iki taraf yargıç + betik; (b) yedekte betik kısmı + "güvenilirliği düşük"; (c) yedekte ikincil iddia yok; (d) kalibrasyon istem türü başına, yedek yol yalnızca kalınan türe. `esikler_v1.md` §8 değişiklik 9, §9.1–§9.3; `deney_plani_v1.md` §6.8 madde 3 ve 5; `rapor_plani_v1.md` §4.4.
+22. **Aya karşılaştırması yargıç kalırsa** (açık, kullanıcı kararı; 21d işlenirken çıktı): 3.6 ve T.6 kendi istemleriyle puanlanıyor ve kalibrasyonda doğrudan sınanmıyor. Tuzak kararla bilgi türüne bağlandı; Aya hiçbir türe bağlı değil. Önerim: Aya referanssız bir tercih karşılaştırması olduğu için üslup+jargon türüne bağlansın; o türde kalınırsa 3.6 ve T.6 "güvenilirliği düşük" notu alsın. T.6 tetikleyicide olduğu için güvenilirliği düşük bir T.6'nın tetikleyip tetiklemeyeceği de yazılmalı.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/veri/girdi_ozeti.py` içindeki `VARSAYILAN_KILITLI` listesinde. 02 ve sonrası bu listeye uymalı.
@@ -202,7 +209,8 @@ Son güncelleme: 2026-11-24 (01: eşiklerin açıklamalı belgesi; eşik kararla
   - Yargıç kalibrasyon seti doğrulamadan 40 çift olacak. Kalibrasyon soruları istem ayarından çıkarılmaz; istem ayarı 100 doğrulama sorusunun hepsini kullanır (karar 20).
 - **Açık kararlar 17–20'den doğan işler (2026-11-24):**
   - İnsan formu betiği (11) bilgi bölümüne "Kritik hata var mı? Var / Yok" alanını koymalı; §6.3 tanımı formda yazılı olmalı.
-  - 2.1 puanlama betiği etiket kaynağını kayıt başına yazmalı (`insan` / `yargic_betik`) ve §9.1'e göre birleştirmeli.
+  - 2.1 puanlama betiği etiket kaynağını kayıt başına yazmalı (`insan` / `yargic_betik`) ve §9.1'e göre birleştirmeli; birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında.
+  - Kalibrasyon betiği uyumu, kappayı ve sıra tutarlılığını her aday × istem türü (üslup+jargon, bilgi) için ayrı yazmalı ve seçimi tür başına yapmalı (§9.3).
   - Yedek yol gerekirse (kalibrasyonda iki aday da kalırsa) 11'de tuzak için ayrı kör insan formu gerekir: `inceleme/tuzak_insan_formu_v1.csv`, ayrı anahtar dosyası, 56 cevap. Kalibrasyon sonucu doğrulama aşamasında bilineceği için ihtiyaç 11'den önce belli olur.
 
 ### Değişen çalıştırılabilir kod veya komut yolları

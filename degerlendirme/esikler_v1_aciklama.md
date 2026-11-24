@@ -122,7 +122,7 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`esikler_
 - **Uyum yüzdesi**: insanla yargıcın aynı kararı verdiği çiftlerin oranı. Beraberlikler hariç tutulur.
 - **Cohen kappa** (κ): şansla oluşacak uyumu çıkardıktan sonra kalan uyumu ölçen katsayı. Formül: κ = (gözlenen uyum − şans uyumu) / (1 − şans uyumu). 1 tam uyum, 0 yazı-tura kadar uyum demektir.
 
-**Ne yapılıyor.** Her yargıç adayı kalibrasyon çiftlerini puanlar. Beraberlik dışı çiftlerde insanla uyum yüzdesi ve kappa hesaplanır. Eşik: **uyum ≥ %75 ve kappa ≥ 0,50**. İkisi birden sağlanmalı. Sağlanmazsa önce diğer adayın sonucuna bakılır; o geçtiyse o kullanılır. İki aday da kalırsa yargıç insan yerine geçemez, **ikincil göstergeye düşer** ve kritik eşikler için yedek yol işler (§9'daki "Yargıç kalibrasyondan kalırsa" bölümü).
+**Ne yapılıyor.** Her yargıç adayı kalibrasyon çiftlerini puanlar. Beraberlik dışı çiftlerde insanla uyum yüzdesi ve kappa hesaplanır. Eşik: **uyum ≥ %75 ve kappa ≥ 0,50**. İkisi birden sağlanmalı. Ölçüm üslup+jargon ve bilgi istemleri için **ayrı ayrı** yapılır; bir aday bir istem türünde geçip ötekinde kalabilir (2026-11-24 tanımlandı; §9). Sağlanmazsa önce diğer adayın sonucuna bakılır; o geçtiyse o kullanılır. İki aday da kalırsa yargıç insan yerine geçemez, **ikincil göstergeye düşer** ve kritik eşikler için yedek yol işler (§9'daki "Yargıç kalibrasyondan kalırsa" bölümü).
 
 **Neden.**
 1. Sonuçların çoğu yargıçtan geliyor (1.1, 2.1, 2.2, 3.6, 3.9, 5.x).
@@ -191,7 +191,7 @@ Birincil sonuç şöyle karara bağlanır (2026-11-24 güncellemesi):
 - **Geçti:** 1.1 ve 1.2 birlikte sağlanır ve üç kritik koruma eşiğinin (2.1, 3.7, 4.2) hiçbiri aşılmaz.
 - **Kaldı:** 1.1 veya 1.2 sağlanmaz ya da kritik eşiklerden biri aşılır.
 - Uyarı eşikleri aşılırsa sonuç kendiliğinden düşmez. İnceleme yapılır ve karar senior ile verilir (§6 açıklaması aşağıda).
-- Yargıç 0.3 veya 0.4'ü geçemezse önce diğer aday denenir. **İki aday da** geçemezse 1.2 tek başına birincil olur, 1.1 "güvenilirliği düşük" notuyla raporlanır (2026-11-24 güncellemesi; ayrıntı §9).
+- Yargıç **üslup+jargon isteminde** 0.3 veya 0.4'ü geçemezse önce diğer aday denenir. **İki aday da** geçemezse 1.2 tek başına birincil olur, 1.1 "güvenilirliği düşük" notuyla raporlanır (2026-11-24 güncellemesi; ayrıntı §9).
 
 ### 1.1 Birincil uç nokta: üslup+jargon kazanma oranı ≥ %60 ve işaret testi p < 0,05
 
@@ -983,7 +983,7 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 - İnsan formundaki 50 soruda kaydın kritik hata etiketi insanın "Var / Yok" kararıdır.
 - Kalan 50 soruda etiket yargıç + betikten gelir.
 - Kritik 2.1 bu 100 etiketle, aynı eşikle (fark ≤ +3) hesaplanır. 2.1b ayrıca "Hayır" sayısıyla hesaplanır.
-- Şimdilik bu kural yalnızca `hazir_istemli` karşılaştırmasında uygulanır. `hazir` cevapları insan formunda yoktur; orada iki taraf da yargıç + betikle sayılır (uygulama yorumu, açık karar 21).
+- Şimdilik bu kural yalnızca `hazir_istemli` karşılaştırmasında uygulanır. `hazir` cevapları insan formunda yoktur; orada iki taraf da yargıç + betikle sayılır (kullanıcı kararı, karar 21a).
 
 **Neden.**
 1. İnsan yargıçtan güvenilirdir; bu üstünlük korunur.
@@ -1007,12 +1007,19 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 2. İkisi de kalırsa:
    - 28 tuzak sorusunda adaptör ve `hazir_istemli` cevaplarını insan kör olarak puanlar; 4.1 ve 4.2 bu puanla hesaplanır.
    - Kritik 2.1 yalnızca insanın puanladığı 50 soruda, **fark ≤ +2** ile hesaplanır.
+   - 2.1'in `hazir` karşılaştırması insanla ölçülemez (form `hazir`'ı kapsamaz). Yalnızca betik kısmıyla, yani 2.4'ün tanımıyla sayılır ve "güvenilirliği düşük" notu alır.
    - 1.2 tek başına birincil olur; 1.1 ve yargıca dayanan uyarı eşikleri raporda "güvenilirliği düşük" notuyla gösterilir.
+   - İkincil iddialar (5.1, Holm ailesi) yapılmaz. Raporda "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazar. Bu, "katkı gösterilemedi" ile aynı şey değildir: orada ölçüm yapılmış ama fark bulunmamıştır, burada ölçüm aracı güvenilir değildir.
+3. **Yalnızca bir istem türünde kalırsa** (karar 21d): yedek yol yalnızca o türe dayanan eşiklere uygulanır.
+   - Üslup+jargonda kalırsa: 1.2 tek başına birincil olur, üslup ikincil iddiaları yapılmaz. Bilgi eşikleri yargıçla ölçülmeye devam eder.
+   - Bilgide kalırsa: 2.1 ve 4.2 (ve 4.1) yukarıdaki insan yedeğine geçer. 1.1 yargıçla ölçülmeye devam eder.
+   - Tuzak kendi istemiyle puanlanır ama kararla bilgi türüne bağlandı. Aya (3.6, T.6) hiçbir türe bağlı değil (açık karar 22).
 
 **Neden.**
 1. Kritik eşikler güvenilmez bir araçla ölçülemez; ama hiç ölçülmemeleri de kabul edilemez.
 2. Yedek yol, 1.1/1.2 için zaten var olan kuralla aynı aracı kullanır: 50 soruluk kör insan formu. +2, 2.1b'nin 50 sorudaki toleransıyla aynıdır.
-3. Kalibrasyon doğrulama aşamasında yapılır. Yedek yolun gerekip gerekmediği 11. aşamadan önce bilinir; 56 tuzak cevabının insan puanlaması önceden planlanabilir.
+3. Yedek yolu istem türüne göre ayırmak gereksiz insan işini önler: yargıç yalnızca üslupta kalırsa, güvenilir olduğu ölçülmüş bilgi puanlarını atmanın nedeni yoktur.
+4. Kalibrasyon doğrulama aşamasında yapılır. Yedek yolun gerekip gerekmediği 11. aşamadan önce bilinir; 56 tuzak cevabının insan puanlaması önceden planlanabilir.
 
 **Olmasaydı ne olurdu.** İki aday da sıra tutarlılığında %70'te kalır. 11. aşamada kritik 2.1 ve 4.2 için yargıç kullanılır, çünkü başka bir yol yazılmamıştır. Raporda "kritik eşikler geçti" yazar; ama bu sonuç, güvenilmediği ölçülmüş bir araçtan gelir.
 
@@ -1022,6 +1029,7 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 - Tuzak, insan puanı: `hazir_istemli` 23/28, adaptör 22/28. 4.1 (≥ 21) ve 4.2 (≥ 21) geçti.
 - 2.1, insan formu: `hazir_istemli` 3, adaptör 6 kritik hata → fark +3 > +2. Kritik eşik aşıldı; birincil sonuç "kaldı".
 - Raporda 2.2 ve 3.6 "güvenilirliği düşük" notuyla verilir.
+- Aynı durumda ama yalnızca üslup isteminde kalınsaydı: 2.1 ve tuzak yargıçla ölçülürdü, 1.2 birincil olurdu ve 5.1 için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılırdı.
 
 ## 10. §7 Raporlama kuralı (2026-11-24 eklendi)
 
@@ -1085,12 +1093,12 @@ Kural tablo, grafik, özet cümle ve sunum için de geçerlidir.
 
 ## 12. Açıklarken fark ettiklerim
 
-Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alınacağı kullanıcı ve senior kararıdır. Hesaplar formülle yapıldı (ölçüldü); veri kullanılmadı. 2026-11-24'teki kullanıcı kararlarından sonra durumu değişen maddeler **(güncelleme)** diye işaretlendi; 23–27 yeni maddelerdir. Açık kararlar 17–20'nin kapatılmasından (2026-11-24) sonra durumu değişenler **(kapandı)** diye işaretlendi; 28–30 bu kararlarla ortaya çıkan yeni maddelerdir.
+Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alınacağı kullanıcı ve senior kararıdır. Hesaplar formülle yapıldı (ölçüldü); veri kullanılmadı. 2026-11-24'teki kullanıcı kararlarından sonra durumu değişen maddeler **(güncelleme)** diye işaretlendi; 23–27 yeni maddelerdir. Açık kararlar 17–20'nin kapatılmasından (2026-11-24) sonra durumu değişenler **(kapandı)** diye işaretlendi; 28–30 bu kararlarla ortaya çıkan yeni maddelerdir. Açık karar 21'den (2026-11-24) sonra 4 ve 28–30 da **(kapandı)** oldu.
 
 1. **1.1'deki "%60" koşulu hiçbir zaman bağlayıcı değil.** Test 100 soru olduğundan kesin karar sayısı en fazla 100'dür. 100 kesin kararda p < 0,05 için en az 61 galibiyet (%61) gerekir; 60/100'de p = 0,057. Kesin karar sayısı azaldıkça gereken oran yükselir (80'de %62,5, 50'de %66). Yani p koşulunu geçen her sonuç %60'ı zaten geçer. Gerçek eşik, beraberlik sayısına bağlı olarak %61–%75 arasında değişen işaret testi sınırıdır.
 2. **§0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.** Başlık "bunlar sağlanmazsa koşu puanlanmaz" diyor. 0.3 ve 0.4 ise sağlanmazsa koşunun durmasını değil, yargıcın ikincil göstergeye düşmesini öngörüyor (§1 sonundaki not da öyle).
 3. **Yargıç kalibrasyondan kalırsa yargıca dayanan koruma eşiklerine ne olacağı yazılmamış.** §1 notu yalnızca 1.1 için yol gösteriyor (1.2 birincil olur). 2.1, 2.2, 3.6, 3.9, 4.1, 5.1, 5.2, T.6 ve K.2 de yargıca dayanıyor. **(güncelleme)** Konu daha ağırlaştı: yargıca dayanan 2.1 ve 4.2 artık kritik eşik (`esikler_v1.md` §8, açık soru 2). **(kapandı)** Yedek yol yazıldı (`esikler_v1.md` §9.2); kapsamadığı noktalar 29–30'da.
-4. **0.3 hangi istem türü için geçerli, belli değil.** Kalibrasyon hem üslup+jargon hem bilgi için ayrı yapılıyor (`deney_plani_v1.md` §6.8). Eşik ikisine ayrı ayrı mı, birlikte mi uygulanacak yazılmamış. Yedek yol (§9.2) yazıldıktan sonra bu soru önem kazandı: yargıç yalnızca bilgi isteminde kalırsa kritik 2.1 için yedek yol mu işler, 1.1 yargıçla mı kalır, belli değil.
+4. **0.3 hangi istem türü için geçerli, belli değil.** Kalibrasyon hem üslup+jargon hem bilgi için ayrı yapılıyor (`deney_plani_v1.md` §6.8). Eşik ikisine ayrı ayrı mı, birlikte mi uygulanacak yazılmamış. Yedek yol (§9.2) yazıldıktan sonra bu soru önem kazandı: yargıç yalnızca bilgi isteminde kalırsa kritik 2.1 için yedek yol mu işler, 1.1 yargıçla mı kalır, belli değil. **(kapandı)** 0.3 ve 0.4 istem türü başına ayrı ölçülür; yedek yol yalnızca kalınan türe dayanan eşiklere uygulanır (`esikler_v1.md` §9.3).
 5. **0.3 ve 0.5 küçük bir örneklemle karar veriyor.** 20–30 çiftte beraberlikler çıkınca daha da az çift kalır. Bu boyutta uyum yüzdesinin standart hatası yaklaşık 8–10 pp (tahmin, formülle). %75 eşiği ve 0.5'teki 5 pp'lik fark bu gürültüden küçük. **(güncelleme)** Kalibrasyon 40 çifte çıkarıldı. %75 uyumun %95 belirsizliği ±13,4 pp'ye, 5 pp'lik fark 2 çifte çıktı (ölçüldü). İyileşme var ama gürültü hâlâ 5 pp'den büyük; kappa belirsizliği 40 çiftte de yaklaşık ±0,27.
 6. **0.5'in yazımı iki türlü okunabilir.** "Hem uyumda hem sıra tutarlılığında 5 pp'den fazla geçmiyorsa" ifadesi, "ikisinde birden geçmiyorsa" diye de okunabilir. Plan §6.8'deki açık yazım ("uyumda … önde değilse **ve** sıra tutarlılığında da … önde değilse") diğer okumayı veriyor. Ayrıca adaylardan yalnızca biri 0.3/0.4'ü geçerse ne olacağı eşik dosyasında yazmıyor (planda "eşiği geçen adaylar arasında" diyor). **(kapandı, ikinci kısım)** Yalnızca bir aday geçerse o kullanılır (`esikler_v1.md` §1 ve §9.2).
 7. **"Kaybetme − kazanma" eşiklerinde payda belirsiz.** 2.2, 3.6, 5.2, T.6 ve K.2'de oranların bütün sorulara mı yoksa beraberlik dışı kararlara mı bölüneceği yazılmamış. 1.1'de beraberlikler açıkça hariç; buradakiler için söylenmemiş. Beraberlik çoksa iki okuma farklı sonuç verir.
@@ -1114,6 +1122,6 @@ Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alına
 25. **Uyarı incelemesi kör değil.** İncelenen kayıtlar zaten adaptörün aleyhine olduğu için seçiliyor; değerlendirici hangi cevabın adaptörden geldiğini bilerek etiket koyuyor. Bu, 1.2'deki kör formdan farklı bir yanlılık riski taşır. Rastgele kontrol kayıtları bunu kısmen dengeler.
 26. **Kalibrasyon soruları ve istem ayarı.** 40 çift, 100 soruluk doğrulama setinin 40'ını kapsayabilir. Plan §6.8 madde 6'daki "kalibrasyon çiftleri istem ayarında kullanılmaz" kuralı soruları da kapsıyorsa, istem ayarı için 60 soru kalır (`esikler_v1.md` §8, açık soru 3). **(kapandı)** Kalibrasyon soruları istem ayarından çıkarılmaz; sınırlama rapor planına yazıldı.
 27. **4.1'in gerekçesindeki yakalama sayısı kullanıcının verdiğinden düşük.** Kullanıcı −2'de yakalamayı yaklaşık %68 verdi; betik üç farklı varsayımla %56–63 buldu (`esikler_v1.md` §8, değişiklik 2). Kararın yönü değişmiyor, ama bedeli gerekçede yazılandan büyük.
-28. **2.1'de birleşik etiket iki karşılaştırmaya aynı biçimde uygulanamıyor.** İnsan formu yalnızca adaptör ve `hazir_istemli` cevaplarını kapsıyor. `hazir` karşılaştırmasında adaptörün 50 etiketi insandan, `hazir`'ınkiler yargıçtan gelirse iki taraf farklı araçla sayılır. Şimdilik birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında uygulandı (açık karar 21).
-29. **Yedek yolda 2.1'in `hazir` karşılaştırması insanla ölçülemiyor.** Aynı nedenle: form `hazir`'ı kapsamıyor. Kritik 2.1'in iki karşılaştırmasından biri yedek yolda tanımsız kalıyor. Seçenekler: yalnızca betik kısmıyla (2.4 tanımı) sayıp "güvenilirliği düşük" yazmak ya da `hazir`'ı da insan formuna eklemek (50 cevap daha) (açık karar 21).
-30. **Yedek yolda ikincil iddiaların durumu yazılmadı.** 5.1 ve Holm ailesinin üç testi tamamen yargıca dayanıyor ve uyarı eşiği değil. "Güvenilirliği düşük" kuralı uyarı eşikleri için yazıldı; bir yargıç sonucuyla "sentetik veri katkı sağladı" iddiası yapılıp yapılamayacağı belli değil (açık karar 21).
+28. **2.1'de birleşik etiket iki karşılaştırmaya aynı biçimde uygulanamıyor.** İnsan formu yalnızca adaptör ve `hazir_istemli` cevaplarını kapsıyor. `hazir` karşılaştırmasında adaptörün 50 etiketi insandan, `hazir`'ınkiler yargıçtan gelirse iki taraf farklı araçla sayılır. Şimdilik birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında uygulandı (açık karar 21). **(kapandı)** Kullanıcı onayladı (karar 21a).
+29. **Yedek yolda 2.1'in `hazir` karşılaştırması insanla ölçülemiyor.** Aynı nedenle: form `hazir`'ı kapsamıyor. Kritik 2.1'in iki karşılaştırmasından biri yedek yolda tanımsız kalıyor. Seçenekler: yalnızca betik kısmıyla (2.4 tanımı) sayıp "güvenilirliği düşük" yazmak ya da `hazir`'ı da insan formuna eklemek (50 cevap daha) (açık karar 21). **(kapandı)** Betik kısmıyla sayılır, "güvenilirliği düşük" (karar 21b).
+30. **Yedek yolda ikincil iddiaların durumu yazılmadı.** 5.1 ve Holm ailesinin üç testi tamamen yargıca dayanıyor ve uyarı eşiği değil. "Güvenilirliği düşük" kuralı uyarı eşikleri için yazıldı; bir yargıç sonucuyla "sentetik veri katkı sağladı" iddiası yapılıp yapılamayacağı belli değil (açık karar 21). **(kapandı)** İddia yapılmaz, "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (karar 21c).
