@@ -26,25 +26,29 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`esikler_
 2. Seçilen adaptör, üslup ve jargonda **istemli hazır modeli** (`hazir_istemli`) açıkça ve istatistiksel olarak anlamlı biçimde yenmeli (1.1).
 3. Kör insan formu da aynı yönde bir gelişme görmeli (1.2).
 4. Üç **kritik** koruma eşiğinin hiçbiri aşılmamalı: kritik hata sayısı (2.1), gündelik sorularda üslup sızıntısı (3.7), tuzak başarısının mutlak alt sınırı (4.2).
-5. Diğer koruma eşikleri (bilgi, genel Türkçe, tuzak) **uyarı** eşiğidir. Biri aşılırsa sonuç kendiliğinden düşmez: aşan kayıtlar bir insan tarafından incelenir ve karar senior ile yazılı olarak verilir (§6).
+5. Diğer koruma eşikleri (bilgi, genel Türkçe, tuzak) **uyarı** eşiğidir. Biri aşılırsa sonuç kendiliğinden düşmez: insan incelenen kayıtların etiketlerini düzeltir ve eşik yeniden hesaplanır. Hâlâ aşılıyorsa sonuç **"çekinceli"** olur; senior yalnızca servise çıkışa karar verir (§6; 2026-11-24). Sonuç böylece üç değerlidir: geçti / çekinceli / kaldı.
 6. İkili karşılaştırmaların hepsi "kazanma / beraberlik / kayıp" sayıları ve p değeriyle birlikte raporlanmalı; kazanma oranı tek başına yazılmaz (§7).
 
 ### Eşik türleri
 
 | Tür | Hangi soruyu cevaplar? | Bölüm |
 |---|---|---|
-| Geçerlilik ön koşulu | Ölçüm aracımız sağlam mı, sonuçlara güvenebilir miyiz? | §0 |
+| Geçerlilik koşulu | Cevaplar puanlanabilir mi? Sağlanmazsa üretim tekrarlanır | 0.1–0.2 |
+| Yargıç uygunluğu | Yargıç insan yerine geçebilir mi? Sağlanmazsa yedek yol | 0.3–0.5 |
 | Birincil | Fine-tuning asıl amacına ulaştı mı (üslup ve jargonda belirgin gelişme)? | §1 |
 | Koruma, kritik | Kazanç, kabul edilemeyecek bir zarar pahasına mı geldi? Aşılırsa birincil sonuç "kaldı" olur | 2.1, 3.7, 4.2 |
-| Koruma, uyarı | Kazancın yanında incelenmesi gereken bir gerileme var mı? Aşılırsa insan incelemesi ve senior kararı | §2, §3, §4'teki diğerleri |
+| Koruma, uyarı | Kazancın yanında incelenmesi gereken bir gerileme var mı? Aşılırsa etiket incelemesi ve yeniden hesap; hâlâ aşılıyorsa "çekinceli" | §2, §3, §4'teki diğerleri (4.3 hariç) |
+| Seçim kısıtı | Doğrulamada hangi ayar seçilebilir? | 4.3 |
 | Tetikleyici | Eğitime genel Türkçe verisi eklememiz gerekiyor mu? | §3A |
 | İkincil | Sentetik veri ek bir katkı sağladı mı? (ana iddia değil) | §5 |
 
 ---
 
-## 2. §0 Geçerlilik ön koşulları
+## 2. §0 Ön koşullar: geçerlilik (0.1–0.2) ve yargıç uygunluğu (0.3–0.5)
 
 **Bu bölüm neden var?** Bir termometre bozuksa, ölçtüğü ateşe bakarak hasta hakkında karar veremezsiniz. §0 termometreyi kontrol eder. Modelin iyi ya da kötü olduğuna dair hiçbir şey söylemez. Yalnızca "bu ölçüm sonuç olarak okunabilir mi?" sorusunu cevaplar. 0.1 ve 0.2 cevap üretim ayarını, 0.3–0.5 yargıcı denetler. Bu yüzden diğer bütün eşiklerden önce gelir.
+
+2026-11-24'ten beri iki türdür, çünkü sağlanmadıklarında olan şey farklıdır. **0.1–0.2 geçerlilik koşuludur:** sağlanmazsa koşu puanlanmaz; neden giderilir ve üretim, aynı düzeltmeyle bütün sistemler için tekrarlanır. **0.3–0.5 yargıç uygunluğudur:** sağlanmazsa koşu durmaz, yargıç yerine önceden yazılmış yedek yol işler (§9). İlk yazımda başlık "bunlar sağlanmazsa koşu puanlanmaz" diyordu; bu 0.3–0.5 için doğru değildi.
 
 ### 0.1 `<think>` kalıntısı: 0 cevap
 
@@ -111,7 +115,7 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`esikler_
 
 **Örnek (uydurma).**
 - Geçti: 100 cevaptan 1'i sınıra dayanmış (%1) → koşu puanlanır.
-- Kaldı: 100 cevaptan 5'i sınıra dayanmış (%5) → koşu puanlanmaz. Önce nedeni (döngü mü, gerçekten uzun soru mu) incelenir.
+- Kaldı: 100 cevaptan 5'i sınıra dayanmış (%5) → koşu puanlanmaz. Önce nedeni (döngü mü, gerçekten uzun soru mu) incelenir, giderilir ve üretim bütün sistemler için tekrarlanır.
 
 ### 0.3 Yargıç kalibrasyonu: insanla uyum ≥ %75 ve Cohen kappa ≥ 0,50
 
@@ -160,11 +164,15 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`esikler_
 - Geçti: 30 çiftin 26'sında iki sırada aynı karar → %86,7.
 - Kaldı: 30 çiftin 21'inde aynı karar → %70. Yargıç ikincil göstergeye düşer.
 
-### 0.5 Yargıç seçimi: büyük model belirgin biçimde iyi değilse küçük model
+### 0.5 Yargıç seçimi: her istem türünde, büyük model uyumda belirgin biçimde iyi değilse küçük model
 
 **Arka plan.** İki aday var: `gemma4:12b` (12 milyar parametre, yaklaşık 8–10 GB VRAM, tahmin) ve `gemma4:26b` (uzmanlar karışımı, MoE: her token için parametrelerin yalnızca bir bölümü çalışır; yaklaşık 16–19 GB, tahmin). Büyük model genellikle daha iyi karar verir ama daha yavaştır, daha çok bellek ister ve intranete taşınması daha zordur.
 
-**Ne yapılıyor.** İki aday da 0.3 ve 0.4 ölçümlerinden geçer. Eşik metni: "`gemma4:26b`, `gemma4:12b`'yi hem uyumda hem sıra tutarlılığında 5 pp'den fazla geçmiyorsa `gemma4:12b` seçilir". `deney_plani_v1.md` §6.8'deki açık hâli şudur: 26b uyumda 5 pp'den fazla önde değilse **ve** sıra tutarlılığında da 5 pp'den fazla önde değilse 12b seçilir.
+**Ne yapılıyor.** Seçim üslup+jargon ve bilgi istemleri için **ayrı ayrı** yapılır (2026-11-24'te yeniden yazıldı):
+- İki aday da o türde 0.3 ve 0.4'ü geçtiyse: 26b yalnızca **uyumda** 12b'yi **5 pp'den fazla** geçerse seçilir; aksi hâlde 12b.
+- Yalnızca biri geçtiyse o seçilir.
+- İkisi de kalırsa yedek yol işler (§9).
+- Tek yargıç kuralı yoktur: iki istem türü farklı yargıçlarla puanlanabilir. Aya karşılaştırması üslup+jargon türünün yargıcıyla puanlanır.
 
 **Neden.**
 1. 40 çiftlik kalibrasyon setinde tek bir çift uyum yüzdesini 2,5 pp oynatır; beraberlikler çıkınca daha fazla.
@@ -172,14 +180,17 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`esikler_
 3. Fark küçükse büyük modelin bedeli (hız, VRAM, taşıma) kazancından fazladır.
 4. 5 pp, 40 çiftte 2 çifte denk gelir (ölçüldü). İlk taslaktaki 25 çiftte bu yalnızca 1,25 çiftti; yani tek bir çift seçimi belirleyebilirdi. Kalibrasyonun 40 çifte çıkarılmasının bir nedeni budur. 2 çift de küçük bir farktır; kural bilerek "belirgin fark yoksa küçük model" yönünde kurulmuştur.
 5. Bu bir kullanıcı kararıdır; belirsizlik durumunda pratik tarafı seçer.
+6. Sıra tutarlılığı seçimde ayrıca karşılaştırılmaz: 0.4'te zaten eşik olarak aranır. İlk yazım ("hem uyumda hem sıra tutarlılığında") iki türlü okunabiliyordu; yeni yazımın tek okuması var.
 
 **Olmasaydı ne olurdu.** 26b uyumda 2 pp önde diye seçilir. İntranette aynı karta sığmadığı ortaya çıkar, değerlendirme saatlerce sürer ya da yargıç değişmek zorunda kalır. Pilot ile kurum turu farklı yargıçlarla ölçülmüş olur.
 
 **İşimize ne yarıyor.** Seçimi önceden kurala bağlar; sonuçlara bakıp "işimize gelen yargıcı" seçme riskini kaldırır. Küçük model seçilirse servis ve değerlendirme aynı A5000'de daha rahat çalışır.
 
 **Örnek (uydurma).**
-- 12b seçilir: 26b uyum %82, 12b %79 (fark 3 pp). Sıra tutarlılığı 26b %88, 12b %85 (fark 3 pp). İkisi de 5 pp'nin altında.
-- 26b seçilir: 26b uyum %86, 12b %77 (fark 9 pp). Sıra tutarlılığı 26b %92, 12b %84 (fark 8 pp).
+- 12b seçilir: üslup isteminde iki aday da geçti; 26b uyum %82, 12b %79 (fark 3 pp ≤ 5).
+- 26b seçilir: 26b uyum %86, 12b %77 (fark 9 pp > 5). Sıra tutarlılığındaki fark bakılmaz.
+- Tam sınırda: fark tam 5,0 pp → 12b. Sınır kuralı: eşiğe eşit değer "5 pp'den fazla" sayılmaz.
+- Yalnızca biri geçti: bilgi isteminde 12b 0.4'ten kaldı, 26b geçti → bilgi isteminde 26b. Üslup isteminde 12b kalabilir.
 
 ---
 
@@ -188,12 +199,12 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`esikler_
 **Bu bölüm neden var?** Projenin ana sorusu şu: "Fine-tuning, iyi yazılmış bir istem ve birkaç örnekle elde edilemeyecek bir üslup ve jargon kazancı sağlıyor mu?" Karşılaştırma `hazir` ile değil, `hazir_istemli` ile yapılır. Çünkü fine-tuning pahalı bir yoldur. Aynı kazanç istemle ucuza elde edilebiliyorsa fine-tuning haklı çıkmaz. Tek bir ana karşılaştırma seçmek de bilinçli bir karardır: çok sayıda karşılaştırma yapılırsa biri şansla "başarılı" çıkar. Bölümde iki eşik var: yargıç ölçüsü (1.1) ve onu doğrulayan insan ölçüsü (1.2).
 
 Birincil sonuç şöyle karara bağlanır (2026-11-24 güncellemesi):
-- **Geçti:** 1.1 ve 1.2 birlikte sağlanır ve üç kritik koruma eşiğinin (2.1, 3.7, 4.2) hiçbiri aşılmaz.
+- **Geçti:** 1.1 ve 1.2 birlikte sağlanır, üç kritik koruma eşiğinin (2.1, 3.7, 4.2) hiçbiri aşılmaz ve yeniden hesaptan sonra hiçbir uyarı eşiği aşılmış kalmaz.
 - **Kaldı:** 1.1 veya 1.2 sağlanmaz ya da kritik eşiklerden biri aşılır.
-- Uyarı eşikleri aşılırsa sonuç kendiliğinden düşmez. İnceleme yapılır ve karar senior ile verilir (§6 açıklaması aşağıda).
+- **Çekinceli:** 1.1 ve 1.2 sağlanır, kritik eşik aşılmaz, ama bir uyarı eşiği etiket incelemesi ve yeniden hesaptan sonra da aşılmış kalır. Senior yalnızca servise çıkışa karar verir; sonucu "geçti"ye çeviremez (§9 açıklaması aşağıda).
 - Yargıç **üslup+jargon isteminde** 0.3 veya 0.4'ü geçemezse önce diğer aday denenir. **İki aday da** geçemezse 1.2 tek başına birincil olur, 1.1 "güvenilirliği düşük" notuyla raporlanır (2026-11-24 güncellemesi; ayrıntı §9).
 
-### 1.1 Birincil uç nokta: üslup+jargon kazanma oranı ≥ %60 ve işaret testi p < 0,05
+### 1.1 Birincil uç nokta: üslup+jargon ikili karşılaştırmasında işaret testi p < 0,05
 
 **Arka plan.**
 - **Birincil uç nokta** (primary endpoint): başarının tek ana ölçüsü. Ön kayıtta tek bir tane seçilir.
@@ -203,22 +214,21 @@ Birincil sonuç şöyle karara bağlanır (2026-11-24 güncellemesi):
 - **p değeri** (p-value): sistemler gerçekten eşit olsaydı, gördüğümüz kadar (veya daha) uç bir sonucu görme olasılığı. Küçükse "bu şans olamaz" deriz. 0,05 geleneksel sınırdır: yirmide bir.
 - **İki yönlü** (two-sided): hem "adaptör çok kazandı" hem "adaptör çok kaybetti" uçları hesaba katılır. Sonucu görmeden yön seçmemek için kullanılır.
 
-**Ne yapılıyor.** Test setinin 100 sorusunda seçilen adaptör ile `hazir_istemli` cevapları yargıca iki sırada verilir. Soru: "Hangisi üslup ve jargon bakımından daha iyi?" Referans cevap gösterilmez. Tutarsız kararlar ve "eşit" kararları beraberlik sayılır, beraberlikler çıkarılır. Eşik: kazanma oranı **≥ %60 ve iki yönlü işaret testinde p < 0,05**.
+**Ne yapılıyor.** Test setinin 100 sorusunda seçilen adaptör ile `hazir_istemli` cevapları yargıca iki sırada verilir. Soru: "Hangisi üslup ve jargon bakımından daha iyi?" Referans cevap gösterilmez. Tutarsız kararlar ve "eşit" kararları beraberlik sayılır, beraberlikler çıkarılır. Eşik: **iki yönlü işaret testinde p < 0,05**. İlk taslaktaki "kazanma oranı ≥ %60" koşulu 2026-11-24'te kaldırıldı.
 
 **Neden.**
 1. Başarı ölçütü "belirgin gelişme". %50 eşitlik demektir; %52 gibi bir oran belirgin değildir.
-2. %60, "her beş karşılaştırmanın üçünde adaptör daha iyi" demektir. Bir kullanıcının fark edeceği düzeyde bir üstünlük olarak seçildi.
-3. Ama küçük örnekte %60 şansla da çıkabilir. Örneğin 20 kesin kararda 12–8 sonucu yazı-turayla kolayca oluşur.
-4. Bu yüzden anlamlılık koşulu eklendi: oran hem büyük hem şanstan ayırt edilebilir olmalı.
-5. Hesap (ölçüldü, formülle): 100 kesin kararda p < 0,05 için en az 61 galibiyet gerekir; 60/100 ise p = 0,057 verir. Kesin karar sayısı azaldıkça gereken oran yükselir: 80 kararda 50 (%62,5), 50 kararda 33 (%66).
+2. "Belirgin" burada "şanstan ayırt edilebilir" demektir. İşaret testi bunu doğrudan sınar. Küçük örnekte yüksek bir oran şansla çıkabilir: 20 kesin kararda 12–8 sonucu yazı-turayla kolayca oluşur.
+3. İlk taslakta ayrıca "kazanma oranı ≥ %60" koşulu vardı. Ama p < 0,05 her durumda %60'tan yüksek bir oran gerektirir: 1–100 kesin kararın her birinde gereken en düşük oran %60,6'dır (99 kararda 60 galibiyet; ölçüldü). %60 koşulu hiçbir sonucu değiştirmiyor, yalnızca okuyanı "eşik %60" diye yanıltıyordu. Bu yüzden kaldırıldı.
+4. Gereken en az galibiyet `esikler_v1.md` §1'deki tabloda (ölçüldü): 100 kesin kararda 61 (%61; 60/100'de p = 0,057), 80'de 50 (%62,5), 50'de 33 (%66), 20'de 15 (%75). Kesin karar 6'dan azsa anlamlılık mümkün değildir.
 
-**Olmasaydı ne olurdu.** Beraberlikler yüzünden yalnızca 25 kesin karar kalır. Adaptör 15'ini kazanır: %60. Anlamlılık koşulu olmasaydı "belirgin gelişme" deriz. Oysa 15–10 sonucu (p ≈ 0,42) eşit iki sistemden de kolayca çıkar. Kurum verisiyle tekrarlandığında sonuç %48'e döner.
+**Olmasaydı ne olurdu.** Eşik yalnızca bir oran olsaydı (ör. ≥ %60): beraberlikler yüzünden yalnızca 25 kesin karar kalır. Adaptör 15'ini kazanır: %60. "Belirgin gelişme" derdik. Oysa 15–10 sonucu (p ≈ 0,42) eşit iki sistemden de kolayca çıkar. Kurum verisiyle tekrarlandığında sonuç %48'e döner.
 
 **İşimize ne yarıyor.** Projenin "evet/hayır" cevabını tek bir satıra bağlar. Sonucu görmeden yazıldığı için senior'a "başarı ölçütünü biz sonradan seçmedik" denebilir. İntranette aynı betik aynı testi yapar.
 
 **Örnek (uydurma).** Raporlama kuralına (§7) uygun yazımla:
 - Geçti: kazanma / beraberlik / kayıp = 58 / 12 / 30; p = 0,004. Kazanma oranı %65,9.
-- Kaldı (oran düşük): 52 / 13 / 35; p = 0,086. Oran %59,8.
+- Kaldı: 52 / 13 / 35; p = 0,086.
 - Kaldı (oran yüksek ama anlamsız): 39 / 37 / 24; p = 0,077. Oran %61,9.
 
 Son örnek, kazanma oranının neden tek başına yazılmadığını gösteriyor. "%61,9" etkileyici görünür, ama 100 sorunun 37'si beraberliktir ve sonuç şanstan ayırt edilemez.
@@ -284,7 +294,7 @@ Son örnek, kazanma oranının neden tek başına yazılmadığını gösteriyor
 **Neden.**
 1. 2.1 yargıca ve betiğe dayanır. İnsan, yargıcın kaçırdığı ince koşul hatalarını görebilir.
 2. "Hayır", 2.1'deki kritik hatanın insan karşılığıdır.
-3. Örneklem 50 soru, yani 2.1'in yarısı. 2.1'deki +3'ün yarısı 1,5'tir; tam sayı olması için +2'ye yuvarlandı.
+3. Örneklem 50 soru, yani 2.1'in yarısı. 2.1'deki +3'ün yarısı 1,5'tir; tam sayı olması için +2'ye yuvarlandı. Bu, oransal olarak 2.1'den gevşektir (%4'e karşı %3). Kullanıcı bunu bilinçli olarak onayladı (2026-11-24): +1 bu boyutta sürekli yanlış alarm verir. Oransal fark rapora yazılır. Aynı +2, yedek yoldaki kritik 2.1'de de kullanılır.
 4. İnsan bir değerlendirme aracı olarak yargıçtan daha güvenilir kabul edildiği için çelişkide insan kazanır. Ama bu üstünlük tek tek kayıtlarda kullanılır: 2.1b bir uyarı eşiği olarak kritik 2.1'in sonucunu kaldıramaz.
 5. Neden "Hayır" ile ayrı bir kritik hata alanı? "Hayır" kritik hatayla aynı şey değildir. Ana hükmü yanlış ama kimseyi yanlış işleme yönlendirmeyecek bir cevap da "Hayır" alabilir.
 
@@ -313,7 +323,7 @@ Son örnek, kazanma oranının neden tek başına yazılmadığını gösteriyor
 **İşimize ne yarıyor.** Kritik olmayan ama birikince kullanıcıyı yanıltan bilgi kaybını yakalar.
 
 **Örnek (uydurma).**
-Bu örnekte oranlar 100 sorunun hepsi üzerinden hesaplandı; payda henüz kesinleşmedi ("Açıklarken fark ettiklerim", madde 7).
+Bu örnekte oranlar 100 sorunun hepsi üzerinden hesaplandı. 2026-11-24'ten beri kural budur: "kaybetme − kazanma" eşiklerinde payda, beraberlikler dahil karşılaştırılan bütün kayıtlardır.
 - Geçti: kazanma / beraberlik / kayıp = 18 / 60 / 22; p = 0,64. Kaybetme − kazanma = 4 pp.
 - Aşıldı (uyarı): 14 / 55 / 31; p = 0,016. Kaybetme − kazanma = 17 pp. Adaptörün iki sırada da kaybettiği 31 kayıt incelenir.
 
@@ -531,7 +541,7 @@ Bu örnekte oranlar 100 sorunun hepsi üzerinden hesaplandı; payda henüz kesin
 
 **Arka plan.** TurkishMMLU'da (3.1) cevap bir harftir (A, B, C…). Betik modelin cevabından harfi otomatik çıkarır. Model "Cevap B'dir" yerine uzun bir açıklama yazarsa veya hiç harf vermezse harf çıkarılamaz; o soru yanlış sayılır ve ayrıca raporlanır.
 
-**Ne yapılıyor.** Harf çıkarılamayan cevapların oranı hesaplanır. Eşik: **≤ %3** (mutlak).
+**Ne yapılıyor.** Değerlendirilen adaptörün cevaplarında harf çıkarılamayan oran hesaplanır. Eşik: **≤ %3** (mutlak). `hazir`'ın oranı yalnızca raporlanır (2026-11-24'te netleştirildi).
 
 **Neden.**
 1. Harf çıkarılamayan cevap yanlış sayılır. Bu oran yüksekse 3.1 bilgi değil biçim ölçmeye başlar.
@@ -689,7 +699,7 @@ Kaçırma çok daha pahalı olduğu için, tetikleyici final eşiklerinden daha 
 
 **Arka plan.** Bkz. 3.8.
 
-**Ne yapılıyor.** Geliştirme bölümündeki TurkishMMLU cevaplarında harf çıkarılamayan oran %3'ü aşarsa tetikler.
+**Ne yapılıyor.** Değerlendirilen adaptörün geliştirme bölümündeki TurkishMMLU cevaplarında harf çıkarılamayan oran %3'ü aşarsa tetikler. `hazir`'ın oranı yalnızca raporlanır. T tablosundaki sütun başlığı bu yüzden düzeltildi: T.1–T.7 `hazir`'a göre düşüştür, T.8 mutlak orandır.
 
 **Neden.** 3.8 ile aynı eşik. Harf vermeme alışkanlığı, modelin talimat biçimine uymayı unuttuğunu gösterir; genel Türkçe verisi bu biçim çeşitliliğini geri getirir.
 
@@ -705,7 +715,7 @@ Kaçırma çok daha pahalı olduğu için, tetikleyici final eşiklerinden daha 
 
 **Arka plan.** **Veri karışımı** (data mixing): eğitim verisine hedef alandan başka örnekler eklemek. Model hem yeni alanı öğrenir hem eski becerileri "hatırlatılmış" olur. Kurum SSS'leri ile birlikte genel Türkçe soru-cevap çiftleri verilir. Genel Türkçe soruları `egitim_sorulari.jsonl`'den gelir; cevaplar üretilip onaylanır.
 
-**Ne yapılıyor.** `genel_karisim_adaptor`, seçilen tarife genel Türkçe çiftleri eklenerek eğitilir. Genel Türkçe payı eğitim örneklerinin **%10'u veya %20'si** olur. İkisi de denenir; seçim doğrulamada yapılır.
+**Ne yapılıyor.** `genel_karisim_adaptor`, seçilen tarife genel Türkçe çiftleri eklenerek eğitilir. Genel Türkçe payı eğitim örneklerinin **%10'u veya %20'si** olur. İkisi de denenir; pay K.2'deki kurala göre seçilir.
 
 **Neden.**
 1. Pay çok küçükse unutmayı önlemez. Çok büyükse üslup kazancı sulanır.
@@ -721,22 +731,27 @@ Kaçırma çok daha pahalı olduğu için, tetikleyici final eşiklerinden daha 
 - Doğru uygulama: %10 ve %20 karışım adaptörleri eğitilir; doğrulamada %10'luk olan seçilir.
 - Yanlış uygulama: yalnızca %30 denenir. Bu K.1'e aykırıdır; yeni sürüm dosyası ve gerekçe gerekir.
 
-#### K.2 Karışım adaptörünün "seçilen adaptör" olma koşulu
+#### K.2 Pay seçimi ve karışım adaptörünün "seçilen adaptör" olma koşulu
 
 **Arka plan.** Karışım adaptörü iki şeyi aynı anda sağlamalıdır: genel Türkçeyi düzeltmeli ve üslup kazancını kaybetmemeli.
 
-**Ne yapılıyor.** Karışım adaptörü **T.1–T.8'in hepsini** geliştirme bölümünde geçerse **ve** doğrulamada üslup+jargon ikili karşılaştırmasında seçilen tarife göre **kaybetme − kazanma ≤ 10 pp** ise "seçilen adaptör" olur.
+**Ne yapılıyor.** İki adım (pay seçimi 2026-11-24'te eklendi):
+1. **Pay seçimi.** T.1–T.8'in hepsini geliştirme bölümünde geçen paylar arasından, doğrulamada üslup+jargon ikili karşılaştırmasında seçilen tarife göre **net kazancı** (kazanma − kaybetme; payda bütün kayıtlar) yüksek olan seçilir. İki payın net kazancı birbirinin 5 pp içindeyse %10 seçilir. Yalnızca biri geçtiyse o seçilir. Hiçbiri geçmezse K.3 uygulanır.
+2. **Seçilen adaptör olma.** Seçilen pay aynı karşılaştırmada **kaybetme − kazanma ≤ 10 pp** sağlarsa "seçilen adaptör" olur; sağlamazsa K.3.
 
 **Neden.**
 1. Karışım, tetikleyiciyi çalıştıran sorunu çözmüyorsa eklenmesinin anlamı yok. Bu yüzden T satırlarının hepsini geçmeli.
 2. Karışım üslubu sulandırabilir. Seçilen tarife göre üslupta belirgin geride kalırsa, 1.1'i geçme şansı düşer.
 3. 10 pp, 2.2 ve 3.6'daki "eşitlik" payıyla aynıdır: üslupta eşit kalması yeterli.
+4. Pay seçiminin ölçüsü önceden yazılmazsa, iki pay arasında sonuçlara bakıp seçim yapılmış olur. Net kazanç, ana iddiayla (üslup) aynı yönde bir ölçüdür.
+5. Yakın sonuçta %10'un seçilmesi: daha az genel veri, üslubu daha az sulandırır.
 
 **Olmasaydı ne olurdu.** Karışım adaptörü genel Türkçeyi düzeltir ama üslupta seçilen tarife %25 fark kaybeder. Koşulsuz seçilir. Testte 1.1 kalır; asıl tarif geçebilecekken projenin ana iddiası düşer.
 
 **İşimize ne yarıyor.** Bir sorunu çözerken başka bir sorunu yaratmayan tarifi seçer.
 
 **Örnek (uydurma).**
+- Pay seçimi: %10 net kazanç −4 pp (20 / 56 / 24), %20 net kazanç −1 pp (25 / 49 / 26). Fark 3 pp, 5 pp içinde → %10 seçilir.
 - Seçilir: T.1–T.8 hepsi geçti. Üslupta kazanma / beraberlik / kayıp = 20 / 56 / 24; p = 0,65 (fark 4 pp).
 - Seçilmez: T.1–T.8 geçti, ama üslupta 15 / 47 / 38; p = 0,002 (fark 23 pp).
 
@@ -794,7 +809,7 @@ Tolerans büyüdükçe yanlış alarm azalır ama yakalama gücü de düşer. E�
 
 **Örnek (uydurma).**
 - Geçti: `hazir_istemli` 24/28, adaptör 22/28 (fark −2).
-- Aşıldı (uyarı): `hazir_istemli` 24/28, adaptör 21/28 (fark −3). 21/28 olduğu için kritik 4.2 geçer. Birincil sonuç kendiliğinden düşmez; adaptörün kaybettiği tuzak soruları incelenir ve karar senior ile verilir.
+- Aşıldı (uyarı): `hazir_istemli` 24/28, adaptör 21/28 (fark −3). 21/28 olduğu için kritik 4.2 geçer. Birincil sonuç kendiliğinden düşmez. Adaptörün kaybettiği tuzak soruları incelenir; yanılgı olan kayıtlar düzeltilip 4.1 yeniden hesaplanır. Hâlâ −3 ise sonuç "çekinceli" olur.
 
 ### 4.2 Tuzak başarısı, mutlak alt sınır: ≥ 21/28 (%75)
 
@@ -815,11 +830,11 @@ Tolerans büyüdükçe yanlış alarm azalır ama yakalama gücü de düşer. E�
 - Geçti: adaptör 23/28.
 - Kaldı: adaptör 20/28 (4.1 geçse bile).
 
-### 4.3 Geliştirme kapsam dışı seti (15): ≥ 12/15
+### 4.3 Geliştirme kapsam dışı seti (15): ≥ 12/15, doğrulamada seçim kısıtı
 
 **Arka plan.** Tuzak setini ayar seçiminde kullanamayız (test kilidi). Ama ayar seçerken de "bilmiyorum" davranışını izlemek istiyoruz. Bunun için tuzak setine bakılmadan sıfırdan yazılmış, 15 soruluk bir **geliştirme kapsam dışı seti** var. Her kaydın beklenen davranışı ve kabul ölçütü var.
 
-**Ne yapılıyor.** Ayar seçimi sırasında her aday için başarılı soru sayılır. Eşik: **≥ 12/15**. Yalnızca geliştirme ölçüsüdür; final iddiası yapılmaz.
+**Ne yapılıyor.** Ayar seçimi sırasında her aday için başarılı soru sayılır. Eşik: **≥ 12/15**. Final iddiası yapılmaz. 2026-11-24'ten beri bir **seçim kısıtıdır** (uyarı eşiği değil): aday ayarlar (istem, checkpoint) arasında 12/15'i geçen varsa geçemeyen seçilmez. Hiçbiri geçemezse 4.3 puanı en yüksek olan seçilir (eşitlikte olağan seçim ölçütü) ve durum kaydedilir.
 
 **Neden.**
 1. Tuzak sonucu ancak 11. aşamada görülür; o zaman ayar değiştirmek yasaktır.
@@ -831,8 +846,9 @@ Tolerans büyüdükçe yanlış alarm azalır ama yakalama gücü de düşer. E�
 **İşimize ne yarıyor.** Test kilidini bozmadan güvenlik davranışını ayar seçimine dahil eder.
 
 **Örnek (uydurma).**
-- Geçti: 13/15.
-- Aşıldı (uyarı): 10/15. Bu aday seçilmeden önce incelenir.
+- Seçilebilir: 13/15.
+- Seçilemez: üslupta en iyi aday 10/15, başka bir aday 13/15 → 10/15'lik aday seçilmez.
+- Hiçbiri geçmiyor: adaylar 10/15 ve 11/15 → 11/15'lik aday seçilir; durum kaydedilir ve raporda gösterilir.
 
 ---
 
@@ -920,11 +936,11 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 **Arka plan.**
 - **Aile düzeyinde yanlış alarm** (family-wise error): birçok kontrol birlikte yapıldığında en az birinin rastlantıyla alarm verme olasılığı. Her biri %5 yanlış alarm veren k bağımsız kontrolde bu olasılık 1 − 0,95ᵏ'dir.
 - **Kritik eşik**: aşılırsa birincil sonucu doğrudan "kaldı" yapan eşik.
-- **Uyarı eşiği**: aşılırsa raporda kırmızı bayrak çıkaran ve bir insan incelemesi başlatan eşik. Nihai karar senior ile verilir.
+- **Uyarı eşiği**: aşılırsa raporda kırmızı bayrak çıkaran ve bir insan incelemesi başlatan eşik. İnceleme kayıt etiketlerini düzeltir ve eşik yeniden hesaplanır; hâlâ aşılıyorsa birincil sonuç "çekinceli" olur.
 
 **Ne yapılıyor.**
 - Kritik: **2.1** (kritik hata sayısı), **3.7** (üslup sızıntısı), **4.2** (tuzak mutlak alt sınırı).
-- Uyarı: §2, §3, §4'teki diğer 14 eşik.
+- Uyarı: §2, §3, §4'teki diğer 13 eşik. 4.3, 2026-11-24'te doğrulamada seçim kısıtı oldu ve uyarı sınıfından çıktı.
 - Ayrımın dışında kalanlar: §0, §3A tetikleyicisi (T.1–T.8, K.1–K.3) ve §5.
 
 **Neden.**
@@ -935,45 +951,46 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 5. Uyarı eşikleri kaldırılmadı. Aşıldıklarında ne olduğunu görmek için kayıtlar incelenir. Ölçüm gürültüsü ile gerçek gerileme böylece ayırt edilir.
 6. Sınır: bu hesaplar "her eşik %5 yanlış alarm verir ve eşikler bağımsızdır" varsayımına dayanan kaba hesaplardır. Gerçek eşikler %5'e göre ayarlanmadı ve birbirleriyle ilişkili (2.1 ile 2.4 gibi). Sayılar büyüklük sırasını gösterir.
 
-**Olmasaydı ne olurdu.** Adaptör üslupta açıkça kazanır, bilgi ve tuzakta sorun yoktur. Ama XL-Sum chrF'si rastlantıyla 1,2 puan düşer. Bütün eşikler zorunlu olsaydı proje "fine-tuning başarısız" sonucuyla biterdi. Uyarı sistemiyle 30 özet incelenir, düşüşün birkaç uzun haberden geldiği ve özetlerin aslında iyi olduğu görülür. Senior "birincil sonuç geçerli, sınırlama olarak raporla" kararını yazılı olarak verir.
+**Olmasaydı ne olurdu.** Adaptör üslupta açıkça kazanır, bilgi ve tuzakta sorun yoktur. Ama XL-Sum chrF'si rastlantıyla 1,2 puan düşer. Bütün eşikler zorunlu olsaydı proje "fine-tuning başarısız" sonucuyla biterdi. Uyarı sistemiyle sonuç "kaldı" değil, "çekinceli" olur. 30 özet incelenir ve düşüşün birkaç uzun haberden geldiği görülür; bu raporda yazılır ve senior servise çıkış kararını bu bilgiyle verir.
 
 **İşimize ne yarıyor.** Sonucun gürültü yüzünden düşme olasılığını azaltır; ama hiçbir aşımı da gizlemez. Bayrak, inceleme ve karar raporda kalır. İntranette aynı inceleme adımları aynı betik ve aynı CSV biçimiyle tekrarlanır.
 
 **Örnek (uydurma).**
 - Geçti: 1.1 ve 1.2 sağlandı; 2.1, 3.7, 4.2 aşılmadı; hiçbir uyarı eşiği aşılmadı.
-- Geçti, uyarıyla: aynı durum, ama 3.3 aşıldı. İnceleme "ölçüm sorunu" dedi; senior karar (a)'yı verdi. Raporda 3.3 kırmızı bayrakla ve inceleme özetiyle görünür.
+- Geçti, bayrakla: aynı durum, ama 3.1 aşıldı. İnceleme 12 kayıtta harf çıkarma yanılgısı buldu; düzeltilmiş etiketlerle eşik geçildi. Raporda 3.1 kırmızı bayrakla, özgün ve düzeltilmiş değerle görünür.
+- Çekinceli: 3.3 (chrF) aşıldı. chrF bir etiket değil, inceleme bu değeri düzeltemez; sonuç "çekinceli". Senior servise çıkışa ayrıca karar verir.
 - Kaldı: 1.1 ve 1.2 sağlandı, ama 3.7'de sızıntı artışı 14 pp. Kritik eşik aşıldı; senior kararı gerekmez.
 
-### Uyarı eşiği aşıldığında inceleme
+### Uyarı eşiği aşıldığında inceleme (2026-11-24'te yeniden yazıldı)
 
-**Arka plan.** Bir uyarı eşiği iki nedenle aşılabilir: model gerçekten gerilemiştir ya da ölçüm yanılmıştır (yargıç hatası, harf çıkarma hatası, eskimiş referans, birkaç aykırı kayıt). İkisini ayırmanın tek güvenilir yolu kayıtlara bakmaktır. Ama sonuçları gördükten sonra bakmak, ön kaydın korumaya çalıştığı tehlikeyi geri getirir: işimize gelen yorumu seçmek. Bu yüzden inceleme süreci de önceden yazıldı.
+**Arka plan.** Bir uyarı eşiği iki nedenle aşılabilir: model gerçekten gerilemiştir ya da ölçüm yanılmıştır (yargıç hatası, harf çıkarma hatası, sayı ayrıştırma hatası). İkisini ayırmanın tek güvenilir yolu kayıtlara bakmaktır. Ama sonuçları gördükten sonra bakmak, ön kaydın korumaya çalıştığı tehlikeyi geri getirir: işimize gelen yorumu seçmek. İlk yazımda senior, incelemeden sonra "birincil sonuç geçerli" diyebiliyordu; yani sonuç görüldükten sonra verilen bir karar sonucu değiştirebiliyordu. Yeni kural bu kapıyı kapatır. **Çekinceli**: 1.1 ve 1.2 sağlanmış, kritik eşik aşılmamış, ama bir uyarı eşiği düzeltmeden sonra da aşılmış bir sonuç.
 
 **Ne yapılıyor.** `esikler_v1.md` §6.2'deki adımlar:
-1. Puanlar commit edildikten sonra bir betik incelenecek kayıtları seçer:
-   - sayım farklarında adaptör aleyhine olan bütün kayıtlar;
-   - ikili karşılaştırmalarda adaptörün kaybettiği bütün kayıtlar;
-   - ortalama farklarında en olumsuz 20 kayıt ve rastgele 10 kayıt;
-   - en fazla 40 kayıt, seed 42.
-2. İnsan değerlendirici her kayda bir neden etiketi koyar: `gercek_kotulesme`, `olcum_hatasi`, `referans_sorunu` veya `belirsiz`.
-3. Özet dosyası commit edilir. Ardından senior kararını ve gerekçesini ayrı bir commit'le yazar: (a) birincil sonuç geçerli, sınırlama olarak raporlanır; ya da (b) birincil sonuç "kaldı".
-4. İnceleme hiçbir puanı, eşiği veya ayarı değiştirmez ve yeniden ölçüm yapılmaz.
+1. Puanlar commit edildikten sonra bir betik incelenecek kayıtları seçer (sayım farklarında adaptör aleyhine bütün kayıtlar, ikili karşılaştırmada kaybedilen bütün kayıtlar, ortalamalarda en olumsuz 20 + rastgele 10; en fazla 40; seed 42).
+2. İnsan her kayda bir etiket koyar: `gercek_hata` (olumsuz etiket doğru), `olcum_yanilgisi` (yargıç veya betik yanıldı; doğru etiket yazılır) veya `belirsiz` (özgün etiket kalır).
+3. Eşik düzeltilmiş etiketlerle **yeniden hesaplanır**. Yeni üretim yapılmaz; ayar ve eşik değeri değişmez.
+4. Yeniden hesaplanan değer eşiği geçerse uyarı kalkar; bayrak ve özgün değer raporda kalır. Hâlâ aşılıyorsa raporda "uyarı eşiği aşıldı" yazılır ve birincil sonuç **"çekinceli"** olur.
+5. Senior yalnızca **servise çıkış** hakkında karar verir. Bu karar sonucu "geçti"ye çeviremez.
 
 **Neden.**
-1. Kayıt seçimi betiğe bırakıldı. Böylece "hangi kayıtlara bakılacağı" sonucu görerek seçilmez.
-2. En olumsuz kayıtların yanına rastgele kayıtlar konuldu. Bu, düşüşün birkaç uç kayıttan mı yoksa genel bir kaymadan mı geldiğini gösterir.
-3. Neden etiketleri sabit ve sınırlı. Serbest yorum yerine sayılabilir bir dağılım çıkar.
-4. İnceleme kararı senior kararından önce commit edilir. Böylece kararın incelemeye dayandığı, sonradan uydurulmadığı görülür.
-5. Kararı insan ve senior verir, Claude veya yargıç vermez. Nedeni `CLAUDE.md`'deki puanlama kuralı: intranette Claude olmayacak, test setini Claude görmemeli ve resmî sonuçlar tekrarlanabilir olmalı.
+1. Kayıt seçimi betiğe bırakıldı; "hangi kayıtlara bakılacağı" sonucu görerek seçilmez.
+2. İnceleme bir yoruma değil, sayılabilir bir düzeltmeye dönüşür: hangi kayıt neden düzeltildi, eşik kaç oldu.
+3. Senior kararının sonucu değiştirememesi ön kaydı korur: başarı ölçütünü sonuçlardan sonra kimse esnetemez. Servis kararı ise ayrı bir iştir ve sonuçlarla birlikte verilmesi doğaldır.
+4. Kararı insan ve senior verir, Claude veya yargıç vermez (`CLAUDE.md` puanlama kuralı).
 
-**Olmasaydı ne olurdu.** 2.3'te sayı recall'u 5 pp düşer. İnceleme süreci olmadığı için ekip kayıtlara gelişigüzel bakar, düşüşü açıklayan iki örnek bulur ve "referans sorunu" deyip geçer. Rapor okuyucusu bu kararın nasıl verildiğini göremez. Kurum turunda aynı düşüş gerçek bir bilgi kaybı olarak geri döner.
+**Olmasaydı ne olurdu.** 3.1'de TurkishMMLU farkı −2,6 pp çıkar. Eski kuralla senior "çoğu biçim sorunu" deyip sonucu geçerli sayabilirdi; bu karar okuyucuya bir yorum olarak ulaşır. Yeni kuralla aynı yorum sayıya dönüşür: düzeltilen kayıtlarla fark yeniden hesaplanır, okuyucu iki değeri de görür.
 
-**İşimize ne yarıyor.** Uyarı eşiklerini "görmezden gelinebilir" olmaktan çıkarır. Her aşımın arkasında yazılı, sayılı ve commit edilmiş bir inceleme olur. Senior sunumunda her kırmızı bayrağın yanında "kaç kayıt incelendi, ne bulundu, kim karar verdi" bilgisi hazırdır.
+**İşimize ne yarıyor.** Her uyarının sonu önceden bellidir: ya düzeltilmiş sayı eşiği geçer ya da sonuç "çekinceli" olur. Senior sunumunda "sonuç ne?" ve "servise çıkıyor muyuz?" soruları ayrı ayrı cevaplanır.
 
-**Örnek (uydurma).** 3.1 aşıldı (TurkishMMLU farkı −2,6 pp).
-- Betik 30 kayıt seçti: adaptörün yanlış, hazır modelin doğru bildiği 20 soru ve 10 rastgele soru.
-- Değerlendirici 17'sine `olcum_hatasi` dedi (adaptör harf yerine açıklama yazmış), 3'üne `gercek_kotulesme`, 10 rastgele kaydın hepsine sorun yok.
-- Senior karar (a)'yı verdi: "Düşüşün çoğu biçim sorunu; 3.8 ile birlikte sınırlama olarak raporlanır."
-- Karşı örnek: 20 kaydın 16'sı `gercek_kotulesme` çıksaydı karar (b) olabilirdi.
+**Sınır (açık karar 23).** İki nokta henüz yazılı değil:
+- Betik yalnızca adaptör aleyhine kayıtları seçtiği için düzeltme tek yönlüdür. Ters yöndeki yanılgılar düzeltilmezse yeniden hesap adaptör lehine kayar.
+- chrF ve perplexity (3.2–3.5) kayıt etiketiyle değil, deterministik bir hesapla ölçülür. İnceleme bu değerleri düzeltemez; bu eşikler aşılırsa sonuç pratikte doğrudan "çekinceli" olur.
+
+**Örnek (uydurma).** 3.1 aşıldı (TurkishMMLU farkı −2,6 pp; 630 soru).
+- Betik 30 kayıt seçti: adaptörün yanlış, hazır modelin doğru bildiği en olumsuz 20 soru ve 10 rastgele soru.
+- Değerlendirici 12 kayda `olcum_yanilgisi` dedi (adaptör doğru harfi açıklamanın içinde vermiş, betik çıkaramamış). Doğru harfi yazdı. 6'sına `gercek_hata`, 2'sine `belirsiz` dedi; 10 rastgele kayıtta sorun yok.
+- Yeniden hesap: adaptör 12 soru daha doğru → fark −2,6 + 12/630 × 100 ≈ −0,7 pp. Eşik (≥ −2,0) geçildi; uyarı kalktı, bayrak raporda kaldı.
+- Karşı örnek: yalnızca 3 kayıt düzeltilseydi fark yaklaşık −2,1 pp kalırdı. Eşiğe göre −2,1 aşıyor (sınır kuralı: yuvarlamadan önce karşılaştırılır) → sonuç "çekinceli".
 
 ### Birleşik etiket: 2.1 ile 2.1b birlikte nasıl çalışır? (2026-11-24 eklendi)
 
@@ -1013,7 +1030,7 @@ Kullanıcının gerekçesi: düzeltme yapılmazsa üç ikincil iddiada en az bir
 3. **Yalnızca bir istem türünde kalırsa** (karar 21d): yedek yol yalnızca o türe dayanan eşiklere uygulanır.
    - Üslup+jargonda kalırsa: 1.2 tek başına birincil olur, üslup ikincil iddiaları yapılmaz. Bilgi eşikleri yargıçla ölçülmeye devam eder.
    - Bilgide kalırsa: 2.1 ve 4.2 (ve 4.1) yukarıdaki insan yedeğine geçer. 1.1 yargıçla ölçülmeye devam eder.
-   - Tuzak kendi istemiyle puanlanır ama kararla bilgi türüne bağlandı. Aya (3.6, T.6) hiçbir türe bağlı değil (açık karar 22).
+   - Tuzak kendi istemiyle puanlanır ama kararla bilgi türüne bağlandı. Aya (3.6, T.6) üslup+jargon türüne bağlandı (karar 22).
 
 **Neden.**
 1. Kritik eşikler güvenilmez bir araçla ölçülemez; ama hiç ölçülmemeleri de kabul edilemez.
@@ -1082,46 +1099,52 @@ Kural tablo, grafik, özet cümle ve sunum için de geçerlidir.
 | **Kalibrasyon** (calibration) | Bir ölçüm aracının sonuçlarını bilinen bir ölçüyle karşılaştırıp güvenilirliğini sınamak. | Yeni bir termometreyi, doğru olduğunu bildiğin bir termometreyle aynı anda deneyip karşılaştırmak. |
 | **Ön kayıt** (pre-registration) | Neyin nasıl ölçüleceğini ve hangi sonucun başarı sayılacağını sonuçları görmeden yazıp kayda geçirmek. | Maçtan önce "3 farkla kazanırsak başarılı sayılır" diye notere tutanak bırakmak. |
 | **Kritik eşik** | Aşılırsa birincil sonucu doğrudan "kaldı" yapan koruma eşiği (2.1, 3.7, 4.2). | Ehliyet sınavında kırmızı ışıkta geçmek: diğer her şey kusursuz olsa da sınav biter. |
-| **Uyarı eşiği** | Aşılırsa kırmızı bayrak, insan incelemesi ve senior kararı başlatan koruma eşiği. | Arabanın gösterge panelinde yanan ikaz lambası: araba durmaz, ama servise bakılmadan yola devam edilmez. |
+| **Uyarı eşiği** | Aşılırsa kırmızı bayrak, kayıt etiketi incelemesi ve yeniden hesap başlatan koruma eşiği; hâlâ aşılıyorsa sonuç "çekinceli" olur. | Arabanın gösterge panelinde yanan ikaz lambası: araba durmaz, ama servise bakılmadan yola devam edilmez. |
 | **Yanlış alarm** (false alarm) | Gerçekte bir fark yokken, rastlantı yüzünden bir eşiğin aşılması. | Duman olmadan öten yangın alarmı. |
 | **Yakalama gücü** (power) | Gerçekte bir fark varken, eşiğin onu yakalama olasılığı. | Gerçek bir yangında alarmın ötme olasılığı. |
 | **Birleşik etiket** | Bir kaydın etiketinin, o kayıt için mevcut en güvenilir kaynaktan alınması: insanın baktığı sorularda insan, diğerlerinde yargıç + betik. | Sınav kâğıtlarının yarısını öğretmen, yarısını optik okuyucu okur; öğretmenin baktığı kâğıtlarda onun notu geçerlidir. |
 | **Yedek yol** (fallback) | Asıl ölçüm aracı kullanılamazsa önceden yazılmış ikinci ölçüm yolu. | Elektrik kesilince devreye giren jeneratör; ne zaman ve nasıl çalışacağı önceden bellidir. |
+| **Çekinceli** | Ana ölçüt ve kritik eşikler sağlanmış, ama bir uyarı eşiği düzeltmeden sonra da aşılmış birincil sonuç. | Sınavı geçen ama bir dersten şartlı geçen öğrenci: diploma alır, karnede not durur. |
+| **Seçim kısıtı** | Doğrulamada hangi ayarların seçilebileceğini sınırlayan koşul (4.3); bir sonuç iddiası değildir. | Takım kadrosuna yalnızca sağlık kontrolünden geçen oyuncuların alınması. |
+| **Sınır kuralı** | Eşiğe tam eşit değer geçer, aşan değer kalır; karşılaştırma yuvarlamadan önce yapılır. | Hız sınırı 50 olan yolda tam 50 ile gitmek ceza almaz; 50,4 ile gitmek, göstergede "50" yazsa bile sınırı aşmaktır. |
 | **Aile düzeyinde yanlış alarm** (family-wise error) | Birçok kontrol birlikte yapıldığında en az birinin rastlantıyla alarm verme olasılığı. | Tek bir zarın 6 gelmesi zor, ama 17 zar atarsanız birinin 6 gelmesi neredeyse kesin. |
 
 ---
 
 ## 12. Açıklarken fark ettiklerim
 
-Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alınacağı kullanıcı ve senior kararıdır. Hesaplar formülle yapıldı (ölçüldü); veri kullanılmadı. 2026-11-24'teki kullanıcı kararlarından sonra durumu değişen maddeler **(güncelleme)** diye işaretlendi; 23–27 yeni maddelerdir. Açık kararlar 17–20'nin kapatılmasından (2026-11-24) sonra durumu değişenler **(kapandı)** diye işaretlendi; 28–30 bu kararlarla ortaya çıkan yeni maddelerdir. Açık karar 21'den (2026-11-24) sonra 4 ve 28–30 da **(kapandı)** oldu.
+Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alınacağı kullanıcı ve senior kararıdır. Hesaplar formülle yapıldı (ölçüldü); veri kullanılmadı. 2026-11-24'teki kullanıcı kararlarından sonra durumu değişen maddeler **(güncelleme)** diye işaretlendi; 23–27 yeni maddelerdir. Açık kararlar 17–20'nin kapatılmasından (2026-11-24) sonra durumu değişenler **(kapandı)** diye işaretlendi; 28–30 bu kararlarla ortaya çıkan yeni maddelerdir. Açık karar 21'den (2026-11-24) sonra 4 ve 28–30 da **(kapandı)** oldu. Senior öncesi netleştirmelerden (2026-11-24) sonra 1, 2, 6, 7, 8, 9, 12, 15, 20 ve 24 kapandı; 31–33 bu kararlarla ortaya çıkan yeni maddelerdir.
 
-1. **1.1'deki "%60" koşulu hiçbir zaman bağlayıcı değil.** Test 100 soru olduğundan kesin karar sayısı en fazla 100'dür. 100 kesin kararda p < 0,05 için en az 61 galibiyet (%61) gerekir; 60/100'de p = 0,057. Kesin karar sayısı azaldıkça gereken oran yükselir (80'de %62,5, 50'de %66). Yani p koşulunu geçen her sonuç %60'ı zaten geçer. Gerçek eşik, beraberlik sayısına bağlı olarak %61–%75 arasında değişen işaret testi sınırıdır.
-2. **§0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.** Başlık "bunlar sağlanmazsa koşu puanlanmaz" diyor. 0.3 ve 0.4 ise sağlanmazsa koşunun durmasını değil, yargıcın ikincil göstergeye düşmesini öngörüyor (§1 sonundaki not da öyle).
+1. **1.1'deki "%60" koşulu hiçbir zaman bağlayıcı değil.** Test 100 soru olduğundan kesin karar sayısı en fazla 100'dür. 100 kesin kararda p < 0,05 için en az 61 galibiyet (%61) gerekir; 60/100'de p = 0,057. Kesin karar sayısı azaldıkça gereken oran yükselir (80'de %62,5, 50'de %66). Yani p koşulunu geçen her sonuç %60'ı zaten geçer. Gerçek eşik, beraberlik sayısına bağlı olarak %61–%75 arasında değişen işaret testi sınırıdır. **(kapandı)** %60 koşulu kaldırıldı; gereken galibiyet tablosu eklendi.
+2. **§0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.** Başlık "bunlar sağlanmazsa koşu puanlanmaz" diyor. 0.3 ve 0.4 ise sağlanmazsa koşunun durmasını değil, yargıcın ikincil göstergeye düşmesini öngörüyor (§1 sonundaki not da öyle). **(kapandı)** §0 ikiye ayrıldı: 0.1–0.2 geçerlilik koşulu, 0.3–0.5 yargıç uygunluğu.
 3. **Yargıç kalibrasyondan kalırsa yargıca dayanan koruma eşiklerine ne olacağı yazılmamış.** §1 notu yalnızca 1.1 için yol gösteriyor (1.2 birincil olur). 2.1, 2.2, 3.6, 3.9, 4.1, 5.1, 5.2, T.6 ve K.2 de yargıca dayanıyor. **(güncelleme)** Konu daha ağırlaştı: yargıca dayanan 2.1 ve 4.2 artık kritik eşik (`esikler_v1.md` §8, açık soru 2). **(kapandı)** Yedek yol yazıldı (`esikler_v1.md` §9.2); kapsamadığı noktalar 29–30'da.
 4. **0.3 hangi istem türü için geçerli, belli değil.** Kalibrasyon hem üslup+jargon hem bilgi için ayrı yapılıyor (`deney_plani_v1.md` §6.8). Eşik ikisine ayrı ayrı mı, birlikte mi uygulanacak yazılmamış. Yedek yol (§9.2) yazıldıktan sonra bu soru önem kazandı: yargıç yalnızca bilgi isteminde kalırsa kritik 2.1 için yedek yol mu işler, 1.1 yargıçla mı kalır, belli değil. **(kapandı)** 0.3 ve 0.4 istem türü başına ayrı ölçülür; yedek yol yalnızca kalınan türe dayanan eşiklere uygulanır (`esikler_v1.md` §9.3).
 5. **0.3 ve 0.5 küçük bir örneklemle karar veriyor.** 20–30 çiftte beraberlikler çıkınca daha da az çift kalır. Bu boyutta uyum yüzdesinin standart hatası yaklaşık 8–10 pp (tahmin, formülle). %75 eşiği ve 0.5'teki 5 pp'lik fark bu gürültüden küçük. **(güncelleme)** Kalibrasyon 40 çifte çıkarıldı. %75 uyumun %95 belirsizliği ±13,4 pp'ye, 5 pp'lik fark 2 çifte çıktı (ölçüldü). İyileşme var ama gürültü hâlâ 5 pp'den büyük; kappa belirsizliği 40 çiftte de yaklaşık ±0,27.
-6. **0.5'in yazımı iki türlü okunabilir.** "Hem uyumda hem sıra tutarlılığında 5 pp'den fazla geçmiyorsa" ifadesi, "ikisinde birden geçmiyorsa" diye de okunabilir. Plan §6.8'deki açık yazım ("uyumda … önde değilse **ve** sıra tutarlılığında da … önde değilse") diğer okumayı veriyor. Ayrıca adaylardan yalnızca biri 0.3/0.4'ü geçerse ne olacağı eşik dosyasında yazmıyor (planda "eşiği geçen adaylar arasında" diyor). **(kapandı, ikinci kısım)** Yalnızca bir aday geçerse o kullanılır (`esikler_v1.md` §1 ve §9.2).
-7. **"Kaybetme − kazanma" eşiklerinde payda belirsiz.** 2.2, 3.6, 5.2, T.6 ve K.2'de oranların bütün sorulara mı yoksa beraberlik dışı kararlara mı bölüneceği yazılmamış. 1.1'de beraberlikler açıkça hariç; buradakiler için söylenmemiş. Beraberlik çoksa iki okuma farklı sonuç verir.
-8. **Eşik kenarı işaretleri tutarsız.** T.1'de açıkça "fark < −2,0 pp → tetikler" yazıyor; T.2–T.6'da yalnızca "izin verilen en fazla düşüş" var. Tam sınırdaki bir değerin (ör. chrF farkı tam −1,0) tetikleyip tetiklemediği dolaylı olarak çıkarılıyor.
-9. **T tablosunun sütun başlığı T.8'e uymuyor.** Sütun başlığı "izin verilen en fazla düşüş (`hazir` taban çizgisine göre)", ama T.8 mutlak bir orandır (%3), `hazir`'a göre değil. 3.8 için de bu oranın yalnızca adaptöre mi uygulandığı yazılmamış.
+6. **0.5'in yazımı iki türlü okunabilir.** "Hem uyumda hem sıra tutarlılığında 5 pp'den fazla geçmiyorsa" ifadesi, "ikisinde birden geçmiyorsa" diye de okunabilir. Plan §6.8'deki açık yazım ("uyumda … önde değilse **ve** sıra tutarlılığında da … önde değilse") diğer okumayı veriyor. Ayrıca adaylardan yalnızca biri 0.3/0.4'ü geçerse ne olacağı eşik dosyasında yazmıyor (planda "eşiği geçen adaylar arasında" diyor). **(kapandı, ikinci kısım)** Yalnızca bir aday geçerse o kullanılır (`esikler_v1.md` §1 ve §9.2). **(kapandı)** 0.5 yeniden yazıldı: yalnızca uyumda 5 pp, istem türü başına; yalnızca biri geçerse o.
+7. **"Kaybetme − kazanma" eşiklerinde payda belirsiz.** 2.2, 3.6, 5.2, T.6 ve K.2'de oranların bütün sorulara mı yoksa beraberlik dışı kararlara mı bölüneceği yazılmamış. 1.1'de beraberlikler açıkça hariç; buradakiler için söylenmemiş. Beraberlik çoksa iki okuma farklı sonuç verir. **(kapandı)** Payda bütün kayıtlar, beraberlikler dahil.
+8. **Eşik kenarı işaretleri tutarsız.** T.1'de açıkça "fark < −2,0 pp → tetikler" yazıyor; T.2–T.6'da yalnızca "izin verilen en fazla düşüş" var. Tam sınırdaki bir değerin (ör. chrF farkı tam −1,0) tetikleyip tetiklemediği dolaylı olarak çıkarılıyor. **(kapandı)** Sınır kuralı: eşiğe eşit değer geçer, aşan kalır; yuvarlamadan önce.
+9. **T tablosunun sütun başlığı T.8'e uymuyor.** Sütun başlığı "izin verilen en fazla düşüş (`hazir` taban çizgisine göre)", ama T.8 mutlak bir orandır (%3), `hazir`'a göre değil. 3.8 için de bu oranın yalnızca adaptöre mi uygulandığı yazılmamış. **(kapandı)** 3.8 ve T.8 değerlendirilen adaptöre uygulanır; sütun başlığı düzeltildi.
 10. **§3A'daki "gürültü tetikleyiciyi hassas yapar" gerekçesi yarım.** Geliştirme bölümü küçük olduğu için gürültü büyüktür (TurkishMMLU'da standart hata yaklaşık 3 pp, ölçüldü formülle). Bu, yanlış alarmı artırır, ama **kaçırmayı da artırır**. Normal yaklaşımla: gerçek fark −4 pp iken tetikleyicinin bunu kaçırma olasılığı, farkın standart hatası 2 pp ise yaklaşık %16, 3 pp ise yaklaşık %25 (tahmin, formülle; eşleştirilmiş farkın gerçek standart hatası bilinmiyor). Yani küçük set, istenen yönde değil iki yönde de belirsizliği artırır.
 11. **Tetikleyicinin toplam yanlış alarm oranı yüksek olabilir.** Sekiz ölçütten herhangi biri tetikliyor ve çoğu eşik yaklaşık bir standart hata düzeyinde. Fark gerçekte sıfır olsa bile her ölçüt kendi başına kayda değer bir olasılıkla tetikleyebilir (T.1 için kabaca %16–25, tahmin). Sekiz ölçüt birleşince `genel_karisim_adaptor`'ün neredeyse her durumda eğitilmesi olası (tahmin). Bu, §3A'nın ifade ettiği maliyet tercihine uygun, ama "yalnızca gerileme görülürse" kararının pratikte "neredeyse her zaman" anlamına gelebileceği açıkça yazılmamış.
-12. **K.1–K.2'de geliştirme bölümü iki iş için kullanılıyor.** %10 ve %20 arasındaki seçim ve ardından K.2'deki T.1–T.8 kontrolü aynı geliştirme verisinde yapılırsa, seçilen pay o veride biraz iyimser görünür. Hangi ölçünün payı seçeceği de (doğrulama mı, geliştirme mi, hangisi önce) tam yazılmamış.
+12. **K.1–K.2'de geliştirme bölümü iki iş için kullanılıyor.** %10 ve %20 arasındaki seçim ve ardından K.2'deki T.1–T.8 kontrolü aynı geliştirme verisinde yapılırsa, seçilen pay o veride biraz iyimser görünür. Hangi ölçünün payı seçeceği de (doğrulama mı, geliştirme mi, hangisi önce) tam yazılmamış. **(kapandı)** Pay seçimi kuralı K.2'ye yazıldı (net kazanç; 5 pp içinde %10).
 13. **K.3 sonrasında bilinen bir sorunla teste girilebilir.** Tetikleyici çalıştıysa seçilen tarif geliştirmede en az bir T satırını aşmıştır. K.2 kalırsa bu tarif seçili kalır ve teste girer; §3'teki ilgili final eşiğini kalma olasılığı yüksektir. Bu bir çelişki değil, ama raporun önceden hazırlanması gereken olası bir senaryo.
 14. **2.1 ile 2.4 kısmen aynı şeyi sayıyor.** 2.1'in tanımı "yargıç bilgi işaretleri + aynı birimde çelişen sayı" diyor; 2.4 de aynı birimde çelişen sayıyı sayıyor. 2.4'ün 2.1'in alt kümesi olduğu, bağımsız bir kanıt gibi okunmaması gerektiği belirtilmemiş.
-15. **2.1b'nin toleransı "orantılı küçültme" değil, oransal olarak daha gevşek.** 100'de +3 (%3) iken 50'de +2 (%4). Gerekçe "orantılı küçültüldü" diyor; aslında yukarı yuvarlama ile pay oransal olarak büyüdü.
+15. **2.1b'nin toleransı "orantılı küçültme" değil, oransal olarak daha gevşek.** 100'de +3 (%3) iken 50'de +2 (%4). Gerekçe "orantılı küçültüldü" diyor; aslında yukarı yuvarlama ile pay oransal olarak büyüdü. **(kapandı)** +2 bilinçli onaylandı; oransal fark rapora yazılır.
 16. **5.3 (+2) ile 2.1 (+3) aynı boyutta (100 soru) farklı tolerans veriyor.** `esikler_v1.md` 5.3 gerekçesi yalnızca "Aynı" diyor. Farkın bilinçli olduğu (ikincil iddia için daha sıkı koşul) yazılmamış.
 17. **2.3'te sayı içermeyen referansların nasıl ele alınacağı yazılmamış.** Referansta hiç sayı yoksa recall tanımsızdır. Bu sorular ortalamadan çıkarılıyor mu, %100 mü sayılıyor, belirtilmemiş.
 18. **Bazı eşik sayılarının dayanağı ölçüm değil kanaat.** 3.2–3.4'teki "chrF'de 1 puanın altı genellikle gürültüdür" ve 3.5'teki %10, bu setlerde ölçülmüş bir gürültü düzeyine dayanmıyor. 2.1, 2.4, 3.1 ve 4.1 de belirsizlik aralığı olmadan tek bir nokta değerine bakıyor; 1.2'deki gibi bir güven aralığı yok.
 19. **4.1'in 1 soruluk payı 28 soruda istatistiksel olarak ayırt edilemez.** 28 soruda %80 civarında bir oranın standart hatası yaklaşık 7,6 pp, yani 2 soru (ölçüldü, formülle). 4.1, gürültü düzeyinin altındaki bir farkı ölçüt yapıyor; hem haksız kalma hem haksız geçme olası. **(güncelleme)** 4.1 −2'ye gevşetildi ve uyarı eşiği oldu; yanlış alarm %6–23'e indi, 3 soruluk kötüleşmeyi yakalama %56–63 (ölçüldü). Gürültü sorunu sürüyor ama artık aşım bir inceleme başlatıyor, sonucu doğrudan düşürmüyor.
-20. **4.3'ün bağlayıcılığı belli değil.** "Yalnızca geliştirme ölçüsü, final iddiası yok" deniyor. 12/15'in altında kalan bir ayar seçilemez mi, yoksa yalnızca uyarı mı veriliyor, yazılmamış. 15 soruda standart hata yaklaşık 10 pp (ölçüldü, formülle). **(güncelleme)** 4.3 uyarı eşiği oldu; aşılırsa doğrulama aşamasında inceleme yapılır. Ancak uyarının ayar seçimini engelleyip engellemediği hâlâ yazılı değil.
+20. **4.3'ün bağlayıcılığı belli değil.** "Yalnızca geliştirme ölçüsü, final iddiası yok" deniyor. 12/15'in altında kalan bir ayar seçilemez mi, yoksa yalnızca uyarı mı veriliyor, yazılmamış. 15 soruda standart hata yaklaşık 10 pp (ölçüldü, formülle). **(güncelleme)** 4.3 uyarı eşiği oldu; aşılırsa doğrulama aşamasında inceleme yapılır. Ancak uyarının ayar seçimini engelleyip engellemediği hâlâ yazılı değil. **(kapandı)** 4.3 doğrulamada seçim kısıtı oldu, uyarı sınıfından çıktı.
 21. **5.1'deki Holm ailesi tanımlanmamış.** Holm düzeltmesi hangi testlerle birlikte yapılacağına bağlıdır. `deney_plani_v1.md` §3 ikincil sonuçları listeliyor, ama hangilerinin işaret testiyle aynı aileye gireceği (ör. istemin katkısı, adaptör vs `hazir`) belirtilmemiş. Aile büyüdükçe 5.1'i geçmek zorlaşır. **(güncelleme)** Aile önerildi (m = 3: sentetik katkısı, istem katkısı, adaptör vs `hazir`; `esikler_v1.md` §8, değişiklik 5). Kullanıcı kararı bekliyor. **(kapandı)** Kullanıcı seçenek A'yı seçti (m = 3).
 22. **0.2'nin hangi birime uygulandığı yazılmamış.** "≤ %2" her sistem ve her set için ayrı mı, bir koşunun bütün cevapları için mi, belirtilmemiş. Türkçe değerlendirme görevleri (özetleme, çeviri) için de geçerli mi, açık değil.
 23. **2.1b'nin "insan kararı geçerlidir" kuralı kritik 2.1 ile çakışıyor.** 2.1 kritik, 2.1b uyarı. 2.1 aşılır ama 2.1b geçerse, uyarı eşiği kritik eşiği geçersiz kılabilir mi, belli değil (`esikler_v1.md` §8, açık soru 1). **(kapandı)** İnsan kararı yalnızca kayıt etiketini değiştirir (`esikler_v1.md` §9.1).
-24. **Senior kararı sonradan bir serbestlik getiriyor.** Uyarı eşiği aşıldığında (a) mı (b) mi seçileceğine dair önceden yazılmış bir ölçüt yok; karar sonuçlar görüldükten sonra veriliyor. İnceleme adımlarının ve etiket dağılımının önceden tanımlı olması ve kararın gerekçesiyle commit edilmesi bu riski azaltıyor, ama ortadan kaldırmıyor. Örneğin "`gercek_kotulesme` oranı %50'yi aşarsa karar (b)" gibi bir yol gösterici yok.
+24. **Senior kararı sonradan bir serbestlik getiriyor.** Uyarı eşiği aşıldığında (a) mı (b) mi seçileceğine dair önceden yazılmış bir ölçüt yok; karar sonuçlar görüldükten sonra veriliyor. İnceleme adımlarının ve etiket dağılımının önceden tanımlı olması ve kararın gerekçesiyle commit edilmesi bu riski azaltıyor, ama ortadan kaldırmıyor. Örneğin "`gercek_kotulesme` oranı %50'yi aşarsa karar (b)" gibi bir yol gösterici yok. **(kapandı)** Senior kararı yalnızca servise çıkış hakkında; sonuç etiket düzeltmesi ve yeniden hesapla belirlenir ("çekinceli").
 25. **Uyarı incelemesi kör değil.** İncelenen kayıtlar zaten adaptörün aleyhine olduğu için seçiliyor; değerlendirici hangi cevabın adaptörden geldiğini bilerek etiket koyuyor. Bu, 1.2'deki kör formdan farklı bir yanlılık riski taşır. Rastgele kontrol kayıtları bunu kısmen dengeler.
 26. **Kalibrasyon soruları ve istem ayarı.** 40 çift, 100 soruluk doğrulama setinin 40'ını kapsayabilir. Plan §6.8 madde 6'daki "kalibrasyon çiftleri istem ayarında kullanılmaz" kuralı soruları da kapsıyorsa, istem ayarı için 60 soru kalır (`esikler_v1.md` §8, açık soru 3). **(kapandı)** Kalibrasyon soruları istem ayarından çıkarılmaz; sınırlama rapor planına yazıldı.
 27. **4.1'in gerekçesindeki yakalama sayısı kullanıcının verdiğinden düşük.** Kullanıcı −2'de yakalamayı yaklaşık %68 verdi; betik üç farklı varsayımla %56–63 buldu (`esikler_v1.md` §8, değişiklik 2). Kararın yönü değişmiyor, ama bedeli gerekçede yazılandan büyük.
 28. **2.1'de birleşik etiket iki karşılaştırmaya aynı biçimde uygulanamıyor.** İnsan formu yalnızca adaptör ve `hazir_istemli` cevaplarını kapsıyor. `hazir` karşılaştırmasında adaptörün 50 etiketi insandan, `hazir`'ınkiler yargıçtan gelirse iki taraf farklı araçla sayılır. Şimdilik birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında uygulandı (açık karar 21). **(kapandı)** Kullanıcı onayladı (karar 21a).
 29. **Yedek yolda 2.1'in `hazir` karşılaştırması insanla ölçülemiyor.** Aynı nedenle: form `hazir`'ı kapsamıyor. Kritik 2.1'in iki karşılaştırmasından biri yedek yolda tanımsız kalıyor. Seçenekler: yalnızca betik kısmıyla (2.4 tanımı) sayıp "güvenilirliği düşük" yazmak ya da `hazir`'ı da insan formuna eklemek (50 cevap daha) (açık karar 21). **(kapandı)** Betik kısmıyla sayılır, "güvenilirliği düşük" (karar 21b).
 30. **Yedek yolda ikincil iddiaların durumu yazılmadı.** 5.1 ve Holm ailesinin üç testi tamamen yargıca dayanıyor ve uyarı eşiği değil. "Güvenilirliği düşük" kuralı uyarı eşikleri için yazıldı; bir yargıç sonucuyla "sentetik veri katkı sağladı" iddiası yapılıp yapılamayacağı belli değil (açık karar 21). **(kapandı)** İddia yapılmaz, "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (karar 21c).
+31. **Uyarı sonrası yeniden hesap tek yönlü.** U.2 yalnızca adaptör aleyhine kayıtları seçiyor. Yalnızca bunlar düzeltilirse ölçüm yanılgıları yalnızca adaptör lehine düzelir; ters yöndeki yanılgılar kalır ve yeniden hesap adaptör lehine kayar (açık karar 23).
+32. **chrF ve perplexity incelemeyle düzeltilemez.** 3.2–3.5 kayıt etiketine değil deterministik hesaba dayanıyor. Bu eşikler aşılırsa inceleme değeri değiştiremez; sonuç pratikte doğrudan "çekinceli" olur. Diğer uyarı eşiklerine göre farklı işledikleri yazılı değil (açık karar 23).
+33. **Yargıç üslup türünde kalırsa T.6'nın durumu yazılı değil.** Aya üslup türüne bağlandı; T.6 bir tetikleyici olduğu için "güvenilirliği düşük" notu yetmez, tetikleyip tetiklemeyeceği karar ister (açık karar 23).

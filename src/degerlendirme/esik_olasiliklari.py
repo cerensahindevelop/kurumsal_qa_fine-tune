@@ -124,8 +124,23 @@ def isaret_p(k: int, n: int) -> float:
     return min(1.0, 2 * sum(comb(n, i) for i in range(k, n + 1)) / 2**n)
 
 
-def gereken_galibiyet(n: int, alfa: float) -> int:
-    return next(k for k in range(n // 2, n + 1) if isaret_p(k, n) < alfa)
+def gereken_galibiyet(n: int, alfa: float) -> int | None:
+    """n kesin kararda p < alfa için gereken en az galibiyet; hiçbir k yetmiyorsa None."""
+    return next((k for k in range(n // 2, n + 1) if isaret_p(k, n) < alfa), None)
+
+
+def galibiyet_tablosu(n_ust: int = 100) -> list[dict]:
+    """1.1 ve 5.1 için: kesin karar sayısına göre gereken en az galibiyet (iki yönlü kesin işaret testi).
+    alfa 0,05 = 1.1 ve Holm'da en büyük p; 0,025 ve 0,0167 = Holm m=3'teki diğer sıralar."""
+    satirlar = []
+    for n in range(1, n_ust + 1):
+        s = {"n": n}
+        for ad, alfa in (("alfa_0.05", 0.05), ("alfa_0.025", 0.025), ("alfa_0.0167", 0.05 / 3)):
+            k = gereken_galibiyet(n, alfa)
+            s[ad] = k
+            s[ad + "_p"] = isaret_p(k, n) if k is not None else None
+        satirlar.append(s)
+    return satirlar
 
 
 def main() -> None:
@@ -148,6 +163,7 @@ def main() -> None:
             f"alfa={alfa:.4f}": {f"n={n}": gereken_galibiyet(n, alfa) for n in (60, 80, 100)}
             for alfa in (0.05, 0.025, 0.05 / 3, 0.0125, 0.05 / 6)
         },
+        "isaret_testi_galibiyet_tablosu_n_1_100": galibiyet_tablosu(100),
     }
     args.cikti.parent.mkdir(parents=True, exist_ok=True)
     args.cikti.write_text(json.dumps(sonuc, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -270,3 +270,20 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `degerle
 
 **Kontrol sorusu:** `hazir` karşılaştırmasında adaptörün etiketlerini insandan, `hazir`'ınkileri yargıçtan almak neden sorunlu?
 *Cevap:* İki taraf farklı ölçüm aracıyla sayılmış olur. İnsan yargıçtan daha katı ya da daha yumuşaksa, fark modeller arasındaki farkı değil ölçüm araçları arasındaki farkı yansıtır.
+
+## 12. Senior öncesi netleştirmeler: üç değerli sonuç, sınır kuralı, galibiyet tablosu
+
+**Yol ve girdi:** `degerlendirme/esikler_v1.md` (§0, 1.1 tablosu, Tanımlar, K.2, 4.3, §6.2, §8 değişiklik 10) ve `src/degerlendirme/esik_olasiliklari.py`. Betiğin yeni çıktısı `isaret_testi_galibiyet_tablosu_n_1_100`; veri okumaz.
+
+**Blok 1: galibiyet tablosu (betik).** Girdi: kesin karar sayısı n (1–100) ve α (0,05; Holm için 0,025 ve 0,0167). Dönüşüm: iki yönlü kesin işaret testinde p < α veren en küçük galibiyet sayısı aranır. Neden: 1.1'deki "%60" koşulunun hiç bağlayıcı olmadığını göstermek ve yerine okunabilir bir tablo koymak. Sonuç (ölçüldü): gereken en düşük oran %60,6 (99 kararda 60); n ≤ 5'te anlamlılık mümkün değil. Sonraki bloğa: 1.1 artık yalnızca "p < 0,05".
+
+**Blok 2: kuralların yazımı.** Girdi: belirsiz okunabilen eşik metinleri. Dönüşüm: sınır kuralı (eşit değer geçer; yuvarlamadan önce), "kaybetme − kazanma" paydası (beraberlikler dahil), 0.5'in tek okumalı hâli, 3.8/T.8'in kime uygulandığı, K.2'nin pay seçimi. Neden: aynı veri iki okumayla farklı sonuç vermesin. Sonraki bloğa: eşik değerleri aynı, kararlar tek anlamlı.
+
+**Blok 3: üç değerli sonuç.** Girdi: uyarı eşiği aşımı. Dönüşüm: inceleme yalnızca kayıt etiketlerini düzeltir; eşik yeniden hesaplanır; hâlâ aşılıyorsa sonuç "çekinceli". Neden: sonuçları gördükten sonra verilen bir karar başarı ölçütünü esnetmesin; senior yalnızca servise çıkışa karar verir.
+
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** TurkishMMLU farkı −2,6 pp (eşik ≥ −2,0). İnceleme 12 kayıtta harf çıkarma yanılgısı buldu ve doğru harfi yazdı. Yeniden hesap: −2,6 + 12/630 × 100 ≈ −0,7 pp → uyarı kalkar. Yalnızca 3 kayıt düzeltilseydi ≈ −2,1 pp → sınır kuralına göre aşılmış → "çekinceli".
+
+**Üç cümlelik özet:** Eşik değerlerine dokunmadan, aynı sonucun iki farklı okunabildiği bütün yerler tek anlama bağlandı: sınırda ne olacağı, oranların neye bölüneceği, yargıcın ve karışım payının nasıl seçileceği. 1.1'deki %60, hiçbir zaman işe yaramadığı betikle gösterildiği için kaldırıldı; yerine gereken galibiyet tablosu geldi. Uyarı eşikleri artık kayıt düzeltmesi ve yeniden hesapla sonuçlanıyor ve sonuç üç değerli (geçti / çekinceli / kaldı); kimse sonradan "geçti" diyemiyor.
+
+**Kontrol sorusu:** Uyarı incelemesi yalnızca adaptör aleyhine kayıtlara bakıp onları düzeltirse yeniden hesap neden yanlı olur?
+*Cevap:* Ölçüm yanılgıları iki yönde de olur. Yalnızca adaptörü haksız yere kötü gösteren yanılgılar düzeltilip adaptörü haksız yere iyi gösterenler bırakılırsa, düzeltilmiş değer sistematik olarak adaptör lehine kayar (açık karar 23).

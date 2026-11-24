@@ -35,9 +35,9 @@ Ortak kurallar:
 ## 3. Birincil ve ikincil sonuçlar
 
 **Birincil sonuç (tek ana karşılaştırma):** seçilen adaptör ile `hazir_istemli` testte karşılaştırılır.
-- Birincil uç nokta (primary endpoint: başarının tek ana ölçüsü): yerel yargıcın **üslup+jargon** ikili karşılaştırmasında seçilen adaptörün kazanma oranı. Beraberlikler hariç tutulur, kararın iki sırada da tutarlı olması gerekir.
+- Birincil uç nokta (primary endpoint: başarının tek ana ölçüsü): yerel yargıcın **üslup+jargon** ikili karşılaştırmasında seçilen adaptörün kazanma / beraberlik / kayıp sayıları; ölçüt iki yönlü kesin işaret testinde p < 0,05 (beraberlikler hariç). Kararın iki sırada da tutarlı olması gerekir; tutarsız karar beraberlik sayılır. İlk taslaktaki "≥ %60" koşulu 2026-11-24'te kaldırıldı; hiçbir zaman bağlayıcı değildi (`esikler_v1.md` 1.1 ve gereken galibiyet tablosu).
 - Birincil uç noktanın geçerli sayılması için şu koruma koşulları da sağlanmalı: bilgi doğruluğunda kötüleşme yok, genel Türkçe korunuyor, tuzak davranışı kötüleşmiyor (eşikler `esikler_v1.md` dosyasında).
-  - Onaydan önce değişiklik (2026-11-24, kullanıcı kararı): koruma eşiklerinden yalnızca 2.1, 3.7 ve 4.2 kritiktir; biri aşılırsa birincil sonuç "kaldı" olur. Diğerleri uyarı eşiğidir: aşılırsa raporda kırmızı bayrakla gösterilir, kayıtlar insan tarafından incelenir ve nihai karar senior ile verilir (`esikler_v1.md` §1, §6).
+  - Onaydan önce değişiklik (2026-11-24, kullanıcı kararı): koruma eşiklerinden yalnızca 2.1, 3.7 ve 4.2 kritiktir; biri aşılırsa birincil sonuç "kaldı" olur. Diğerleri uyarı eşiğidir: aşılırsa raporda kırmızı bayrakla gösterilir, insan incelenen kayıtların etiketlerini düzeltir ve eşik yeniden hesaplanır. Hâlâ aşılıyorsa birincil sonuç "çekinceli" olur; senior kararı yalnızca servise çıkış hakkındadır ve sonucu "geçti"ye çeviremez (`esikler_v1.md` §1, §6; 2026-11-24). Sonuç üç değerlidir: geçti / çekinceli / kaldı.
 - **Fine-tuning ancak bu karşılaştırma geçerse haklı çıkar.**
 
 **İkincil sonuçlar** (raporlanır, ana iddia yapılmaz):
@@ -152,7 +152,7 @@ Tuzak setini görmedim ve görmeyeceğim. Aşağıdaki başarılı davranışlar
 | `xlsum_tr_test_500` (500) | 150 / 350 | Özetleme | chrF (ROUGE-L ikincil) | NC lisans: yalnızca iç değerlendirmede kullanılır |
 | `wmt16_entr_test_500` (500) | 150 / 350 | EN→TR çeviri | chrF (BLEU ikincil) | |
 | `vikipedi_perplexity_500` (500) | 150 / 350 | Genel metin | Perplexity | Sohbet şablonu ve sistem mesajı olmadan, ham metinde |
-| `aya_eval_tr` (250) | 75 / 175 | Açık uçlu yardım | Yargıç ikili karşılaştırması (adaptör vs `hazir`) | Kazanma / beraberlik / kaybetme |
+| `aya_eval_tr` (250) | 75 / 175 | Açık uçlu yardım | Yargıç ikili karşılaştırması (adaptör vs `hazir`); üslup+jargon türünde seçilen yargıçla (karar 22, `esikler_v1.md` §9.3) | Kazanma / beraberlik / kaybetme |
 | `genel_kontrol_v1` (60) | 60 / 0, tümü geliştirme (karar 6a) | Üslup sızıntısı | §6.6 | 35 `a_gayriresmi` + 15 `b_kurum_gayriresmi` + 10 `c_resmi` |
 | `genel_kontrol_v2` (60, taslak) | 0 / 60, tümü saklanan (karar 6a) | Üslup sızıntısı; `b` grubunda bilgi doğruluğu | §6.6 | v1 ile aynı grup dağılımı; `b` grubu karar 6c ile yeniden yazıldı. `inceleme/genel_kontrol_v2_taslak.jsonl`, onay bekliyor |
 
@@ -222,7 +222,7 @@ Adaylar (A5000: 24.564 MiB; masaüstü yaklaşık 0,9 GB kullanıyor, ölçüld�
 1. **Kalibrasyon seti:** doğrulama setinden 40 soru için iki farklı sistemin cevap çifti (2026-11-24, onaydan önce 20–30'dan 40'a çıkarıldı; gerekçe ve hesap `esikler_v1.md` §8, değişiklik 3). Kullanıcı (insan) bu çiftleri kör olarak puanlar: üslup+jargon ve bilgi için ayrı ayrı A daha iyi / B daha iyi / eşit. Kalibrasyon, eşik onayı ve doğrulama cevaplarının üretilmesinden sonra yapılır.
 2. Her iki aday aynı çiftleri, aynı istemle ve iki sırada puanlar.
 3. Ölçülenler: (a) beraberlik hariç insanla uyum yüzdesi ve Cohen kappa (şans düzeltmeli uyum katsayısı); (b) sıra tutarlılığı (iki sırada aynı karar). İkisi de **üslup+jargon** ve **bilgi** istemleri için ayrı ayrı hesaplanır; bir aday bir istem türünü yalnızca o türde iki eşiği de sağlarsa geçer. Madde 4 ve 5 de istem türü başına ayrı uygulanır; iki tür farklı adaylarla puanlanabilir (kullanıcı kararı, 2026-11-24; `esikler_v1.md` §9.3).
-4. Eşiği (`esikler_v1.md`) geçen adaylar arasında kural şu: `gemma4:26b`, `gemma4:12b`'den uyumda **5 yüzde puandan fazla** önde değilse ve sıra tutarlılığında da 5 puandan fazla önde değilse **küçük model (`gemma4:12b`) seçilir**. Gerekçe: daha hızlı, daha az VRAM, intranette daha kolay taşınır.
+4. Seçim her istem türü için ayrı yapılır (`esikler_v1.md` 0.5; 2026-11-24'te yeniden yazıldı). İki aday da o türde 0.3 ve 0.4'ü geçtiyse `gemma4:26b` yalnızca **uyumda** `gemma4:12b`'yi **5 yüzde puandan fazla** geçerse seçilir; aksi hâlde **küçük model (`gemma4:12b`)**. Yalnızca biri geçtiyse o seçilir. Tek yargıç kuralı yoktur: iki tür farklı adaylarla puanlanabilir (kullanıcı kararı). Gerekçe: daha hızlı, daha az VRAM, intranette daha kolay taşınır.
 5. Hiçbir aday eşiği geçemezse yargıç sonuçları yalnızca ikincil gösterge sayılır; birincil karar 11. aşamadaki kör insan formuna (50 soru, §6.9) geçer. Kritik 2.1 ve 4.2'nin yedek ölçümü `esikler_v1.md` §9.2'de (kullanıcı kararı, 2026-11-24). Adaylar yalnızca bir istem türünde kalırsa yedek yol yalnızca o türe dayanan eşiklere uygulanır (§9.3).
 6. Kalibrasyon soruları istem ayarından çıkarılmaz; doğrulamanın 100 sorusunun hepsi istem ayarında kullanılır (kullanıcı kararı, 2026-11-24; önceki kural "kalibrasyon çiftleri istem ayarında kullanılmaz" idi). Doğrulama sonuçları bu nedenle iyimser olabilir; final iddiası yalnızca kilitli testten gelir (`rapor/rapor_plani_v1.md` §4.4).
 
@@ -274,6 +274,8 @@ Kullanıcı incelemesinde iki düzeltme yapıldı, diğer 13 kayıt olduğu gibi
 - **GKD-008 beklenen davranış:** sonuna "Asgari ücretin Asgari Ücret Tespit Komisyonu tarafından belirlendiğini söyleyebilir." eklendi. Bu bir izindir, zorunluluk değildir; kabul ölçütü değişmedi.
 
 Set onaylandı ama son hâli değildir: 02'deki çakışma denetiminden geçecek. Tuzak setine bakılmadan sıfırdan yazıldı. Her kayıtta beklenen davranış ve kabul ölçütü var. 02'deki çakışma denetiminden geçecek. Tuzak setiyle yakın eşleşme çıkarsa kayıt kimlikleri `inceleme/` altındaki CSV'ye yazılır ve kararı kullanıcı verir. Bu set yalnızca geliştirme ölçüsüdür, final iddiası olmaz.
+
+**Doğrulamada seçim kısıtı (eşik 4.3; kullanıcı kararı, 2026-11-24):** aday ayarlar (istem, checkpoint) arasında 12/15'i geçen varsa geçemeyen seçilmez. Hiçbiri geçemezse 4.3 puanı en yüksek olan seçilir (eşitlikte olağan seçim ölçütü) ve durum kaydedilir. 4.3 artık uyarı eşiği değildir.
 
 ## 8. Kararlar ve açık kararlar
 

@@ -7,7 +7,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 
 ## 1. Bölümler
 
-1. **Özet:** birincil sonuç tek cümleyle (geçti / geçmedi), ardından koruma koşulları.
+1. **Özet:** birincil sonuç tek cümleyle (geçti / çekinceli / kaldı; `esikler_v1.md` §1), ardından koruma koşulları ve varsa servise çıkış hakkındaki senior kararı (sonucu değiştirmez).
 2. **Yöntem:**
    - sistemler, veri ve bölmeler (sayı ve SHA-256 ile);
    - eğitim tarifi;
@@ -66,7 +66,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 ### 4.3 Örneklem büyüklüğü
 
 - **Test:** 100 soruluk testte işaret testinin anlamlı olması için beraberlik hariç yaklaşık 61/39 bir ayrışma gerekir (hesaplandı). Küçük etkiler gösterilemeyebilir.
-- **İnsan formu:** 50 soruluk formda güven aralıkları geniş olacaktır.
+- **İnsan formu:** 50 soruluk formda güven aralıkları geniş olacaktır. 2.1b ve yedek yoldaki kritik 2.1, 50 soruda +2 tolerans kullanır; bu oransal olarak 100 soruluk 2.1'den gevşektir (%4'e karşı %3). Değer bilinçli seçildi (+1 bu boyutta sürekli yanlış alarm verir) ve fark raporda yazılır.
 - **Tuzak ve geliştirme setleri:** tuzak (28) ve geliştirme kapsam dışı (15) setlerinde tek bir soru 3,6 ve 6,7 yüzde puan değiştirir.
 
 ### 4.4 Diğer
