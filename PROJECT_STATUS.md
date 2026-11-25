@@ -14,7 +14,8 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
 ### Doğrulama sonuçları (ölçüldü)
 - `settings.json` geçerli JSON; deny kuralı 10 → 9. Kaldırılan 2 (kanarya), eklenen 1 (`security_check/**`). Test, tuzak ve girdi klasörlerini koruyan 8 kural aynen duruyor (8/8).
 - `git check-ignore`: `security_check/` ve `security_check/canary.txt` `.gitignore:48` ile dışarıda.
-- Yeni kural bu oturumda etkin: `security_check/canary.txt` okuma denemesi "izin ayarlarınca reddedildi" cevabı aldı. Dosya oluşturma komutu bu oturumda reddedildiği için deneme dosyasız yapıldı; içerikli tam test README adımlarıyla yeni bir oturumda kullanıcı tarafından yapılır (bekleyen iş).
+- Yeni kural bu oturumda etkin: `security_check/canary.txt` okuma denemesi "izin ayarlarınca reddedildi" cevabı aldı. Dosya oluşturma komutu bu oturumda reddedildiği için deneme dosyasız yapıldı; içerikli tam test README adımlarıyla yeni bir oturumda kullanıcı tarafından yapıldı.
+- Erişim engeli testi (kullanıcı, 2026-11-25; ölçüldü): Reload Window sonrası yeni sohbette `security_check/canary.txt` okuma denemesi reddedildi. Deny kuralları çalışıyor.
 
 ### 02'nin yapılacakları (bu bakımdan)
 - Çakışma denetiminden sonra kilitli dosyalar İngilizce adlarıyla taşınır:
