@@ -1,6 +1,28 @@
 # PROJECT_STATUS
 
-Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-25 (bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+
+---
+
+## Bakım: eski kayıtlar archive/ altına taşındı (2026-11-25; aşama değil, 02'ye geçilmedi)
+
+### Tamamlanan iş
+- 14 tarihî dosya `archive/` altına taşındı; klasör yapısı korundu, dosya adları İngilizceye çevrildi:
+  - `degerlendirme/kilit_manifesti_v1–v5.json` → `archive/degerlendirme/lock_manifest_v1–v5.json`
+  - `degerlendirme/esik_olasiliklari_v1.json` → `archive/degerlendirme/threshold_probabilities_v1.json`
+  - `env/2026-11-23_girdi_sha256(_v2–v5).json` → `archive/env/2026-11-23_input_sha256_v1–v5.json`
+  - `env/2026-11-23_donanim.txt`, `env/2026-11-2[34]_paketler.txt` → `archive/env/…_hardware.txt`, `…_packages.txt`
+- Boşalan `degerlendirme/` silindi. `env/` altında yalnızca güncel `2026-11-25_input_sha256_v6.json` kaldı.
+- `archive/README.md` (ne olduğu, neden saklandığı) ve yeni `inceleme/README.md` yazıldı. `inceleme/` altındaki kilitli `genel_kontrol_v2` dosyalarına dokunulmadı.
+- 14 çift `evaluation/path_migration_map_2026-11-25.json` eşlemesine eklendi; `evaluation/path_migration_manifest_2026-11-25.json` 38 kayıtla yeniden üretildi (`--base-ref 59aa89e`).
+- README, PROJECT_STATUS, planlar, öğrenme notları, CLAUDE.md ve kod docstring'lerindeki atıflar yeni yollara güncellendi. Tarihî notlardaki atıflar da arşivdeki yeni yolu gösterir.
+
+### Doğrulama sonuçları (ölçüldü)
+- Taşımadan önce diskte ve sonra yeni yerde: 14/14 aynı SHA-256. Migration manifesti: arşiv çiftleri 14/14 `content_unchanged`; toplam 38 kayıt, kayıp 0, içeriği değişen kilitli dosya 0.
+- Aşağıdaki "Kilit kontrolü" ve "--help" sonuçları bu bakımın son durumu içindir (özet bölümüne bakın).
+
+### 11. aşamadaki kilit kontrolü
+- O gün geçerli en yüksek numaralı `evaluation/lock_manifest_v<N>.json` kullanılır. Şu an geçerli: v6. 02'de `genel_kontrol_v2` taşınınca v7 üretilir; 11'de beklenen v7.
 
 ---
 
@@ -34,7 +56,7 @@ Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-
 | Onay CSV başlıkları `grup, kategori, bilgi_ogeleri, onay (…), bilgi_ogeleri_dogru_mu (…), not` | `group, category, knowledge_items, approval (…), knowledge_items_correct (…), notes` |
 
 ### Yerinde korunanlar (taşınmadı, değişmedi)
-- `degerlendirme/kilit_manifesti_v1–v5.json`, `degerlendirme/esik_olasiliklari_v1.json`: tarihî çıktılar, Türkçe alan adlarıyla. Karşılıklar `LEGACY_FIELD_NAMES` ve `LEGACY_OUTPUT_KEYS` sözlüklerinde.
+- Eski kilit manifestleri v1–v5 ve eşik olasılıkları v1: tarihî çıktılar, Türkçe alan adlarıyla. Bu refactor'da yerinde kaldılar; aynı gün sonraki bakımda içerikleri değişmeden `archive/degerlendirme/` altına taşındılar. Karşılıklar `LEGACY_FIELD_NAMES` ve `LEGACY_OUTPUT_KEYS` sözlüklerinde.
 - `inceleme/genel_kontrol_v2_taslak.jsonl` (kilitli; v2–v5 manifestleri bu yolu kaydetti) ve `inceleme/genel_kontrol_v2_onay.csv` (kilitli prompt'lar ve kullanıcı onayları). Taslağın alan adları (`grup`, `kategori`, `beklenen_davranis`, `bilgi_ogeleri`, `yasak_kalip`…) değiştirilemez; `build_review_csv` bunları okur.
 - `env/2026-11-2*` kayıtları, `kanarya*` (deny kuralı sınama dosyaları), `.claude/settings.json`, dış girdi yolları (`/home/aipc/Desktop/...`) ve `DEFAULT_LOCKED_PATTERNS` içindeki dış göreli yollar (`degerlendirme/test.jsonl` vb.).
 
@@ -45,15 +67,15 @@ Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-
 - `lock_manifest_v6.json`: v5 ile 27/27 aynı yol ve SHA-256, desenler aynı; girdi özeti v6, v5 ile 506/506 aynı.
 - Kanarya testleri: `kanarya.txt` ve `kanarya_klasor/ic.txt` okuma denemesi deny kuralıyla reddedildi. Proje içinde taşınan kilitli yol olmadığı için `.claude/settings.json` değiştirilmedi.
 - Dört modül yeni yoluyla `--help` veriyor; beş `src` alt paketi import ediliyor.
-- Sentetik girdilerde eski (HEAD) ve yeni betik: manifest kayıtları, SHA-256, bayt ve satır sayıları, anahtar eşlemesinden sonra eşdeğer (takma adlı çağrıda da). İfade sayımı aynı (3 ve 1). Eşik olasılıkları eski betik çıktısıyla ve depodaki `esik_olasiliklari_v1.json` ile eşdeğer.
+- Sentetik girdilerde eski (HEAD) ve yeni betik: manifest kayıtları, SHA-256, bayt ve satır sayıları, anahtar eşlemesinden sonra eşdeğer (takma adlı çağrıda da). İfade sayımı aynı (3 ve 1). Eşik olasılıkları eski betik çıktısıyla ve depodaki `archive/degerlendirme/threshold_probabilities_v1.json` ile eşdeğer.
 - `build_review_csv`: eski Türkçe başlıklı, dolu CSV'den onay, bilgi onayı ve not hücreleri `id`'ye göre aynen taşındı ("Düzelt", sondaki boşluklu "duzelt " dahil); onay dağılımı ve tanımsız değer listesi eskisiyle aynı. Yeni başlıklı CSV'de ikinci çalıştırma bayt bayt aynı. İngilizce alan adlı girdi de çalışıyor.
-- Gerçek girdiler (yalnızca sayı basıldı): yeni manifest betiği 27/27 kilitli dosyada `kilit_manifesti_v5.json` ile, 506/506 dosyada `env/2026-11-23_girdi_sha256_v5.json` ile aynı SHA-256/bayt/satır; desen listesi aynı. Çıktılar geçici klasöre yazıldı ve silindi, yeni manifest üretilmedi.
+- Gerçek girdiler (yalnızca sayı basıldı): yeni manifest betiği 27/27 kilitli dosyada `archive/degerlendirme/lock_manifest_v5.json` ile, 506/506 dosyada `archive/env/2026-11-23_input_sha256_v5.json` ile aynı SHA-256/bayt/satır; desen listesi aynı. Çıktılar geçici klasöre yazıldı ve silindi, yeni manifest üretilmedi.
 - `thresholds_v1.md` ve `thresholds_v1_explained.md`'de sayı dizisi önce/sonra birebir aynı (1232 ve 1943 sayı); satır sayıları ve satır numaralı atıflar değişmedi. `experiment_plan_v1.md`'deki tek sayı farkı dosya adındaki `_v1`.
 - `git check-ignore`: `evaluation/responses/`, `*_responses.jsonl`, eski `*_cevaplar.jsonl` desenleri, `data/**/*.jsonl`, checkpoint/adaptör/pid, `.env`, `settings.local.json` dışarıda; eşik belgeleri, geliştirme seti, `review/*.csv`, `run.log` izleniyor.
 - System prompt, kilitli taslak ve onay CSV'si HEAD ile bayt bayt aynı (SHA-256).
 
 ### Varsayılan olarak uygulananlar (kullanıcının gözden geçirmesini bekliyor)
-- "Tarihî manifestleri yerinde koru" ve "kilitli içeriği taşıma" kuralları nedeniyle `degerlendirme/` ve `inceleme/` klasörleri yalnızca tarihî dosyalarla kaldı (birer README notu var). Yeni çıktılar `evaluation/` ve `review/` altına gider.
+- "Tarihî manifestleri yerinde koru" ve "kilitli içeriği taşıma" kuralları nedeniyle eski `degerlendirme/` ve `inceleme/` klasörleri başta yalnızca tarihî dosyalarla kaldı. Sonraki bakımda (yukarıda) tarihî kayıtlar `archive/` altına toplandı; `inceleme/` yalnızca kilitli dosyalarla duruyor.
 - Onaya hazır dosyaların yolu ve terimleri değişti; içerik ve eşik değerleri aynı. Senior'a commit kimliği verilirken `--follow` kullanılmalı.
 - v6 numarası bu bakımda kullanıldı; `genel_kontrol_v2` 02'de taşınınca üretilecek manifest v7 olur (belgeler buna göre güncellendi). **11. aşamadaki kilit kontrolü o gün geçerli en yüksek numaralı `evaluation/lock_manifest_v<N>.json`'u kullanır; beklenen v7.**
 - Geliştirme setinde örnek doğru cevabı tutan ayrı bir alan yok (`acceptance_criteria` bir ölçüttür, cevap değildir); bu yüzden `reference_answer` adı kullanılmadı. Kilitli setlerdeki alanlar değiştirilemez.
@@ -139,21 +161,21 @@ Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-
 | `evaluation/experiment_plan_v1.md` | Ön kayıt taslağı |
 | `evaluation/thresholds_v1.md` | Eşik taslağı (onay bekliyor) |
 | `evaluation/dev_out_of_scope_v1.jsonl` | 15 soru, `approval: onaylandı (kullanıcı)`; GKD-008 ve GKD-012 düzeltildi; 02'deki çakışma denetimi bekliyor |
-| `degerlendirme/kilit_manifesti_v1.json` | 25 kilitli dosyanın SHA-256 özeti |
+| `archive/degerlendirme/lock_manifest_v1.json` | 25 kilitli dosyanın SHA-256 özeti |
 | `src/data/build_input_manifest.py` | Girdi özeti ve kilit manifesti betiği (içerik basmaz) |
-| `env/2026-11-23_girdi_sha256.json` | 505 girdi dosyasının özeti |
-| `env/2026-11-23_paketler.txt`, `env/2026-11-23_donanim.txt` | Ortam kaydı |
+| `archive/env/2026-11-23_input_sha256_v1.json` | 505 girdi dosyasının özeti |
+| `archive/env/2026-11-23_packages.txt`, `archive/env/2026-11-23_hardware.txt` | Ortam kaydı |
 | `docs/learning/01_skeleton_and_plan.md` | Öğrenme açıklaması |
 | `report/report_plan_v1.md` | Rapor iskeleti ve önceden bilinen sınırlamalar (açık kararlar güncellemesinde eklendi) |
 | `inceleme/genel_kontrol_v2_taslak.jsonl`, `inceleme/genel_kontrol_v2_onay.csv` | Saklanan üslup sızıntısı seti taslağı (60) ve onay kuyruğu (karar 6a) |
-| `degerlendirme/kilit_manifesti_v2.json`, `env/2026-11-23_girdi_sha256_v2.json` | 27 kilitli dosya: v1'deki 25 + ham `01_sss` + v2 taslağı (ilk `b` yorumu) |
-| `degerlendirme/kilit_manifesti_v3.json`, `env/2026-11-23_girdi_sha256_v3.json` | 27 kilitli dosya; v2'den farkı yalnızca yeniden yazılmış `b` grubuyla taslağın özeti (karar 6c) |
-| `degerlendirme/kilit_manifesti_v4.json`, `env/2026-11-23_girdi_sha256_v4.json` | 27 kilitli dosya; v3'ten farkı yalnızca GK2-050 düzeltmesiyle taslağın özeti |
-| `degerlendirme/kilit_manifesti_v5.json`, `env/2026-11-23_girdi_sha256_v5.json` | **Geçerli manifest.** 27 kilitli dosya; v4'ten farkı yalnızca kullanıcı onaylı, GK2-044 düzeltilmiş taslağın özeti |
+| `archive/degerlendirme/lock_manifest_v2.json`, `archive/env/2026-11-23_input_sha256_v2.json` | 27 kilitli dosya: v1'deki 25 + ham `01_sss` + v2 taslağı (ilk `b` yorumu) |
+| `archive/degerlendirme/lock_manifest_v3.json`, `archive/env/2026-11-23_input_sha256_v3.json` | 27 kilitli dosya; v2'den farkı yalnızca yeniden yazılmış `b` grubuyla taslağın özeti (karar 6c) |
+| `archive/degerlendirme/lock_manifest_v4.json`, `archive/env/2026-11-23_input_sha256_v4.json` | 27 kilitli dosya; v3'ten farkı yalnızca GK2-050 düzeltmesiyle taslağın özeti |
+| `archive/degerlendirme/lock_manifest_v5.json`, `archive/env/2026-11-23_input_sha256_v5.json` | **Geçerli manifest.** 27 kilitli dosya; v4'ten farkı yalnızca kullanıcı onaylı, GK2-044 düzeltilmiş taslağın özeti |
 | `src/data/build_review_csv.py` | JSONL taslağından onay CSV'si üretir; dolu hücreleri kimliğe göre korur (karar 6c) |
 | `evaluation/thresholds_v1_explained.md` | Eşiklerin sade açıklaması (bağlayıcı değil): her eşik için arka plan, ne, neden, olmasaydı, katkı, uydurma örnek; düşünme modu ek bölümü; terim sözlüğü; "Açıklarken fark ettiklerim" (22 madde). `thresholds_v1.md`'ye yalnızca en üste atıf satırı eklendi (2026-11-24). Aynı gün eşik kararlarına göre güncellendi; "fark ettiklerim" 27 madde |
 | `src/evaluation/threshold_probabilities.py` | Eşik gerekçelerindeki olasılıkları tam hesapla yeniden üretir (veri okumaz) |
-| `degerlendirme/esik_olasiliklari_v1.json` | Betiğin çıktısı; `thresholds_v1.md` §8'deki "ölçüldü" sayılarının kaynağı |
+| `archive/degerlendirme/threshold_probabilities_v1.json` | Betiğin çıktısı; `thresholds_v1.md` §8'deki "ölçüldü" sayılarının kaynağı |
 
 `.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
 
@@ -171,9 +193,9 @@ Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-
 - İşaret testi kontrolü: 100 soruda anlamlılık için ≥ 61/39 gerekiyor.
 - Eşik açıklaması (2026-11-24):
   - `thresholds_v1.md` farkı yalnızca en üstteki atıf satırı (+2 satır, git diff).
-  - Kilitli 27 dosyanın 27'si `kilit_manifesti_v5.json` ile aynı SHA-256 (yalnızca sayı basan kontrol). Girdi değişmedi; yeni manifest üretilmedi.
+  - Kilitli 27 dosyanın 27'si `archive/degerlendirme/lock_manifest_v5.json` ile aynı SHA-256 (yalnızca sayı basan kontrol). Girdi değişmedi; yeni manifest üretilmedi.
   - Açıklamadaki p değerleri, kappa ve standart hatalar uydurma sayılar üzerinde formülle hesaplandı; veri kullanılmadı.
-  - Paket kaydı: `env/2026-11-24_paketler.txt` (temel miniconda ortamı).
+  - Paket kaydı: `archive/env/2026-11-24_packages.txt` (temel miniconda ortamı).
 - Eşik kararlarının gerekçeleri (2026-11-24, `src/evaluation/threshold_probabilities.py`, tam olasılık hesabı):
   - 17 zorunlu eşikte en az birinin şansla aşılması %58,2 (kullanıcının sayısıyla aynı). §2'nin iki karşılaştırması sayılırsa 21 eşikte %65,9. Yeni hâlde 4 kritik kontrolde %18,5.
   - 4.1, iki eşit modelde yanlış alarm: −1'de %17,5–33,1 (verilen %19–38), −2'de %6,4–23,3 (verilen %6–23, aynı).
@@ -185,8 +207,8 @@ Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-
 - Açık kararlar 17–20 (2026-11-24):
   - 17'nin gerekçesi: 1 − 0,95³ = %14,3 (ölçüldü, bağımsızlık varsayımıyla); 100 kesin kararda 61–63 galibiyet (önceki betik çıktısı). Kullanıcının sayılarıyla aynı.
   - `thresholds_v1.md` git farkında değişen satırlar: durum satırı, §1 yargıç cümlesi, 2.1, 2.1b, 4.2, 5.1, §8 değişiklik 5 ve açık sorular; eklenenler §8 değişiklik 6–8 ve §9.
-  - Kilitli 27 dosyanın 27'si `kilit_manifesti_v5.json` ile aynı SHA-256 (yalnızca sayı basan kontrol). Girdi değişmedi.
-  - Paket kaydı: `env/2026-11-24_paketler.txt` yeniden yazıldı.
+  - Kilitli 27 dosyanın 27'si `archive/degerlendirme/lock_manifest_v5.json` ile aynı SHA-256 (yalnızca sayı basan kontrol). Girdi değişmedi.
+  - Paket kaydı: `archive/env/2026-11-24_packages.txt` yeniden yazıldı.
 
 **Tahmin / bekleyen iş:**
 - Kayıt düzeyinde JSON doğrulaması, kimlik benzersizliği ve çakışma denetimi (02).
@@ -208,7 +230,7 @@ Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-
 5. **Ham tuzak araçları:** şimdi kullanılmayacak, karar 11'e kaldı. Birincil tuzak puanı önceden kayıtlı ölçütlerden ve projenin kendi yargıç akışından gelir; hazır betik 11'de en fazla ek kontrol olabilir.
 
 6. **Bölme kuralına uymayan iki dosya** (kullanıcı kararı, 2026-11-23; `experiment_plan_v1.md` §8, karar 6):
-   - **6a:** `genel_kontrol_v1`'in tamamı (60) geliştirme bölümü olur. Saklanan karşılığı yeni `genel_kontrol_v2`: 60 kayıt, aynı dağılım. Taslak `inceleme/` altında yazıldı ve `kilit_manifesti_v2.json`'a eklendi.
+   - **6a:** `genel_kontrol_v1`'in tamamı (60) geliştirme bölümü olur. Saklanan karşılığı yeni `genel_kontrol_v2`: 60 kayıt, aynı dağılım. Taslak `inceleme/` altında yazıldı ve `archive/degerlendirme/lock_manifest_v2.json`'a eklendi.
    - **6b:** `turkishmmlu_dev` bölünmez; iki bölümde de aynı 5-shot örnekleri kullanılır.
    - **6c** (kullanıcı v1'i kontrol ettikten sonra): v2'nin `b` grubu yanlış yorumlanmıştı.
      - GK2-036..050 sıfırdan yeniden yazıldı. Yeni tanım: "kurum işlemi veya bilgisi isteyen, gündelik dille sorulmuş, sade ve adım adım anlatım bekleyen sorular". Kategori `kurum_islemi_sade_anlatim`, yeni alan `bilgi_ogeleri`.
@@ -231,13 +253,13 @@ Son güncelleme: 2026-11-25 (bakım: isimlendirme refactor'ı; önceki: 2026-11-
    - Ölçüldü: 60/60 kayıt "evet". `b` bilgi öğeleri: 14 "evet", GK2-044 "düzelt". CSV'deki tek içerik farkı GK2-044'ün 4. öğesiydi.
    - GK2-044'ün 4. öğesi kullanıcının metniyle aynen taslağa işlendi. Gerekçe: 1475 md. 14'e göre kıdem tazminatını yalnızca 4857 md. 25/II kaldırır; işçinin haklı nedenle feshi (md. 24) de tazminat doğurur.
    - Bilgi öğesi kontrolünün kapsamı (ikincil kaynaklar, birincil metinle tek tek karşılaştırma yok) rapor planı §4.4'e sınırlama olarak yazıldı.
-   - Taslak yeniden üretilen CSV ile bayt bayt aynı (ölçüldü). Onaylı taslak `kilit_manifesti_v5.json` ile kilitlendi.
+   - Taslak yeniden üretilen CSV ile bayt bayt aynı (ölçüldü). Onaylı taslak `archive/degerlendirme/lock_manifest_v5.json` ile kilitlendi.
    - **Açık:** taşıma 02'deki çakışma denetiminden sonra yapılacak (kullanıcı kararı). Taşımadan sonra önerilen Read deny kuralı eklenmeli: `evaluation/held_out/**`, `inceleme/genel_kontrol_v2_*`.
 - ~~9. `b` grubu ile `system_prompt_v1` gerilimi~~: karar 9 ile kapandı (aşağıda).
 - ~~`genel_kontrol_v2` sade anlatım isteği denetimi~~ kapandı.
   - GK2-036 kullanıcı kararıyla değişmedi; "kolayca anlatır mısın, bilgisayardan pek anlamaz" açık bir istektir.
   - GK2-050 "Kısaca ve sade bir dille anlatır mısın?" olarak düzeltildi.
-  - 15 `b` sorusunun hepsi istek içeriyor. CSV ve `kilit_manifesti_v4.json` yeniden üretildi.
+  - 15 `b` sorusunun hepsi istek içeriyor. CSV ve `archive/degerlendirme/lock_manifest_v4.json` yeniden üretildi.
   - v1 `b` sorularında aynı denetimi yalnızca kullanıcı yapabilir.
 - ~~12. Ton isteklerinde ünlem/emoji~~ kapandı ("01: karar 12-13 kapatıldı"): emoji her durumda yasak; ünlem yalnızca kural 9'daki isteklerde ölçülü olarak serbest. Kural 9'un sonuna "Bu durumda ünlem ölçülü kullanılabilir; emoji hiçbir durumda kullanılmaz." eklendi. Kural 2'deki yasak resmî üslup için geçerli (`response_standard_v1.md` §2a). Cümlenin yeri ve kapsamı karar 14 ile düzeltildi.
 - ~~13. "kolayca anlatır mısın" örneği~~ kapandı: örnek "anlaşılır bir dille anlatır mısın" ile değiştirildi. Ölçüldü: yeni ifade ve çekirdeği "anlaşılır bir dille" v1'de 0/60, v2'de 0/60. v1 yalnızca sayı basan `src/data/count_phrase_matches.py` ile denetlendi. Betiğin doğruluğu v2'de bilinen iki eşleşmeyle sınandı (1/1).
@@ -290,12 +312,12 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
 
 ### Onaya hazır dosyalar (senior onayı bekliyor)
 - **Onaylanacaklar:** `evaluation/thresholds_v1.md`, `evaluation/experiment_plan_v1.md`, `report/report_plan_v1.md`, `prompts/response_standard_v1.md`, `prompts/system_prompt_v1.txt`, `evaluation/dev_out_of_scope_v1.jsonl` (15 soru).
-- **Destekleyici, bağlayıcı değil:** `evaluation/thresholds_v1_explained.md`, `src/evaluation/threshold_probabilities.py`, `degerlendirme/esik_olasiliklari_v1.json`.
+- **Destekleyici, bağlayıcı değil:** `evaluation/thresholds_v1_explained.md`, `src/evaluation/threshold_probabilities.py`, `archive/degerlendirme/threshold_probabilities_v1.json`.
 - Her dosyanın son commit'i `git log -1 --follow --format=%h -- <dosya>` ile görülür (`--follow`, 2026-11-25 ad değişikliğinden önceki geçmişi de izler). Onay, eşik dosyasının sonundaki "Senior onayı (genel)" satırına ve satırlardaki "bekliyor" sütununa ayrı bir commit'le yazılır.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/data/build_input_manifest.py` içindeki `DEFAULT_LOCKED_PATTERNS` listesinde. 02 ve sonrası bu listeye uymalı.
-  - `01_sss/*` deseni listeye eklendi. Yeni `--extra-locked` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `kilit_manifesti_v5.json`.
+  - `01_sss/*` deseni listeye eklendi. Yeni `--extra-locked` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `archive/degerlendirme/lock_manifest_v5.json`.
 - **02'de Türkçe değerlendirme bölmesi:**
   - Dosya başına %30 / %70, seed 42, geliştirmede ≥ 50 kayıt.
   - Alt grubu olan dosyalarda (TurkishMMLU ders, `genel_kontrol` soru türü) katmanlı.
@@ -345,8 +367,8 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
 - Değişti: `src/data/build_input_manifest.py` artık `--extra-locked` seçeneğini kabul ediyor ve `01_sss/*` desenini varsayılan olarak kilitli sayıyor.
 - Yeni: `python -m src.data.count_phrase_matches --input <jsonl ...> --phrase "<ifade>"`. Bir ifadenin kaç kayıtta geçtiğini sayar, içerik ve kimlik basmaz; kilitli setlerde de kullanılabilir (karar 13).
 - Yeni: `python -m src.data.build_review_csv --input inceleme/genel_kontrol_v2_taslak.jsonl --output inceleme/genel_kontrol_v2_onay.csv` (karar 6c).
-- Değişti: girdi özeti komutunun çıktıları artık `env/<tarih>_girdi_sha256_v5.json` ve `degerlendirme/kilit_manifesti_v5.json`.
+- Değişti: girdi özeti komutunun çıktıları artık `archive/env/<tarih>_input_sha256_v5.json` ve `archive/degerlendirme/lock_manifest_v5.json`.
 - Değişti: `src/data/build_review_csv.py` sonunda onay dağılımını yazıyor. "düzelt"/"duzelt", "hayır"/"hayir" ve büyük/küçük harf aynı sayılıyor (`normalize_label`, eski adı `normal_onay`); hücredeki yazım değişmiyor. evet/hayir/duzelt dışındaki değerler kimlikle listeleniyor.
 - Düzeltildi: `src/data/build_review_csv.py` artık betiğin kendi "-" yer tutucusunu "dolu satır" saymıyor. Önceki sürüm 45 yanlış "korunan" satır bildiriyordu; içerik farkı yoktu.
-- Yeni: `python -m src.evaluation.threshold_probabilities --output degerlendirme/esik_olasiliklari_v1.json [--degradation 3]`. Eşik gerekçelerindeki olasılıkları hesaplar, veri okumaz (README 01, adım 1c).
+- Yeni: `python -m src.evaluation.threshold_probabilities --output archive/degerlendirme/threshold_probabilities_v1.json [--degradation 3]`. Eşik gerekçelerindeki olasılıkları hesaplar, veri okumaz (README 01, adım 1c).
 - Değişti (2026-11-24): aynı betik artık `isaret_testi_galibiyet_tablosu_n_1_100` çıktısını da yazıyor (1.1 ve 5.1 için 1–100 kesin kararda gereken en az galibiyet). `gereken_galibiyet` (yeni adı `minimum_wins_required`) hiçbir k yetmediğinde `None` döndürüyor. Önceki çıktı anahtarları birebir aynı (ölçüldü).

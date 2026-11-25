@@ -73,7 +73,7 @@ onayları boş yazardı ve kullanıcının işaretlediği değerler sessizce kay
 - **Ne değişmedi:** hesap. Gerçek girdilerde yeni manifest v5 ile 27/27 kilitli ve 506/506 dosyada aynı özet verdi;
   eşik olasılıkları v1 JSON'uyla anahtar eşlemesinden sonra aynı çıktı (ölçüldü).
 - **Neden tarihî dosyalar yerinde:** manifest bir kanıttır; içeriği ya da yolu değişirse "kilitli set değişmedi" iddiası
-  eski commit'lerle karşılaştırılamaz. Bu yüzden v1–v5 `degerlendirme/` içinde Türkçe anahtarlarıyla kalır; okuyacak
+  eski commit'lerle karşılaştırılamaz. Bu yüzden v1–v5 Türkçe anahtarlarıyla `archive/degerlendirme/` içinde saklanır (2026-11-25'te taşındı, parmak izleri aynı); okuyacak
   betikler `LEGACY_FIELD_NAMES` sözlüğünü kullanır.
 
 **Kontrol sorusu:** `compute_sha256` adı `sha256_hesapla`'dan neden daha iyi?

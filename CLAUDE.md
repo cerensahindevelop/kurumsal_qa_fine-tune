@@ -59,8 +59,10 @@ experiments/    deney çıktıları
 report/         senior raporu
 docs/learning/  öğrenme açıklamaları
 env/            sürüm ve donanım kayıtları
+archive/        tarihî kayıtlar (eski kilit manifestleri ve env kayıtları); değiştirilmez
+inceleme/       yalnızca 02'de taşınacak kilitli genel_kontrol_v2 dosyaları; yeni inceleme dosyaları review/ altına
 
-2026-11-25 ad değişikliğinden önceki tarihî kayıtlar eski yerlerinde kalır ve taşınmaz; listesi README'deki "Tarihî kayıtlar" bölümündedir.
+Tarihî kayıtların listesi README'deki "Tarihî kayıtlar" bölümünde ve archive/README.md dosyasındadır.
 ```
 
 Model ağırlıkları ve büyük çıktılar git'e girmez.

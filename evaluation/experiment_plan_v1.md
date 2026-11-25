@@ -332,7 +332,7 @@ Karar 2'deki iki koşul (%30 geliştirme ve geliştirmede ≥ 50 kayıt) `genel_
 - `genel_kontrol_v1`'in 60 kaydının tamamı geliştirme bölümüdür.
 - Saklanan bölüm için yeni `genel_kontrol_v2` yazılır: en az 60 kayıt, aynı kategori dağılımı.
 - Taslak: `inceleme/genel_kontrol_v2_taslak.jsonl`. Onay kuyruğu: `inceleme/genel_kontrol_v2_onay.csv`.
-- v2, 01'de **hiçbir model çalışmadan önce** yazıldı ve `degerlendirme/kilit_manifesti_v2.json`'a eklendi.
+- v2, 01'de **hiçbir model çalışmadan önce** yazıldı ve `archive/degerlendirme/lock_manifest_v2.json`'a eklendi.
 
 **6b) `turkishmmlu_dev`:** bölünmez. Geliştirme ve saklanan bölümde aynı 5-shot örnekleri kullanılır (ders başına sabit 5 örnek). Bu dosya puanlanmadığı için saklanan bölüme sızıntı yaratmaz.
 
@@ -447,9 +447,9 @@ Metnin geçmişi (hepsi 2026-11-23, kullanıcı kararı):
    - **Tamamlandı (2026-11-23, "01: genel_kontrol_v2 onaylandı"):** 60/60 kayıt "evet". `b` bilgi öğeleri: 14 "evet", GK2-044 "düzelt".
    - GK2-044'ün 4. öğesi kullanıcının CSV'deki metniyle değiştirildi. Gerekçe: 1475 sayılı Kanun md. 14'e göre kıdem tazminatını yalnızca 4857 md. 25/II (ahlak ve iyi niyet) kaldırır; işçinin haklı nedenle feshi (md. 24) de tazminat doğurur.
    - Bilgi öğeleri ayrı bir asistan oturumunda ikincil kaynaklarla kontrol edildi; birincil mevzuat metniyle tek tek karşılaştırılmadı (`report/report_plan_v1.md` §4.4).
-   - Onaylı taslak `kilit_manifesti_v5.json` ile kilitlendi.
+   - Onaylı taslak `archive/degerlendirme/lock_manifest_v5.json` ile kilitlendi.
 2. 02'deki çakışma denetimi: v2, eğitim adaylarına, genel Türkçe havuzuna, `genel_kontrol_v1`'e, geliştirme kapsam dışı setine, doğrulamaya, teste ve tuzak setine karşı denetlenir. Test veya tuzak içeren yakın eşleşmeler yalnızca kimlikle `review/` CSV'sine yazılır.
-3. Son hâl `evaluation/held_out/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `lock_manifest_v7.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `kilit_manifesti_v3.json` karar 6c'den sonraki taslağı, `kilit_manifesti_v4.json` GK2-050 düzeltmesinden sonraki taslağı, `kilit_manifesti_v5.json` kullanıcı onaylı (GK2-044 düzeltilmiş) taslağı kilitler.
+3. Son hâl `evaluation/held_out/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `lock_manifest_v7.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `archive/degerlendirme/lock_manifest_v3.json` karar 6c'den sonraki taslağı, `archive/degerlendirme/lock_manifest_v4.json` GK2-050 düzeltmesinden sonraki taslağı, `archive/degerlendirme/lock_manifest_v5.json` kullanıcı onaylı (GK2-044 düzeltilmiş) taslağı kilitler.
 4. Taşımadan sonra bu yol ve taslak için Read deny kuralı eklenmesini öneriyorum: `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/evaluation/held_out/**)` ve `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme/genel_kontrol_v2_*)`. Bunun nedeni: v2'yi ben yazdım, yani içeriğini biliyorum; deny kuralı üslup prompt'unu ve ayarları geliştirirken v2'yi yeniden açmamı engeller. Bu sınırlama `report/report_plan_v1.md` §4.4'te.
 
 ## 9. Gösterim: uydurma bir soruyla mini puanlama

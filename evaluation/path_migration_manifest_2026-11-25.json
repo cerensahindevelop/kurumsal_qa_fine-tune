@@ -1,6 +1,6 @@
 {
- "base_ref": "HEAD",
- "lock_manifest": "degerlendirme/kilit_manifesti_v5.json",
+ "base_ref": "59aa89e",
+ "lock_manifest": "evaluation/lock_manifest_v6.json",
  "files": [
   {
    "old_path": "istemler/sistem_v1.txt",
@@ -38,7 +38,7 @@
    "old_path": "degerlendirme/deney_plani_v1.md",
    "new_path": "evaluation/experiment_plan_v1.md",
    "old_sha256": "b56868da229520f6b6599dcab8155d884d5f3302d43cef9b730fa4ebd452748b",
-   "new_sha256": "08dcadd97170b3807585b6ab0d421cf1288f25bbe3425b47256b862d9bcbca86",
+   "new_sha256": "e226c80d36684a86045f37d22b8bba5467802094f49c82171fb1bd73f3cee378",
    "content_unchanged": false,
    "locked": false
   },
@@ -78,7 +78,7 @@
    "old_path": "docs/ogrenme/01_iskelet_ve_plan.md",
    "new_path": "docs/learning/01_skeleton_and_plan.md",
    "old_sha256": "22e469f777313df1a79d0c979648f093c3151316374918c55f2e3842130af257",
-   "new_sha256": "b16f03c6a95983c5075adf883b315343cec32427899598af8e90d08c26d02d3d",
+   "new_sha256": "f1463c1be9511bcb76894b54bb537a8ae12af692f636932188e6bf77e4ceb4b7",
    "content_unchanged": false,
    "locked": false
   },
@@ -86,7 +86,7 @@
    "old_path": "PROJE_DURUMU.md",
    "new_path": "PROJECT_STATUS.md",
    "old_sha256": "fb032c0cae940ca5b5c2bec1572bde852ff9a5ffa82b52f1ab187576cca79f8d",
-   "new_sha256": "ba3d87acdffa8718204edc91591dc6ced2d3612a91c0a474afa915d5041b4888",
+   "new_sha256": "b9ff796ebd162b86aefb14a0b193231abd1fe46954dd28bc8ed74eac83457c2a",
    "content_unchanged": false,
    "locked": false
   },
@@ -102,7 +102,7 @@
    "old_path": "src/veri/girdi_ozeti.py",
    "new_path": "src/data/build_input_manifest.py",
    "old_sha256": "38d2b2bbd92342ccee51f18782d8cd141c2045b6f6e582f8ad45c6b85289992d",
-   "new_sha256": "0e179bf87451344e2f296a6fbf6560b6c8a425abebc2ff918164d27102dfb951",
+   "new_sha256": "c452466b8bd189acde9ce9df5a2957806c6d762662748bde6c35b335c5e38416",
    "content_unchanged": false,
    "locked": false
   },
@@ -110,7 +110,7 @@
    "old_path": "src/veri/onay_csv.py",
    "new_path": "src/data/build_review_csv.py",
    "old_sha256": "2490ca200f5d2f06c37fd5bbf4e65a98345535e7af2fb8ac94ea257607bc6987",
-   "new_sha256": "86f81749fe9fdaee852cc1563e7c9f30c8f71bcd4d6fad9a7f49764824267e07",
+   "new_sha256": "e84bb75b42ad0808a75eada4e450150774453da7102b84b5215da411ac65d21a",
    "content_unchanged": false,
    "locked": false
   },
@@ -118,7 +118,7 @@
    "old_path": "src/veri/ifade_say.py",
    "new_path": "src/data/count_phrase_matches.py",
    "old_sha256": "417b31ee25b74fd02db3a144d0a0adbcb7a859ac88e8090a013c9f7511dbf253",
-   "new_sha256": "af5baf4c9b923f9d6dc616a693114c052de476392419ec77a7e48891befe012a",
+   "new_sha256": "4386fb132efd0f5ab36a1279f6b85cddd3d40690f33173f79ee6c9af93217a15",
    "content_unchanged": false,
    "locked": false
   },
@@ -142,7 +142,7 @@
    "old_path": "src/degerlendirme/esik_olasiliklari.py",
    "new_path": "src/evaluation/threshold_probabilities.py",
    "old_sha256": "505e9bd35e88b949b52974fb8872b56afbce0edce268e09ecac9ae0b50a62ab7",
-   "new_sha256": "a6e019567266d1e058eed4846ea3a0afada3ef48fc4c0b644950af2fbd4e7631",
+   "new_sha256": "d7f5ec30691e3e0f20636ba94f74fdd0efa722a7d2c9b23bcf5a1e39c084acbc",
    "content_unchanged": false,
    "locked": false
   },
@@ -191,6 +191,118 @@
    "new_path": "src/serving/.gitkeep",
    "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/kilit_manifesti_v1.json",
+   "new_path": "archive/degerlendirme/lock_manifest_v1.json",
+   "old_sha256": "e5e89fcc279cc8fc41fc518c260078f812970dd70bed5b365138de3c97bc37b2",
+   "new_sha256": "e5e89fcc279cc8fc41fc518c260078f812970dd70bed5b365138de3c97bc37b2",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/kilit_manifesti_v2.json",
+   "new_path": "archive/degerlendirme/lock_manifest_v2.json",
+   "old_sha256": "6c2676bca3361b799c5ecaa40fe9933512def7a430fc19116244cf70e4e47828",
+   "new_sha256": "6c2676bca3361b799c5ecaa40fe9933512def7a430fc19116244cf70e4e47828",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/kilit_manifesti_v3.json",
+   "new_path": "archive/degerlendirme/lock_manifest_v3.json",
+   "old_sha256": "b3b5914ec8813a7254adeb9bc6343f380aaedde4d02e69754670c24eea9dd786",
+   "new_sha256": "b3b5914ec8813a7254adeb9bc6343f380aaedde4d02e69754670c24eea9dd786",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/kilit_manifesti_v4.json",
+   "new_path": "archive/degerlendirme/lock_manifest_v4.json",
+   "old_sha256": "6c0be77dd69ace7e9831429eb90896e29f5613bb17b7283d7f1a02682c6a535f",
+   "new_sha256": "6c0be77dd69ace7e9831429eb90896e29f5613bb17b7283d7f1a02682c6a535f",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/kilit_manifesti_v5.json",
+   "new_path": "archive/degerlendirme/lock_manifest_v5.json",
+   "old_sha256": "9d6df086225e6ccb6cbc4b2b50962e3fc2cc18f1005d83fb6443c1535c010c61",
+   "new_sha256": "9d6df086225e6ccb6cbc4b2b50962e3fc2cc18f1005d83fb6443c1535c010c61",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/esik_olasiliklari_v1.json",
+   "new_path": "archive/degerlendirme/threshold_probabilities_v1.json",
+   "old_sha256": "16af4e5857e50cd3a094ac01b7a83ed3c33730ce172107bfcec1b49a510465b0",
+   "new_sha256": "16af4e5857e50cd3a094ac01b7a83ed3c33730ce172107bfcec1b49a510465b0",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-23_girdi_sha256.json",
+   "new_path": "archive/env/2026-11-23_input_sha256_v1.json",
+   "old_sha256": "601bdafa92662530a2724b7869f1287acab29bcba8d1ba8385ab7c829b4007a6",
+   "new_sha256": "601bdafa92662530a2724b7869f1287acab29bcba8d1ba8385ab7c829b4007a6",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-23_girdi_sha256_v2.json",
+   "new_path": "archive/env/2026-11-23_input_sha256_v2.json",
+   "old_sha256": "23e077975ad3c29efea206b492f8d2b1f1ceb41d2c866ce07a033ce6ca163395",
+   "new_sha256": "23e077975ad3c29efea206b492f8d2b1f1ceb41d2c866ce07a033ce6ca163395",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-23_girdi_sha256_v3.json",
+   "new_path": "archive/env/2026-11-23_input_sha256_v3.json",
+   "old_sha256": "14d41975271e2c7441dfbcc485d3a1848797702330d3669949d36d078c08870b",
+   "new_sha256": "14d41975271e2c7441dfbcc485d3a1848797702330d3669949d36d078c08870b",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-23_girdi_sha256_v4.json",
+   "new_path": "archive/env/2026-11-23_input_sha256_v4.json",
+   "old_sha256": "135ee045b3b46eaefdb98b219693ebdf8362b5c0c29452b365e5ab67cd4e664e",
+   "new_sha256": "135ee045b3b46eaefdb98b219693ebdf8362b5c0c29452b365e5ab67cd4e664e",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-23_girdi_sha256_v5.json",
+   "new_path": "archive/env/2026-11-23_input_sha256_v5.json",
+   "old_sha256": "e6b33909ac05a3de9e3f17923c35c91bff7a689987c9dfd7c0704eeefbb5b539",
+   "new_sha256": "e6b33909ac05a3de9e3f17923c35c91bff7a689987c9dfd7c0704eeefbb5b539",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-23_donanim.txt",
+   "new_path": "archive/env/2026-11-23_hardware.txt",
+   "old_sha256": "7d01fac606a0ebd38c1e9483227b05d5dcc9ba0c7350ce2acb6665f08c2ec3c0",
+   "new_sha256": "7d01fac606a0ebd38c1e9483227b05d5dcc9ba0c7350ce2acb6665f08c2ec3c0",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-23_paketler.txt",
+   "new_path": "archive/env/2026-11-23_packages.txt",
+   "old_sha256": "297e021cda8f0fe0f16e2a551c881869667b6a1a959f1483cfd20963e7814877",
+   "new_sha256": "297e021cda8f0fe0f16e2a551c881869667b6a1a959f1483cfd20963e7814877",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "env/2026-11-24_paketler.txt",
+   "new_path": "archive/env/2026-11-24_packages.txt",
+   "old_sha256": "297e021cda8f0fe0f16e2a551c881869667b6a1a959f1483cfd20963e7814877",
+   "new_sha256": "297e021cda8f0fe0f16e2a551c881869667b6a1a959f1483cfd20963e7814877",
    "content_unchanged": true,
    "locked": false
   }

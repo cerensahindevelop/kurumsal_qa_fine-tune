@@ -189,7 +189,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 ## 9. `genel_kontrol_v2` onayının işlenmesi (`src/data/build_review_csv.py`)
 
-**Girdi:** kullanıcının doldurduğu `inceleme/genel_kontrol_v2_onay.csv` ve taslak `inceleme/genel_kontrol_v2_taslak.jsonl`. **Çıktı:** onaylı taslak, onay dağılımı ve yeni kilit manifesti (`kilit_manifesti_v5.json`).
+**Girdi:** kullanıcının doldurduğu `inceleme/genel_kontrol_v2_onay.csv` ve taslak `inceleme/genel_kontrol_v2_taslak.jsonl`. **Çıktı:** onaylı taslak, onay dağılımı ve yeni kilit manifesti (`archive/degerlendirme/lock_manifest_v5.json`).
 
 - **Blok 1, farkı bulmak.** CSV ile JSONL alan alan karşılaştırıldı. Tek içerik farkı GK2-044'ün 4. bilgi öğesiydi. Düzeltme JSONL'de yalnızca o dizge değiştirilerek işlendi, böylece başka satır değişmedi.
 - **Blok 2, yazım normalleştirmesi (normalization).** İnsanlar aynı değeri farklı yazabilir: "düzelt", "Düzelt", "duzelt". `normalize_label` (eski adı `normal_onay`) Türkçe harfleri ASCII karşılığına çevirir ve küçük harfe indirir. Bu yalnızca sayımda kullanılır; hücredeki yazım korunur. evet/hayir/duzelt dışında kalan bir değer çıkarsa betik o kaydın kimliğini listeler. Böylece yanlış yazım sessizce kaybolmaz.
@@ -209,7 +209,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 ## 10. Eşik kararları ve `src/evaluation/threshold_probabilities.py`
 
-**Girdi:** yok; betik veri okumaz, yalnızca `--output` (JSON yolu) ve isteğe bağlı `--degradation` (4.1 için gerçek kötüleşme, varsayılan 3 soru) alır. **Çıktı:** `degerlendirme/esik_olasiliklari_v1.json` (tarihî v1, Türkçe anahtarlar; yeni çalıştırmalar `evaluation/threshold_probabilities_v2.json` yazar) ve ekranda özet. Bu sayılar `thresholds_v1.md` §8'deki "ölçüldü" değerlerinin kaynağıdır. Kavramların sade anlatımı `evaluation/thresholds_v1_explained.md` §9–§10'da.
+**Girdi:** yok; betik veri okumaz, yalnızca `--output` (JSON yolu) ve isteğe bağlı `--degradation` (4.1 için gerçek kötüleşme, varsayılan 3 soru) alır. **Çıktı:** `archive/degerlendirme/threshold_probabilities_v1.json` (tarihî v1, Türkçe anahtarlar; yeni çalıştırmalar `evaluation/threshold_probabilities_v2.json` yazar) ve ekranda özet. Bu sayılar `thresholds_v1.md` §8'deki "ölçüldü" değerlerinin kaynağıdır. Kavramların sade anlatımı `evaluation/thresholds_v1_explained.md` §9–§10'da.
 
 - **Blok 1, aile düzeyinde yanlış alarm.**
   - Alır: kontrol sayısı k, tek kontrolün yanlış alarm olasılığı (%5).

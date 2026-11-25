@@ -38,7 +38,7 @@ Fine-tuning proje sahibinin talebidir; prompt'la karşılaştırma kapsam dış�
 | 1.1 | **Birincil uç nokta:** yargıcın üslup+jargon ikili karşılaştırmasında adaptörün kazanma / beraberlik / kayıp sayıları (tutarsız kararlar beraberlik) | İki yönlü kesin işaret testinde **p < 0,05** (beraberlikler hariç). Gereken en az galibiyet aşağıdaki tabloda | "Belirgin gelişme" şanstan ayırt edilebilir bir üstünlük olarak tanımlandı. İlk taslaktaki "≥ %60" koşulu kaldırıldı (2026-11-24, onaydan önce değişiklik): p < 0,05, 1–100 kesin kararın her birinde en az %60,6 galibiyet gerektirdiği için hiçbir zaman bağlayıcı değildi (ölçüldü). Kaldırılması hiçbir sonucu değiştirmez | bekliyor |
 | 1.2 | Kör insan formu, üslup ve jargon bölümü (11. aşama, testten 50 soru, yalnızca birincil çift: seçilen adaptör ve `baseline`; tek değerlendirici, referans gösterilmez): üslup+jargon ortalaması (0–4) farkı | ≥ +0,5 ve eşleştirilmiş bootstrap (10.000 tekrar, seed 42) %95 güven aralığının alt sınırı > 0 | Yargıç sonucunun insan tarafından aynı yönde doğrulanması. 0,5 puan, soruların yarısında iki ölçütten birinde bir basamak artışa denk gelir | bekliyor |
 
-**1.1 ve 5.1 için gereken en az galibiyet** (iki yönlü kesin işaret testi; ölçüldü, `src/evaluation/threshold_probabilities.py`; 1–100 arası bütün n değerleri `degerlendirme/esik_olasiliklari_v1.json`, `isaret_testi_galibiyet_tablosu_n_1_100`). n = beraberlik dışı kesin karar sayısı. 5.1'de Holm düzeltmesi kaldırıldığı için (§8 değişiklik 12) iki eşik de α = 0,05 kullanır. n ≤ 5 iken anlamlılık mümkün değildir.
+**1.1 ve 5.1 için gereken en az galibiyet** (iki yönlü kesin işaret testi; ölçüldü, `src/evaluation/threshold_probabilities.py`; 1–100 arası bütün n değerleri `archive/degerlendirme/threshold_probabilities_v1.json`, `isaret_testi_galibiyet_tablosu_n_1_100`). n = beraberlik dışı kesin karar sayısı. 5.1'de Holm düzeltmesi kaldırıldığı için (§8 değişiklik 12) iki eşik de α = 0,05 kullanır. n ≤ 5 iken anlamlılık mümkün değildir.
 
 | n | α = 0,05 (1.1 ve 5.1) |
 |---|---|
@@ -223,7 +223,7 @@ Bu kural tablolar, grafikler, özet cümleler ve sunum için de geçerlidir. Ora
 
 ## 8. Onaydan önce değişiklikler (2026-11-24, kullanıcı kararları)
 
-Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklikler yeni sürüm dosyası açılmadan bu dosyaya işlendi. Önceki hâl git geçmişindedir (`7bb442d`). Olasılıkları `python -m src.evaluation.threshold_probabilities --output degerlendirme/esik_olasiliklari_v1.json` hesapladı; tam olasılık hesabıdır, veri kullanmaz. Aşağıda "ölçüldü" yazan sayılar bu betikten gelir.
+Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklikler yeni sürüm dosyası açılmadan bu dosyaya işlendi. Önceki hâl git geçmişindedir (`7bb442d`). Olasılıkları `python -m src.evaluation.threshold_probabilities --output archive/degerlendirme/threshold_probabilities_v1.json` hesapladı; tam olasılık hesabıdır, veri kullanmaz. Aşağıda "ölçüldü" yazan sayılar bu betikten gelir.
 
 **Değişiklik 1: kritik / uyarı ayrımı (§1, §6).**
 - Gerekçe (kullanıcı): koruma eşiklerinin hepsi zorunlu olunca, her biri %5 yanlış alarm verse bile en az birinin şans eseri aşılma olasılığı yaklaşık %58'dir (bağımsızlık varsayımıyla kaba hesap).
