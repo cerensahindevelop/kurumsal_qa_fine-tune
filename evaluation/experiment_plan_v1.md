@@ -314,9 +314,9 @@ Kullanıcı ham veri klasörleri için Read deny kurallarını ekledi ve `kanary
 - `fine_tuneVeriler/05_tuzak_sorular/**`
 - `fine_tuneVeriler/01_sss/**`
 - `fine_tuneVeriler/06_genel_turkce/degerlendirme/**`
-- `kurum-qa-finetune/kanarya_klasor/**`
+- `kurum-qa-finetune/kanarya_klasor/**` (2026-11-25'te kaldırıldı; yerine kalıcı `kurum-qa-finetune/security_check/**` kuralı geldi)
 
-Kanarya ölçümü kullanıcı tarafından yapıldı; `kanarya_klasor` içeriği tarafımdan açılmadı.
+Kanarya ölçümü kullanıcı tarafından yapıldı; `kanarya_klasor` içeriği tarafımdan açılmadı. 2026-11-25'ten sonra erişim engeli testi, yalnızca test sırasında oluşturulan geçici `security_check/` klasörüyle yapılır (README "Erişim engeli testi").
 
 ### Karar 5 (verildi): ham verideki tuzak araçları
 
@@ -449,7 +449,7 @@ Metnin geçmişi (hepsi 2026-11-23, kullanıcı kararı):
    - Bilgi öğeleri ayrı bir asistan oturumunda ikincil kaynaklarla kontrol edildi; birincil mevzuat metniyle tek tek karşılaştırılmadı (`report/report_plan_v1.md` §4.4).
    - Onaylı taslak `archive/degerlendirme/lock_manifest_v5.json` ile kilitlendi.
 2. 02'deki çakışma denetimi: v2, eğitim adaylarına, genel Türkçe havuzuna, `genel_kontrol_v1`'e, geliştirme kapsam dışı setine, doğrulamaya, teste ve tuzak setine karşı denetlenir. Test veya tuzak içeren yakın eşleşmeler yalnızca kimlikle `review/` CSV'sine yazılır.
-3. Son hâl `evaluation/held_out/genel_kontrol_v2.jsonl` yoluna taşınır, SHA-256 özeti `lock_manifest_v7.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `archive/degerlendirme/lock_manifest_v3.json` karar 6c'den sonraki taslağı, `archive/degerlendirme/lock_manifest_v4.json` GK2-050 düzeltmesinden sonraki taslağı, `archive/degerlendirme/lock_manifest_v5.json` kullanıcı onaylı (GK2-044 düzeltilmiş) taslağı kilitler.
+3. Son hâl `evaluation/held_out/general_control_v2.jsonl` yoluna taşınır (İngilizce ad, kullanıcı kararı 2026-11-25; onay CSV'si `review/general_control_v2_review.csv` olur), SHA-256 özeti `lock_manifest_v7.json`'a yazılır ve commit edilir. Bütün bunlar hiçbir model çalışmadan önce yapılır. `archive/degerlendirme/lock_manifest_v3.json` karar 6c'den sonraki taslağı, `archive/degerlendirme/lock_manifest_v4.json` GK2-050 düzeltmesinden sonraki taslağı, `archive/degerlendirme/lock_manifest_v5.json` kullanıcı onaylı (GK2-044 düzeltilmiş) taslağı kilitler.
 4. Taşımadan sonra bu yol ve taslak için Read deny kuralı eklenmesini öneriyorum: `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/evaluation/held_out/**)` ve `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme/genel_kontrol_v2_*)`. Bunun nedeni: v2'yi ben yazdım, yani içeriğini biliyorum; deny kuralı üslup prompt'unu ve ayarları geliştirirken v2'yi yeniden açmamı engeller. Bu sınırlama `report/report_plan_v1.md` §4.4'te.
 
 ## 9. Gösterim: uydurma bir soruyla mini puanlama

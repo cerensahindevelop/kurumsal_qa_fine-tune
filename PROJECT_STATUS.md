@@ -1,6 +1,28 @@
 # PROJECT_STATUS
 
-Son güncelleme: 2026-11-25 (bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+
+---
+
+## Bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı (2026-11-25; aşama değil)
+
+### Tamamlanan iş
+- `kanarya.txt` ve `kanarya_klasor/` silindi. `.claude/settings.json`'daki iki kanarya kuralı kaldırıldı; yerine kalıcı `Read(//home/aipc/Desktop/Projeler/kurum-qa-finetune/security_check/**)` kuralı eklendi. `security_check/` projede bulunmaz; yalnızca test sırasında geçici oluşturulur ve `.gitignore`'dadır.
+- README'ye "Erişim engeli testi" bölümü yazıldı (ne zaman, neden gerçek test dosyasıyla değil, adımlar, reddedilmezse ne yapılır).
+- Kullanıcı kararları (2026-11-25): `archive/degerlendirme/` adı olduğu gibi kalır (dosyaların o zamanki yerini gösterir). Kilitli dosyaların İngilizce adları 02'deki taşımada uygulanır (aşağıda).
+
+### Doğrulama sonuçları (ölçüldü)
+- `settings.json` geçerli JSON; deny kuralı 10 → 9. Kaldırılan 2 (kanarya), eklenen 1 (`security_check/**`). Test, tuzak ve girdi klasörlerini koruyan 8 kural aynen duruyor (8/8).
+- `git check-ignore`: `security_check/` ve `security_check/canary.txt` `.gitignore:48` ile dışarıda.
+- Yeni kural bu oturumda etkin: `security_check/canary.txt` okuma denemesi "izin ayarlarınca reddedildi" cevabı aldı. Dosya oluşturma komutu bu oturumda reddedildiği için deneme dosyasız yapıldı; içerikli tam test README adımlarıyla yeni bir oturumda kullanıcı tarafından yapılır (bekleyen iş).
+
+### 02'nin yapılacakları (bu bakımdan)
+- Çakışma denetiminden sonra kilitli dosyalar İngilizce adlarıyla taşınır:
+  - `inceleme/genel_kontrol_v2_taslak.jsonl` → `evaluation/held_out/general_control_v2.jsonl`
+  - `inceleme/genel_kontrol_v2_onay.csv` → `review/general_control_v2_review.csv`
+- Taşımadan önce ve sonra SHA-256 aynı olmalı; çiftler `evaluation/path_migration_map_*.json` ve migration manifestine eklenir. Ardından `evaluation/lock_manifest_v7.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
+- Taşımadan sonra `inceleme/` boşalırsa silinir. `evaluation/held_out/**` için Read deny kuralı eklenir (settings.json değişeceği için README'deki erişim engeli testi yapılır).
+- Belgelerdeki `genel_kontrol_v2` veri seti adı ve dosyadaki Türkçe alan adları (`grup`, `beklenen_davranis` gibi) kilit gereği değişmez; okuyan kod `LEGACY_*` eşlemelerini kullanır.
 
 ---
 
@@ -58,14 +80,14 @@ Son güncelleme: 2026-11-25 (bakım: eski kayıtlar archive/ altına taşındı;
 ### Yerinde korunanlar (taşınmadı, değişmedi)
 - Eski kilit manifestleri v1–v5 ve eşik olasılıkları v1: tarihî çıktılar, Türkçe alan adlarıyla. Bu refactor'da yerinde kaldılar; aynı gün sonraki bakımda içerikleri değişmeden `archive/degerlendirme/` altına taşındılar. Karşılıklar `LEGACY_FIELD_NAMES` ve `LEGACY_OUTPUT_KEYS` sözlüklerinde.
 - `inceleme/genel_kontrol_v2_taslak.jsonl` (kilitli; v2–v5 manifestleri bu yolu kaydetti) ve `inceleme/genel_kontrol_v2_onay.csv` (kilitli prompt'lar ve kullanıcı onayları). Taslağın alan adları (`grup`, `kategori`, `beklenen_davranis`, `bilgi_ogeleri`, `yasak_kalip`…) değiştirilemez; `build_review_csv` bunları okur.
-- `env/2026-11-2*` kayıtları, `kanarya*` (deny kuralı sınama dosyaları), `.claude/settings.json`, dış girdi yolları (`/home/aipc/Desktop/...`) ve `DEFAULT_LOCKED_PATTERNS` içindeki dış göreli yollar (`degerlendirme/test.jsonl` vb.).
+- `env/2026-11-2*` kayıtları, `kanarya*` (deny kuralı sınama dosyaları; sonraki bakımda kaldırıldı), `.claude/settings.json`, dış girdi yolları (`/home/aipc/Desktop/...`) ve `DEFAULT_LOCKED_PATTERNS` içindeki dış göreli yollar (`degerlendirme/test.jsonl` vb.).
 
 ### Doğrulama sonuçları (hepsi ölçüldü; eğitim, çıkarım ve kilitli test çalıştırılmadı)
 - Docstring şablonuna göre yeniden yazım ve takma adların kaldırılmasından sonra test yeniden çalıştırıldı: 11/11 geçti (aynı kontroller; takma ad kontrolü yerine "eski Türkçe seçenekler reddediliyor" kontrolü).
 - İlk kod yazım kuralları turundan sonra eşdeğerlik testi yeniden çalıştırıldı: 13/13 kontrol geçti (manifest, o tarihte duran takma adlar, ifade sayımı, CSV başlık eşlemesi ve onay taşıma, onay dağılımı, ikinci çalıştırmanın bayt bayt aynılığı, eşik olasılıkları; v1 JSON ile karşılaştırma artık yalnızca `LEGACY_OUTPUT_KEYS` sözlüğüyle yapılıyor, ek kural gerekmiyor).
 - Taşınan 24 izlenen dosya: eşleme, HEAD'de olup diskte olmayan 24 yolla birebir aynı. Hiçbiri kilitli değil. 7'sinin içeriği aynı (system prompt ve 6 `.gitkeep`); 17'si bilerek değişti (belgelerde yol ve terim, kod yeniden yazımı, `__init__.py` docstring'leri, geliştirme setinde alan adları).
 - `lock_manifest_v6.json`: v5 ile 27/27 aynı yol ve SHA-256, desenler aynı; girdi özeti v6, v5 ile 506/506 aynı.
-- Kanarya testleri: `kanarya.txt` ve `kanarya_klasor/ic.txt` okuma denemesi deny kuralıyla reddedildi. Proje içinde taşınan kilitli yol olmadığı için `.claude/settings.json` değiştirilmedi.
+- Kanarya testleri: `kanarya.txt` ve `kanarya_klasor/ic.txt` okuma denemesi deny kuralıyla reddedildi. Proje içinde taşınan kilitli yol olmadığı için `.claude/settings.json` bu bakımda değiştirilmedi (kanaryalar sonraki bakımda kaldırıldı).
 - Dört modül yeni yoluyla `--help` veriyor; beş `src` alt paketi import ediliyor.
 - Sentetik girdilerde eski (HEAD) ve yeni betik: manifest kayıtları, SHA-256, bayt ve satır sayıları, anahtar eşlemesinden sonra eşdeğer (takma adlı çağrıda da). İfade sayımı aynı (3 ve 1). Eşik olasılıkları eski betik çıktısıyla ve depodaki `archive/degerlendirme/threshold_probabilities_v1.json` ile eşdeğer.
 - `build_review_csv`: eski Türkçe başlıklı, dolu CSV'den onay, bilgi onayı ve not hücreleri `id`'ye göre aynen taşındı ("Düzelt", sondaki boşluklu "duzelt " dahil); onay dağılımı ve tanımsız değer listesi eskisiyle aynı. Yeni başlıklı CSV'de ikinci çalıştırma bayt bayt aynı. İngilizce alan adlı girdi de çalışıyor.
@@ -177,7 +199,7 @@ Son güncelleme: 2026-11-25 (bakım: eski kayıtlar archive/ altına taşındı;
 | `src/evaluation/threshold_probabilities.py` | Eşik gerekçelerindeki olasılıkları tam hesapla yeniden üretir (veri okumaz) |
 | `archive/degerlendirme/threshold_probabilities_v1.json` | Betiğin çıktısı; `thresholds_v1.md` §8'deki "ölçüldü" sayılarının kaynağı |
 
-`.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı.
+`.claude/settings.json` ve `kanarya.txt` kullanıcı isteğiyle git'e eklendi. `kanarya.txt` deny kuralı gereği okunmadı. (2026-11-25'te kanarya dosyaları kaldırıldı; erişim testi README "Erişim engeli testi" bölümünde.)
 
 ### Doğrulama sonuçları
 **Ölçüldü:**
@@ -226,7 +248,7 @@ Son güncelleme: 2026-11-25 (bakım: eski kayıtlar archive/ altına taşındı;
    - Form iki bölüm: üslup ve jargon referanssız; bilgi bölümünde referans gösterilir.
    - Model adları gizli, sıra karışık, anahtar ayrı dosyada.
    - Ayrıntı `experiment_plan_v1.md` §6.9'da, eşikler 1.2 ve 2.1b'de, sınırlamalar `report/report_plan_v1.md` §4'te.
-4. **Deny kuralları:** kapandı. Commit `f6ad4d0`; ham `05_tuzak_sorular`, `01_sss`, `06_genel_turkce/degerlendirme` ve `kanarya_klasor` için Read deny var (settings.json okunarak doğrulandı; kanarya ölçümünü kullanıcı yaptı).
+4. **Deny kuralları:** kapandı. Commit `f6ad4d0`; ham `05_tuzak_sorular`, `01_sss`, `06_genel_turkce/degerlendirme` ve `kanarya_klasor` için Read deny var (settings.json okunarak doğrulandı; kanarya ölçümünü kullanıcı yaptı). 2026-11-25: kanarya kuralları yerine kalıcı `security_check/**` kuralı geldi.
 5. **Ham tuzak araçları:** şimdi kullanılmayacak, karar 11'e kaldı. Birincil tuzak puanı önceden kayıtlı ölçütlerden ve projenin kendi yargıç akışından gelir; hazır betik 11'de en fazla ek kontrol olabilir.
 
 6. **Bölme kuralına uymayan iki dosya** (kullanıcı kararı, 2026-11-23; `experiment_plan_v1.md` §8, karar 6):
@@ -254,7 +276,7 @@ Son güncelleme: 2026-11-25 (bakım: eski kayıtlar archive/ altına taşındı;
    - GK2-044'ün 4. öğesi kullanıcının metniyle aynen taslağa işlendi. Gerekçe: 1475 md. 14'e göre kıdem tazminatını yalnızca 4857 md. 25/II kaldırır; işçinin haklı nedenle feshi (md. 24) de tazminat doğurur.
    - Bilgi öğesi kontrolünün kapsamı (ikincil kaynaklar, birincil metinle tek tek karşılaştırma yok) rapor planı §4.4'e sınırlama olarak yazıldı.
    - Taslak yeniden üretilen CSV ile bayt bayt aynı (ölçüldü). Onaylı taslak `archive/degerlendirme/lock_manifest_v5.json` ile kilitlendi.
-   - **Açık:** taşıma 02'deki çakışma denetiminden sonra yapılacak (kullanıcı kararı). Taşımadan sonra önerilen Read deny kuralı eklenmeli: `evaluation/held_out/**`, `inceleme/genel_kontrol_v2_*`.
+   - **Açık:** taşıma 02'deki çakışma denetiminden sonra yapılacak (kullanıcı kararı). Taşımadan sonra önerilen Read deny kuralı eklenmeli: `evaluation/held_out/**` (dosya İngilizce adıyla `general_control_v2.jsonl` olarak taşınacak; yukarıdaki "02'nin yapılacakları").
 - ~~9. `b` grubu ile `system_prompt_v1` gerilimi~~: karar 9 ile kapandı (aşağıda).
 - ~~`genel_kontrol_v2` sade anlatım isteği denetimi~~ kapandı.
   - GK2-036 kullanıcı kararıyla değişmedi; "kolayca anlatır mısın, bilgisayardan pek anlamaz" açık bir istektir.
@@ -325,7 +347,7 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
   - Beklenen boyutlar `experiment_plan_v1.md` §6.5'te.
   - `genel_kontrol_v1` ve `turkishmmlu_dev` bölünmez (karar 6). `genel_kontrol_v2` saklanan bölümdür.
 - 02'deki çakışma denetimine `inceleme/genel_kontrol_v2_taslak.jsonl` (onaylı hâli) de girer. Karşılaştırılacak setler: eğitim adayları, genel Türkçe havuzu, `genel_kontrol_v1`, geliştirme kapsam dışı seti, doğrulama, test ve tuzak.
-- v2 onaylandı ama henüz taşınmadı. 02'deki çakışma denetiminden sonra `evaluation/held_out/genel_kontrol_v2.jsonl` yoluna taşınır, `lock_manifest_v7.json` üretilir (v6, 2026-11-25 bakımında üretildi) ve hiçbir model çalışmadan önce commit edilir. Denetimde değişiklik gerekirse yeniden kullanıcı onayı alınır.
+- v2 onaylandı ama henüz taşınmadı. 02'deki çakışma denetiminden sonra `evaluation/held_out/general_control_v2.jsonl` yoluna taşınır (İngilizce ad, kullanıcı kararı 2026-11-25), `lock_manifest_v7.json` üretilir (v6, 2026-11-25 bakımında üretildi) ve hiçbir model çalışmadan önce commit edilir. Denetimde değişiklik gerekirse yeniden kullanıcı onayı alınır.
 - v2'nin `b` soruları SSS konularına yakın (işsizlik ödeneği, yıllık izin, ihbar, süt izni vb.). 02'deki çakışma denetiminde test ve tuzakla yakın eşleşme çıkabilir; çıkarsa yalnızca kimlikle CSV'ye yazılır.
 - **03 için önceden kayıtlı veri dönüşümleri** (`experiment_plan_v1.md` karar 10 ve 11). İkisi de betikle yapılır, değişen kimlikleri yazar ve belirsiz kayıtları `review/` kuyruğuna gönderir. Kilitli doğrulama ve test referanslarına dokunulmaz.
   1. **Kurum ağzı:** eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ve çekimli biçimleri `kaynak` alanına göre kurum adıyla değiştirilir.

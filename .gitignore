@@ -43,3 +43,6 @@ wheels/
 # --- Gizli / yerel ayarlar ---
 .env
 .claude/settings.local.json
+
+# --- Erişim engeli testi: yalnızca test sırasında geçici oluşturulur, git'e girmez ---
+security_check/

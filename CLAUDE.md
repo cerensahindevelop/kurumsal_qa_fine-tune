@@ -90,7 +90,8 @@ Model ağırlıkları ve büyük çıktılar git'e girmez.
 - Bu setleri eğitimde, öğretmen girdisinde, sentetik aday seçiminde, few-shot örneklerinde, prompt veya ayar seçiminde kullanma.  
 - Test veya tuzak sorusu içeren yakın eşleşme çiftlerinin "aynı mı?" kararını sen verme. Bu çiftleri yalnızca kimlikleriyle `review/` altındaki bir CSV'ye yaz; metni orada ben görüp karar veririm.  
 - Test yalnızca 11\. aşamada, ayrı bir betikle çalışır. 11'deki bütün puanlar üretilip commit edildikten sonra test cevaplarını rapor örneği için okuyabilirsin; bundan sonra hiçbir ayar değişmez.  
-- Kurum içi veri, ham kayıt veya model çıktısı dış servise gönderilmez. Kurum verisi bu oturumlara hiç gelmeyecek.
+- Kurum içi veri, ham kayıt veya model çıktısı dış servise gönderilmez. Kurum verisi bu oturumlara hiç gelmeyecek.  
+- Erişim engellerinin (`.claude/settings.json` deny kuralları) çalıştığı, gerçek test dosyasıyla değil, geçici `security_check/` klasörüyle sınanır. Adımlar README'deki "Erişim engeli testi" bölümündedir. Okuma reddedilmezse kilitli dosyalarla ilgili hiçbir işe devam edilmez.
 
 ## Ön kayıt (eşikler)
 

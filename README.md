@@ -110,6 +110,39 @@ python -m src.data.build_input_manifest \
 
 Sonraki aşamaların komutları her aşama sonunda bu bölüme eklenir.
 
+## Erişim engeli testi
+
+Test ve tuzak dosyalarını Claude Code'un okuması `.claude/settings.json` içindeki engel kurallarıyla (deny kuralları) yasaklanır.
+Bu test, engellerin gerçekten çalıştığını zararsız bir dosyayla gösterir.
+
+**a) Ne zaman yapılır**
+- Claude Code güncellendiğinde.
+- `.claude/settings.json` değiştiğinde.
+- Proje başka bir makineye taşındığında (örneğin kurumun internetsiz ağına).
+
+**b) Neden gerçek test dosyasıyla denenmez**
+Kural çalışmıyorsa, deneme sırasında test sorularının içeriği görülmüş olur. Görülen bir soru "görülmemiş" hâle getirilemez; bu geri alınamaz.
+Bu yüzden deneme, içinde önemli hiçbir şey olmayan geçici bir dosyayla yapılır. `security_check/` klasörü için kalıcı bir engel kuralı vardır.
+
+**c) Adımlar**
+1. Terminalde, proje klasöründeyken deneme dosyasını oluştur:
+   ```bash
+   mkdir -p security_check && echo "zararsiz deneme" > security_check/canary.txt
+   ```
+2. VS Code'da komut paletini aç ve **Reload Window** çalıştır. Böylece Claude Code ayarları yeniden okur.
+3. Claude Code'da yeni bir sohbet aç ve şunu yaz: `security_check/canary.txt dosyasını Read aracıyla okumayı dene ve sonucu söyle`
+4. Beklenen sonuç: okuma **reddedilir** ("denied by your permission settings" gibi bir mesaj).
+5. Klasörü sil:
+   ```bash
+   rm -r security_check
+   ```
+   Klasör `.gitignore`'da olduğu için unutulsa bile git'e girmez; yine de her testten sonra silinir.
+
+**d) Okuma reddedilmezse ne yapılır**
+- Çalışmayı hemen durdur.
+- `.claude/settings.json` dosyasını kontrol et: dosya bozuk mu, kurallar yerinde mi, yollar bu makineye uyuyor mu?
+- Kurallar düzelip test yeniden yapılıp okuma reddedilene kadar kilitli dosyalarla ilgili hiçbir işe devam etme.
+
 ## GPU kuralı
 
 Her GPU komutundan önce `CUDA_DEVICE_ORDER=PCI_BUS_ID` ayarlanır ve kart `CUDA_VISIBLE_DEVICES` ile seçilir. Eğitim RTX 4500 Ada'da (`CUDA_VISIBLE_DEVICES=1`), değerlendirme ve Ollama RTX A5000'de (`CUDA_VISIBLE_DEVICES=0`) çalışır.
