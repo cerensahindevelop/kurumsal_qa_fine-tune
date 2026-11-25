@@ -1,0 +1,229 @@
+{
+ "created_at": "2026-11-25T15:09:17+03:00",
+ "patterns": [
+  "degerlendirme/test.jsonl",
+  "degerlendirme/tuzak_sorular.jsonl",
+  "degerlendirme/Türkçe Değerlendirme/*",
+  "05_tuzak_sorular/*",
+  "06_genel_turkce/degerlendirme/*",
+  "01_sss/*"
+ ],
+ "files": [
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/aya_eval_tr.jsonl",
+   "bytes": 97587,
+   "lines": 250,
+   "sha256": "7ffb4db1b7fcd937e61690f40485fd351375aead92275e7619250fdab006997e",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/gecturk_test_500.jsonl",
+   "bytes": 111025,
+   "lines": 500,
+   "sha256": "736e3a4b9490ce574b561b7ff9478bcdb76762e540ac38c5b712c23a939136d1",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/genel_kontrol_v1.jsonl",
+   "bytes": 22003,
+   "lines": 60,
+   "sha256": "406eadcf3b4143934e1fe6d33156b18dbc7bbd72123c19a2f8b6371f8aef1a95",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/turkishmmlu_dev.jsonl",
+   "bytes": 27241,
+   "lines": 45,
+   "sha256": "2c970c1accd807638097cfdc77af700667cbb5684066cf130ad21506474f8e44",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/turkishmmlu_test.jsonl",
+   "bytes": 508219,
+   "lines": 900,
+   "sha256": "ba596b8e33c04b3b066012ba952015719380c1c63528fbfce0ef1d46a1021365",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/vikipedi_perplexity_500.jsonl",
+   "bytes": 281546,
+   "lines": 500,
+   "sha256": "5cc7c3a2bce7e802366b88ec6a27c6d1575a95c4e6fc369b50e561eb4dc8ac73",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/wmt16_entr_test_500.jsonl",
+   "bytes": 138129,
+   "lines": 500,
+   "sha256": "fe89762a508db82acefa7de3626a5cafbdff254b9ef73bfdf479ea7f3fa01aab",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/Türkçe Değerlendirme/xlsum_tr_test_500.jsonl",
+   "bytes": 1659804,
+   "lines": 500,
+   "sha256": "5ffec999d96b5ffe341ddebecde32869690996b3021714fdbb6a1c988b007f0f",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/test.jsonl",
+   "bytes": 57998,
+   "lines": 100,
+   "sha256": "2303a2c99c3df9ac8fe058a95a095268dfde88a3aa3a3cf3cb7905440e6c75a9",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Gruplu Veriler",
+   "path": "degerlendirme/tuzak_sorular.jsonl",
+   "bytes": 19108,
+   "lines": 28,
+   "sha256": "9cc65b8b8dc135dd4d8aa90f7a2ba92b5118b00a844e31e769fb990717c3670d",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "01_sss/sss_birlesik.jsonl",
+   "bytes": 2458132,
+   "lines": 1699,
+   "sha256": "830d67600620fad48b138174c672917756f44749bb46a0bf4dceb04bde4b190e",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "05_tuzak_sorular/README.md",
+   "bytes": 9031,
+   "lines": 75,
+   "sha256": "ea9fc5ca5201d3f0f9dc5ad4e7c4c47c604e202b12cc86bdb3e974842620a424",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "05_tuzak_sorular/egitimden_cikarilacaklar.jsonl",
+   "bytes": 700,
+   "lines": 3,
+   "sha256": "df62b461b4810687cbd03fcc054ebe715bd720fd5d6f72c546e0cc92e141fe3f",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "05_tuzak_sorular/otomatik_kontrol.py",
+   "bytes": 1626,
+   "lines": 32,
+   "sha256": "0e0c0a5ce61a2130056b5130a574a9786a5b98de301b60a72ba9fce099b21f22",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "05_tuzak_sorular/tuzak_sorular.jsonl",
+   "bytes": 22713,
+   "lines": 28,
+   "sha256": "786e9461b946525bc8a78c8bc9f07c7cb790d3ce26b8a89124b4ac7b11bf4a72",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "05_tuzak_sorular/yargic_promptu.md",
+   "bytes": 3473,
+   "lines": 103,
+   "sha256": "a7b1e04ab19725b91784b32f49983507cb34c5f446aba41ba7266d587793d025",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/aya_eval_tr.jsonl",
+   "bytes": 97625,
+   "lines": 250,
+   "sha256": "7024f7c4ab275d9f2958c69e564a3d26f08d036d7fe97ccfeedf00f399d188f8",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/gecturk_test_500.jsonl",
+   "bytes": 111025,
+   "lines": 500,
+   "sha256": "736e3a4b9490ce574b561b7ff9478bcdb76762e540ac38c5b712c23a939136d1",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/genel_kontrol_v1.jsonl",
+   "bytes": 22003,
+   "lines": 60,
+   "sha256": "406eadcf3b4143934e1fe6d33156b18dbc7bbd72123c19a2f8b6371f8aef1a95",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/turkishmmlu_dev.jsonl",
+   "bytes": 27241,
+   "lines": 45,
+   "sha256": "2c970c1accd807638097cfdc77af700667cbb5684066cf130ad21506474f8e44",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/turkishmmlu_test.jsonl",
+   "bytes": 508219,
+   "lines": 900,
+   "sha256": "ba596b8e33c04b3b066012ba952015719380c1c63528fbfce0ef1d46a1021365",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/uslup_kontrol.py",
+   "bytes": 1312,
+   "lines": 26,
+   "sha256": "79d36d1215c481aec8bcbb38c8466f0127e6a880e318c3c30857bd9b62e6809d",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/uslup_yargic_promptu.md",
+   "bytes": 1219,
+   "lines": 30,
+   "sha256": "afc03b4bc31daaa8219fa87551982fff17a4987a6d5af631096b56844646a0c1",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/vikipedi_perplexity_500.jsonl",
+   "bytes": 299678,
+   "lines": 500,
+   "sha256": "150b84b1260ce0dd617dde79843091dddc5b977ab052e12b1206d6982bd4bd93",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/wmt16_entr_test_500.jsonl",
+   "bytes": 138183,
+   "lines": 500,
+   "sha256": "1d064669288de644009e2a99e05d5a28313cc06076995266f996c48309e7091f",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/fine_tuneVeriler",
+   "path": "06_genel_turkce/degerlendirme/xlsum_tr_test_500.jsonl",
+   "bytes": 1736059,
+   "lines": 500,
+   "sha256": "0896162d0a94fba6fe904e97e279938359d6f6e9d58c378a92606ef38311bd8b",
+   "locked": true
+  },
+  {
+   "root": "/home/aipc/Desktop/Projeler/kurum-qa-finetune/inceleme",
+   "path": "genel_kontrol_v2_taslak.jsonl",
+   "bytes": 38986,
+   "lines": 60,
+   "sha256": "3b8d3aa1dab9d2e092f4643893d595160d25ca2a341fda1699496bccfa939b16",
+   "locked": true
+  }
+ ]
+}

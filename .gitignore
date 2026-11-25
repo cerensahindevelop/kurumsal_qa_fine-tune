@@ -22,7 +22,12 @@ data/**/*.jsonl
 data/**/*.parquet
 !data/dataset_info.json
 
-# --- Model cevapları (büyük ve kurum verisinde hassas) ---
+# --- Model cevapları (responses; büyük ve kurum verisinde hassas) ---
+evaluation/responses/
+evaluation/**/*_responses.jsonl
+# Eski adlar: tarihî degerlendirme/ klasörü ve eski adla üretilmiş dosyalar da hâlâ dışarıda kalır.
+evaluation/cevaplar/
+evaluation/**/*_cevaplar.jsonl
 degerlendirme/cevaplar/
 degerlendirme/**/*_cevaplar.jsonl
 

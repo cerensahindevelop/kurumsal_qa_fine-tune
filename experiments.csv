@@ -1,1 +1,1 @@
-deney_id,kisa_ad,tarih,asama,config,taban_model,yukleme,veri_surumu,sistem_istemi,seed,kart,durum,git_commit,cikti_klasoru,not
+experiment_id,short_name,date,stage,config,base_model,quantization,data_version,system_prompt,seed,gpu,status,git_commit,output_dir,notes

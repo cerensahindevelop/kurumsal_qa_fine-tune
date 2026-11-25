@@ -1,0 +1,198 @@
+{
+ "base_ref": "HEAD",
+ "lock_manifest": "degerlendirme/kilit_manifesti_v5.json",
+ "files": [
+  {
+   "old_path": "istemler/sistem_v1.txt",
+   "new_path": "prompts/system_prompt_v1.txt",
+   "old_sha256": "0ecd66614c7f4b7db1aab3d671e90125517c83453bd38bc78f34019bdd048cf0",
+   "new_sha256": "0ecd66614c7f4b7db1aab3d671e90125517c83453bd38bc78f34019bdd048cf0",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "istemler/cevap_standardi_v1.md",
+   "new_path": "prompts/response_standard_v1.md",
+   "old_sha256": "bec1664ad9e750c6ac12e92c79f265b997bc7e53b3121f8ce6d89fd0189e7683",
+   "new_sha256": "c66907583dbc4dbab05451bf47c9e192fb6402e08fd1ab64795476cb7b420e3f",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/esikler_v1.md",
+   "new_path": "evaluation/thresholds_v1.md",
+   "old_sha256": "18736d51da2904c50e91b106d421b87bc2483f6a68d00b2f69f1f1ee04d243d6",
+   "new_sha256": "5d26df673b01c60557cb967df25a2083ea9587f850f6035aa61eb754a7933ec9",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/esikler_v1_aciklama.md",
+   "new_path": "evaluation/thresholds_v1_explained.md",
+   "old_sha256": "a89ea087c1dd544b744c18de7d21bd96598bc9776988f8668915872b0a2b0b44",
+   "new_sha256": "7a7b612dbfc725697187842b2d2e8406d28ea3f4d49503083b7a3dde7f223465",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/deney_plani_v1.md",
+   "new_path": "evaluation/experiment_plan_v1.md",
+   "old_sha256": "b56868da229520f6b6599dcab8155d884d5f3302d43cef9b730fa4ebd452748b",
+   "new_sha256": "08dcadd97170b3807585b6ab0d421cf1288f25bbe3425b47256b862d9bcbca86",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "degerlendirme/gelistirme_kapsam_disi.jsonl",
+   "new_path": "evaluation/dev_out_of_scope_v1.jsonl",
+   "old_sha256": "d3ff45bc721c17c1b34814f8966c4d25ca0d3b83a4d59124976552769919f46d",
+   "new_sha256": "4b510c13714c6909600743bbca73201c5beecb89619eebfe308616c35edaf193",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "rapor/rapor_plani_v1.md",
+   "new_path": "report/report_plan_v1.md",
+   "old_sha256": "bf027ed06f818f5b668bbe5a853879fe6bad389bb370dd1f07f1d69e953ead2f",
+   "new_sha256": "cea7e8e8739e0395c3793038fc8fb007eb233dabbbc7d7b183346efed0e6ffd3",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "rapor/.gitkeep",
+   "new_path": "report/.gitkeep",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "inceleme/.gitkeep",
+   "new_path": "review/.gitkeep",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "docs/ogrenme/01_iskelet_ve_plan.md",
+   "new_path": "docs/learning/01_skeleton_and_plan.md",
+   "old_sha256": "22e469f777313df1a79d0c979648f093c3151316374918c55f2e3842130af257",
+   "new_sha256": "b16f03c6a95983c5075adf883b315343cec32427899598af8e90d08c26d02d3d",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "PROJE_DURUMU.md",
+   "new_path": "PROJECT_STATUS.md",
+   "old_sha256": "fb032c0cae940ca5b5c2bec1572bde852ff9a5ffa82b52f1ab187576cca79f8d",
+   "new_sha256": "ba3d87acdffa8718204edc91591dc6ced2d3612a91c0a474afa915d5041b4888",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/veri/__init__.py",
+   "new_path": "src/data/__init__.py",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "159ee55006667abb086933059b19e7937145f49036e4995f97713d3444ea7c6b",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/veri/girdi_ozeti.py",
+   "new_path": "src/data/build_input_manifest.py",
+   "old_sha256": "38d2b2bbd92342ccee51f18782d8cd141c2045b6f6e582f8ad45c6b85289992d",
+   "new_sha256": "0e179bf87451344e2f296a6fbf6560b6c8a425abebc2ff918164d27102dfb951",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/veri/onay_csv.py",
+   "new_path": "src/data/build_review_csv.py",
+   "old_sha256": "2490ca200f5d2f06c37fd5bbf4e65a98345535e7af2fb8ac94ea257607bc6987",
+   "new_sha256": "86f81749fe9fdaee852cc1563e7c9f30c8f71bcd4d6fad9a7f49764824267e07",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/veri/ifade_say.py",
+   "new_path": "src/data/count_phrase_matches.py",
+   "old_sha256": "417b31ee25b74fd02db3a144d0a0adbcb7a859ac88e8090a013c9f7511dbf253",
+   "new_sha256": "af5baf4c9b923f9d6dc616a693114c052de476392419ec77a7e48891befe012a",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/degerlendirme/__init__.py",
+   "new_path": "src/evaluation/__init__.py",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "5593a1cc5da01341560ffc9f5ea725c720ef047b36e8786be915af4d7949e658",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/degerlendirme/.gitkeep",
+   "new_path": "src/evaluation/.gitkeep",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "src/degerlendirme/esik_olasiliklari.py",
+   "new_path": "src/evaluation/threshold_probabilities.py",
+   "old_sha256": "505e9bd35e88b949b52974fb8872b56afbce0edce268e09ecac9ae0b50a62ab7",
+   "new_sha256": "a6e019567266d1e058eed4846ea3a0afada3ef48fc4c0b644950af2fbd4e7631",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/egitim/__init__.py",
+   "new_path": "src/training/__init__.py",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "4eadcc3c1b89b8b7fcd34368303b60a1cc3425b03020a8179dda1d5a4f7672bf",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/egitim/.gitkeep",
+   "new_path": "src/training/.gitkeep",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "src/uretim/__init__.py",
+   "new_path": "src/data_generation/__init__.py",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "644d54abcb8ff6885d2b8a0122302b491b625f0d73d8b3168f6c6eb6457417c6",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/uretim/.gitkeep",
+   "new_path": "src/data_generation/.gitkeep",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "src/servis/__init__.py",
+   "new_path": "src/serving/__init__.py",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "8c322faa7f42eeba6623396c2c26dc9c94caab60bfc3f61c797999c18737a72b",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "src/servis/.gitkeep",
+   "new_path": "src/serving/.gitkeep",
+   "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "content_unchanged": true,
+   "locked": false
+  }
+ ]
+}

@@ -10,9 +10,9 @@ Yeni terimler:
 
 ---
 
-## 1. `src/veri/girdi_ozeti.py`
+## 1. `src/data/build_input_manifest.py`
 
-**Girdi:** bir veya daha fazla kök klasör (`--girdi`), çıktı yolu (`--cikti`), isteğe bağlı kilit manifesti yolu (`--kilit-cikti`).
+**Girdi:** bir veya daha fazla kök klasör (`--input`), çıktı yolu (`--output`), isteğe bağlı kilit manifesti yolu (`--lock-manifest-output`).
 
 **Blok 1: dosya gezme.**
 - Aldığı veri: kök klasör yolu.
@@ -24,17 +24,17 @@ Yeni terimler:
 - Aldığı veri: her dosya.
 - Dönüşüm: dosya 1 MB'lık parçalar hâlinde okunup SHA-256 hesaplanır, metin dosyalarında satır sayılır.
 - Neden: parçalı okuma büyük PDF'lerde belleği korur. Satır sayımı içeriği göstermeden "dosya beklenen boyutta mı?" sorusunu cevaplar.
-- Sonraki bloğa verdiği: her dosya için `{yol, bayt, satir, sha256}`.
+- Sonraki bloğa verdiği: her dosya için `{path, bytes, lines, sha256}` (`build_file_record`; v1–v5 manifestlerinde Türkçe adlarla: `{yol, bayt, satir, sha256}`).
 
 **Blok 3: kilit işareti.**
 - Aldığı veri: göreli yol.
-- Dönüşüm: `fnmatch` ile kilitli desenlerle (test, tuzak, Türkçe değerlendirme) karşılaştırılır, `kilitli: true/false` eklenir.
+- Dönüşüm: `fnmatch` ile kilitli desenlerle (test, tuzak, Türkçe değerlendirme) karşılaştırılır, `locked: true/false` eklenir (v1–v5'te `kilitli`).
 - Neden: 11. aşamada test dosyası, bugünkü özetiyle aynı olmalıdır. Kilit manifesti bunu kanıtlar.
 - Sonraki bloğa verdiği: iki JSON dosyası. Ekrana yalnızca toplam sayılar yazılır.
 
 **Mini örnek (örnek, uydurma):**
 ```json
-{"kok": "/veri", "yol": "degerlendirme/test.jsonl", "bayt": 51234, "satir": 100, "sha256": "9f2c…", "kilitli": true}
+{"root": "/veri", "path": "degerlendirme/test.jsonl", "bytes": 51234, "lines": 100, "sha256": "9f2c…", "locked": true}
 ```
 
 **Gerçek çalışma (ölçüldü):** 505 dosya tarandı, 25'i kilitli (Gruplu Veriler'de 2 + 8, ham veride 5 + 10).
@@ -46,7 +46,7 @@ Yeni terimler:
 
 ---
 
-## 2. `istemler/sistem_v1.txt`
+## 2. `prompts/system_prompt_v1.txt`
 
 **Girdi:** yok (sabit metin). Eğitim, değerlendirme ve servis bu dosyayı **aynen** kullanır.
 
@@ -65,21 +65,21 @@ Yeni terimler:
 
 **Mini örnek (örnek, uydurma):** "Bu paragrafı özetler misin?" → doğal bir özet. "Emlak vergisi ne kadar?" → "Bu konu Gelir İdaresi Başkanlığı ve belediyelerin görev alanındadır…"
 
-**Üç cümlelik özet:** Sistem mesajı modelin rolünü, alanını ve bilgi yokken nasıl davranacağını tanımlar. Aynı metin eğitimde, değerlendirmede ve serviste kullanılır; böylece model eğitimde ne gördüyse kullanımda da onu görür. Alan dışı soruları genel dil görevlerinden ayırmak, genel Türkçe becerisini korumak için şarttır.
+**Üç cümlelik özet:** System prompt modelin rolünü, alanını ve bilgi yokken nasıl davranacağını tanımlar. Aynı metin eğitimde, değerlendirmede ve serviste kullanılır; böylece model eğitimde ne gördüyse kullanımda da onu görür. Alan dışı soruları genel dil görevlerinden ayırmak, genel Türkçe becerisini korumak için şarttır.
 
-**Kontrol sorusu:** Adaptörü değerlendirirken neden üslup istemi ve few-shot örnekleri vermiyoruz?
-*Cevap:* Adaptör ile hazır model arasındaki farkın eğitimden geldiğinden emin olmak için: ikisi de aynı sistem mesajıyla çalışır. (2026-11-24 öncesinde istem kazancı `hazir_istemli` sisteminde ölçülecekti; bu sistem kapsam dışı bırakıldı, bkz. §13.)
+**Kontrol sorusu:** Adaptörü değerlendirirken neden üslup prompt'u ve few-shot örnekleri vermiyoruz?
+*Cevap:* Adaptör ile baseline arasındaki farkın eğitimden geldiğinden emin olmak için: ikisi de aynı system prompt'la çalışır. (2026-11-24 öncesinde prompt kazancı `hazir_istemli` sisteminde ölçülecekti; bu sistem kapsam dışı bırakıldı, bkz. §13.)
 
 ---
 
-## 3. `degerlendirme/deney_plani_v1.md` ve `degerlendirme/esikler_v1.md`
+## 3. `evaluation/experiment_plan_v1.md` ve `evaluation/thresholds_v1.md`
 
 **Girdi:** CLAUDE.md'deki hedefler ve sistem listesi. Model cevabı yok.
 
 **Blok 1: sistemler ve sıra.** Beş sistem tanımlanır. Önce doğrulamada ayar seçilir, sonra testte tek bir kez ölçülür. Neden: test yalnızca bir kez kullanılırsa, üzerinde ayar yapılmamış olur.
 
 **Blok 2: birincil ve ikincil sonuç.**
-- Tek ana karşılaştırma: seçilen adaptör ile `hazir` (2026-11-24'e kadar `hazir_istemli`; bkz. §13).
+- Tek ana karşılaştırma: seçilen adaptör ile `baseline` (2026-11-24'e kadar `hazir_istemli`; bkz. §13).
 - Sentetik katkısı ön kayıtlı bir ikincil iddiadır.
 - Neden: çok sayıda karşılaştırma şans eseri bir "kazanç" üretebilir. Ana iddiayı tek bir karşılaştırmaya bağlamak bunu önler.
 
@@ -90,20 +90,20 @@ Yeni terimler:
 
 **Blok 4: eşikler.** Her ölçüt için bir sayı, gerekçesi ve "senior onayı: bekliyor" satırı vardır. Neden: eşik sonuçtan önce sabitlenirse "başarı" tanımı sonuca göre esnetilemez.
 
-**Mini örnek (örnek, uydurma; gerçek çalışma değil):** yargıç 100 sorunun 50'sinde adaptörü, 30'unda istemli modeli seçiyor, 20'si beraberlik. Kazanma oranı 50/80 = %62,5 ≥ %60 ✓. İşaret testi (50'ye karşı 30) için p ≈ 0,03 < 0,05 ✓. Kritik hata farkı +1 ≤ +3 ✓. Bu durumda birincil uç nokta geçilmiş olur, ama genel Türkçe ve tuzak eşikleri de ayrıca kontrol edilir.
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** yargıç 100 sorunun 50'sinde adaptörü, 30'unda prompt'lu modeli seçiyor, 20'si beraberlik. Kazanma oranı 50/80 = %62,5 ≥ %60 ✓. İşaret testi (50'ye karşı 30) için p ≈ 0,03 < 0,05 ✓. Kritik hata farkı +1 ≤ +3 ✓. Bu durumda birincil uç nokta geçilmiş olur, ama genel Türkçe ve tuzak eşikleri de ayrıca kontrol edilir.
 
 **Gerçek çalışma:** yok. Hiçbir model puanlanmadı.
 
-**Üç cümlelik özet:** Deney planı neyin ölçüleceğini, eşik dosyası ise neye başarı denileceğini sonuçlar görülmeden kayda geçirir. Ana iddia tek bir karşılaştırmaya bağlıdır: fine-tune edilmiş model, istemle güçlendirilmiş hazır modeli geçmeli. Bilgi doğruluğu, genel Türkçe ve tuzak davranışı "kötüleşmeme" koşulları olarak bu iddiayı korur.
+**Üç cümlelik özet:** Deney planı neyin ölçüleceğini, eşik dosyası ise neye başarı denileceğini sonuçlar görülmeden kayda geçirir. Ana iddia tek bir karşılaştırmaya bağlıdır: fine-tune edilmiş model, prompt'la güçlendirilmiş baseline'ı geçmeli. Bilgi doğruluğu, genel Türkçe ve tuzak davranışı "kötüleşmeme" koşulları olarak bu iddiayı korur.
 
 **Kontrol sorusu:** Yargıç iki sırada (A-B ve B-A) farklı karar verirse neden beraberlik sayıyoruz?
 *Cevap:* Karar cevabın kendisine değil, cevabın hangi sırada gösterildiğine bağlı demektir; buna sıra yanlılığı denir. Böyle bir karar güvenilir olmadığı için iki sisteme de puan verilmez.
 
 ---
 
-## 4. `degerlendirme/gelistirme_kapsam_disi.jsonl`
+## 4. `evaluation/dev_out_of_scope_v1.jsonl`
 
-**Girdi:** yok. 15 soru tuzak setine bakılmadan sıfırdan yazıldı. Alanlar: `id, kategori, soru, beklenen_davranis, kabul_olcutu, kaynak, onay`.
+**Girdi:** yok. 15 soru tuzak setine bakılmadan sıfırdan yazıldı. Alanlar: `id, category, question, expected_behavior, acceptance_criteria, source, approval`.
 
 **Blok 1: kategoriler.** Alan dışı, sınır vakası, kişisel veri, yetki dışı istek, güncel değer, bilgi yok, yanlış öncül, hukuki tahmin, ticari tavsiye ve manipülasyon. Neden: tuzak seti 11. aşamaya kadar kilitli; geliştirme sırasında "bilmiyorum deme" davranışını ölçebilmek için ayrı bir set gerekiyor.
 
@@ -120,16 +120,16 @@ Yeni terimler:
 
 ## 5. Gösterim: mini puanlama
 
-Uydurma soru ve iki cevapla yapılan gösterim `degerlendirme/deney_plani_v1.md` §9'dadır. Oradan çıkan ders: chrF iki cevabı birbirinden ayırıyor (62,1'e karşı 27,4, ölçüldü), ama Cevap 2'deki "%25" ve "300 saat" kritik hatalarını tek başına göstermiyor. Bu hataları sayı karşılaştırması yakalıyor (recall 5/5'e karşı 1/5, ölçüldü).
+Uydurma soru ve iki cevapla yapılan gösterim `evaluation/experiment_plan_v1.md` §9'dadır. Oradan çıkan ders: chrF iki cevabı birbirinden ayırıyor (62,1'e karşı 27,4, ölçüldü), ama Cevap 2'deki "%25" ve "300 saat" kritik hatalarını tek başına göstermiyor. Bu hataları sayı karşılaştırması yakalıyor (recall 5/5'e karşı 1/5, ölçüldü).
 
 ---
 
 ## 6. Açık kararların işlenmesi (01 güncellemesi)
 
-**Tetikleyici kural (`esikler_v1.md` §3A):** "Gerekirse yap" türü bir karar ancak "ne zaman gerekir?" sorusu sonuç görülmeden sayıyla yazılırsa güvenilirdir. Burada tetikleyici, seçilen adaptörün Türkçe değerlendirmenin geliştirme bölümünde hazır modele göre ne kadar gerileyebileceğini görev görev söyler. Sınırlardan biri aşılırsa genel Türkçe karışımlı adaptör eğitilir.
+**Tetikleyici kural (`thresholds_v1.md` §3A):** "Gerekirse yap" türü bir karar ancak "ne zaman gerekir?" sorusu sonuç görülmeden sayıyla yazılırsa güvenilirdir. Burada tetikleyici, seçilen adaptörün Türkçe değerlendirmenin geliştirme bölümünde baseline'a göre ne kadar gerileyebileceğini görev görev söyler. Sınırlardan biri aşılırsa genel Türkçe karışımlı adaptör eğitilir.
 
 **Mini örnek (örnek, uydurma; gerçek çalışma değil):**
-- TurkishMMLU geliştirme bölümünde hazır model %61,0, adaptör %58,5 → fark −2,5 pp. T.1 sınırı −2,0 pp, yani tetikleyici **çalışır**.
+- TurkishMMLU geliştirme bölümünde baseline %61,0, adaptör %58,5 → fark −2,5 pp. T.1 sınırı −2,0 pp, yani tetikleyici **çalışır**.
 - Aynı koşuda sızıntı oranları %8'e karşı %14 → fark +6 pp ≤ +10 pp, T.7 aşılmaz.
 
 Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
@@ -145,8 +145,8 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 **Dosyalar ve girdileri:**
 - `inceleme/genel_kontrol_v2_taslak.jsonl`: GK2-036..050 yeniden yazıldı.
-- `src/veri/onay_csv.py`: girdi taslak JSONL, çıktı onay CSV'si.
-- `degerlendirme/deney_plani_v1.md` §6.6 ve `esikler_v1.md` 3.7, 3.9 ve T.7.
+- `src/data/build_review_csv.py`: girdi taslak JSONL, çıktı onay CSV'si.
+- `evaluation/experiment_plan_v1.md` §6.6 ve `thresholds_v1.md` 3.7, 3.9 ve T.7.
 
 **Blok 1, neden ölçüt değişti.** Sızıntı ölçütünün amacı, "soru bunu gerektirmediği hâlde kurum diline kaymak" durumunu yakalamaktır. `b` soruları ise kurum işlemini sorar: "e-Devlet'ten nasıl bakarım?" sorusunun doğru cevabı "e-Devlet" kelimesini içermek zorundadır. Eski liste bu cevabı sızıntılı sayardı; buna yanlış alarm (false positive) denir. Yeni kuralda kurum adları serbest, yasak olan yalnızca bürokratik kalıptır ("Sayın", "gerekmektedir", "ilgili mevzuat çerçevesinde").
 
@@ -154,7 +154,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 **Blok 3, ölçüm dosyadaki listeye değil, gruba bağlı.** v1 salt okunur bir girdidir; içindeki `yasak_kalip` değiştirilemez. Bu yüzden puanlama betiği listeyi kaydın `grup` alanına göre plandan seçer. Böylece v1 (geliştirme) ve v2 (saklanan) aynı kuralla ölçülür.
 
-**Blok 4, onay CSV'si betikle üretilir.** `onay_csv.py` taslağı CSV'ye döker ve `b` satırlarına ikinci bir onay sütunu ("bilgi öğeleri doğru mu?") açar. Zaten doldurulmuş hücreler kimliğe göre korunur. Bu sayede taslak değişince CSV yeniden üretilse de onaylarınız kaybolmaz.
+**Blok 4, onay CSV'si betikle üretilir.** `build_review_csv.py` taslağı CSV'ye döker ve `b` satırlarına ikinci bir onay sütunu ("bilgi öğeleri doğru mu?") açar. Zaten doldurulmuş hücreler kimliğe göre korunur. Bu sayede taslak değişince CSV yeniden üretilse de onaylarınız kaybolmaz.
 
 **Mini örnek (örnek, uydurma; gerçek çalışma değil):** soru: "İşten çıkarıldım, işsizlik maaşına nasıl başvururum, sade anlatır mısın?"
 - Cevap X: "İŞKUR'a 30 gün içinde başvurman gerekiyor. 1) e-Devlet'e gir…" Kurum adı var ama bürokratik kalıp yok, bu yüzden sızıntılı değil. Bilgi öğeleri tam, puan 2.
@@ -164,35 +164,35 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Üç cümlelik özet:** `b` grubu artık kurum işlemini gündelik dille soran ve sade anlatım bekleyen sorulardan oluşuyor. Bu grupta kurum adları serbest, yasak olan bürokratik kalıplar. Sadeleşmenin bilgi kaybına yol açmadığını görmek için doğruluk, kullanıcının onayladığı bilgi öğelerine göre ayrıca puanlanıyor.
 
 **Kontrol sorusu:** Neden `b` grubunda mevzuat atfı ("4447 sayılı Kanun") sızıntı sayılmadı, ama ayrıca sayılıyor?
-*Cevap:* Çünkü `sistem_v1` kural 1 alan içi sorularda dayanak belirtmeyi istiyor. Bu atıf sızıntı sayılsaydı, sistem mesajına uyan model cezalandırılırdı. Atıf yine de sade anlatımı ağırlaştırabilir. Bu gerilim karar 9 ile çözüldü: sistem mesajı kural 9, sade anlatım istendiğinde atıf gerektirmiyor.
+*Cevap:* Çünkü `system_prompt_v1` kural 1 alan içi sorularda dayanak belirtmeyi istiyor. Bu atıf sızıntı sayılsaydı, system prompt'a uyan model cezalandırılırdı. Atıf yine de sade anlatımı ağırlaştırabilir. Bu gerilim karar 9 ile çözüldü: system prompt kural 9, sade anlatım istendiğinde atıf gerektirmiyor.
 
-## 8. Sistem mesajı kararları 9–11 (`istemler/sistem_v1.txt`, `istemler/cevap_standardi_v1.md`)
+## 8. System prompt kararları 9–11 (`prompts/system_prompt_v1.txt`, `prompts/response_standard_v1.md`)
 
-**Girdi:** kullanıcının kararları. **Çıktı:** sistem mesajındaki üç değişiklik.
+**Girdi:** kullanıcının kararları. **Çıktı:** system prompt'taki üç değişiklik.
 - **Kural 2'ye ek, kurum ağzı yok.** Model üç kurumun konularını cevapladığı için "Kurumumuz" belirsizdir. Kurumlar adıyla anılır. Eğitim verisi 03'te buna uydurulur; kilitli referanslar değişmez.
 - **Kural 4, tutar ile süre/oran ayrımı.** Kanundaki süreler ve oranlar sabittir, verilir. TL tutarları dönemseldir ve eğitim verisinde eskimiş olabilir. Bu yüzden rakam yerine hesaplama yolu verilir.
 - **Kural 9, sade anlatım.** Varsayılan resmî üsluptur. Kullanıcı sade anlatım istediğini belirtirse aynı bilgi gündelik dille verilir. Tetikleyici kelime değil anlamdır: "kolayca anlatır mısın" sayılır, tek başına "kısaca" sayılmaz, çünkü o yalnızca kısalık ister.
   - Sonradan genişletildi: kullanıcı samimi, gündelik veya eğlenceli bir ton istediğini belirtirse de ("sohbet eder gibi anlat", "esprili bir dille yaz") aynı kural çalışır. Bilgi yine eksiksiz kalır; değişen yalnızca dildir.
-  - Kuraldaki örnekler bilerek değerlendirme sorularından farklı seçilir. Sistem mesajı her soruda modele verildiği için, değerlendirme sorusuna benzeyen bir örnek o soruyu kısmen önceden cevaplamış olur. Bu yüzden "kolayca anlatır mısın" (v2'de geçiyordu) "anlaşılır bir dille anlatır mısın" ile değiştirildi (karar 13).
-  - Emoji her durumda yasak; ünlem yalnızca ton isteklerinde ölçülü olarak serbest (karar 12). Cümle, "Bu durumda" göndermesi yanlış duruma bağlanmasın diye kuralın sonundan izin cümlesinin yanına taşındı ve "Ton isteği varsa…" diye açık yazıldı (karar 14). Ders: sistem mesajında zamir ve gönderme ("bu durumda") en yakın cümleye bağlanarak okunur; koşulu her cümlede açıkça yazmak daha güvenlidir. Emojiye izin vermemenin nedeni sızıntı riski: model emojiyi bir kez öğrenirse resmî cevaplara da taşıyabilir.
-  - **`src/veri/ifade_say.py` (girdi: JSONL dosyaları ve ifadeler).** Blok 1: her kaydın bütün metin alanlarını toplar. Blok 2: Türkçeye uygun küçük harfe çevirir ("İ"→"i", "I"→"ı"); Python'un `lower()` işlevi "I"yı "i" yaptığı için bu adım ayrıca yazıldı. Blok 3: yalnızca dosya adı, kayıt sayısı ve eşleşme sayısını basar. Böylece kilitli bir sette bir ifadenin geçip geçmediği, içerik görülmeden öğrenilir. *Gerçek çalışma:* "anlaşılır bir dille anlatır mısın" v1'de 0/60, v2'de 0/60. Doğruluk sınaması: "KOLAYCA ANLATIR MISIN" v2'de 1 (büyük harf ve I/ı dönüşümü çalışıyor).
+  - Kuraldaki örnekler bilerek değerlendirme sorularından farklı seçilir. System prompt her soruda modele verildiği için, değerlendirme sorusuna benzeyen bir örnek o soruyu kısmen önceden cevaplamış olur. Bu yüzden "kolayca anlatır mısın" (v2'de geçiyordu) "anlaşılır bir dille anlatır mısın" ile değiştirildi (karar 13).
+  - Emoji her durumda yasak; ünlem yalnızca ton isteklerinde ölçülü olarak serbest (karar 12). Cümle, "Bu durumda" göndermesi yanlış duruma bağlanmasın diye kuralın sonundan izin cümlesinin yanına taşındı ve "Ton isteği varsa…" diye açık yazıldı (karar 14). Ders: system prompt'ta zamir ve gönderme ("bu durumda") en yakın cümleye bağlanarak okunur; koşulu her cümlede açıkça yazmak daha güvenlidir. Emojiye izin vermemenin nedeni sızıntı riski: model emojiyi bir kez öğrenirse resmî cevaplara da taşıyabilir.
+  - **`src/data/count_phrase_matches.py` (girdi: JSONL dosyaları ve ifadeler).** Blok 1: her kaydın bütün metin alanlarını toplar. Blok 2: Türkçeye uygun küçük harfe çevirir ("İ"→"i", "I"→"ı"); Python'un `lower()` işlevi "I"yı "i" yaptığı için bu adım ayrıca yazıldı. Blok 3: yalnızca dosya adı, kayıt sayısı ve eşleşme sayısını basar. Böylece kilitli bir sette bir ifadenin geçip geçmediği, içerik görülmeden öğrenilir. *Gerçek çalışma:* "anlaşılır bir dille anlatır mısın" v1'de 0/60, v2'de 0/60. Doğruluk sınaması: "KOLAYCA ANLATIR MISIN" v2'de 1 (büyük harf ve I/ı dönüşümü çalışıyor).
   - *Kontrol sorusu:* Sayım betiğini neden önce bilinen bir eşleşmeyle sınadık? *Cevap:* 0 sonucu iki şey demek olabilir: ifade gerçekten yok ya da betik hiçbir şey bulamıyor. Bilinen bir eşleşmenin 1 çıkması, sıfırın gerçek bir sıfır olduğunu gösterir.
 
 **Mini örnek (örnek, uydurma; gerçek çalışma değil):** "İşsizlik maaşı ne kadar?"
 - Kural 4'e uygun: "Günlük ödenek, son dört aylık prime esas kazançların günlük ortalamasının %40'ıdır; aylık tutar asgari ücretin brüt tutarının %80'ini geçemez. Güncel tutarı İŞKUR'dan kontrol etmeniz önerilir."
 - Uygun değil: "Aylık 12.345 TL." Bu rakam uydurma; doğru olsa bile kısa sürede eskir.
 
-**Üç cümlelik özet:** Sistem mesajı artık kurumları adıyla anıyor ve "Kurumumuz" demiyor. Kanundaki süre ve oranları veriyor, dönemsel TL tutarları yerine hesaplama yolunu söylüyor. Kullanıcı sade anlatım istediğini belirtirse aynı bilgiyi bürokratik kalıp ve atıf olmadan veriyor.
+**Üç cümlelik özet:** System prompt artık kurumları adıyla anıyor ve "Kurumumuz" demiyor. Kanundaki süre ve oranları veriyor, dönemsel TL tutarları yerine hesaplama yolunu söylüyor. Kullanıcı sade anlatım istediğini belirtirse aynı bilgiyi bürokratik kalıp ve atıf olmadan veriyor.
 
 **Kontrol sorusu:** Eğitim cevaplarındaki "Kurumumuz" ifadesini değiştirip test referanslarındakini neden değiştirmiyoruz?
 *Cevap:* Test referansları kilitlidir ve sonuçlar görülmeden belirlenmiş ölçüdür. Onları değiştirmek, ölçüyü sonuca göre ayarlamak olurdu. Bunun bedeli, iki modelde de chrF'in hafifçe düşmesidir; bu bedel rapora sınırlama olarak yazıldı.
 
-## 9. `genel_kontrol_v2` onayının işlenmesi (`src/veri/onay_csv.py`)
+## 9. `genel_kontrol_v2` onayının işlenmesi (`src/data/build_review_csv.py`)
 
 **Girdi:** kullanıcının doldurduğu `inceleme/genel_kontrol_v2_onay.csv` ve taslak `inceleme/genel_kontrol_v2_taslak.jsonl`. **Çıktı:** onaylı taslak, onay dağılımı ve yeni kilit manifesti (`kilit_manifesti_v5.json`).
 
 - **Blok 1, farkı bulmak.** CSV ile JSONL alan alan karşılaştırıldı. Tek içerik farkı GK2-044'ün 4. bilgi öğesiydi. Düzeltme JSONL'de yalnızca o dizge değiştirilerek işlendi, böylece başka satır değişmedi.
-- **Blok 2, yazım normalleştirmesi (normalization).** İnsanlar aynı değeri farklı yazabilir: "düzelt", "Düzelt", "duzelt". `normal_onay` Türkçe harfleri ASCII karşılığına çevirir ve küçük harfe indirir. Bu yalnızca sayımda kullanılır; hücredeki yazım korunur. evet/hayir/duzelt dışında kalan bir değer çıkarsa betik o kaydın kimliğini listeler. Böylece yanlış yazım sessizce kaybolmaz.
+- **Blok 2, yazım normalleştirmesi (normalization).** İnsanlar aynı değeri farklı yazabilir: "düzelt", "Düzelt", "duzelt". `normalize_label` (eski adı `normal_onay`) Türkçe harfleri ASCII karşılığına çevirir ve küçük harfe indirir. Bu yalnızca sayımda kullanılır; hücredeki yazım korunur. evet/hayir/duzelt dışında kalan bir değer çıkarsa betik o kaydın kimliğini listeler. Böylece yanlış yazım sessizce kaybolmaz.
 - **Blok 3, gidiş-dönüş kontrolü (round-trip).** Düzeltilmiş JSONL'den CSV yeniden üretildi. Sonuç kullanıcının dosyasıyla bayt bayt aynı çıktı. Bu, iki dosyanın birbirine tam uyduğunu ve hiçbir onay hücresinin kaybolmadığını gösterir.
 - **Blok 4, kilit.** Onaylı taslağın özeti yeni manifest sürümüne yazıldı. Eski manifestlerin üzerine yazılmaz; her sürüm o anki hâlin kanıtıdır.
 
@@ -207,9 +207,9 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Kontrol sorusu:** Normalleştirmeyi neden yalnızca sayımda yapıp hücredeki "düzelt" yazımını değiştirmiyoruz?
 *Cevap:* CSV insanın kaydıdır. Betik onu kendi biçimine çevirseydi kullanıcının yazdığı değişmiş olurdu ve gidiş-dönüş kontrolü (dosyanın bayt bayt aynı kalması) anlamını yitirirdi. Karşılaştırma için sadeleştirmek yeterli.
 
-## 10. Eşik kararları ve `src/degerlendirme/esik_olasiliklari.py`
+## 10. Eşik kararları ve `src/evaluation/threshold_probabilities.py`
 
-**Girdi:** yok; betik veri okumaz, yalnızca `--cikti` (JSON yolu) ve isteğe bağlı `--kotulesme` (4.1 için gerçek kötüleşme, varsayılan 3 soru) alır. **Çıktı:** `degerlendirme/esik_olasiliklari_v1.json` ve ekranda özet. Bu sayılar `esikler_v1.md` §8'deki "ölçüldü" değerlerinin kaynağıdır. Kavramların sade anlatımı `degerlendirme/esikler_v1_aciklama.md` §9–§10'da.
+**Girdi:** yok; betik veri okumaz, yalnızca `--output` (JSON yolu) ve isteğe bağlı `--degradation` (4.1 için gerçek kötüleşme, varsayılan 3 soru) alır. **Çıktı:** `degerlendirme/esik_olasiliklari_v1.json` (tarihî v1, Türkçe anahtarlar; yeni çalıştırmalar `evaluation/threshold_probabilities_v2.json` yazar) ve ekranda özet. Bu sayılar `thresholds_v1.md` §8'deki "ölçüldü" değerlerinin kaynağıdır. Kavramların sade anlatımı `evaluation/thresholds_v1_explained.md` §9–§10'da.
 
 - **Blok 1, aile düzeyinde yanlış alarm.**
   - Alır: kontrol sayısı k, tek kontrolün yanlış alarm olasılığı (%5).
@@ -218,7 +218,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
   - Sonraki bloğa: yok, bağımsız bir hesap.
 - **Blok 2, 4.1 tuzak toleransı.**
   - Alır: 28 soru, başarı oranları ve ayrışma oranları.
-  - Dönüşüm: "adaptör − istemli" farkının olasılık dağılımı. Bağımsız binom modelinde iki dağılımın birleşimiyle, eşleştirilmiş modelde soru soru ilerleyen bir toplamla (her soru −1, 0 veya +1 ekler), "kesin" modelde adaptörün tam 3 soruda kaybettiği varsayımıyla hesaplanır. Tolerans −1, −2, −3 için hem yanlış alarm hem yakalama olasılığı çıkar.
+  - Dönüşüm: "adaptör − prompt'lu" farkının olasılık dağılımı. Bağımsız binom modelinde iki dağılımın birleşimiyle, eşleştirilmiş modelde soru soru ilerleyen bir toplamla (her soru −1, 0 veya +1 ekler), "kesin" modelde adaptörün tam 3 soruda kaybettiği varsayımıyla hesaplanır. Tolerans −1, −2, −3 için hem yanlış alarm hem yakalama olasılığı çıkar.
   - Neden üç model: gerçek dünyada iki model aynı sorularda benzer davranır (eşleştirme); tek bir varsayıma bağlı kalmak sonucu olduğundan kesin gösterirdi. Benzetim (simulation) yerine tam hesap kullanıldı, böylece seed gerekmez ve sonuç her makinede aynıdır.
 - **Blok 3, kalibrasyon belirsizliği.**
   - Alır: çift sayısı (20–40) ve %75 uyum.
@@ -241,7 +241,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Kullanıcının verdiği sayılarla fark:** yalnızca −2'nin yakalama olasılığında. Verilen değer yaklaşık %68'di, ölçülen %56–63. Diğer sayılar örtüşüyor.
 
 **Eşik dosyasındaki değişiklikler (kullanıcı kararı, onaydan önce):**
-- Yalnızca 2.1, 3.7 ve 4.2 kritik; diğer koruma eşikleri uyarı. Uyarı aşılırsa betik kayıt seçer, insan etiketler, senior karar verir (`esikler_v1.md` §6).
+- Yalnızca 2.1, 3.7 ve 4.2 kritik; diğer koruma eşikleri uyarı. Uyarı aşılırsa betik kayıt seçer, insan etiketler, senior karar verir (`thresholds_v1.md` §6).
 - 4.1 −2 oldu.
 - Kalibrasyon 40 çifte çıktı.
 - Kazanma oranı hiçbir zaman tek başına yazılmaz (§7).
@@ -254,26 +254,26 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 ## 11. Açık kararlar 17–20: Holm ailesi, birleşik etiket, yargıç yedek yolu, kalibrasyon soruları
 
-Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `degerlendirme/esikler_v1.md` §8 (değişiklik 5–8) ve yeni §9. Girdisi kullanıcının dört kararı.
+Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluation/thresholds_v1.md` §8 (değişiklik 5–8) ve yeni §9. Girdisi kullanıcının dört kararı.
 
-**Blok 1: Holm ailesi (karar 17).** Girdi: üç ikincil üslup+jargon testi (sentetik katkısı, istemin katkısı, adaptör vs `hazir`). Dönüşüm: üç p değeri birlikte Holm ile düzeltilir. Neden: düzeltmesiz üç iddiada en az bir yanlış iddia riski %14,3 (ölçüldü). Sonraki bloğa: 5.1'in eşiği artık sabit; 100 kesin kararda 61–63 galibiyet.
+**Blok 1: Holm ailesi (karar 17).** Girdi: üç ikincil üslup+jargon testi (sentetik katkısı, prompt'un katkısı, adaptör vs `baseline`). Dönüşüm: üç p değeri birlikte Holm ile düzeltilir. Neden: düzeltmesiz üç iddiada en az bir yanlış iddia riski %14,3 (ölçüldü). Sonraki bloğa: 5.1'in eşiği artık sabit; 100 kesin kararda 61–63 galibiyet.
 
 **Blok 2: birleşik etiket (karar 18).** Girdi: 100 test sorusunda kritik hata etiketleri; 50'si insandan, hepsi yargıç + betikten. Dönüşüm: insanın baktığı 50 soruda insan etiketi kullanılır, diğerlerinde yargıç + betik. Neden: insanın üstünlüğü korunur, ama bir uyarı eşiği (2.1b) bir kritik eşiği (2.1) silemez. Bunun için insan formuna ayrı bir "kritik hata var/yok" alanı eklendi; "Hayır" kritik hatayla aynı şey değil. Sonraki bloğa: 2.1 aynı eşikle hesaplanır.
 
-**Blok 3: yedek yol (karar 19) ve kalibrasyon soruları (karar 20).** Girdi: iki yargıç adayının kalibrasyon sonucu. Dönüşüm: biri geçerse o kullanılır; ikisi de kalırsa tuzak insan puanıyla, kritik 2.1 50 insan sorusunda +2 eşiğiyle ölçülür. Kalibrasyonun 40 sorusu istem ayarında da kullanılır; bunun bedeli rapora sınırlama olarak yazıldı.
+**Blok 3: yedek yol (karar 19) ve kalibrasyon soruları (karar 20).** Girdi: iki yargıç adayının kalibrasyon sonucu. Dönüşüm: biri geçerse o kullanılır; ikisi de kalırsa tuzak insan puanıyla, kritik 2.1 50 insan sorusunda +2 eşiğiyle ölçülür. Kalibrasyonun 40 sorusu prompt ayarında da kullanılır; bunun bedeli rapora sınırlama olarak yazıldı.
 
-**Mini örnek (örnek, uydurma; gerçek çalışma değil):** insan formundaki 50 soruda yargıç adaptöre 4 kritik hata, insan 2 kritik hata verdi; `hazir`'a ikisi de 3 kritik hata verdi. Kalan 50 soruda yargıç adaptöre 6, `hazir`'a 3 kritik hata verdi. Birleşik sayım 8'e 6 (fark +2, geçti); yalnızca yargıçla 10'a 6 (fark +4, kritik eşik aşılırdı).
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** insan formundaki 50 soruda yargıç adaptöre 4 kritik hata, insan 2 kritik hata verdi; `baseline`'a ikisi de 3 kritik hata verdi. Kalan 50 soruda yargıç adaptöre 6, `baseline`'a 3 kritik hata verdi. Birleşik sayım 8'e 6 (fark +2, geçti); yalnızca yargıçla 10'a 6 (fark +4, kritik eşik aşılırdı).
 
-**Açık kalan (karar 21):** insan formu `hazir`'ı kapsamadığı için birleşik etiket ve yedek yol `hazir` karşılaştırmasında aynı biçimde uygulanamıyor. Şimdilik `hazir` karşılaştırmasında iki taraf da yargıç + betikle sayılıyor.
+**Açık kalan (karar 21):** insan formu `baseline`'ı kapsamadığı için birleşik etiket ve yedek yol `baseline` karşılaştırmasında aynı biçimde uygulanamıyor. Şimdilik `baseline` karşılaştırmasında iki taraf da yargıç + betikle sayılıyor.
 
-**Üç cümlelik özet:** İnsanın yargıçtan güvenilir olduğu kabulü korundu, ama bu üstünlük eşiklerde değil tek tek kayıtlarda kullanılıyor; böylece kritik bir eşik bir uyarı eşiğiyle silinemiyor. Yargıç kalibrasyondan kalırsa kritik eşikler ölçülmeden kalmıyor, önceden yazılmış bir insan puanlamasına geçiliyor. Holm ailesi üç testle sabitlendi ve kalibrasyon soruları istem ayarında kullanılacak; bu son kararın bedeli rapora sınırlama olarak yazıldı.
+**Üç cümlelik özet:** İnsanın yargıçtan güvenilir olduğu kabulü korundu, ama bu üstünlük eşiklerde değil tek tek kayıtlarda kullanılıyor; böylece kritik bir eşik bir uyarı eşiğiyle silinemiyor. Yargıç kalibrasyondan kalırsa kritik eşikler ölçülmeden kalmıyor, önceden yazılmış bir insan puanlamasına geçiliyor. Holm ailesi üç testle sabitlendi ve kalibrasyon soruları prompt ayarında kullanılacak; bu son kararın bedeli rapora sınırlama olarak yazıldı.
 
-**Kontrol sorusu:** `hazir` karşılaştırmasında adaptörün etiketlerini insandan, `hazir`'ınkileri yargıçtan almak neden sorunlu?
+**Kontrol sorusu:** `baseline` karşılaştırmasında adaptörün etiketlerini insandan, `baseline`'ınkileri yargıçtan almak neden sorunlu?
 *Cevap:* İki taraf farklı ölçüm aracıyla sayılmış olur. İnsan yargıçtan daha katı ya da daha yumuşaksa, fark modeller arasındaki farkı değil ölçüm araçları arasındaki farkı yansıtır.
 
 ## 12. Senior öncesi netleştirmeler: üç değerli sonuç, sınır kuralı, galibiyet tablosu
 
-**Yol ve girdi:** `degerlendirme/esikler_v1.md` (§0, 1.1 tablosu, Tanımlar, K.2, 4.3, §6.2, §8 değişiklik 10) ve `src/degerlendirme/esik_olasiliklari.py`. Betiğin yeni çıktısı `isaret_testi_galibiyet_tablosu_n_1_100`; veri okumaz.
+**Yol ve girdi:** `evaluation/thresholds_v1.md` (§0, 1.1 tablosu, Tanımlar, K.2, 4.3, §6.2, §8 değişiklik 10) ve `src/evaluation/threshold_probabilities.py`. Betiğin yeni çıktısı `isaret_testi_galibiyet_tablosu_n_1_100` (v2'de `sign_test_minimum_wins_table_1_to_100`); veri okumaz.
 
 **Blok 1: galibiyet tablosu (betik).** Girdi: kesin karar sayısı n (1–100) ve α (0,05; Holm için 0,025 ve 0,0167). Dönüşüm: iki yönlü kesin işaret testinde p < α veren en küçük galibiyet sayısı aranır. Neden: 1.1'deki "%60" koşulunun hiç bağlayıcı olmadığını göstermek ve yerine okunabilir bir tablo koymak. Sonuç (ölçüldü): gereken en düşük oran %60,6 (99 kararda 60); n ≤ 5'te anlamlılık mümkün değil. Sonraki bloğa: 1.1 artık yalnızca "p < 0,05".
 
@@ -288,19 +288,19 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `degerle
 **Kontrol sorusu:** Uyarı incelemesi yalnızca adaptör aleyhine kayıtlara bakıp onları düzeltirse yeniden hesap neden yanlı olur?
 *Cevap:* Ölçüm yanılgıları iki yönde de olur. Yalnızca adaptörü haksız yere kötü gösteren yanılgılar düzeltilip adaptörü haksız yere iyi gösterenler bırakılırsa, düzeltilmiş değer sistematik olarak adaptör lehine kayar (açık karar 23).
 
-## 13. `hazir_istemli` kapsamdan çıkarıldı: taban çizgisi artık hazır model
+## 13. `hazir_istemli` kapsamdan çıkarıldı: taban çizgisi artık baseline
 
-**Yol ve girdi:** `degerlendirme/esikler_v1.md` §8 değişiklik 12, `degerlendirme/deney_plani_v1.md` §1–§5 ve §6.8, `rapor/rapor_plani_v1.md` §4.4, `CLAUDE.md` deney tablosu. Girdi: kullanıcının proje kararı (fine-tuning doğrudan iş olarak verildi).
+**Yol ve girdi:** `evaluation/thresholds_v1.md` §8 değişiklik 12, `evaluation/experiment_plan_v1.md` §1–§5 ve §6.8, `report/report_plan_v1.md` §4.4, `CLAUDE.md` deney tablosu. Girdi: kullanıcının proje kararı (fine-tuning doğrudan iş olarak verildi).
 
-**Blok 1: birincil soru değişti.** Önce soru "eğitim, iyi bir istemden daha mı iyi?" idi; şimdi "eğitim, üslubu hazır modele göre geliştirdi mi ve bir şeyi bozdu mu?". Birincil çift seçilen adaptör vs `hazir`; 1.1, 1.2 ve bütün bilgi eşikleri bu çifte uygulanır. Eşik değerleri aynı kaldı.
+**Blok 1: birincil soru değişti.** Önce soru "eğitim, iyi bir prompt'tan daha mı iyi?" idi; şimdi "eğitim, üslubu baseline'a göre geliştirdi mi ve bir şeyi bozdu mu?". Birincil çift seçilen adaptör vs `baseline`; 1.1, 1.2 ve bütün bilgi eşikleri bu çifte uygulanır. Eşik değerleri aynı kaldı.
 
-**Blok 2: sadeleşmeler.** §2 tek karşılaştırmaya indi; insan formu artık `hazir`'ı kapsadığı için birleşik etiket iki tarafa da uygulanabiliyor (eski 21a/21b ayrımı gereksiz). Holm ailesinin üç testinden biri kalktı, biri birincil oldu; tek ikincil test kaldığı için Holm kaldırıldı. Kritik kontrol sayısı 4'ten 3'e indi (aile düzeyinde yanlış alarm %18,5 → %14,3; ölçüldü).
+**Blok 2: sadeleşmeler.** §2 tek karşılaştırmaya indi; insan formu artık `baseline`'ı kapsadığı için birleşik etiket iki tarafa da uygulanabiliyor (eski 21a/21b ayrımı gereksiz). Holm ailesinin üç testinden biri kalktı, biri birincil oldu; tek ikincil test kaldığı için Holm kaldırıldı. Kritik kontrol sayısı 4'ten 3'e indi (aile düzeyinde yanlış alarm %18,5 → %14,3; ölçüldü).
 
-**Blok 3: kalibrasyonun yeri değişti.** Kalibrasyon çiftleri önce `hazir` ve `hazir_istemli`'den gelecekti; ikisi de eğitimden önce hazırdı. Yeni kaynak `hazir` ve ilk `sss_adaptor` koşusu. Sonuç: kalibrasyon ilk adaptör eğitildikten sonra yapılabilir ve yargıca dayanan bütün doğrulama puanlamaları ondan sonra gelir.
+**Blok 3: kalibrasyonun yeri değişti.** Kalibrasyon çiftleri önce `baseline` ve `hazir_istemli`'den gelecekti; ikisi de eğitimden önce hazırdı. Yeni kaynak `baseline` ve ilk `faq_adapter` koşusu. Sonuç: kalibrasyon ilk adaptör eğitildikten sonra yapılabilir ve yargıca dayanan bütün doğrulama puanlamaları ondan sonra gelir.
 
-**Mini örnek (örnek, uydurma; gerçek çalışma değil):** doğrulamada `hazir` ve `sss_adaptor_v1` cevapları üretildi. 40 soru seed 42 ile seçildi; insan 40 çifti kör puanladı; iki yargıç adayı da aynı çiftleri iki sırada puanladı. 12b üslupta %80 uyum ve %86 sıra tutarlılığıyla geçti ve seçildi. Ancak bundan sonra checkpoint seçimi yargıçla yapıldı.
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** doğrulamada `baseline` ve `faq_adapter_v1` cevapları üretildi. 40 soru seed 42 ile seçildi; insan 40 çifti kör puanladı; iki yargıç adayı da aynı çiftleri iki sırada puanladı. 12b üslupta %80 uyum ve %86 sıra tutarlılığıyla geçti ve seçildi. Ancak bundan sonra checkpoint seçimi yargıçla yapıldı.
 
-**Üç cümlelik özet:** Fine-tuning doğrudan talep edildiği için "istemden üstün mü?" sorusu kapsamdan çıktı ve hazır model hem üslup gelişiminin hem gerilemenin taban çizgisi oldu. Eşik değerleri değişmedi; ama tek bir karşılaştırma kaldığı için birleşik etiket, yedek yol ve çoklu karşılaştırma kuralları sadeleşti. Bunun bedeli rapora yazıldı: hazır modele karşı üslup kazancı beklenen bir sonuçtur ve istemle elde edilebilecek kazançtan ayrıştırılmamıştır.
+**Üç cümlelik özet:** Fine-tuning doğrudan talep edildiği için "prompt'tan üstün mü?" sorusu kapsamdan çıktı ve baseline hem üslup gelişiminin hem gerilemenin taban çizgisi oldu. Eşik değerleri değişmedi; ama tek bir karşılaştırma kaldığı için birleşik etiket, yedek yol ve çoklu karşılaştırma kuralları sadeleşti. Bunun bedeli rapora yazıldı: baseline'a karşı üslup kazancı beklenen bir sonuçtur ve prompt'la elde edilebilecek kazançtan ayrıştırılmamıştır.
 
 **Kontrol sorusu:** Holm düzeltmesi neden tamamen kaldırıldı da m = 2 ile devam edilmedi?
-*Cevap:* Ailenin üç testinden H2 (istemin katkısı) kapsamdan çıktı, H3 (adaptör vs `hazir`) ise birincil uç nokta oldu ve kendi α'sıyla aile dışında kaldı. Geriye tek ikincil test (5.1) kaldı; tek testte çoklu karşılaştırma sorunu yoktur.
+*Cevap:* Ailenin üç testinden H2 (prompt'un katkısı) kapsamdan çıktı, H3 (adaptör vs `baseline`) ise birincil uç nokta oldu ve kendi α'sıyla aile dışında kaldı. Geriye tek ikincil test (5.1) kaldı; tek testte çoklu karşılaştırma sorunu yoktur.

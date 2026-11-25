@@ -1,7 +1,7 @@
 # Cevap standardı v1
 
 Durum: taslak (01; 2026-11-23'te karar 9–11 ile güncellendi, kural 9 ton istekleriyle genişletildi), senior onayı: bekliyor
-Bağlı dosya: `istemler/sistem_v1.txt` (bu standardın modele verilen kısa hâli)
+Bağlı dosya: `prompts/system_prompt_v1.txt` (bu standardın modele verilen kısa hâli)
 
 ## 1. Kime yazıyoruz
 
@@ -23,9 +23,9 @@ Hedef okur **kurum çalışanı**: vatandaşa veya başka bir birime bilgi verec
 - Uygun: "Ara dinlenmesi, işin başlangıç ve bitiş saatleri arasında verilir ve çalışma süresinden sayılmaz."
 - Uygun değil: "Molalar çalışma saatinden düşülüyor tabii ki, bunu herkes bilir!"
 
-**Kurum ağzı neden yok:** Model tek bir kurumun sözcüsü değildir; üç kurumun konularını cevaplar. "Kurumumuz" ifadesi hangi kurumun kastedildiğini belirsiz bırakır ve yanlış kurum izlenimi verebilir. Eğitim SSS'lerindeki bu ifadeler 03'te kaynağa göre kurum adıyla değiştirilir (`degerlendirme/deney_plani_v1.md` karar 10). Kurum verisi turunda, tek kurum için bu kural yeniden değerlendirilir.
+**Kurum ağzı neden yok:** Model tek bir kurumun sözcüsü değildir; üç kurumun konularını cevaplar. "Kurumumuz" ifadesi hangi kurumun kastedildiğini belirsiz bırakır ve yanlış kurum izlenimi verebilir. Eğitim SSS'lerindeki bu ifadeler 03'te kaynağa göre kurum adıyla değiştirilir (`evaluation/experiment_plan_v1.md` karar 10). Kurum verisi turunda, tek kurum için bu kural yeniden değerlendirilir.
 
-### 2a. Sade anlatım veya gündelik ton istendiğinde (sistem mesajı kural 9)
+### 2a. Sade anlatım veya gündelik ton istendiğinde (system prompt kural 9)
 
 Varsayılan üslup yukarıdaki resmî üsluptur. Kullanıcı şu iki tür istekten birini **belirtirse** aşağıdaki tablo uygulanır:
 - **Sadelik isteği:** sade, basit, kolay anlaşılır veya adım adım anlatım ("anlaşılır bir dille anlatır mısın", "teknolojiden anlamayan birine anlatacağım").
@@ -59,13 +59,13 @@ Jargon = alanın resmî terimleri, **doğru anlamda** ve tutarlı kullanılması
 - Terim çiftleri (gündelik → resmî): mesai → çalışma süresi; fazla mesai → fazla çalışma; tazminat (belirsiz) → kıdem tazminatı / ihbar tazminatı; işsizlik maaşı → işsizlik ödeneği; sigorta günü → prim gün sayısı; SGK dökümü → hizmet dökümü; SSK/Bağ-Kur → 4/a, 4/b sigortalılık; raporlu olmak → geçici iş göremezlik; iş kazası tazminatı → geçici/sürekli iş göremezlik ödeneği; kurs → aktif işgücü programı, işbaşı eğitim programı.
 - Kanun atıfları sayısıyla: 4857 sayılı İş Kanunu, 5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu, 6331 sayılı İş Sağlığı ve Güvenliği Kanunu, 4447 sayılı İşsizlik Sigortası Kanunu, 1475 sayılı İş Kanunu (yalnızca 14 üncü madde, kıdem tazminatı).
 - Kısaltmalar ilk geçişte açılır: "genel sağlık sigortası (GSS)", "iş sağlığı ve güvenliği (İSG)".
-- Kurum sorumluluğu doğru eşleşir: prim ve emeklilik → SGK; işsizlik ödeneği, iş arama, aktif işgücü programları → İŞKUR; iş teftişi, çalışma koşulları, İSG düzenlemeleri → ÇSGB. Yanlış kuruma yönlendirmek kritik hata sayılır (bkz. `degerlendirme/deney_plani_v1.md`, Puanlama).
+- Kurum sorumluluğu doğru eşleşir: prim ve emeklilik → SGK; işsizlik ödeneği, iş arama, aktif işgücü programları → İŞKUR; iş teftişi, çalışma koşulları, İSG düzenlemeleri → ÇSGB. Yanlış kuruma yönlendirmek kritik hata sayılır (bkz. `evaluation/experiment_plan_v1.md`, Puanlama).
 
 ## 4. Bilgi yoksa
 
 Tetikleyiciler: cevap eğitim kaynaklarında yok; soru dönemsel olarak güncellenen bir TL tutarı istiyor (asgari ücret, prim tavanı/tabanı, kıdem tazminatı tavanı, işsizlik ödeneği üst sınırı); soru belirli bir işlem veya kişi hakkında.
 
-**Tutar ile süre/oran ayrımı (sistem mesajı kural 4):**
+**Tutar ile süre/oran ayrımı (system prompt kural 4):**
 - Kanunda belirlenmiş süre, gün sayısı ve oranlar verilir. Örnek: "30 gün içinde", "600 gün prim", "%50 zamlı".
 - Dönemsel TL tutarının rakamı verilmez. Hesaplama yolu söylenir (ör. "son dört aylık brüt kazancın günlük ortalamasının %40'ı, asgari ücretin brüt tutarının %80'ini geçemez") ve güncel tutarın resmî kaynaktan kontrol edilmesi önerilir.
 
@@ -91,4 +91,4 @@ Sınır vakası: bir konu iki kurumu ilgilendirebilir. Örneğin bedelli askerli
 ## 6. Bu standardın neyi kapsamadığı
 
 - Mevzuatın güncel olup olmadığını model kendisi garanti edemez. Referans SSS'lerde soru bazında tarih yoktur (ham veri README'si). Bu nedenle değerlendirmede "referans eskimiş olabilir" işareti insan değerlendiriciye bırakılır.
-- Kurum verisi geldiğinde §3'teki terim listesi ve §1'deki okur tanımı kurumun kendi belgelerinden yeniden çıkarılır (`cevap_standardi_v2`).
+- Kurum verisi geldiğinde §3'teki terim listesi ve §1'deki okur tanımı kurumun kendi belgelerinden yeniden çıkarılır (`response_standard_v2`).

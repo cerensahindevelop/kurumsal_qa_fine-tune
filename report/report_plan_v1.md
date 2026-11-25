@@ -1,26 +1,26 @@
 # Rapor planı v1
 
 Durum: taslak (01, 2026-11-23), senior onayı: bekliyor
-Bağlı dosyalar: `degerlendirme/deney_plani_v1.md`, `degerlendirme/esikler_v1.md`
+Bağlı dosyalar: `evaluation/experiment_plan_v1.md`, `evaluation/thresholds_v1.md`
 
 Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra yazılır. Bu dosya raporun iskeletini ve önceden bilinen sınırlamaları sonuçlardan önce kayda geçirir; böylece sınırlamalar sonuca göre seçilmez.
 
 ## 1. Bölümler
 
-1. **Özet:** birincil sonuç tek cümleyle (geçti / çekinceli / kaldı; `esikler_v1.md` §1), ardından koruma koşulları ve varsa servise çıkış hakkındaki senior kararı (sonucu değiştirmez).
+1. **Özet:** birincil sonuç tek cümleyle (geçti / çekinceli / kaldı; `thresholds_v1.md` §1), ardından koruma koşulları ve varsa servise çıkış hakkındaki senior kararı (sonucu değiştirmez).
 2. **Yöntem:**
    - sistemler, veri ve bölmeler (sayı ve SHA-256 ile);
    - eğitim tarifi;
    - üretim ayarları;
    - yargıç seçimi (kalibrasyon sonuçları);
    - insan formu.
-3. **Birincil sonuç:** seçilen adaptör vs `hazir` (yargıç üslup+jargon; insan formu, 50 soru). 2026-11-24'ten beri; istemle karşılaştırma kapsam dışı (§4.4).
+3. **Birincil sonuç:** seçilen adaptör vs `baseline` (yargıç üslup+jargon; insan formu, 50 soru). 2026-11-24'ten beri; prompt'la karşılaştırma kapsam dışı (§4.4).
 4. **Koruma koşulları:** bilgi doğruluğu, genel Türkçe (saklanan bölüm), tuzak (NN/28).
 5. **İkincil sonuçlar:**
    - sentetik katkısı;
    - üslup sızıntısı;
    - yargıç–insan uyumu;
-   - varsa `genel_karisim_adaptor` ve tetikleyici sonucu (§3A).
+   - varsa `general_mix_adapter` ve tetikleyici sonucu (§3A).
 6. **Eşik ve plan değişiklikleri:** v1'den sonraki her sürüm, tarihi ve gerekçesiyle.
 7. **Sınırlamalar** (§4).
 8. **Örnek cevaplar:** test cevapları yalnızca puanlar commit edildikten sonra okunur ve yalnızca açıklama amacıyla kullanılır.
@@ -59,7 +59,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
   - SSS'lerde soru bazında tarih yoktur; bazı rakamlar eskimiş olabilir.
 - **Doğru ek bilgi ödüllendirilmez.** Form "referansla aynı süre, tutar, koşul ve istisnayı söylüyor mu?" diye sorar. Referansta olmayan doğru bilgi ne ödüllendirilir ne cezalandırılır. Referanstan daha güncel ve doğru bir cevap "Hayır" alabilir.
 - **Azaltıcı önlem.** Formdaki "referans eskimiş olabilir" kutusu. İşaretlenen sorular ayrıca listelenir; bu sorular çıkarıldığında sonucun değişip değişmediği keşif analizi olarak raporlanır.
-- **Yargıç da aynı sınırı taşır:** yargıcın bilgi istemi de referansa dayanır.
+- **Yargıç da aynı sınırı taşır:** yargıcın bilgi prompt'u de referansa dayanır.
 
 ### 4.3 Örneklem büyüklüğü
 
@@ -69,36 +69,36 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 
 ### 4.4 Diğer
 
-- **Yargıç kalibrasyonu ile adaptör seçimi aynı soruları kullanır** (karar 20'nin ilkesi, 2026-11-24; istem ayarı `hazir_istemli` ile birlikte kapsam dışı kaldı). Yargıç kalibrasyonunun 40 sorusu doğrulamadaki adaptör ayar ve tarif seçiminde de kullanıldı; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir. Ayrıca kalibrasyon çiftleri `hazir` ile ilk `sss_adaptor` koşusundan geldiği için yargıç, seçilecek adaptörün üslubuna benzeyen cevaplarla sınanmış olur; diğer adaptörler için uyum ayrıca ölçülmez.
-- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir; ikincil iddialar için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (`esikler_v1.md` §9.2). Yalnızca bir istem türünde kalınırsa bunlar yalnızca o türe dayanan eşiklere uygulanır (§9.3).
-- **2.1'in etiketleri iki kaynaktan gelir:** 50 insan sorusunda iki tarafın (adaptör ve `hazir`) etiketi insandan, kalan 50 soruda iki tarafınki de yargıç + betikten (`esikler_v1.md` §9.1). Etiket kaynağına göre ayrı sayımlar da raporlanır.
-- **Fine-tuning iyi bir istemle karşılaştırılmadı.** Bu çalışma fine-tuning'in iyi bir istemden üstün olup olmadığını sınamadı; proje sahibinin talebiyle kapsam dışı bırakıldı. Hazır modele karşı üslup kazancı beklenen bir sonuçtur, istemle elde edilebilecek kazançtan ayrıştırılmamıştır.
-- **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 40 çiftle sınar (beraberlikler çıkınca daha az; %75 uyumun belirsizliği 40 çiftte yaklaşık ±13 pp, `esikler_v1.md` §8).
+- **Yargıç kalibrasyonu ile adaptör seçimi aynı soruları kullanır** (karar 20'nin ilkesi, 2026-11-24; prompt ayarı `hazir_istemli` ile birlikte kapsam dışı kaldı). Yargıç kalibrasyonunun 40 sorusu doğrulamadaki adaptör ayar ve tarif seçiminde de kullanıldı; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir. Ayrıca kalibrasyon çiftleri `baseline` ile ilk `faq_adapter` koşusundan geldiği için yargıç, seçilecek adaptörün üslubuna benzeyen cevaplarla sınanmış olur; diğer adaptörler için uyum ayrıca ölçülmez.
+- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir; ikincil iddialar için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (`thresholds_v1.md` §9.2). Yalnızca bir prompt türünde kalınırsa bunlar yalnızca o türe dayanan eşiklere uygulanır (§9.3).
+- **2.1'in etiketleri iki kaynaktan gelir:** 50 insan sorusunda iki tarafın (adaptör ve `baseline`) etiketi insandan, kalan 50 soruda iki tarafınki de yargıç + betikten (`thresholds_v1.md` §9.1). Etiket kaynağına göre ayrı sayımlar da raporlanır.
+- **Fine-tuning iyi bir prompt'la karşılaştırılmadı.** Bu çalışma fine-tuning'in iyi bir prompt'tan üstün olup olmadığını sınamadı; proje sahibinin talebiyle kapsam dışı bırakıldı. Baseline'a karşı üslup kazancı beklenen bir sonuçtur, prompt'la elde edilebilecek kazançtan ayrıştırılmamıştır.
+- **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 40 çiftle sınar (beraberlikler çıkınca daha az; %75 uyumun belirsizliği 40 çiftte yaklaşık ±13 pp, `thresholds_v1.md` §8).
 - **Üslup sızıntısı ölçütü:** önceden belirlenmiş bir işaret listesine dayanır. Listedeki ifadeleri kullanmadan gerçekleşen sızıntıyı kaçırabilir.
 - **Saklanan `genel_kontrol_v2` asistan tarafından yazıldı.**
-  - Sorunu: sistem mesajını yazan ve ayarları seçen asistan bu setin içeriğini biliyor (2026-11-24'ten beri istem ayarı yok; `hazir_istemli` kapsam dışı).
+  - Sorunu: system prompt'u yazan ve ayarları seçen asistan bu setin içeriğini biliyor (2026-11-24'ten beri prompt ayarı yok; `hazir_istemli` kapsam dışı).
   - Önlemler:
     - v2, hiçbir model cevabı görülmeden yazılıp SHA-256 ile kilitlendi.
     - Taşındıktan sonra Read deny kapsamına alınması önerildi.
-    - Sistem mesajı, ayar ve checkpoint seçiminde kullanılmaz.
-  - Kalan risk: sistem mesajının ve seçilen ayarların v2'deki soru türlerine bilinçsizce uyması tamamen dışlanamaz.
+    - System prompt, ayar ve checkpoint seçiminde kullanılmaz.
+  - Kalan risk: system prompt'un ve seçilen ayarların v2'deki soru türlerine bilinçsizce uyması tamamen dışlanamaz.
 - **Geliştirme ve saklanan sızıntı setleri arasında yorum farkı olabilir.** v1 ve v2 farklı zamanlarda yazıldı ve v1'in içeriği v2 yazılırken görülmedi. Bu yüzden iki set arasında konu ve zorluk farkı olabilir.
   - İlk taslakta `b_kurum_gayriresmi` grubu yanlış yorumlanmıştı. Kullanıcının v1 kontrolünden sonra grup, kullanıcının verdiği tanıma göre yeniden yazıldı (karar 6c).
   - Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
 - **`b` grubunun bilgi öğeleri asistan tarafından yazıldı.** v2'deki `bilgi_ogeleri` kullanıcı onayından geçti (14 "evet", 1 "düzelt"). 15 b kaydının bilgi öğeleri, farklı bir asistan oturumunda 2026 tarihli ikincil kaynaklarla (işsizlik ödeneği, rapor parası, yıllık izin, süt izni) ve mevzuat bilgisiyle kontrol edildi; GK2-044 düzeltildi; birincil mevzuat metniyle tek tek karşılaştırma yapılmadı. 3.9'daki doğruluk ölçümü bu yüzden "onaylı öğelere uygunluk"tur, "mevzuata doğruluk" değildir. v1'de bu alan olmadığı için geliştirme bölümünde `b` doğruluğu yalnızca referanssız yargıç puanıyla raporlanır.
-- **Sade anlatım kuralı, kullanıcının sade anlatım veya gündelik bir ton istediğini belirtmesiyle tetiklenir** (karar 9, `sistem_v1` kural 9). Tetikleyici kelime değil anlamdır. Bu yüzden isteğin bulunup bulunmadığını otomatik olarak değil, kullanıcı kararıyla belirliyoruz.
+- **Sade anlatım kuralı, kullanıcının sade anlatım veya gündelik bir ton istediğini belirtmesiyle tetiklenir** (karar 9, `system_prompt_v1` kural 9). Tetikleyici kelime değil anlamdır. Bu yüzden isteğin bulunup bulunmadığını otomatik olarak değil, kullanıcı kararıyla belirliyoruz.
   - Açık istek içermeyen `b` sorularında model varsayılan resmî üsluba döner.
   - v2'deki `b` soruları bu açıdan denetlendi; v1'deki `b` sorularını yalnızca kullanıcı denetleyebilir.
   - Eğitim verisinde sade anlatım örneği yoktur. Adaptörün bu kuralı korumayı unutması mümkündür ve `b` sızıntısı bunu ölçer.
 - **`b` grubunda istek türü dağılımı v1 ile v2 arasında farklı** (karar 9, ton istekleriyle genişleme).
   - v2'nin 15 `b` sorusunun hepsi sadelik isteği içerir ("sade", "basit", "adım adım", "kolay"); ton isteği içeren soru yoktur (asistanın kendi taslağı üzerindeki sınıflaması).
   - Kullanıcının gözlemine göre v1'de "samimi", "sohbet eder gibi", "mesaj atar gibi", "eğlenceli, gençlere hitap eden" gibi ton istekleri de vardır.
-  - Sonuç: saklanan bölüm, ton isteğine uyumu ve ton isteği altında bilgi doğruluğunu ölçmez. Bu davranış yalnızca geliştirme bölümünde (v1) görülür; v1 istem ve ayar geliştirmede kullanıldığı için oradaki sonuç iyimser olabilir.
+  - Sonuç: saklanan bölüm, ton isteğine uyumu ve ton isteği altında bilgi doğruluğunu ölçmez. Bu davranış yalnızca geliştirme bölümünde (v1) görülür; v1 prompt ve ayar geliştirmede kullanıldığı için oradaki sonuç iyimser olabilir.
   - v2 bu yüzden değiştirilmedi (kullanıcı kararı): kilitli bir set sonuçlar görülmeden belirlendiği için ölçüdür; sonradan ona soru eklemek ölçüyü yeniden tasarlamak olurdu.
   - Geliştirme ile saklanan bölüm arasındaki `b` sızıntı farkı yorumlanırken istek türü dağılımı da birlikte verilir.
 - **Kurum ağzı yalnızca eğitim tarafında düzeltildi** (karar 10).
   - Eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ifadeleri 03'te kurum adıyla değiştirilir. Kilitli doğrulama ve test referanslarına ise dokunulmaz; bu ifadeler orada kalır.
-  - Sistem mesajı iki modele de kurum adı kullanmasını söylediği için, bu ifadeleri içeren referanslarda chrF hem `hazir` hem adaptör için hafifçe düşebilir.
+  - System prompt iki modele de kurum adı kullanmasını söylediği için, bu ifadeleri içeren referanslarda chrF hem `baseline` hem adaptör için hafifçe düşebilir.
   - Etki iki tarafa da uygulandığı için farkı büyük ölçüde götürmesi beklenir (tahmin). Raporda bu ifadeleri içeren referans sayısı verilir. Bu sayı 02'deki toplu sayımla, içerik basılmadan ölçülür.
   - Yargıç ve insan bilgi puanı kurum adının yazılış biçiminden etkilenmez.
 - **Dönemsel TL tutarları** (karar 11). Model dönemsel tutarın rakamını vermez. Referansta bu rakam varsa:
