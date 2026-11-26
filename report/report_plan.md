@@ -1,13 +1,17 @@
-# Rapor planı v1
+# Rapor planı
+
+Sürüm: 1
+
+Onaylanan commit: (onay verilince yazılacak)
 
 Durum: taslak (01, 2026-11-23), proje sahibi onayı: bekliyor
-Bağlı dosyalar: `evaluation/experiment_plan_v1.md`, `evaluation/thresholds_v1.md`
+Bağlı dosyalar: `evaluation/experiment_plan.md`, `evaluation/thresholds.md`
 
 Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra yazılır. Bu dosya raporun iskeletini ve önceden bilinen sınırlamaları sonuçlardan önce kayda geçirir; böylece sınırlamalar sonuca göre seçilmez.
 
 ## 1. Bölümler
 
-1. **Özet:** birincil sonuç tek cümleyle (geçti / çekinceli / kaldı; `thresholds_v1.md` §1), ardından koruma koşulları ve varsa servise çıkış hakkındaki proje sahibi kararı (sonucu değiştirmez).
+1. **Özet:** birincil sonuç tek cümleyle (geçti / çekinceli / kaldı; `thresholds.md` §1), ardından koruma koşulları ve varsa servise çıkış hakkındaki proje sahibi kararı (sonucu değiştirmez).
 2. **Yöntem:**
    - sistemler, veri ve bölmeler (sayı ve SHA-256 ile);
    - eğitim tarifi;
@@ -21,7 +25,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
    - üslup sızıntısı;
    - yargıç–insan uyumu;
    - varsa `general_mix_adapter` ve tetikleyici sonucu (§3A).
-6. **Eşik ve plan değişiklikleri:** v1'den sonraki her sürüm, tarihi ve gerekçesiyle.
+6. **Eşik ve plan değişiklikleri:** eşik ve plan belgelerinin 1. sürümünden sonraki her sürüm, Değişiklik geçmişi bölümlerinden tarihi ve gerekçesiyle.
 7. **Sınırlamalar** (§4).
 8. **Örnek cevaplar:** test cevapları yalnızca puanlar commit edildikten sonra okunur ve yalnızca açıklama amacıyla kullanılır.
 9. **Kurum verisi turu için öneriler.**
@@ -70,10 +74,10 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 ### 4.4 Diğer
 
 - **Yargıç kalibrasyonu ile adaptör seçimi aynı soruları kullanır** (karar 20'nin ilkesi, 2026-11-24; prompt ayarı `hazir_istemli` ile birlikte kapsam dışı kaldı). Yargıç kalibrasyonunun 40 sorusu doğrulamadaki adaptör ayar ve tarif seçiminde de kullanıldı; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir. Ayrıca kalibrasyon çiftleri `baseline` ile ilk `faq_adapter` koşusundan geldiği için yargıç, seçilecek adaptörün üslubuna benzeyen cevaplarla sınanmış olur; diğer adaptörler için uyum ayrıca ölçülmez.
-- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir; ikincil iddialar için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (`thresholds_v1.md` §9.2). Yalnızca bir prompt türünde kalınırsa bunlar yalnızca o türe dayanan eşiklere uygulanır (§9.3).
-- **2.1'in etiketleri iki kaynaktan gelir:** 50 insan sorusunda iki tarafın (adaptör ve `baseline`) etiketi insandan, kalan 50 soruda iki tarafınki de yargıç + betikten (`thresholds_v1.md` §9.1). Etiket kaynağına göre ayrı sayımlar da raporlanır.
+- **Yargıç kalibrasyondan kalırsa** kritik 2.1 yalnızca insanın puanladığı 50 soruda, tuzak (4.1, 4.2) insan puanıyla ölçülür; yargıca dayanan uyarı eşikleri "güvenilirliği düşük" notuyla verilir; ikincil iddialar için "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (`thresholds.md` §9.2). Yalnızca bir prompt türünde kalınırsa bunlar yalnızca o türe dayanan eşiklere uygulanır (§9.3).
+- **2.1'in etiketleri iki kaynaktan gelir:** 50 insan sorusunda iki tarafın (adaptör ve `baseline`) etiketi insandan, kalan 50 soruda iki tarafınki de yargıç + betikten (`thresholds.md` §9.1). Etiket kaynağına göre ayrı sayımlar da raporlanır.
 - **Fine-tuning iyi bir prompt'la karşılaştırılmadı.** Bu çalışma fine-tuning'in iyi bir prompt'tan üstün olup olmadığını sınamadı; proje sahibinin talebiyle kapsam dışı bırakıldı. Baseline'a karşı üslup kazancı beklenen bir sonuçtur, prompt'la elde edilebilecek kazançtan ayrıştırılmamıştır.
-- **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 40 çiftle sınar (beraberlikler çıkınca daha az; %75 uyumun belirsizliği 40 çiftte yaklaşık ±13 pp, `thresholds_v1.md` §8).
+- **Yargıç:** tek bir model ailesidir (Gemma). Aileye özgü tercihleri tamamen dışlanamaz; kalibrasyon bunu yalnızca 40 çiftle sınar (beraberlikler çıkınca daha az; %75 uyumun belirsizliği 40 çiftte yaklaşık ±13 pp, `thresholds.md` §8).
 - **Üslup sızıntısı ölçütü:** önceden belirlenmiş bir işaret listesine dayanır. Listedeki ifadeleri kullanmadan gerçekleşen sızıntıyı kaçırabilir.
 - **Saklanan `genel_kontrol_v2` asistan tarafından yazıldı.**
   - Sorunu: system prompt'u yazan ve ayarları seçen asistan bu setin içeriğini biliyor (2026-11-24'ten beri prompt ayarı yok; `hazir_istemli` kapsam dışı).
@@ -86,7 +90,7 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
   - İlk taslakta `b_kurum_gayriresmi` grubu yanlış yorumlanmıştı. Kullanıcının v1 kontrolünden sonra grup, kullanıcının verdiği tanıma göre yeniden yazıldı (karar 6c).
   - Geliştirme ile saklanan bölüm arasındaki sızıntı oranı farkı bu nedenle yalnızca dikkatle yorumlanır.
 - **`b` grubunun bilgi öğeleri asistan tarafından yazıldı.** v2'deki `bilgi_ogeleri` kullanıcı onayından geçti (14 "evet", 1 "düzelt"). 15 b kaydının bilgi öğeleri, farklı bir asistan oturumunda 2026 tarihli ikincil kaynaklarla (işsizlik ödeneği, rapor parası, yıllık izin, süt izni) ve mevzuat bilgisiyle kontrol edildi; GK2-044 düzeltildi; birincil mevzuat metniyle tek tek karşılaştırma yapılmadı. 3.9'daki doğruluk ölçümü bu yüzden "onaylı öğelere uygunluk"tur, "mevzuata doğruluk" değildir. v1'de bu alan olmadığı için geliştirme bölümünde `b` doğruluğu yalnızca referanssız yargıç puanıyla raporlanır.
-- **Sade anlatım kuralı, kullanıcının sade anlatım veya gündelik bir ton istediğini belirtmesiyle tetiklenir** (karar 9, `system_prompt_v1` kural 9). Tetikleyici kelime değil anlamdır. Bu yüzden isteğin bulunup bulunmadığını otomatik olarak değil, kullanıcı kararıyla belirliyoruz.
+- **Sade anlatım kuralı, kullanıcının sade anlatım veya gündelik bir ton istediğini belirtmesiyle tetiklenir** (karar 9, `system_prompt.txt` kural 9). Tetikleyici kelime değil anlamdır. Bu yüzden isteğin bulunup bulunmadığını otomatik olarak değil, kullanıcı kararıyla belirliyoruz.
   - Açık istek içermeyen `b` sorularında model varsayılan resmî üsluba döner.
   - v2'deki `b` soruları bu açıdan denetlendi; v1'deki `b` sorularını yalnızca kullanıcı denetleyebilir.
   - Eğitim verisinde sade anlatım örneği yoktur. Adaptörün bu kuralı korumayı unutması mümkündür ve `b` sızıntısı bunu ölçer.
@@ -107,3 +111,12 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
   - bilgi puanı için §6.3'teki ek kural önerisi (proje sahibi onayı bekliyor) uygulanır.
   Tutar içeren referansların sayısı ayrıca raporlanır.
 - **Kapsam:** pilot açık verilerle yapıldı. Sonuçlar kurum verisine doğrudan genellenemez; aynı akış orijinal modelden yeniden çalıştırılacak.
+
+## Değişiklik geçmişi
+
+Onaydan sonraki her değişiklikte en üstteki "Sürüm" numarası bir artar ve buraya bir satır eklenir. Eski hâller git geçmişindedir: `git log --follow -- <bu dosya>`.
+
+| Tarih | Ne değişti | Neden |
+|---|---|---|
+| 2026-11-23 | İlk taslak (01. aşama); 2026-11-24'te sınırlamalar güncellendi. | Sınırlamalar sonuçtan önce kayda geçsin. |
+| 2026-11-26 | Dosya adındaki `_v1` eki kaldırıldı; bu satırlar ve bu bölüm eklendi. Hiçbir kural veya değer değişmedi. | Sürüm bilgisi dosya adında değil, dosyanın içinde ve git geçmişinde durur (proje sahibi kararı). |

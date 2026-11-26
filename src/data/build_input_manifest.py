@@ -99,7 +99,7 @@ def compute_sha256(path: Path, chunk_size: int = 1 << 20) -> str:
 
     Ne alır:
         path: Parmak izi çıkarılacak dosyanın yeri.
-              Örnek: "evaluation/dev_out_of_scope_v1.jsonl"
+              Örnek: "evaluation/dev_out_of_scope.jsonl"
         chunk_size: Dosyadan her seferinde okunacak parçanın büyüklüğü.
                     Varsayılan değer 1 megabayttır; çoğu zaman değiştirmeye gerek yoktur.
 
@@ -131,7 +131,7 @@ def count_lines(path: Path) -> int:
 
     Ne alır:
         path: Satırları sayılacak dosyanın yeri.
-              Örnek: "evaluation/dev_out_of_scope_v1.jsonl"
+              Örnek: "evaluation/dev_out_of_scope.jsonl"
 
     Ne döndürür:
         Satır sayısı. Örnek: 15

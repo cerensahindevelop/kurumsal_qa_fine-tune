@@ -1,1 +1,1 @@
-experiment_id,short_name,date,stage,config,base_model,quantization,data_version,system_prompt,seed,gpu,status,git_commit,output_dir,notes
+experiment_id,short_name,date,stage,config,base_model,quantization,data_version,system_prompt_sha256,seed,gpu,status,git_commit,output_dir,notes

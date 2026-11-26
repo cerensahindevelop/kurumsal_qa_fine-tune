@@ -5,7 +5,7 @@ Ne yapar:
     Bu betik hiçbir veri dosyası okumaz; yalnızca hesap yapar.
 
 Neden var:
-    Eşik belgesinde (evaluation/thresholds_v1.md) "tolerans 2 soru" gibi kararlar var.
+    Eşik belgesinde (evaluation/thresholds.md) "tolerans 2 soru" gibi kararlar var.
     Bu kararların neden böyle seçildiği sayılarla gösterilmeli.
     Sayılar elle hesaplanırsa hata yapılabilir; bu betik onları her seferinde aynı biçimde üretir.
 

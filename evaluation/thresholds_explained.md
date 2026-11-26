@@ -1,6 +1,10 @@
-# Geçme eşikleri v1: sade açıklama
+# Geçme eşikleri: sade açıklama
 
-**Bu belge bağlayıcı değildir.** Bağlayıcı metin `evaluation/thresholds_v1.md`'dir. İki belge çelişirse `thresholds_v1.md` geçerlidir. Buradaki eşik değerleri o dosyadan aynen alındı; hiçbiri değiştirilmedi.
+Sürüm: 1
+
+Onaylanan commit: (onay verilince yazılacak)
+
+**Bu belge bağlayıcı değildir.** Bağlayıcı metin `evaluation/thresholds.md`'dir. İki belge çelişirse `thresholds.md` geçerlidir. Buradaki eşik değerleri o dosyadan aynen alındı; hiçbiri değiştirilmedi.
 
 **Okuyucu:** ML'de yeni bir yazılımcı ve onun senior'ı.
 **Amaç:** her eşiğin arkasındaki sebep zincirini göstermek; hiçbir şey ezbere kalmasın.
@@ -18,7 +22,7 @@ Kısaltmalar: **pp** = yüzde puan. **Fark** = adaptör eksi karşılaştırıla
 
 Bu notun sınavdan **önce** ilan edilmesi gerekir. Öğretmen kâğıtları okuduktan sonra geçme notunu belirlerse, bilerek ya da bilmeyerek sevdiği öğrenciyi geçirecek sınırı seçebilir. Bizde de aynı tehlike var. Sonuçları gördükten sonra eşik koyarsak, fine-tuning'in "başarılı" çıkacağı sınırı seçmeye kayarız. Buna **ön kayıt** (pre-registration) denir: ne ölçüleceği, nasıl ölçüleceği ve hangi sonucun başarı sayılacağı, hiçbir model cevabı görülmeden yazılır ve commit edilir. Git geçmişi, eşiğin sonuçlardan önce yazıldığının kanıtıdır.
 
-Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`thresholds_v2.md`) açılır, gerekçe yazılır ve değişiklik raporda gösterilir.
+Eşik sonradan değişebilir, ama gizlice değişemez. Yeni dosya açılmaz: `thresholds.md` dosyasında sürüm numarası artırılır, Değişiklik geçmişi bölümüne gerekçe yazılır ve değişiklik raporda gösterilir.
 
 ### "Fine-tuning başarılı sayılması için ne olmalı?"
 
@@ -63,7 +67,7 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`threshol
 4. Kalıntı rastgele bir olay değil, ayarın yanlış olduğunun işaretidir. Bir cevapta varsa, ayar bütün koşuda yanlıştır.
 5. Bu yüzden eşik "az olsun" değil "hiç olmasın"dır: 0.
 
-**Olmasaydı ne olurdu.** `faq_adapter_v1` değerlendirilirken betikte şablon bayrağı unutulur. Adaptörün cevaplarının bir kısmı düşünme metniyle başlar. Yargıç bu cevapları "daha ayrıntılı" bulup kayırır, adaptör üslupta %70 kazanır. Biz bunu fine-tuning'in başarısı sanarız. Gerçekte fark eğitimden değil, iki sistemin farklı modda çalışmasından gelir.
+**Olmasaydı ne olurdu.** `faq_adapter_run1` değerlendirilirken betikte şablon bayrağı unutulur. Adaptörün cevaplarının bir kısmı düşünme metniyle başlar. Yargıç bu cevapları "daha ayrıntılı" bulup kayırır, adaptör üslupta %70 kazanır. Biz bunu fine-tuning'in başarısı sanarız. Gerçekte fark eğitimden değil, iki sistemin farklı modda çalışmasından gelir.
 
 **İşimize ne yarıyor.** Baseline ile adaptörlerin aynı koşulda ölçüldüğünü garanti eder. İntranette betik Claude olmadan çalışacak; kontrol otomatik olduğu için orada da aynı hata yakalanır. Senior'a "bütün koşularda düşünme kalıntısı 0" diye tek satırlık bir geçerlilik kanıtı sunulur.
 
@@ -106,7 +110,7 @@ Eşik sonradan değişebilir, ama gizlice değişemez. Yeni bir dosya (`threshol
 **Neden.**
 1. Kesilmiş bir cevabın sonunda genellikle önemli bilgi vardır (istisna, koşul, başvuru yeri).
 2. Kesik cevap düşük puan alır. Ama bu düşük puan modelin bilgisinden değil, bizim seçtiğimiz 512 sınırından gelir.
-3. Kesik cevap çoksa, puanlar "model ne biliyor" değil "512 yeterli mi" sorusunu ölçmeye başlar. `thresholds_v1.md` bunu "puanlar üretim ayarına bağlı hâle gelir" diye ifade ediyor.
+3. Kesik cevap çoksa, puanlar "model ne biliyor" değil "512 yeterli mi" sorusunu ölçmeye başlar. `thresholds.md` bunu "puanlar üretim ayarına bağlı hâle gelir" diye ifade ediyor.
 4. Neden %2? 100 soruluk bir sette en fazla 2 cevap. Bu kadarı tek tük aşırı uzun cevaplara pay bırakır ve sonucu belirleyemez. Eğitim SSS cevaplarının 90. yüzdeliği 89 kelime (ölçüldü, 01); 512 token bunun birkaç katıdır. Normal bir cevabın sınıra dayanması beklenmez. Sınıra dayanmak çoğunlukla bir döngü (aynı cümleyi tekrar etme) belirtisidir.
 
 **Olmasaydı ne olurdu.** Fine-tuning sonrası adaptör bazı sorularda aynı paragrafı tekrar etmeye başlar ve %9 cevabı kesilir. Bilgi puanı düşer, biz "fine-tuning bilgiyi bozdu" sonucuna varırız. Gerçek sorun ise bir tekrar döngüsüdür; ayrı teşhis edilip çözülmesi gerekir.
@@ -220,7 +224,7 @@ Birincil sonuç şöyle karara bağlanır (2026-11-24 güncellemesi):
 1. Başarı ölçütü "belirgin gelişme". %50 eşitlik demektir; %52 gibi bir oran belirgin değildir.
 2. "Belirgin" burada "şanstan ayırt edilebilir" demektir. İşaret testi bunu doğrudan sınar. Küçük örnekte yüksek bir oran şansla çıkabilir: 20 kesin kararda 12–8 sonucu yazı-turayla kolayca oluşur.
 3. İlk taslakta ayrıca "kazanma oranı ≥ %60" koşulu vardı. Ama p < 0,05 her durumda %60'tan yüksek bir oran gerektirir: 1–100 kesin kararın her birinde gereken en düşük oran %60,6'dır (99 kararda 60 galibiyet; ölçüldü). %60 koşulu hiçbir sonucu değiştirmiyor, yalnızca okuyanı "eşik %60" diye yanıltıyordu. Bu yüzden kaldırıldı.
-4. Gereken en az galibiyet `thresholds_v1.md` §1'deki tabloda (ölçüldü): 100 kesin kararda 61 (%61; 60/100'de p = 0,057), 80'de 50 (%62,5), 50'de 33 (%66), 20'de 15 (%75). Kesin karar 6'dan azsa anlamlılık mümkün değildir.
+4. Gereken en az galibiyet `thresholds.md` §1'deki tabloda (ölçüldü): 100 kesin kararda 61 (%61; 60/100'de p = 0,057), 80'de 50 (%62,5), 50'de 33 (%66), 20'de 15 (%75). Kesin karar 6'dan azsa anlamlılık mümkün değildir.
 
 **Olmasaydı ne olurdu.** Eşik yalnızca bir oran olsaydı (ör. ≥ %60): beraberlikler yüzünden yalnızca 25 kesin karar kalır. Adaptör 15'ini kazanır: %60. "Belirgin gelişme" derdik. Oysa 15–10 sonucu (p ≈ 0,42) eşit iki sistemden de kolayca çıkar. Kurum verisiyle tekrarlandığında sonuç %48'e döner.
 
@@ -237,7 +241,7 @@ Son örnek, kazanma oranının neden tek başına yazılmadığını gösteriyor
 
 **Arka plan.**
 - **Kör değerlendirme** (blind evaluation): değerlendirici hangi cevabın hangi sistemden geldiğini bilmez. Model adları gizli, sıra karışık, eşleştirme anahtarı ayrı bir dosyadadır.
-- **Puanlar**: üslup 0–2 ve jargon 0–2 (`experiment_plan_v1.md` §6.1, §6.2). Toplamları 0–4 arasıdır. Bu bölümde referans cevap gösterilmez.
+- **Puanlar**: üslup 0–2 ve jargon 0–2 (`experiment_plan.md` §6.1, §6.2). Toplamları 0–4 arasıdır. Bu bölümde referans cevap gösterilmez.
 - **Eşleştirilmiş fark** (paired difference): aynı soruda adaptörün puanı eksi `baseline` puanı. Aynı soru iki sistemde de ölçüldüğü için sorunun kolaylığı farkta birbirini götürür.
 - **Bootstrap** (yeniden örnekleme): elimizdeki 50 soruluk farkları torbaya koyup, yerine koyarak 50 tane çekme ve ortalamayı hesaplama işini çok kez (burada 10.000) tekrarlamak. Bu 10.000 ortalamanın yayılması, "başka 50 soru seçseydik sonuç ne kadar oynardı?" sorusunu cevaplar.
 - **%95 güven aralığı** (confidence interval): bu yayılmanın ortadaki %95'lik bölümü. Alt sınır 0'ın üstündeyse, gelişmenin 0'dan büyük olduğuna makul ölçüde güvenebiliriz.
@@ -267,7 +271,7 @@ Son örnek, kazanma oranının neden tek başına yazılmadığını gösteriyor
 
 ### 2.1 Kritik hata içeren cevap sayısı: fark ≤ +3 (100 soruda)
 
-**Arka plan.** **Kritik hata**: cevaba göre hareket eden bir çalışanın yanlış işlem yapmasına yol açacak hata. Tanım `experiment_plan_v1.md` §6.3'te: yanlış kurum, tarih, süre, tutar/oran, atlanan veya uydurulan koşul ya da istisna, kaldırılmış bir uygulamayı yürürlükte gibi anlatmak. Referansta olmayan ama doğrulanamayan bir rakam kritik hata değildir; ayrı işaretlenir ve insana gider.
+**Arka plan.** **Kritik hata**: cevaba göre hareket eden bir çalışanın yanlış işlem yapmasına yol açacak hata. Tanım `experiment_plan.md` §6.3'te: yanlış kurum, tarih, süre, tutar/oran, atlanan veya uydurulan koşul ya da istisna, kaldırılmış bir uygulamayı yürürlükte gibi anlatmak. Referansta olmayan ama doğrulanamayan bir rakam kritik hata değildir; ayrı işaretlenir ve insana gider.
 
 **Ne yapılıyor.** Test setinin 100 sorusunda her sistemin her cevabı için iki kaynaktan kritik hata işareti toplanır: yargıcın bilgi işaretleri ve otomatik betiğin "aynı birimde referansla çelişen sayı" tespiti. Kritik hatalı cevaplar sayılır. İnsan formundaki 50 soruda ise etiket insandan gelir: insanın "kritik hata var/yok" kararı yargıç ve betik işaretinin yerini alır (**birleşik etiket**, 2026-11-24; §9). Eşik: **adaptörün sayısı − karşılaştırılan sistemin sayısı ≤ +3**. Bu bir **kritik eşiktir**: aşılırsa birincil sonuç "kaldı" olur. 2026-11-24'ten beri yalnızca `baseline` ile karşılaştırılır.
 
@@ -422,7 +426,7 @@ Bu örnekte oranlar 100 sorunun hepsi üzerinden hesaplandı. 2026-11-24'ten ber
 **Neden.**
 1. Kurum çalışanı modele resmî yazışma düzelttirebilir; bu beceri korunmalı.
 2. 2.5'te chrF'ye eşik koymadık, çünkü orada üslup değişikliği bekleniyordu. Burada beklenmiyor: görevin tek bir doğru biçimi var, chrF anlamlı bir ölçü olur.
-3. `thresholds_v1.md` gerekçesi: chrF'de 1 puanın altındaki fark genellikle gürültüdür. Daha büyük düşüş gerçek kayıp sayılır.
+3. `thresholds.md` gerekçesi: chrF'de 1 puanın altındaki fark genellikle gürültüdür. Daha büyük düşüş gerçek kayıp sayılır.
 
 **Olmasaydı ne olurdu.** Adaptör düzeltme yerine cümleyi resmî üsluba "çevirmeye" başlar. Cümleler referanstan uzaklaşır, chrF 4 puan düşer. Fark etmezsek kullanıcının metnini istemediği biçimde değiştiren bir model çıkarırız.
 
@@ -513,7 +517,7 @@ Bu örnekte oranlar 100 sorunun hepsi üzerinden hesaplandı. 2026-11-24'ten ber
 
 ### 3.7 Üslup sızıntısı: sızıntılı cevap oranı ≤ `baseline` oranı + 10 pp
 
-**Arka plan.** **Üslup sızıntısı**: kurum dilinin gereksiz yere gündelik sorulara taşması. Örnek (uydurma): "Akşam yemeği için hızlı bir tarif önerir misin?" sorusuna "İlgili mevzuat çerçevesinde…" diye başlayan bir cevap. Ölçüm `genel_kontrol` setlerindeki 50 gündelik soruda yapılır ve iki grup için iki ayrı işaret listesi kullanılır (`experiment_plan_v1.md` §6.6):
+**Arka plan.** **Üslup sızıntısı**: kurum dilinin gereksiz yere gündelik sorulara taşması. Örnek (uydurma): "Akşam yemeği için hızlı bir tarif önerir misin?" sorusuna "İlgili mevzuat çerçevesinde…" diye başlayan bir cevap. Ölçüm `genel_kontrol` setlerindeki 50 gündelik soruda yapılır ve iki grup için iki ayrı işaret listesi kullanılır (`experiment_plan.md` §6.6):
 - **`a` grubu** (kurumla ilgisiz gündelik sorular): kurum ağzı, mevzuat atfı, gereksiz kurum yönlendirmesi, resmî kip yoğunluğu.
 - **`b` grubu** (kurum işlemini gündelik dille soran ve sade anlatım bekleyen sorular): kurum ve sistem adları serbesttir, çünkü doğru yönlendirme cevabın kendisidir. İşaretler: kurum ağzı, bürokratik kalıp, resmî kip yoğunluğu.
 
@@ -559,7 +563,7 @@ Bu örnekte oranlar 100 sorunun hepsi üzerinden hesaplandı. 2026-11-24'ten ber
 
 ### 3.9 `b_kurum_gayriresmi` bilgi doğruluğu (15 soru): kritik hatalı cevap ≤ `baseline` + 1 ve ortalama puan farkı ≥ −0,2
 
-**Arka plan.** `b` grubu soruları kurum işlemi sorar ama sade anlatım ister (3.7). Sade bir cevap sızıntı ölçütünü geçer. Ama sade ve **yanlış** bir cevap da geçer. Bu yüzden `b` grubunda doğruluk ayrıca ölçülür. Yargıç her cevabı tek başına (ikili değil) `experiment_plan_v1.md` §6.3'teki 0–2 ölçeğiyle puanlar. Referans olarak kaydın kullanıcı onaylı `bilgi_ogeleri` alanı kullanılır.
+**Arka plan.** `b` grubu soruları kurum işlemi sorar ama sade anlatım ister (3.7). Sade bir cevap sızıntı ölçütünü geçer. Ama sade ve **yanlış** bir cevap da geçer. Bu yüzden `b` grubunda doğruluk ayrıca ölçülür. Yargıç her cevabı tek başına (ikili değil) `experiment_plan.md` §6.3'teki 0–2 ölçeğiyle puanlar. Referans olarak kaydın kullanıcı onaylı `bilgi_ogeleri` alanı kullanılır.
 
 **Ne yapılıyor.** Saklanan `genel_kontrol_v2`'nin 15 `b` sorusunda iki şey ölçülür. Eşik: **adaptörün kritik hatalı cevap sayısı ≤ `baseline` + 1 ve ortalama puan farkı ≥ −0,2**.
 
@@ -731,7 +735,7 @@ Yargıç üslup+jargon türünde kalırsa (Aya bu türe bağlı) T.6 tetiklemez 
 
 **Örnek (uydurma).**
 - Doğru uygulama: %10 ve %20 karışım adaptörleri eğitilir; doğrulamada %10'luk olan seçilir.
-- Yanlış uygulama: yalnızca %30 denenir. Bu K.1'e aykırıdır; yeni sürüm dosyası ve gerekçe gerekir.
+- Yanlış uygulama: yalnızca %30 denenir. Bu K.1'e aykırıdır; eşik dosyasında yeni sürüm ve gerekçe gerekir.
 
 #### K.2 Pay seçimi ve karışım adaptörünün "seçilen adaptör" olma koşulu
 
@@ -780,7 +784,7 @@ Yargıç üslup+jargon türünde kalırsa (Aya bu türe bağlı) T.6 tetiklemez 
 
 ## 7. §4 Tuzak ve kapsam dışı davranış
 
-**Bu bölüm neden var?** İyi bir kurum asistanı bilmediğini bilmelidir. Bilgi yokken uydurmamalı, alan dışı sorularda hüküm vermemeli, sorudaki yanlış varsayımı düzeltmeli, kişisel veri istendiğinde erişimi olmadığını söylemelidir. Fine-tuning modelin "her soruya kendinden emin cevap ver" davranışını güçlendirebilir; çünkü eğitim verisindeki her soru cevaplanmıştır. Bu bölüm o davranışın bozulmadığını ölçer. Tuzak seti 28 sorudur, ben görmedim; başarı ölçütleri genel kategorilerle önceden kaydedildi (`experiment_plan_v1.md` §6.4). Bu bölümde yalnızca **4.2 (mutlak alt sınır) kritiktir**; 4.1 ve 4.3 uyarı eşiğidir. Neden: göreli bir fark 28 soruda gürültüden zor ayrılır, ama mutlak alt sınır servise çıkacak bir model için pazarlıksız bir güvencedir.
+**Bu bölüm neden var?** İyi bir kurum asistanı bilmediğini bilmelidir. Bilgi yokken uydurmamalı, alan dışı sorularda hüküm vermemeli, sorudaki yanlış varsayımı düzeltmeli, kişisel veri istendiğinde erişimi olmadığını söylemelidir. Fine-tuning modelin "her soruya kendinden emin cevap ver" davranışını güçlendirebilir; çünkü eğitim verisindeki her soru cevaplanmıştır. Bu bölüm o davranışın bozulmadığını ölçer. Tuzak seti 28 sorudur, ben görmedim; başarı ölçütleri genel kategorilerle önceden kaydedildi (`experiment_plan.md` §6.4). Bu bölümde yalnızca **4.2 (mutlak alt sınır) kritiktir**; 4.1 ve 4.3 uyarı eşiğidir. Neden: göreli bir fark 28 soruda gürültüden zor ayrılır, ama mutlak alt sınır servise çıkacak bir model için pazarlıksız bir güvencedir.
 
 ### 4.1 Tuzak başarısı: adaptör ≥ `baseline` − 2 (uyarı eşiği)
 
@@ -910,7 +914,7 @@ Tolerans büyüdükçe yanlış alarm azalır ama yakalama gücü de düşer. E�
 **Neden.**
 1. 5.2 ile aynı kaygı, ama ağır hatalar için.
 2. Sentetik verinin katkısını iddia etmek için ağır hataları artırmamış olması gerekir.
-3. Pay, 2.1'deki +3'ten daha dar: +2. `experiment_plan_v1.md` §4 bu sayıyı veriyor; `thresholds_v1.md` ayrı bir gerekçe yazmıyor ("Aynı"). Bir katkı iddiası için daha sıkı bir koşul olarak okunabilir (bu benim yorumum; bkz. "Açıklarken fark ettiklerim").
+3. Pay, 2.1'deki +3'ten daha dar: +2. `experiment_plan.md` §4 bu sayıyı veriyor; `thresholds.md` ayrı bir gerekçe yazmıyor ("Aynı"). Bir katkı iddiası için daha sıkı bir koşul olarak okunabilir (bu benim yorumum; bkz. "Açıklarken fark ettiklerim").
 
 **Olmasaydı ne olurdu.** Sentetik adaptör üslupta önde, bilgi karşılaştırmasında eşit, ama 4 cevapta daha fazla kritik hata yapıyor. 5.3 olmasaydı bu ağır hatalar "katkı" iddiasının arkasında kalırdı.
 
@@ -960,7 +964,7 @@ Tolerans büyüdükçe yanlış alarm azalır ama yakalama gücü de düşer. E�
 
 **Arka plan.** Bir uyarı eşiği iki nedenle aşılabilir: model gerçekten gerilemiştir ya da ölçüm yanılmıştır (yargıç hatası, harf çıkarma hatası, sayı ayrıştırma hatası). İkisini ayırmanın tek güvenilir yolu kayıtlara bakmaktır. Ama sonuçları gördükten sonra bakmak, ön kaydın korumaya çalıştığı tehlikeyi geri getirir: işimize gelen yorumu seçmek. İlk yazımda proje sahibi, incelemeden sonra "birincil sonuç geçerli" diyebiliyordu; yani sonuç görüldükten sonra verilen bir karar sonucu değiştirebiliyordu. Yeni kural bu kapıyı kapatır. **Çekinceli**: 1.1 ve 1.2 sağlanmış, kritik eşik aşılmamış, ama bir uyarı eşiği düzeltmeden sonra da aşılmış bir sonuç.
 
-**Ne yapılıyor.** `thresholds_v1.md` §6.2'deki adımlar:
+**Ne yapılıyor.** `thresholds.md` §6.2'deki adımlar:
 1. Puanlar commit edildikten sonra bir betik incelenecek kayıtları **iki yönde** seçer: adaptör aleyhine olanlar ve adaptör lehine olanlar (karar 23a). Sayım farklarında iki yöndeki bütün uyuşmayan kayıtlar; ikili karşılaştırmada adaptörün tutarlı olarak kaybettiği ve kazandığı bütün kayıtlar; ortalamalarda en olumsuz 20 + en olumlu 20 + rastgele 10. Her yönde en fazla 40 kayıt, seed 42. Değerlendirici kaydın hangi yönden geldiğini görmez.
 2. İnsan her kayda bir etiket koyar: `gercek_hata` (olumsuz etiket doğru), `olcum_yanilgisi` (yargıç veya betik yanıldı; doğru etiket yazılır) veya `belirsiz` (özgün etiket kalır).
 3. Eşik düzeltilmiş etiketlerle **yeniden hesaplanır**. Yeni üretim yapılmaz; ayar ve eşik değeri değişmez.
@@ -994,7 +998,7 @@ Tolerans büyüdükçe yanlış alarm azalır ama yakalama gücü de düşer. E�
 
 **Arka plan.** 2.1 kritik hataları yargıç ve betikle 100 soruda sayar. 2.1b aynı konuya insan gözüyle, 50 soruda bakar. İlk taslakta "çelişirse insan kararı geçerlidir" yazıyordu. 2.1 kritik, 2.1b uyarı olunca bu cümle bir uyarı eşiğinin kritik eşiği silmesine kapı açıyordu. **Birleşik etiket**: bir kaydın etiketinin, o kayıt için mevcut en güvenilir kaynaktan alınması.
 
-**Ne yapılıyor.** `thresholds_v1.md` §9.1:
+**Ne yapılıyor.** `thresholds.md` §9.1:
 - İnsan formundaki 50 soruda kaydın kritik hata etiketi insanın "Var / Yok" kararıdır.
 - Kalan 50 soruda etiket yargıç + betikten gelir.
 - Kritik 2.1 bu 100 etiketle, aynı eşikle (fark ≤ +3) hesaplanır. 2.1b ayrıca "Hayır" sayısıyla hesaplanır.
@@ -1017,7 +1021,7 @@ Tolerans büyüdükçe yanlış alarm azalır ama yakalama gücü de düşer. E�
 
 **Arka plan.** Kritik 2.1 ve 4.2'nin ikisi de yargıca dayanıyordu. Yargıç 0.3 (insanla uyum) veya 0.4'ten (sıra tutarlılığı) kalırsa bu iki eşiğin nasıl ölçüleceği yazılı değildi. **Yedek yol** (fallback): asıl ölçüm aracı kullanılamazsa önceden yazılmış ikinci ölçüm yolu.
 
-**Ne yapılıyor.** `thresholds_v1.md` §9.2:
+**Ne yapılıyor.** `thresholds.md` §9.2:
 1. Önce diğer yargıç adayına bakılır. Kalibrasyonda iki aday da aynı 40 çifti puanladığı için ek ölçüm gerekmez.
 2. İkisi de kalırsa:
    - 28 tuzak sorusunda adaptör ve `baseline` cevaplarını insan kör olarak puanlar; 4.1 ve 4.2 bu puanla hesaplanır.
@@ -1114,10 +1118,10 @@ Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alına
 
 1. **1.1'deki "%60" koşulu hiçbir zaman bağlayıcı değil.** Test 100 soru olduğundan kesin karar sayısı en fazla 100'dür. 100 kesin kararda p < 0,05 için en az 61 galibiyet (%61) gerekir; 60/100'de p = 0,057. Kesin karar sayısı azaldıkça gereken oran yükselir (80'de %62,5, 50'de %66). Yani p koşulunu geçen her sonuç %60'ı zaten geçer. Gerçek eşik, beraberlik sayısına bağlı olarak %61–%75 arasında değişen işaret testi sınırıdır. **(kapandı)** %60 koşulu kaldırıldı; gereken galibiyet tablosu eklendi.
 2. **§0 başlığı ile 0.3/0.4'ün sonucu çelişiyor.** Başlık "bunlar sağlanmazsa koşu puanlanmaz" diyor. 0.3 ve 0.4 ise sağlanmazsa koşunun durmasını değil, yargıcın ikincil göstergeye düşmesini öngörüyor (§1 sonundaki not da öyle). **(kapandı)** §0 ikiye ayrıldı: 0.1–0.2 geçerlilik koşulu, 0.3–0.5 yargıç uygunluğu.
-3. **Yargıç kalibrasyondan kalırsa yargıca dayanan koruma eşiklerine ne olacağı yazılmamış.** §1 notu yalnızca 1.1 için yol gösteriyor (1.2 birincil olur). 2.1, 2.2, 3.6, 3.9, 4.1, 5.1, 5.2, T.6 ve K.2 de yargıca dayanıyor. **(güncelleme)** Konu daha ağırlaştı: yargıca dayanan 2.1 ve 4.2 artık kritik eşik (`thresholds_v1.md` §8, açık soru 2). **(kapandı)** Yedek yol yazıldı (`thresholds_v1.md` §9.2); kapsamadığı noktalar 29–30'da.
-4. **0.3 hangi prompt türü için geçerli, belli değil.** Kalibrasyon hem üslup+jargon hem bilgi için ayrı yapılıyor (`experiment_plan_v1.md` §6.8). Eşik ikisine ayrı ayrı mı, birlikte mi uygulanacak yazılmamış. Yedek yol (§9.2) yazıldıktan sonra bu soru önem kazandı: yargıç yalnızca bilgi prompt'unda kalırsa kritik 2.1 için yedek yol mu işler, 1.1 yargıçla mı kalır, belli değil. **(kapandı)** 0.3 ve 0.4 prompt türü başına ayrı ölçülür; yedek yol yalnızca kalınan türe dayanan eşiklere uygulanır (`thresholds_v1.md` §9.3).
+3. **Yargıç kalibrasyondan kalırsa yargıca dayanan koruma eşiklerine ne olacağı yazılmamış.** §1 notu yalnızca 1.1 için yol gösteriyor (1.2 birincil olur). 2.1, 2.2, 3.6, 3.9, 4.1, 5.1, 5.2, T.6 ve K.2 de yargıca dayanıyor. **(güncelleme)** Konu daha ağırlaştı: yargıca dayanan 2.1 ve 4.2 artık kritik eşik (`thresholds.md` §8, açık soru 2). **(kapandı)** Yedek yol yazıldı (`thresholds.md` §9.2); kapsamadığı noktalar 29–30'da.
+4. **0.3 hangi prompt türü için geçerli, belli değil.** Kalibrasyon hem üslup+jargon hem bilgi için ayrı yapılıyor (`experiment_plan.md` §6.8). Eşik ikisine ayrı ayrı mı, birlikte mi uygulanacak yazılmamış. Yedek yol (§9.2) yazıldıktan sonra bu soru önem kazandı: yargıç yalnızca bilgi prompt'unda kalırsa kritik 2.1 için yedek yol mu işler, 1.1 yargıçla mı kalır, belli değil. **(kapandı)** 0.3 ve 0.4 prompt türü başına ayrı ölçülür; yedek yol yalnızca kalınan türe dayanan eşiklere uygulanır (`thresholds.md` §9.3).
 5. **0.3 ve 0.5 küçük bir örneklemle karar veriyor.** 20–30 çiftte beraberlikler çıkınca daha da az çift kalır. Bu boyutta uyum yüzdesinin standart hatası yaklaşık 8–10 pp (tahmin, formülle). %75 eşiği ve 0.5'teki 5 pp'lik fark bu gürültüden küçük. **(güncelleme)** Kalibrasyon 40 çifte çıkarıldı. %75 uyumun %95 belirsizliği ±13,4 pp'ye, 5 pp'lik fark 2 çifte çıktı (ölçüldü). İyileşme var ama gürültü hâlâ 5 pp'den büyük; kappa belirsizliği 40 çiftte de yaklaşık ±0,27.
-6. **0.5'in yazımı iki türlü okunabilir.** "Hem uyumda hem sıra tutarlılığında 5 pp'den fazla geçmiyorsa" ifadesi, "ikisinde birden geçmiyorsa" diye de okunabilir. Plan §6.8'deki açık yazım ("uyumda … önde değilse **ve** sıra tutarlılığında da … önde değilse") diğer okumayı veriyor. Ayrıca adaylardan yalnızca biri 0.3/0.4'ü geçerse ne olacağı eşik dosyasında yazmıyor (planda "eşiği geçen adaylar arasında" diyor). **(kapandı, ikinci kısım)** Yalnızca bir aday geçerse o kullanılır (`thresholds_v1.md` §1 ve §9.2). **(kapandı)** 0.5 yeniden yazıldı: yalnızca uyumda 5 pp, prompt türü başına; yalnızca biri geçerse o.
+6. **0.5'in yazımı iki türlü okunabilir.** "Hem uyumda hem sıra tutarlılığında 5 pp'den fazla geçmiyorsa" ifadesi, "ikisinde birden geçmiyorsa" diye de okunabilir. Plan §6.8'deki açık yazım ("uyumda … önde değilse **ve** sıra tutarlılığında da … önde değilse") diğer okumayı veriyor. Ayrıca adaylardan yalnızca biri 0.3/0.4'ü geçerse ne olacağı eşik dosyasında yazmıyor (planda "eşiği geçen adaylar arasında" diyor). **(kapandı, ikinci kısım)** Yalnızca bir aday geçerse o kullanılır (`thresholds.md` §1 ve §9.2). **(kapandı)** 0.5 yeniden yazıldı: yalnızca uyumda 5 pp, prompt türü başına; yalnızca biri geçerse o.
 7. **"Kaybetme − kazanma" eşiklerinde payda belirsiz.** 2.2, 3.6, 5.2, T.6 ve K.2'de oranların bütün sorulara mı yoksa beraberlik dışı kararlara mı bölüneceği yazılmamış. 1.1'de beraberlikler açıkça hariç; buradakiler için söylenmemiş. Beraberlik çoksa iki okuma farklı sonuç verir. **(kapandı)** Payda bütün kayıtlar, beraberlikler dahil.
 8. **Eşik kenarı işaretleri tutarsız.** T.1'de açıkça "fark < −2,0 pp → tetikler" yazıyor; T.2–T.6'da yalnızca "izin verilen en fazla düşüş" var. Tam sınırdaki bir değerin (ör. chrF farkı tam −1,0) tetikleyip tetiklemediği dolaylı olarak çıkarılıyor. **(kapandı)** Sınır kuralı: eşiğe eşit değer geçer, aşan kalır; yuvarlamadan önce.
 9. **T tablosunun sütun başlığı T.8'e uymuyor.** Sütun başlığı "izin verilen en fazla düşüş (`baseline` taban çizgisine göre)", ama T.8 mutlak bir orandır (%3), `baseline`'a göre değil. 3.8 için de bu oranın yalnızca adaptöre mi uygulandığı yazılmamış. **(kapandı)** 3.8 ve T.8 değerlendirilen adaptöre uygulanır; sütun başlığı düzeltildi.
@@ -1127,21 +1131,30 @@ Aşağıdakileri **düzeltmedim**, yalnızca listeledim. Hangilerinin ele alına
 13. **K.3 sonrasında bilinen bir sorunla teste girilebilir.** Tetikleyici çalıştıysa seçilen tarif geliştirmede en az bir T satırını aşmıştır. K.2 kalırsa bu tarif seçili kalır ve teste girer; §3'teki ilgili final eşiğini kalma olasılığı yüksektir. Bu bir çelişki değil, ama raporun önceden hazırlanması gereken olası bir senaryo.
 14. **2.1 ile 2.4 kısmen aynı şeyi sayıyor.** 2.1'in tanımı "yargıç bilgi işaretleri + aynı birimde çelişen sayı" diyor; 2.4 de aynı birimde çelişen sayıyı sayıyor. 2.4'ün 2.1'in alt kümesi olduğu, bağımsız bir kanıt gibi okunmaması gerektiği belirtilmemiş.
 15. **2.1b'nin toleransı "orantılı küçültme" değil, oransal olarak daha gevşek.** 100'de +3 (%3) iken 50'de +2 (%4). Gerekçe "orantılı küçültüldü" diyor; aslında yukarı yuvarlama ile pay oransal olarak büyüdü. **(kapandı)** +2 bilinçli onaylandı; oransal fark rapora yazılır.
-16. **5.3 (+2) ile 2.1 (+3) aynı boyutta (100 soru) farklı tolerans veriyor.** `thresholds_v1.md` 5.3 gerekçesi yalnızca "Aynı" diyor. Farkın bilinçli olduğu (ikincil iddia için daha sıkı koşul) yazılmamış.
+16. **5.3 (+2) ile 2.1 (+3) aynı boyutta (100 soru) farklı tolerans veriyor.** `thresholds.md` 5.3 gerekçesi yalnızca "Aynı" diyor. Farkın bilinçli olduğu (ikincil iddia için daha sıkı koşul) yazılmamış.
 17. **2.3'te sayı içermeyen referansların nasıl ele alınacağı yazılmamış.** Referansta hiç sayı yoksa recall tanımsızdır. Bu sorular ortalamadan çıkarılıyor mu, %100 mü sayılıyor, belirtilmemiş.
 18. **Bazı eşik sayılarının dayanağı ölçüm değil kanaat.** 3.2–3.4'teki "chrF'de 1 puanın altı genellikle gürültüdür" ve 3.5'teki %10, bu setlerde ölçülmüş bir gürültü düzeyine dayanmıyor. 2.1, 2.4, 3.1 ve 4.1 de belirsizlik aralığı olmadan tek bir nokta değerine bakıyor; 1.2'deki gibi bir güven aralığı yok.
 19. **4.1'in 1 soruluk payı 28 soruda istatistiksel olarak ayırt edilemez.** 28 soruda %80 civarında bir oranın standart hatası yaklaşık 7,6 pp, yani 2 soru (ölçüldü, formülle). 4.1, gürültü düzeyinin altındaki bir farkı ölçüt yapıyor; hem haksız kalma hem haksız geçme olası. **(güncelleme)** 4.1 −2'ye gevşetildi ve uyarı eşiği oldu; yanlış alarm %6–23'e indi, 3 soruluk kötüleşmeyi yakalama %56–63 (ölçüldü). Gürültü sorunu sürüyor ama artık aşım bir inceleme başlatıyor, sonucu doğrudan düşürmüyor.
 20. **4.3'ün bağlayıcılığı belli değil.** "Yalnızca geliştirme ölçüsü, final iddiası yok" deniyor. 12/15'in altında kalan bir ayar seçilemez mi, yoksa yalnızca uyarı mı veriliyor, yazılmamış. 15 soruda standart hata yaklaşık 10 pp (ölçüldü, formülle). **(güncelleme)** 4.3 uyarı eşiği oldu; aşılırsa doğrulama aşamasında inceleme yapılır. Ancak uyarının ayar seçimini engelleyip engellemediği hâlâ yazılı değil. **(kapandı)** 4.3 doğrulamada seçim kısıtı oldu, uyarı sınıfından çıktı.
-21. **5.1'deki Holm ailesi tanımlanmamış.** Holm düzeltmesi hangi testlerle birlikte yapılacağına bağlıdır. `experiment_plan_v1.md` §3 ikincil sonuçları listeliyor, ama hangilerinin işaret testiyle aynı aileye gireceği (ör. prompt'un katkısı, adaptör vs `baseline`) belirtilmemiş. Aile büyüdükçe 5.1'i geçmek zorlaşır. **(güncelleme)** Aile önerildi (m = 3: sentetik katkısı, prompt katkısı, adaptör vs `baseline`; `thresholds_v1.md` §8, değişiklik 5). Kullanıcı kararı bekliyor. **(kapandı)** Kullanıcı seçenek A'yı seçti (m = 3).
+21. **5.1'deki Holm ailesi tanımlanmamış.** Holm düzeltmesi hangi testlerle birlikte yapılacağına bağlıdır. `experiment_plan.md` §3 ikincil sonuçları listeliyor, ama hangilerinin işaret testiyle aynı aileye gireceği (ör. prompt'un katkısı, adaptör vs `baseline`) belirtilmemiş. Aile büyüdükçe 5.1'i geçmek zorlaşır. **(güncelleme)** Aile önerildi (m = 3: sentetik katkısı, prompt katkısı, adaptör vs `baseline`; `thresholds.md` §8, değişiklik 5). Kullanıcı kararı bekliyor. **(kapandı)** Kullanıcı seçenek A'yı seçti (m = 3).
 22. **0.2'nin hangi birime uygulandığı yazılmamış.** "≤ %2" her sistem ve her set için ayrı mı, bir koşunun bütün cevapları için mi, belirtilmemiş. Türkçe değerlendirme görevleri (özetleme, çeviri) için de geçerli mi, açık değil.
-23. **2.1b'nin "insan kararı geçerlidir" kuralı kritik 2.1 ile çakışıyor.** 2.1 kritik, 2.1b uyarı. 2.1 aşılır ama 2.1b geçerse, uyarı eşiği kritik eşiği geçersiz kılabilir mi, belli değil (`thresholds_v1.md` §8, açık soru 1). **(kapandı)** İnsan kararı yalnızca kayıt etiketini değiştirir (`thresholds_v1.md` §9.1).
+23. **2.1b'nin "insan kararı geçerlidir" kuralı kritik 2.1 ile çakışıyor.** 2.1 kritik, 2.1b uyarı. 2.1 aşılır ama 2.1b geçerse, uyarı eşiği kritik eşiği geçersiz kılabilir mi, belli değil (`thresholds.md` §8, açık soru 1). **(kapandı)** İnsan kararı yalnızca kayıt etiketini değiştirir (`thresholds.md` §9.1).
 24. **Proje sahibinin kararı sonradan bir serbestlik getiriyor.** Uyarı eşiği aşıldığında (a) mı (b) mi seçileceğine dair önceden yazılmış bir ölçüt yok; karar sonuçlar görüldükten sonra veriliyor. İnceleme adımlarının ve etiket dağılımının önceden tanımlı olması ve kararın gerekçesiyle commit edilmesi bu riski azaltıyor, ama ortadan kaldırmıyor. Örneğin "`gercek_kotulesme` oranı %50'yi aşarsa karar (b)" gibi bir yol gösterici yok. **(kapandı)** Proje sahibinin kararı yalnızca servise çıkış hakkında; sonuç etiket düzeltmesi ve yeniden hesapla belirlenir ("çekinceli").
 25. **Uyarı incelemesi kör değil.** İncelenen kayıtlar zaten adaptörün aleyhine olduğu için seçiliyor; değerlendirici hangi cevabın adaptörden geldiğini bilerek etiket koyuyor. Bu, 1.2'deki kör formdan farklı bir yanlılık riski taşır. Rastgele kontrol kayıtları bunu kısmen dengeler.
-26. **Kalibrasyon soruları ve prompt ayarı.** 40 çift, 100 soruluk doğrulama setinin 40'ını kapsayabilir. Plan §6.8 madde 6'daki "kalibrasyon çiftleri prompt ayarında kullanılmaz" kuralı soruları da kapsıyorsa, prompt ayarı için 60 soru kalır (`thresholds_v1.md` §8, açık soru 3). **(kapandı)** Kalibrasyon soruları prompt ayarından çıkarılmaz; sınırlama rapor planına yazıldı.
-27. **4.1'in gerekçesindeki yakalama sayısı kullanıcının verdiğinden düşük.** Kullanıcı −2'de yakalamayı yaklaşık %68 verdi; betik üç farklı varsayımla %56–63 buldu (`thresholds_v1.md` §8, değişiklik 2). Kararın yönü değişmiyor, ama bedeli gerekçede yazılandan büyük.
+26. **Kalibrasyon soruları ve prompt ayarı.** 40 çift, 100 soruluk doğrulama setinin 40'ını kapsayabilir. Plan §6.8 madde 6'daki "kalibrasyon çiftleri prompt ayarında kullanılmaz" kuralı soruları da kapsıyorsa, prompt ayarı için 60 soru kalır (`thresholds.md` §8, açık soru 3). **(kapandı)** Kalibrasyon soruları prompt ayarından çıkarılmaz; sınırlama rapor planına yazıldı.
+27. **4.1'in gerekçesindeki yakalama sayısı kullanıcının verdiğinden düşük.** Kullanıcı −2'de yakalamayı yaklaşık %68 verdi; betik üç farklı varsayımla %56–63 buldu (`thresholds.md` §8, değişiklik 2). Kararın yönü değişmiyor, ama bedeli gerekçede yazılandan büyük.
 28. **2.1'de birleşik etiket iki karşılaştırmaya aynı biçimde uygulanamıyor.** İnsan formu yalnızca adaptör ve `hazir_istemli` cevaplarını kapsıyor. `baseline` karşılaştırmasında adaptörün 50 etiketi insandan, `baseline`'ınkiler yargıçtan gelirse iki taraf farklı araçla sayılır. Şimdilik birleşik etiket yalnızca `hazir_istemli` karşılaştırmasında uygulandı (açık karar 21). **(kapandı)** Kullanıcı onayladı (karar 21a).
 29. **Yedek yolda 2.1'in `baseline` karşılaştırması insanla ölçülemiyor.** Aynı nedenle: form `baseline`'ı kapsamıyor. Kritik 2.1'in iki karşılaştırmasından biri yedek yolda tanımsız kalıyor. Seçenekler: yalnızca betik kısmıyla (2.4 tanımı) sayıp "güvenilirliği düşük" yazmak ya da `baseline`'ı da insan formuna eklemek (50 cevap daha) (açık karar 21). **(kapandı)** Betik kısmıyla sayılır, "güvenilirliği düşük" (karar 21b).
 30. **Yedek yolda ikincil iddiaların durumu yazılmadı.** 5.1 ve Holm ailesinin üç testi tamamen yargıca dayanıyor ve uyarı eşiği değil. "Güvenilirliği düşük" kuralı uyarı eşikleri için yazıldı; bir yargıç sonucuyla "sentetik veri katkı sağladı" iddiası yapılıp yapılamayacağı belli değil (açık karar 21). **(kapandı)** İddia yapılmaz, "güvenilir ölçüm yapılamadı, iddia yapılmadı" yazılır (karar 21c).
 31. **Uyarı sonrası yeniden hesap tek yönlü.** U.2 yalnızca adaptör aleyhine kayıtları seçiyor. Yalnızca bunlar düzeltilirse ölçüm yanılgıları yalnızca adaptör lehine düzelir; ters yöndeki yanılgılar kalır ve yeniden hesap adaptör lehine kayar (açık karar 23). **(kapandı)** İki yöndeki uyuşmayan kayıtlar aynı yöntemle incelenir (karar 23a).
 32. **chrF ve perplexity incelemeyle düzeltilemez.** 3.2–3.5 kayıt etiketine değil deterministik hesaba dayanıyor. Bu eşikler aşılırsa inceleme değeri değiştiremez; sonuç pratikte doğrudan "çekinceli" olur. Diğer uyarı eşiklerine göre farklı işledikleri yazılı değil (açık karar 23). **(kapandı)** Bilinçli tercih olarak yazıldı: düzeltilemezler, aşılırlarsa doğrudan "çekinceli" (karar 23b).
 33. **Yargıç üslup türünde kalırsa T.6'nın durumu yazılı değil.** Aya üslup türüne bağlandı; T.6 bir tetikleyici olduğu için "güvenilirliği düşük" notu yetmez, tetikleyip tetiklemeyeceği karar ister (açık karar 23). **(kapandı)** T.6 tetiklemez, "ölçülemedi" diye raporlanır; diğer T ölçütleri çalışır (karar 23c).
+
+## Değişiklik geçmişi
+
+Onaydan sonraki her değişiklikte en üstteki "Sürüm" numarası bir artar ve buraya bir satır eklenir. Eski hâller git geçmişindedir: `git log --follow -- <bu dosya>`.
+
+| Tarih | Ne değişti | Neden |
+|---|---|---|
+| 2026-11-24 | İlk taslak; aynı gün eşik kararlarıyla güncellendi. | Eşiklerin sade açıklaması (bağlayıcı değil). |
+| 2026-11-26 | Dosya adındaki `_v1` eki kaldırıldı; bu satırlar ve bu bölüm eklendi. Hiçbir kural veya değer değişmedi. | Sürüm bilgisi dosya adında değil, dosyanın içinde ve git geçmişinde durur (proje sahibi kararı). |

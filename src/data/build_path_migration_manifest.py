@@ -11,8 +11,8 @@ Neden var:
 
 Nasıl çalıştırılır (terminalde, proje klasöründeyken):
     python -m src.data.build_path_migration_manifest \\
-        --pair inceleme/genel_kontrol_v2_taslak.jsonl evaluation/held_out/general_control_v2.jsonl \\
-        --pair inceleme/genel_kontrol_v2_onay.csv review/general_control_v2_review.csv \\
+        --pair inceleme/genel_kontrol_v2_taslak.jsonl evaluation/held_out/general_control_held_out.jsonl \\
+        --pair inceleme/genel_kontrol_v2_onay.csv review/general_control_held_out_review.csv \\
         --base-ref HEAD \\
         --lock-manifest evaluation/lock_manifest.json \\
         --output evaluation/path_migration.json

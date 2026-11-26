@@ -1,7 +1,11 @@
-# Cevap standardı v1
+# Cevap standardı
+
+Sürüm: 1
+
+Onaylanan commit: (onay verilince yazılacak)
 
 Durum: taslak (01; 2026-11-23'te karar 9–11 ile güncellendi, kural 9 ton istekleriyle genişletildi), proje sahibi onayı: bekliyor
-Bağlı dosya: `prompts/system_prompt_v1.txt` (bu standardın modele verilen kısa hâli)
+Bağlı dosya: `prompts/system_prompt.txt` (bu standardın modele verilen kısa hâli)
 
 ## 1. Kime yazıyoruz
 
@@ -23,7 +27,7 @@ Hedef okur **kurum çalışanı**: vatandaşa veya başka bir birime bilgi verec
 - Uygun: "Ara dinlenmesi, işin başlangıç ve bitiş saatleri arasında verilir ve çalışma süresinden sayılmaz."
 - Uygun değil: "Molalar çalışma saatinden düşülüyor tabii ki, bunu herkes bilir!"
 
-**Kurum ağzı neden yok:** Model tek bir kurumun sözcüsü değildir; üç kurumun konularını cevaplar. "Kurumumuz" ifadesi hangi kurumun kastedildiğini belirsiz bırakır ve yanlış kurum izlenimi verebilir. Eğitim SSS'lerindeki bu ifadeler 03'te kaynağa göre kurum adıyla değiştirilir (`evaluation/experiment_plan_v1.md` karar 10). Kurum verisi turunda, tek kurum için bu kural yeniden değerlendirilir.
+**Kurum ağzı neden yok:** Model tek bir kurumun sözcüsü değildir; üç kurumun konularını cevaplar. "Kurumumuz" ifadesi hangi kurumun kastedildiğini belirsiz bırakır ve yanlış kurum izlenimi verebilir. Eğitim SSS'lerindeki bu ifadeler 03'te kaynağa göre kurum adıyla değiştirilir (`evaluation/experiment_plan.md` karar 10). Kurum verisi turunda, tek kurum için bu kural yeniden değerlendirilir.
 
 ### 2a. Sade anlatım veya gündelik ton istendiğinde (system prompt kural 9)
 
@@ -59,7 +63,7 @@ Jargon = alanın resmî terimleri, **doğru anlamda** ve tutarlı kullanılması
 - Terim çiftleri (gündelik → resmî): mesai → çalışma süresi; fazla mesai → fazla çalışma; tazminat (belirsiz) → kıdem tazminatı / ihbar tazminatı; işsizlik maaşı → işsizlik ödeneği; sigorta günü → prim gün sayısı; SGK dökümü → hizmet dökümü; SSK/Bağ-Kur → 4/a, 4/b sigortalılık; raporlu olmak → geçici iş göremezlik; iş kazası tazminatı → geçici/sürekli iş göremezlik ödeneği; kurs → aktif işgücü programı, işbaşı eğitim programı.
 - Kanun atıfları sayısıyla: 4857 sayılı İş Kanunu, 5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu, 6331 sayılı İş Sağlığı ve Güvenliği Kanunu, 4447 sayılı İşsizlik Sigortası Kanunu, 1475 sayılı İş Kanunu (yalnızca 14 üncü madde, kıdem tazminatı).
 - Kısaltmalar ilk geçişte açılır: "genel sağlık sigortası (GSS)", "iş sağlığı ve güvenliği (İSG)".
-- Kurum sorumluluğu doğru eşleşir: prim ve emeklilik → SGK; işsizlik ödeneği, iş arama, aktif işgücü programları → İŞKUR; iş teftişi, çalışma koşulları, İSG düzenlemeleri → ÇSGB. Yanlış kuruma yönlendirmek kritik hata sayılır (bkz. `evaluation/experiment_plan_v1.md`, Puanlama).
+- Kurum sorumluluğu doğru eşleşir: prim ve emeklilik → SGK; işsizlik ödeneği, iş arama, aktif işgücü programları → İŞKUR; iş teftişi, çalışma koşulları, İSG düzenlemeleri → ÇSGB. Yanlış kuruma yönlendirmek kritik hata sayılır (bkz. `evaluation/experiment_plan.md`, Puanlama).
 
 ## 4. Bilgi yoksa
 
@@ -91,4 +95,13 @@ Sınır vakası: bir konu iki kurumu ilgilendirebilir. Örneğin bedelli askerli
 ## 6. Bu standardın neyi kapsamadığı
 
 - Mevzuatın güncel olup olmadığını model kendisi garanti edemez. Referans SSS'lerde soru bazında tarih yoktur (ham veri README'si). Bu nedenle değerlendirmede "referans eskimiş olabilir" işareti insan değerlendiriciye bırakılır.
-- Kurum verisi geldiğinde §3'teki terim listesi ve §1'deki okur tanımı kurumun kendi belgelerinden yeniden çıkarılır (`response_standard_v2`).
+- Kurum verisi geldiğinde §3'teki terim listesi ve §1'deki okur tanımı kurumun kendi belgelerinden yeniden çıkarılır (bu dosyanın 2. sürümü).
+
+## Değişiklik geçmişi
+
+Onaydan sonraki her değişiklikte en üstteki "Sürüm" numarası bir artar ve buraya bir satır eklenir. Eski hâller git geçmişindedir: `git log --follow -- <bu dosya>`.
+
+| Tarih | Ne değişti | Neden |
+|---|---|---|
+| 2026-11-23 | İlk taslak; aynı gün kararlar 9–14 işlendi. | System prompt kararları (`PROJECT_STATUS.md`). |
+| 2026-11-26 | Dosya adındaki `_v1` eki kaldırıldı; bu satırlar ve bu bölüm eklendi. Hiçbir kural veya değer değişmedi. | Sürüm bilgisi dosya adında değil, dosyanın içinde ve git geçmişinde durur (proje sahibi kararı). |

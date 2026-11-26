@@ -67,7 +67,7 @@ Fine-tuning proje sahibinin talebidir; prompt'la karşılaştırma kapsam dış�
 configs/        deney YAML'ları
 data/           üretilen eğitim/doğrulama dosyaları + dataset_info.json (girdiler değil)
 src/            betikler (data/, data_generation/, training/, evaluation/, serving/)
-prompts/        system prompt ve prompt sürümleri
+prompts/        system prompt, değişiklik kaydı ve cevap standardı
 review/         benim dolduracağım CSV kuyrukları
 evaluation/     eşikler, deney planı, kilit manifesti, puanlama çıktıları
 experiments/    deney çıktıları
@@ -110,9 +110,9 @@ Model ağırlıkları ve büyük çıktılar git'e girmez.
 
 ## Ön kayıt (eşikler)
 
-- Geçme eşikleri `evaluation/thresholds_v1.md` dosyasında tutulur ve proje sahibi onayıyla commit edilir.  
+- Geçme eşikleri `evaluation/thresholds.md` dosyasında tutulur ve proje sahibi onayıyla commit edilir.  
 - Bu dosya onaylanmadan hiçbir model doğrulama setinde puanlanmaz; yalnızca 3–5 soruluk teknik deneme yapılır.  
-- Eşik değişikliği yeni sürüm dosyası ve gerekçesiyle yapılır, raporda gösterilir.
+- Onaydan sonra bir eşik değişirse yeni dosya açılmaz; aynı dosyada sürüm numarası artırılır, Değişiklik geçmişi bölümüne tarih, değişiklik ve gerekçe yazılır ve değişiklik raporda gösterilir. Onaylanan sürüm, onay commit'inin kimliğiyle kayıtlıdır.
 
 ## Puanlamayı kim yapar
 
@@ -130,13 +130,14 @@ Model ağırlıkları ve büyük çıktılar git'e girmez.
 ## Tutarlılık kuralları
 
 - **Düşünme modu her yerde kapalı:** eğitim şablonu, değerlendirme, öğretmen ve Ollama. Çıktıda `<think>` kalıntısı olup olmadığını otomatik kontrol et.  
-- **Tek system prompt:** `prompts/system_prompt_v1.txt`. Eğitim, değerlendirme ve servis aynı dosyayı kullanır.  
+- **Tek system prompt:** `prompts/system_prompt.txt`. Eğitim, değerlendirme ve servis aynı dosyayı kullanır.  
 - **Adil karşılaştırma:** Baseline ve adaptörler, eğitimle aynı 4-bit yükleme yolunda (HF \+ bitsandbytes NF4) ve aynı üretim ayarlarıyla değerlendirilir. Ollama yalnızca öğretmen ve servis içindir.
 
 ## Tekrarlanabilirlik ve deney takibi
 
 - `seed: 42`.  
-- Deney kimliği: `<short_name>_v<N>` (ör. `faq_adapter_v1`, `smoke_qlora_v1`). Her yeni koşu yeni bir sürüm numarası alır.  
+- Deney kimliği: `<short_name>_run<N>` (örneğin `faq_adapter_run1`, `smoke_qlora_run1`). Aynı deneyin her yeni koşusu bir sonraki koşu numarasını alır; böylece hiçbir koşu öncekinin üzerine yazmaz. Neyin değiştiği config dosyasında ve `experiments.csv` notunda yazar.
+- Dosya adlarında sürüm eki (`_v1` gibi) kullanılmaz; ad dosyanın ne olduğunu anlatır. Belgelerin sürümü dosyanın en üstündeki "Sürüm" satırında, değişiklikleri en alttaki "Değişiklik geçmişi" bölümünde ve git geçmişindedir. System prompt'un sürüm kaydı `prompts/system_prompt_changelog.md` dosyasındadır; prompt dosyasının kendisine satır eklenmez, çünkü model dosyayı olduğu gibi okur.  
 - Her deney için şunlar bulunur:  
   - `configs/<experiment_id>.yaml`  
   - `experiments/<experiment_id>/` (çıktı klasörü asla yeniden kullanılmaz; duman testleri `smoke_` önekiyle)  
@@ -179,7 +180,7 @@ def compute_sha256(file_path):
 
     Ne alır:
         file_path: Parmak izi çıkarılacak dosyanın yolu.
-                   Örnek: "evaluation/dev_out_of_scope_v1.jsonl"
+                   Örnek: "evaluation/dev_out_of_scope.jsonl"
 
     Ne döndürür:
         Parmak izi metni. Örnek: "3a7bd3e2360a3d29eea436fcfb7e44c7..."

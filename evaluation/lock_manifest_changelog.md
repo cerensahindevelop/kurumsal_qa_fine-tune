@@ -11,7 +11,7 @@ git show 35f1a69:degerlendirme/kilit_manifesti_v5.json
 
 Tablodaki "değişti / eklendi / aynı" bilgileri `src/evaluation/compare_lock_manifests.py` betiğinin çıktısından alındı (ölçüldü).
 Parmak izleri ilk 12 karakteriyle yazıldı. Betik yalnızca manifestleri okur; kilitli dosyaların içeriği açılmadı.
-"Neden" sütunu `PROJECT_STATUS.md` ve `evaluation/experiment_plan_v1.md` içindeki kararlardan kısaltıldı.
+"Neden" sütunu `PROJECT_STATUS.md` ve `evaluation/experiment_plan.md` içindeki kararlardan kısaltıldı.
 
 ## Sürümler
 

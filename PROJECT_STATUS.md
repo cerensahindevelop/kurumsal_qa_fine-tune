@@ -1,10 +1,53 @@
 # PROJECT_STATUS
 
-Son güncelleme: 2026-11-26 (bakım: tek güncel dosya düzeni, archive/ kaldırıldı; bakım: karar isteme kuralı; bakım: kilit manifesti değişiklik kaydı; bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-26 (bakım: dosya adlarından sürüm ekleri kaldırıldı; bakım: tek güncel dosya düzeni, archive/ kaldırıldı; bakım: karar isteme kuralı; bakım: kilit manifesti değişiklik kaydı; bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
 
 ---
 
 > **Not (2026-11-26):** `archive/` klasörü kaldırıldı. Her kayıt türünün tek bir güncel dosyası var; eski hâller git geçmişinde. Aşağıdaki geçmiş kayıtlarda geçen `archive/…`, `lock_manifest_v<N>.json`, `env/<tarih>_…` ve `path_migration_*_2026-11-25.json` yolları o günün doğru kaydıdır ve değiştirilmedi (proje sahibi kararı 2A). Bu dosyaları görmek için: `git show 1919cce:<yol>`. Kilit manifesti sürümlerinin commit'leri: `evaluation/lock_manifest_changelog.md`.
+
+## Bakım: dosya adlarından sürüm ekleri kaldırıldı (2026-11-26; aşama değil, 02'ye geçilmedi)
+
+### Tamamlanan iş
+- Proje içindeki 7 dosyanın adından `_v1` kaldırıldı (`git mv`):
+  - `prompts/system_prompt_v1.txt` → `prompts/system_prompt.txt`
+  - `prompts/response_standard_v1.md` → `prompts/response_standard.md`
+  - `evaluation/thresholds_v1.md` → `evaluation/thresholds.md`
+  - `evaluation/thresholds_v1_explained.md` → `evaluation/thresholds_explained.md`
+  - `evaluation/experiment_plan_v1.md` → `evaluation/experiment_plan.md`
+  - `evaluation/dev_out_of_scope_v1.jsonl` → `evaluation/dev_out_of_scope.jsonl`
+  - `report/report_plan_v1.md` → `report/report_plan.md`
+- Beş belgenin en üstüne "Sürüm: 1" ve "Onaylanan commit: (onay verilince yazılacak)", en altına "Değişiklik geçmişi" eklendi. Başlıklardaki "v1" kalktı. `thresholds.md`'de onaydan önceki 12 değişiklik kopyalanmadı; tablo §8'e işaret ediyor.
+- Belgelerdeki "yeni sürüm dosyası açılır" kuralları (`thresholds.md` 3 yer, `thresholds_explained.md` 2, `experiment_plan.md` 1, `response_standard.md` 1, `report_plan.md` 1) yeni kurala göre yeniden yazıldı.
+- Yeni `prompts/system_prompt_changelog.md`: system prompt'un sürümü, onay commit satırı, SHA-256'sı ve değişiklik geçmişi.
+- CLAUDE.md: klasör satırı, eşik değişikliği kuralı, eşik ve system prompt dosya adları, deney kimliği kuralı ve yeni "dosya adında sürüm eki yok" kuralı, docstring örneği.
+- `experiments.csv`: `system_prompt` sütunu `system_prompt_sha256` oldu. Satır olmadığı ve okuyan kod bulunmadığı için veri taşıma veya `LEGACY_*` eşlemesi gerekmedi.
+- Planlanan dosya adlarından da sürüm eki kalktı: `evaluation/held_out/general_control_held_out.jsonl`, `review/general_control_held_out_review.csv`, `review/human_form.csv`, `evaluation/human_form_key.json`, `review/trap_human_form.csv`; örneklerdeki `faq_adapter_v1` → `faq_adapter_run1`.
+- 02'nin yapılacakları yeni taşıma adlarıyla güncellendi (taşıma yapılmadı).
+- Taşıma kanıtı: `evaluation/path_migration.json` (7 dosya).
+- Öğrenme notu: `docs/learning/maintenance_versionless_file_names.md`.
+
+### Kararlar (proje sahibi, 2026-11-26)
+- **1A, deney koşusu adı `<short_name>_run<N>`.** Gerekçe: en basit ve hatasız seçenek; dosya adındaki `v` belge sürümüyle karışmaz; neyin değiştiği config dosyasında ve `experiments.csv` notunda.
+- **2A, system prompt ve JSONL dosyası saf kalır.** Gerekçe: model `system_prompt.txt` dosyasını olduğu gibi okur; içine "Sürüm: 1" yazılsaydı model de görürdü ve parmak izi modelin gördüğü metnin izi olmazdı. JSONL'e fazladan satır biçimi bozardı. System prompt'un sürümü `prompts/system_prompt_changelog.md`'de, geliştirme setininki `experiment_plan.md` Değişiklik geçmişi'nde.
+- **Planın geri kalanı onaylandı.** CLAUDE.md'deki yeni eşik kuralına "değişiklik raporda gösterilir" kısmı da eklendi (proje sahibinin isteği).
+- Geçmiş kayıtlar değişmedi (önceki karar 2A ile aynı yaklaşım): bu dosyanın geçmiş bölümleri, `lock_manifest_changelog.md` tablosu, `docs/learning/maintenance_naming_refactor.md` ve `build_path_migration_manifest.py` içindeki gerçek geçmiş taşıma örneği eski adlarla kaldı. Dış girdi klasörlerindeki adlara (ör. `genel_kontrol_v1`) ve `inceleme/` içindeki iki kilitli dosyaya dokunulmadı. Belgelerde veri seti adı olarak geçen "v1" ve "v2" (`genel_kontrol_v1`, `genel_kontrol_v2`) dosya sürümü değil, iki ayrı setin adıdır; değişmedi.
+- Saf teknik ayrıntı (sorulmadı): "Sürüm" ve "Onaylanan commit" satırları başlığın hemen altına yazıldı (Markdown'da başlıktan önceki satır düzgün görünmez).
+
+### Doğrulama sonuçları
+**Ölçüldü:**
+- Eşik değerleri değişmedi. Eski hâle aynı ad eşlemesi uygulanıp yenisiyle satır satır karşılaştırıldı. Değişmeyen satırlarda sayı dizisi birebir aynı: `thresholds.md` 1.204, `thresholds_explained.md` 1.912 sayı. Değişen satırlar yalnızca başlık, sürüm satırları, "yeni dosya açılır" kural cümleleri (sırasıyla 3 ve 2) ve yeni Değişiklik geçmişi bölümü. Çıkan satırlardaki sayılar yalnızca başlıktaki "v1", `thresholds_v2` adı ve geçmiş commit numarası gibi ad parçalarıydı; hiçbiri eşik değeri değil.
+- Kilitli dosyalar değişmedi: yeniden tarama 27 kilitli dosya, `lock_manifest=değişmedi version=6`; `evaluation/lock_manifest.json` dosyasına dokunulmadı. Girdi listesi 506 dosya, parmak izleri önceki commit'le aynı (`env/input_sha256.json` yalnızca tarih satırı değişti). `inceleme/` içindeki iki kilitli dosya taşınmadı.
+- `evaluation/path_migration.json`: 7 taşıma, kilitli dosya 0. İçeriği aynı kalan 2 dosya: `system_prompt.txt` (SHA-256 `0ecd66614c7f…`, 2.977 bayt) ve `dev_out_of_scope.jsonl` (`4b510c13714c…`). Kalan 5'i, başlık, sürüm satırı ve bölüm eklenen belgeler.
+- Bütün betikler `--help` ile çalışıyor (6/6). Talimat niteliğindeki yerlerde eski ada atıf kalmadı. Eski adlar yalnızca geçmiş kayıtlarda ve bu bölümdeki eski → yeni listesinde geçiyor.
+- `env/packages.txt` yeniden üretildi; değişmedi.
+- Uygulama sırasındaki hata ve düzeltmesi: ad değiştirme betiği doğrulama sırasında yanlışlıkla ikinci kez çalıştı. Bu, bu dosyanın geçmiş bölümlerinde 20 satırı, README'de 1 ve `experiment_plan.md`'de 1 satırı (bilerek eski adla yazılmış satırlar) değiştirdi. 20 satırın hepsi git'teki hâline döndürüldü; diğer ikisi elle düzeltildi. Değişen satırların hepsinin talimat bölümlerinde ya da yeni bölümde olduğu `git diff` ile kontrol edildi.
+
+**Tahmin / bekleyen iş:** yok.
+
+### Değişen çalıştırılabilir kod veya komut yolları
+- Betiklerin çalıştırma biçimi değişmedi. Yalnızca örnek yollar yeni adlarla yazıldı (`count_phrase_matches`, `build_input_manifest`, `threshold_probabilities`, `compare_lock_manifests`, `build_path_migration_manifest` docstring'leri).
+- System prompt parmak izi: `sha256sum prompts/system_prompt.txt`.
 
 ## Bakım: tek güncel dosya düzeni, archive/ kaldırıldı (2026-11-26; aşama değil, 02'ye geçilmedi)
 
@@ -129,8 +172,8 @@ Son güncelleme: 2026-11-26 (bakım: tek güncel dosya düzeni, archive/ kaldır
 
 ### 02'nin yapılacakları (bu bakımdan)
 - Çakışma denetiminden sonra kilitli dosyalar İngilizce adlarıyla taşınır:
-  - `inceleme/genel_kontrol_v2_taslak.jsonl` → `evaluation/held_out/general_control_v2.jsonl`
-  - `inceleme/genel_kontrol_v2_onay.csv` → `review/general_control_v2_review.csv`
+  - `inceleme/genel_kontrol_v2_taslak.jsonl` → `evaluation/held_out/general_control_held_out.jsonl`
+  - `inceleme/genel_kontrol_v2_onay.csv` → `review/general_control_held_out_review.csv`
 - Taşımadan önce ve sonra SHA-256 aynı olmalı. Kanıt `python -m src.data.build_path_migration_manifest --pair <eski> <yeni> … --base-ref HEAD --lock-manifest evaluation/lock_manifest.json --output evaluation/path_migration.json` ile tek dosyaya yazılır (README 1d). Ardından `build_input_manifest` yeniden çalıştırılır; `evaluation/lock_manifest.json` güncellenir, `version` 7 olur ve hiçbir model çalışmadan önce commit edilir. *(2026-11-26'da tek dosya düzenine göre güncellendi.)*
 - Sürüm 7 üretilince, commit etmeden önce `python -m src.evaluation.compare_lock_manifests --old HEAD:evaluation/lock_manifest.json --new evaluation/lock_manifest.json --path-migration evaluation/path_migration.json` çalıştırılır. `evaluation/lock_manifest_changelog.md` tablosuna v7 satırı eklenir. Beklenen: taslak "aynı kaldı (taşındı)", test ve tuzak 7/7 aynı. Bu kural bundan sonraki her manifest sürümü için geçerlidir (README "1a").
 - Taşımadan sonra `inceleme/` boşalırsa silinir. `evaluation/held_out/**` için Read deny kuralı eklenir (settings.json değişeceği için README'deki erişim engeli testi yapılır).
@@ -388,7 +431,7 @@ Son güncelleme: 2026-11-26 (bakım: tek güncel dosya düzeni, archive/ kaldır
    - GK2-044'ün 4. öğesi kullanıcının metniyle aynen taslağa işlendi. Gerekçe: 1475 md. 14'e göre kıdem tazminatını yalnızca 4857 md. 25/II kaldırır; işçinin haklı nedenle feshi (md. 24) de tazminat doğurur.
    - Bilgi öğesi kontrolünün kapsamı (ikincil kaynaklar, birincil metinle tek tek karşılaştırma yok) rapor planı §4.4'e sınırlama olarak yazıldı.
    - Taslak yeniden üretilen CSV ile bayt bayt aynı (ölçüldü). Onaylı taslak `archive/degerlendirme/lock_manifest_v5.json` ile kilitlendi.
-   - **Açık:** taşıma 02'deki çakışma denetiminden sonra yapılacak (kullanıcı kararı). Taşımadan sonra önerilen Read deny kuralı eklenmeli: `evaluation/held_out/**` (dosya İngilizce adıyla `general_control_v2.jsonl` olarak taşınacak; yukarıdaki "02'nin yapılacakları").
+   - **Açık:** taşıma 02'deki çakışma denetiminden sonra yapılacak (kullanıcı kararı). Taşımadan sonra önerilen Read deny kuralı eklenmeli: `evaluation/held_out/**` (dosya İngilizce adıyla `general_control_held_out.jsonl` olarak taşınacak; yukarıdaki "02'nin yapılacakları").
 - ~~9. `b` grubu ile `system_prompt_v1` gerilimi~~: karar 9 ile kapandı (aşağıda).
 - ~~`genel_kontrol_v2` sade anlatım isteği denetimi~~ kapandı.
   - GK2-036 kullanıcı kararıyla değişmedi; "kolayca anlatır mısın, bilgisayardan pek anlamaz" açık bir istektir.
@@ -403,7 +446,7 @@ Son güncelleme: 2026-11-26 (bakım: tek güncel dosya düzeni, archive/ kaldır
   - GKD-008'in beklenen davranışına "Asgari ücretin Asgari Ücret Tespit Komisyonu tarafından belirlendiğini söyleyebilir." eklendi.
   - Diğer 13 kayıt olduğu gibi onaylandı. 15 kaydın hepsinde `onay: "onaylandı (kullanıcı)"`. Ölçüldü: yalnızca bu üç alan değişti, başka alan değişmedi.
   - Set kilit manifestinde değil (geliştirme seti); yeni manifest üretilmedi. 02'deki çakışma denetiminden geçecek.
-8. **Proje sahibi onayları:** `thresholds_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `experiment_plan_v1.md`, `report/report_plan_v1.md`, `response_standard_v1.md`, `system_prompt_v1.txt`, `dev_out_of_scope_v1.jsonl` (15 soru). Kullanıcı `response_standard_v1.md` ve `system_prompt_v1.txt` için kararlarını verdi (karar 9–14). `dev_out_of_scope_v1.jsonl` kullanıcı tarafından onaylandı (aşağıda); proje sahibi onayı yine bekliyor.
+8. **Proje sahibi onayları:** `thresholds.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `experiment_plan.md`, `report/report_plan.md`, `response_standard.md`, `system_prompt.txt`, `dev_out_of_scope.jsonl` (15 soru). Kullanıcı `response_standard.md` ve `system_prompt.txt` için kararlarını verdi (karar 9–14). `dev_out_of_scope.jsonl` kullanıcı tarafından onaylandı (aşağıda); proje sahibi onayı yine bekliyor.
 15. **Düşünme modu yan deneyi** (açık, karar 06'da verilecek): `baseline` model doğrulama setinde düşünme açık ve kapalı çalıştırılıp bilgi doğruluğu (bilgi puanı, kritik hata) ve süre karşılaştırılsın mı? Ana planda yok, hiçbir eşiği etkilemez. Yapılırsa 0.1'i bilerek ihlal ettiği için ayrı bir deney kimliğiyle yürütülmeli. Gerekçe: düşünme kapalılığının çok adımlı sorulardaki (ör. kıdem + ihbar birlikte) bedeli ölçülmedi. Ayrıntı `thresholds_v1_explained.md`, 0.1 ek bölümü.
 16. **Eşik açıklamasında listelenen zayıf noktalar** (`thresholds_v1_explained.md` §12, 33 madde). Gruplama 2026-11-24'te yapıldı:
     - **Proje sahibi onayından önce (10): hepsi kapandı** (1, 2, 6, 7, 8, 9, 12, 15, 20, 24; `thresholds_v1.md` §8 değişiklik 10).
@@ -445,8 +488,9 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
 | V10 | `genel_kontrol_v2` sınırlaması artık var olmayan "prompt geliştirme"den söz ediyordu. | "System prompt ve seçilen ayarlar" olarak düzeltildi; risk aynı kaldı. | `report_plan_v1.md` §4.4 (`genel_kontrol_v2` maddesi) |
 
 ### Onaya hazır dosyalar (proje sahibi onayı bekliyor)
-- **Onaylanacaklar:** `evaluation/thresholds_v1.md`, `evaluation/experiment_plan_v1.md`, `report/report_plan_v1.md`, `prompts/response_standard_v1.md`, `prompts/system_prompt_v1.txt`, `evaluation/dev_out_of_scope_v1.jsonl` (15 soru).
-- **Destekleyici, bağlayıcı değil:** `evaluation/thresholds_v1_explained.md`, `src/evaluation/threshold_probabilities.py`, `evaluation/threshold_probabilities.json` (2026-11-26'da arşivdeki v1'in yerine üretildi; sayılar aynı).
+- **Onaylanacaklar:** `evaluation/thresholds.md`, `evaluation/experiment_plan.md`, `report/report_plan.md`, `prompts/response_standard.md`, `prompts/system_prompt.txt`, `evaluation/dev_out_of_scope.jsonl` (15 soru).
+- Onay verilince her belgenin en üstündeki "Onaylanan commit: (onay verilince yazılacak)" satırı ve `prompts/system_prompt_changelog.md` içindeki aynı satır, onay commit'inin kimliğiyle ayrı bir commit'te doldurulur.
+- **Destekleyici, bağlayıcı değil:** `prompts/system_prompt_changelog.md` (system prompt'un sürümü ve parmak izi), `evaluation/thresholds_explained.md`, `src/evaluation/threshold_probabilities.py`, `evaluation/threshold_probabilities.json` (2026-11-26'da arşivdeki v1'in yerine üretildi; sayılar aynı).
 - Her dosyanın son commit'i `git log -1 --follow --format=%h -- <dosya>` ile görülür (`--follow`, 2026-11-25 ad değişikliğinden önceki geçmişi de izler). Onay, eşik dosyasının sonundaki "Proje sahibi onayı (genel)" satırına ve "Onay (proje sahibi)" sütunundaki "bekliyor" hücrelerine ayrı bir commit'le yazılır.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
@@ -456,29 +500,30 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
   - Dosya başına %30 / %70, seed 42, geliştirmede ≥ 50 kayıt.
   - Alt grubu olan dosyalarda (TurkishMMLU ders, `genel_kontrol` soru türü) katmanlı.
   - Betik yalnızca kimlik, sayı ve SHA-256 yazar.
-  - Beklenen boyutlar `experiment_plan_v1.md` §6.5'te.
+  - Beklenen boyutlar `experiment_plan.md` §6.5'te.
   - `genel_kontrol_v1` ve `turkishmmlu_dev` bölünmez (karar 6). `genel_kontrol_v2` saklanan bölümdür.
 - 02'deki çakışma denetimine `inceleme/genel_kontrol_v2_taslak.jsonl` (onaylı hâli) de girer. Karşılaştırılacak setler: eğitim adayları, genel Türkçe havuzu, `genel_kontrol_v1`, geliştirme kapsam dışı seti, doğrulama, test ve tuzak.
-- v2 onaylandı ama henüz taşınmadı. 02'deki çakışma denetiminden sonra `evaluation/held_out/general_control_v2.jsonl` yoluna taşınır (İngilizce ad, kullanıcı kararı 2026-11-25), `evaluation/lock_manifest.json` güncellenir (sürüm 6 → 7) ve hiçbir model çalışmadan önce commit edilir. Denetimde değişiklik gerekirse yeniden kullanıcı onayı alınır.
+- v2 onaylandı ama henüz taşınmadı. 02'deki çakışma denetiminden sonra `evaluation/held_out/general_control_held_out.jsonl` yoluna taşınır (İngilizce ad, kullanıcı kararı 2026-11-25; adındaki sürüm eki 2026-11-26'da kaldırıldı), `evaluation/lock_manifest.json` güncellenir (sürüm 6 → 7) ve hiçbir model çalışmadan önce commit edilir. Denetimde değişiklik gerekirse yeniden kullanıcı onayı alınır.
 - v2'nin `b` soruları SSS konularına yakın (işsizlik ödeneği, yıllık izin, ihbar, süt izni vb.). 02'deki çakışma denetiminde test ve tuzakla yakın eşleşme çıkabilir; çıkarsa yalnızca kimlikle CSV'ye yazılır.
-- **03 için önceden kayıtlı veri dönüşümleri** (`experiment_plan_v1.md` karar 10 ve 11). İkisi de betikle yapılır, değişen kimlikleri yazar ve belirsiz kayıtları `review/` kuyruğuna gönderir. Kilitli doğrulama ve test referanslarına dokunulmaz.
+- **03 için önceden kayıtlı veri dönüşümleri** (`experiment_plan.md` karar 10 ve 11). İkisi de betikle yapılır, değişen kimlikleri yazar ve belirsiz kayıtları `review/` kuyruğuna gönderir. Kilitli doğrulama ve test referanslarına dokunulmaz.
   1. **Kurum ağzı:** eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ve çekimli biçimleri `kaynak` alanına göre kurum adıyla değiştirilir.
   2. **Eskimiş tutar** (kullanıcı onaylı): dönemsel TL tutarları kaldırılır, yerine hesaplama yolu ve kontrol önerisi yazılır. Kanunda belirlenmiş süre, gün ve oranlar korunur. Tutarın dönemsel mi yoksa kanunda sabit mi olduğu belirsizse kayıt inceleme kuyruğuna gider.
 - 02'deki toplu sayımlarda doğrulama ve test referanslarında "Kurumumuz/Bakanlığımız" ve TL tutarı içeren kayıtların **yalnızca sayısı** çıkarılmalı; içerik basılmamalı. Bu sayılar rapor sınırlaması için gerekiyor.
 - Sızıntı puanlama betiği işaret listesini kaydın `grup` alanına göre seçmeli (`a` / `b`), dosyadaki `yasak_kalip` alanını kullanmamalı (§6.6).
 - 11'deki insan formu için 50 test sorusu, cevaplar üretilmeden önce kimlikle seçilir (seed 42, kaynağa göre katmanlı). Bu seçim 11'in ilk adımıdır, 02'de yapılmaz.
+- **Deney kimliği ve `experiments.csv` (2026-11-26):** kimlik `<short_name>_run<N>` (örneğin ilk duman testi `smoke_qlora_run1`). `experiments.csv` satırını yazan betik `system_prompt_sha256` sütununu `prompts/system_prompt.txt` dosyasından kendisi hesaplamalı; elle yazılmamalı. Değer `prompts/system_prompt_changelog.md` tablosundakiyle aynı değilse betik durmalı.
 - Kilitli setler yalnızca toplu sayı, kimlik ve SHA-256 yazan betiklerle açılır. Çakışma denetiminde test ve tuzak içeren çiftler yalnızca kimlikle `review/` CSV'sine yazılır.
-- `dev_out_of_scope_v1.jsonl` 02'deki çakışma denetimine dahil edilmeli.
-- Few-shot havuzu, üslup prompt'u ve prompt ayarı **kapsam dışı** (2026-11-24, `hazir_istemli` çıkarıldı; `experiment_plan_v1.md` §5). Bütün sistemler yalnızca `system_prompt_v1` ile çalışır.
-- Yargıç adayları: `gemma4:12b` ve `gemma4:26b`. Kalibrasyon ancak eşik onayından ve doğrulama cevapları üretildikten sonra yapılır. Seçim kuralı `thresholds_v1.md` 0.5'te.
+- `dev_out_of_scope.jsonl` 02'deki çakışma denetimine dahil edilmeli.
+- Few-shot havuzu, üslup prompt'u ve prompt ayarı **kapsam dışı** (2026-11-24, `hazir_istemli` çıkarıldı; `experiment_plan.md` §5). Bütün sistemler yalnızca `system_prompt.txt` ile çalışır.
+- Yargıç adayları: `gemma4:12b` ve `gemma4:26b`. Kalibrasyon ancak eşik onayından ve doğrulama cevapları üretildikten sonra yapılır. Seçim kuralı `thresholds.md` 0.5'te.
 - Üretim ayarı önerisi: greedy, `max_new_tokens=512`, `seed=42`, düşünme kapalı. Yükleme: HF + bitsandbytes NF4.
 - Proje Python ortamı henüz kurulmadı. `pip freeze` şimdilik temel miniconda ortamından (Python 3.13.13).
 - Qwen3.8 için LLaMA-Factory şablon adı (düşünme kapalı) doğrulanmadı (bekleyen iş).
 
 - **Eşik kararlarından doğan işler (2026-11-24):**
-  - Uyarı incelemesi için kayıt seçme betiği `src/evaluation/warning_review_queue.py` yazılacak (bekleyen iş): 11'den önce, 4.3 kullanılacaksa doğrulama aşamasından önce. Kurallar `thresholds_v1.md` §6.2'de: seed 42, eşik başına en fazla 40 kayıt, yalnızca kimlik basar, çıktısı `review/warning_<experiment_id>_<threshold>.csv`.
+  - Uyarı incelemesi için kayıt seçme betiği `src/evaluation/warning_review_queue.py` yazılacak (bekleyen iş): 11'den önce, 4.3 kullanılacaksa doğrulama aşamasından önce. Kurallar `thresholds.md` §6.2'de: seed 42, eşik başına en fazla 40 kayıt, yalnızca kimlik basar, çıktısı `review/warning_<experiment_id>_<threshold>.csv`.
   - Bütün puanlama ve rapor betikleri ikili karşılaştırmaları §7 biçiminde yazmalı: kazanma / beraberlik / kayıp, beraberliğin eşit ve sıra tutarsız ayrımı, p değeri.
-  - Yargıç kalibrasyon seti doğrulamadan 40 çift olacak: `baseline` ile ilk `faq_adapter` koşusunun (`faq_adapter_v1`, son checkpoint) doğrulama cevapları (V7). Kalibrasyon soruları adaptör ayar ve tarif seçiminden çıkarılmaz (V9).
+  - Yargıç kalibrasyon seti doğrulamadan 40 çift olacak: `baseline` ile ilk `faq_adapter` koşusunun (`faq_adapter_run1`, son checkpoint) doğrulama cevapları (V7). Kalibrasyon soruları adaptör ayar ve tarif seçiminden çıkarılmaz (V9).
 - **Açık kararlar 17–20'den doğan işler (2026-11-24):**
   - İnsan formu betiği (11) bilgi bölümüne "Kritik hata var mı? Var / Yok" alanını koymalı; §6.3 tanımı formda yazılı olmalı.
   - 2.1 puanlama betiği etiket kaynağını kayıt başına yazmalı (`insan` / `yargic_betik`) ve §9.1'e göre birleştirmeli. §2 yalnızca `baseline` ile karşılaştırılır; 50 insan sorusunda iki tarafın (adaptör, `baseline`) etiketi de insandan gelir.
@@ -492,9 +537,9 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
   - Madde 22 (0.2'nin birimi: sistem başına mı, set başına mı, Türkçe değerlendirme görevlerinde de geçerli mi): üretim betiği yazılırken, hiçbir puanlamadan önce sabitlenecek.
   - Madde 17 (2.3'te sayı içermeyen referanslar): sayı metriği betiği yazılırken tanımlanacak. 02'de doğrulama ve test referanslarında sayı içermeyenlerin yalnızca sayısı çıkarılabilir.
   - Madde 14 (2.4, 2.1'in alt kümesi): 2.1/2.4 puanlama betiği ve rapor bunu açıkça yazacak. Yedek yolda 2.4 kullanıldığı için önemli.
-  - Madde 25 (uyarı incelemesi kör değil): uyarı kuyruğu betiği (11'den önce) körleme ekleyebilir. §6.2'nin metnine dokunacağı için `thresholds_v2` gerektirebilir.
+  - Madde 25 (uyarı incelemesi kör değil): uyarı kuyruğu betiği (11'den önce) körleme ekleyebilir. §6.2'nin metnine dokunacağı için eşik dosyasında sürüm artışı gerektirebilir.
   - Madde 13 (K.3 sonrası bilinen sorunla teste girme): tetikleyici çalışırsa rapor taslağında bu senaryo önceden hazırlanacak.
-  - Yedek yol gerekirse (kalibrasyonda iki aday da kalırsa) 11'de tuzak için ayrı kör insan formu gerekir: `review/trap_human_form_v1.csv`, ayrı anahtar dosyası, 56 cevap. Kalibrasyon sonucu doğrulama aşamasında bilineceği için ihtiyaç 11'den önce belli olur.
+  - Yedek yol gerekirse (kalibrasyonda iki aday da kalırsa) 11'de tuzak için ayrı kör insan formu gerekir: `review/trap_human_form.csv`, ayrı anahtar dosyası, 56 cevap. Kalibrasyon sonucu doğrulama aşamasında bilineceği için ihtiyaç 11'den önce belli olur.
 
 ### Değişen çalıştırılabilir kod veya komut yolları
 - Yeni: `python -m src.data.build_input_manifest --input ... --output ... --lock-manifest-output ...` (README "01" bölümü).

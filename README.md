@@ -13,7 +13,7 @@ Proje kuralları: `CLAUDE.md` · Güncel durum: `PROJECT_STATUS.md`
 | `configs/` | Deney YAML'ları (`<experiment_id>.yaml`) |
 | `data/` | Üretilen eğitim/doğrulama dosyaları + `dataset_info.json` (JSONL'ler git'e girmez) |
 | `src/` | Betikler: `data/` (veri hazırlama, manifest, review CSV), `data_generation/` (öğretmen modelle eğitim verisi üretimi), `training/`, `evaluation/`, `serving/` |
-| `prompts/` | System prompt (`system_prompt_v1.txt`) ve cevap standardı |
+| `prompts/` | System prompt (`system_prompt.txt`), onun sürüm kaydı (`system_prompt_changelog.md`) ve cevap standardı |
 | `review/` | İnsanın dolduracağı CSV kuyrukları |
 | `evaluation/` | Deney planı, eşikler, geliştirme kapsam dışı seti, kilit manifesti (`lock_manifest.json`) ve değişiklik kaydı, eşik olasılıkları, puanlama çıktıları |
 | `experiments/` | Deney çıktıları (`<experiment_id>/`, asla yeniden kullanılmaz) |
@@ -37,6 +37,10 @@ git show 35f1a69:degerlendirme/kilit_manifesti_v5.json
 
 - Kilit manifestinin her sürümünün commit'i, yolu ve "neyin neden değiştiği": `evaluation/lock_manifest_changelog.md`.
 - Bir dosyanın bütün geçmişi: `git log --oneline -- <yol>`. Yolu değişmiş dosyalarda `--follow` bazen yanlış eşler; değişiklik kaydı bunun için doğrulanmış commit'leri verir.
+- Dosya adlarında sürüm eki (`_v1` gibi) yoktur. Bir belgenin sürümü en üstteki "Sürüm" satırında, değişiklikleri en alttaki "Değişiklik geçmişi" bölümündedir. Onaylanan sürüm, onay commit'inin kimliğiyle kayıtlıdır. System prompt dosyasına satır eklenmez, çünkü model dosyayı olduğu gibi okur; sürümü ve parmak izi `prompts/system_prompt_changelog.md` içindedir.
+- `experiments.csv` dosyasının `system_prompt_sha256` sütununa, deneyde kullanılan `prompts/system_prompt.txt` dosyasının SHA-256 parmak izi yazılır (`sha256sum prompts/system_prompt.txt`).
+- Deney kimliği `<short_name>_run<N>` biçimindedir (örneğin `faq_adapter_run1`); aynı deneyin yeni koşusu bir sonraki numarayı alır.
+- 2026-11-26'dan önceki yollar (örneğin `evaluation/thresholds_v1.md`) git geçmişindedir: `git log --follow -- evaluation/thresholds.md`.
 - v1–v5 ve eski girdi listeleri Türkçe alan adlıdır. Betikler bunları `LEGACY_FIELD_NAMES` ve `LEGACY_OUTPUT_KEYS` sözlükleriyle okur.
 
 ## Girdiler (salt okunur)

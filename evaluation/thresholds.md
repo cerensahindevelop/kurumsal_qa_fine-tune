@@ -1,11 +1,15 @@
-Sade açıklama: thresholds_v1_explained.md (bağlayıcı değildir; çelişki olursa bu dosya geçerlidir).
+Sade açıklama: thresholds_explained.md (bağlayıcı değildir; çelişki olursa bu dosya geçerlidir).
 
-# Geçme eşikleri v1 (ön kayıt)
+# Geçme eşikleri (ön kayıt)
+
+Sürüm: 1
+
+Onaylanan commit: (onay verilince yazılacak)
 
 Durum: TASLAK (01, 2026-11-23; aynı gün açık kararlarla güncellendi: §1.2, §2.1, §3, yeni §3A. 2026-11-24'te onaydan önce kullanıcı kararlarıyla güncellendi: kritik/uyarı ayrımı, 4.1, kalibrasyon 40 çift, raporlama kuralı, Holm ailesi önerisi; bkz. §6–§8. Aynı gün açık kararlar 17–20 kapatıldı: Holm ailesi, 2.1/2.1b birleşik etiketi, yargıç yedek yolu, kalibrasyon soruları; bkz. §8 değişiklik 5–8 ve yeni §9. Aynı gün açık karar 21 kapatıldı: §8 değişiklik 9, §9.1–§9.3. Aynı gün proje sahibi onayı öncesi netleştirmeler ve açık karar 22: §8 değişiklik 10. Aynı gün açık karar 23: §8 değişiklik 11. Aynı gün `hazir_istemli` kapsamdan çıkarıldı: §8 değişiklik 12)
-Bu eşikler **hiçbir model cevabı görülmeden** önerildi ve hiçbir model cevabı görülmeden onaylanacak. Onaydan önce doğrulama setinde puanlama yapılmaz; yalnızca 3–5 soruluk teknik deneme yapılır. Bir eşik değişirse `thresholds_v2.md` dosyası açılır, gerekçesi yazılır ve rapora eklenir.
+Bu eşikler **hiçbir model cevabı görülmeden** önerildi ve hiçbir model cevabı görülmeden onaylanacak. Onaydan önce doğrulama setinde puanlama yapılmaz; yalnızca 3–5 soruluk teknik deneme yapılır. Onaydan sonra bir eşik değişirse yeni dosya açılmaz: bu dosyada sürüm numarası artırılır, en alttaki Değişiklik geçmişi bölümüne tarih, değişiklik ve gerekçe yazılır ve değişiklik raporda gösterilir.
 
-Tanımlar `evaluation/experiment_plan_v1.md` §6'dadır. "Seçilen adaptör" = doğrulamada seçilen adaptör. "Yargıç" = kalibrasyonla seçilen yerel yargıç. "Fark" = adaptör eksi karşılaştırılan sistem. "pp" = yüzde puan.
+Tanımlar `evaluation/experiment_plan.md` §6'dadır. "Seçilen adaptör" = doğrulamada seçilen adaptör. "Yargıç" = kalibrasyonla seçilen yerel yargıç. "Fark" = adaptör eksi karşılaştırılan sistem. "pp" = yüzde puan.
 
 **Sınır kuralı (bütün eşikler; 2026-11-24, onaydan önce değişiklik):** eşiğe eşit değer geçer (tetiklemez); eşiği aşan değer kalır (tetikler). Karşılaştırma yuvarlamadan önce, ham değerle yapılır. Örnek: "fark ≥ −1,0" eşiğinde −1,00 geçer, −1,04 kalır (raporda "−1,0" diye yuvarlansa bile).
 
@@ -87,14 +91,14 @@ Bu bölümde **3.7 kritik**, diğerleri uyarı eşiğidir (§6).
 | 3.4 | WMT16 EN→TR chrF (350) | Fark ≥ −1,0 puan | Aynı | bekliyor |
 | 3.5 | Vikipedi perplexity (350) | Göreli artış ≤ %10 | Alana uyum küçük bir artış doğurabilir; %10 üstü dil dağılımında belirgin kayma demektir | bekliyor |
 | 3.6 | Aya ikili karşılaştırması (175; yargıç, adaptör vs `baseline`) | Kaybetme − kazanma ≤ 10 pp | Genel yardımseverlikte belirgin gerileme kabul edilmez | bekliyor |
-| 3.7 | **Kritik.** Üslup sızıntısı (gündelik sorular, `experiment_plan_v1.md` §6.6, **gruba göre işaret listesi**: `a` için kurum adı/yönlendirme dahil, `b` için yalnızca kurum ağzı + bürokratik kalıp + resmî kip yoğunluğu; geliştirme: `genel_kontrol_v1` tamamı; saklanan: `genel_kontrol_v2`, karar 6a ve 6c) | Sızıntılı cevap **oranı** ≤ `baseline` oranı + 10 pp | 50 soruda yaklaşık 5 cevaplık artışa kadar tolerans; daha fazlası kurum dilinin gündelik kullanıma taştığını gösterir. Oran olarak yazıldı, böylece saklanan bölümün boyutundan bağımsız | bekliyor |
+| 3.7 | **Kritik.** Üslup sızıntısı (gündelik sorular, `experiment_plan.md` §6.6, **gruba göre işaret listesi**: `a` için kurum adı/yönlendirme dahil, `b` için yalnızca kurum ağzı + bürokratik kalıp + resmî kip yoğunluğu; geliştirme: `genel_kontrol_v1` tamamı; saklanan: `genel_kontrol_v2`, karar 6a ve 6c) | Sızıntılı cevap **oranı** ≤ `baseline` oranı + 10 pp | 50 soruda yaklaşık 5 cevaplık artışa kadar tolerans; daha fazlası kurum dilinin gündelik kullanıma taştığını gösterir. Oran olarak yazıldı, böylece saklanan bölümün boyutundan bağımsız | bekliyor |
 | 3.8 | Çoktan seçmelide harf çıkarılamayan cevap oranı | Değerlendirilen adaptörün oranı ≤ %3; `baseline`'ın oranı yalnızca raporlanır | Daha yüksek oran 3.1'i biçim sorununa dönüştürür (kime uygulandığı 2026-11-24'te netleştirildi) | bekliyor |
-| 3.9 | `b_kurum_gayriresmi` bilgi doğruluğu (`genel_kontrol_v2`, 15 soru; yargıç, `experiment_plan_v1.md` §6.3 ölçeği, referans = onaylı `bilgi_ogeleri`) | Kritik hatalı cevap sayısı ≤ `baseline` + 1 **ve** ortalama puan farkı ≥ −0,2 | Sade anlatım bilgi kaybı pahasına olmamalı (başarı ölçütü 2). 15 soruda tek bir kritik hata gürültü olabilir, ikincisi değildir. Ortalama puandaki 0,2'lik pay, 15 soruda yaklaşık 3 cevabın bir basamak düşmesine karşılık gelir. Onaylanmayan bilgi öğesi puanlamaya girmez | bekliyor |
+| 3.9 | `b_kurum_gayriresmi` bilgi doğruluğu (`genel_kontrol_v2`, 15 soru; yargıç, `experiment_plan.md` §6.3 ölçeği, referans = onaylı `bilgi_ogeleri`) | Kritik hatalı cevap sayısı ≤ `baseline` + 1 **ve** ortalama puan farkı ≥ −0,2 | Sade anlatım bilgi kaybı pahasına olmamalı (başarı ölçütü 2). 15 soruda tek bir kritik hata gürültü olabilir, ikincisi değildir. Ortalama puandaki 0,2'lik pay, 15 soruda yaklaşık 3 cevabın bir basamak düşmesine karşılık gelir. Onaylanmayan bilgi öğesi puanlamaya girmez | bekliyor |
 
 **Karar 6c'den sonraki değişiklik (2026-11-23, onaydan önce):**
 - 3.7'nin ölçütü `b` grubu için yeniden tanımlandı. 3.9 eklendi. T.7'ye aynı gruba göre ölçüt uygulanır.
-- **Gerekçe:** kullanıcının v1 kontrolüne göre `b` grubu kurum işlemi soran ve sade anlatım bekleyen sorulardan oluşuyor. Bu sorularda kurum ve sistem adlarını yasaklamak doğru cevabı sızıntı sayardı. Yeni ölçüt yalnızca bürokratik kalıbı yasaklıyor, doğruluğu ise ayrıca ölçüyor (`experiment_plan_v1.md` §6.6 ve karar 6c).
-- Bu değişiklik dosya henüz onaylanmadan yapıldı ve hiçbir model puanlanmadı. Bu yüzden yeni bir sürüm dosyası açılmadı. Onaydan sonraki değişiklikler `thresholds_v2.md` ile yapılır.
+- **Gerekçe:** kullanıcının v1 kontrolüne göre `b` grubu kurum işlemi soran ve sade anlatım bekleyen sorulardan oluşuyor. Bu sorularda kurum ve sistem adlarını yasaklamak doğru cevabı sızıntı sayardı. Yeni ölçüt yalnızca bürokratik kalıbı yasaklıyor, doğruluğu ise ayrıca ölçüyor (`experiment_plan.md` §6.6 ve karar 6c).
+- Bu değişiklik dosya henüz onaylanmadan yapıldı ve hiçbir model puanlanmadı. Bu yüzden sürüm numarası artırılmadı. Onaydan sonraki değişikliklerde sürüm numarası artırılır ve Değişiklik geçmişi bölümüne yazılır.
 
 ## 3A. "Gerekirse karışım" tetikleyicisi (doğrulama aşaması, geliştirme %30; taban çizgisi `baseline`)
 
@@ -112,7 +116,7 @@ Karar (kullanıcı, 2026-11-23): genel Türkçe verisi eğitime **yalnızca** a�
 | T.4 | WMT16 EN→TR chrF (150) | 1,0 puan | bekliyor |
 | T.5 | Vikipedi perplexity (150) | göreli artış %10 | bekliyor |
 | T.6 | Aya ikili karşılaştırması (75) | kaybetme − kazanma 10 pp | bekliyor |
-| T.7 | **Gündelik sorularda üslup sızıntısı** (`genel_kontrol_v1`, 50 gündelik soru; gruba göre işaret listesi, `experiment_plan_v1.md` §6.6). `b` doğruluğu v1'de yalnızca raporlanır, tetiklemez | sızıntılı cevap oranı `baseline` oranının en fazla **10 pp** üstünde olabilir | bekliyor |
+| T.7 | **Gündelik sorularda üslup sızıntısı** (`genel_kontrol_v1`, 50 gündelik soru; gruba göre işaret listesi, `experiment_plan.md` §6.6). `b` doğruluğu v1'de yalnızca raporlanır, tetiklemez | sızıntılı cevap oranı `baseline` oranının en fazla **10 pp** üstünde olabilir | bekliyor |
 | T.8 | Çoktan seçmelide harf çıkarılamayan cevap oranı | mutlak %3 | bekliyor |
 
 **Neden final eşikleriyle aynı sayılar:** iki tür hatanın maliyeti eşit değil.
@@ -140,7 +144,7 @@ Bu bölümde **4.2 kritik**, 4.1 uyarı eşiği, 4.3 doğrulamada seçim kısıt
 | 4.3 | Geliştirme kapsam dışı seti (15) | ≥ 12/15; doğrulamada **seçim kısıtı**, final iddiası yok | Aday ayarlar (checkpoint, tarif) arasında 12/15'i geçen varsa geçemeyen seçilmez. Hiçbiri geçemezse 4.3 puanı en yüksek olan seçilir (eşitlikte olağan seçim ölçütü) ve durum kaydedilir (2026-11-24, onaydan önce değişiklik). Uyarı sınıfında değildir (§6.1) | bekliyor |
 
 Puanın kaynağı (kullanıcı kararı, 2026-11-23):
-- 4.1 ve 4.2'deki birincil tuzak puanı, `experiment_plan_v1.md` §6.4'teki önceden kayıtlı başarı ölçütlerinden ve projenin kendi yargıç akışından gelir.
+- 4.1 ve 4.2'deki birincil tuzak puanı, `experiment_plan.md` §6.4'teki önceden kayıtlı başarı ölçütlerinden ve projenin kendi yargıç akışından gelir.
 - Ham verideki `05_tuzak_sorular/otomatik_kontrol.py` ve `yargic_promptu.md` şimdi kullanılmaz. 11. aşamada en fazla ek kontrol olarak çalışabilir; bunun kararı 11'e kalır. Ek kontrolün sonucu birincil tuzak puanını değiştirmez ve ayrı raporlanır.
 
 ## 5. İkincil iddia: sentetik veri katkısı (test)
@@ -223,7 +227,7 @@ Bu kural tablolar, grafikler, özet cümleler ve sunum için de geçerlidir. Ora
 
 ## 8. Onaydan önce değişiklikler (2026-11-24, kullanıcı kararları)
 
-Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklikler yeni sürüm dosyası açılmadan bu dosyaya işlendi. Önceki hâl git geçmişindedir (`7bb442d`). Olasılıkları `python -m src.evaluation.threshold_probabilities --output evaluation/threshold_probabilities.json` hesaplar (ilk çıktı Türkçe anahtarlıydı ve git geçmişindedir; sayılar aynı); tam olasılık hesabıdır, veri kullanmaz. Aşağıda "ölçüldü" yazan sayılar bu betikten gelir.
+Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklikler sürüm numarası artırılmadan bu dosyaya işlendi. Önceki hâl git geçmişindedir (`7bb442d`). Olasılıkları `python -m src.evaluation.threshold_probabilities --output evaluation/threshold_probabilities.json` hesaplar (ilk çıktı Türkçe anahtarlıydı ve git geçmişindedir; sayılar aynı); tam olasılık hesabıdır, veri kullanmaz. Aşağıda "ölçüldü" yazan sayılar bu betikten gelir.
 
 **Değişiklik 1: kritik / uyarı ayrımı (§1, §6).**
 - Gerekçe (kullanıcı): koruma eşiklerinin hepsi zorunlu olunca, her biri %5 yanlış alarm verse bile en az birinin şans eseri aşılma olasılığı yaklaşık %58'dir (bağımsızlık varsayımıyla kaba hesap).
@@ -251,7 +255,7 @@ Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklik
   - **Asıl fark:** −2'nin yakalama olasılığı hiçbir modelde −1 ile eşit (%68) çıkmadı; %56–63 aralığında. −2'ye geçiş yanlış alarmı yaklaşık 10 pp azaltırken yakalama gücünü 11–21 pp düşürür. Kararın yönü değişmiyor (−2, −3'ten belirgin biçimde güçlü), ama bedeli verilen gerekçedeki kadar küçük değil.
 - Örnek "22/28'e karşı en az 20/28" olarak güncellendi.
 
-**Değişiklik 3: yargıç kalibrasyonu 40 çift (0.3, 0.5; `experiment_plan_v1.md` §6.8, §6.9; `report/report_plan_v1.md` §4).**
+**Değişiklik 3: yargıç kalibrasyonu 40 çift (0.3, 0.5; `experiment_plan.md` §6.8, §6.9; `report/report_plan.md` §4).**
 - Gerekçe (kullanıcı): %75 uyumun belirsizliği 25 çiftte yaklaşık ±17 pp, 40 çiftte ±13 pp; 0.5'teki 5 pp'lik fark 25 çiftte yaklaşık tek bir çifte denk geliyor.
 - Ölçüldü (normal yaklaşımla %95 yarı genişlik):
   - 25 çiftte **±17,0 pp** (Wilson aralığı %55,5–87,8).
@@ -269,7 +273,7 @@ Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklik
 - Gerekçe (kullanıcı): üç ikincil iddiada düzeltmesiz toplam yanlış iddia riski yaklaşık %14; düzeltmenin bedeli 5.1 için 61 yerine en fazla 63 galibiyet. Ölçüldü: 1 − 0,95³ = %14,3 (bağımsızlık varsayımıyla); 100 kesin kararda 61–63 galibiyet. Kullanıcının sayılarıyla aynı.
 - **Aile (m = 3, sabit).** 11. aşamada test setinde, yargıcın **üslup+jargon** ikili karşılaştırması üzerindeki üç iki yönlü işaret testi:
   - H1: `faq_synthetic_adapter` vs `faq_adapter` (5.1)
-  - H2: `hazir_istemli` vs `baseline` (prompt'un katkısı, `experiment_plan_v1.md` §3, ikincil 2)
+  - H2: `hazir_istemli` vs `baseline` (prompt'un katkısı, `experiment_plan.md` §3, ikincil 2)
   - H3: seçilen adaptör vs `baseline` (ikincil 3)
 - **Aileye girmeyenler:**
   - 1.1, tek birincil uç nokta; düzeltmesiz α = 0,05.
@@ -282,7 +286,7 @@ Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklik
 | Seçenek | Aile | 5.1 için Holm sınırı | 100 kararda gereken galibiyet (ölçüldü) |
 |---|---|---|---|
 | **A (seçildi)** | H1–H3, m = 3 | 0,0167–0,05 | 61–63 |
-| B | Yalnızca H1 (m = 1, düzeltme yok). Gerekçe: ön kayıtlı tek ikincil iddia 5.1'dir; H2 ve H3 betimsel raporlanır. `experiment_plan_v1.md` §3'teki "Holm uygulanır" cümlesi değişmeli | 0,05 | 61 |
+| B | Yalnızca H1 (m = 1, düzeltme yok). Gerekçe: ön kayıtlı tek ikincil iddia 5.1'dir; H2 ve H3 betimsel raporlanır. `experiment_plan.md` §3'teki "Holm uygulanır" cümlesi değişmeli | 0,05 | 61 |
 | C | H1–H3 × (üslup+jargon, bilgi), m = 6 | 0,0083–0,05 | 61–64 |
 
 - Neden A (öneri gerekçesi, kullanıcı kabul etti): plan §3, ikincil karşılaştırmalarda Holm'u zaten öngörüyor; H2 ve H3 rapora "prompt işe yaradı" ve "adaptör baseline'dan iyi" diye iddia olarak girecek sonuçlardır. Bilgi karşılaştırmaları ise "kötüleşme yok" sorusunu sorar ve eşikle ele alınır.
@@ -290,20 +294,20 @@ Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklik
 **Bu değişikliklerle açığa çıkan sorular (2026-11-24'te kullanıcı kararıyla kapatıldı; değişiklik 6–8):**
 1. **2.1b ile kritik 2.1.** → Kapandı: değişiklik 6. 2.1b'deki "2.1 ile çelişirse insan kararı geçerlidir" cümlesi değiştirilmedi. 2.1 artık kritik, 2.1b uyarı. 2.1 aşılır ama 2.1b geçerse, birincil sonuç "kaldı" mı olur, yoksa insan kararı kritik sonucu kaldırır mı, belli değil.
 2. **Yargıca dayanan kritik eşikler.** → Kapandı: değişiklik 7. 2.1 (yargıç bilgi işaretleri) ve 4.2 (yargıç + otomatik kontrol) kritik oldu. Yargıç 0.3 veya 0.4'ü geçemezse bu iki kritik eşiğin nasıl ölçüleceği yazılı değil.
-3. **Kalibrasyon çiftleri ve prompt ayarı.** → Kapandı: değişiklik 8. `experiment_plan_v1.md` §6.8 madde 6'ya göre kalibrasyon çiftleri prompt ayarında kullanılmaz. 40 çift, 100 soruluk doğrulama setinin 40 sorusuna denk gelebilir. Bu kural soruları mı kapsıyor, yalnızca çiftleri mi, netleştirilmeli.
+3. **Kalibrasyon çiftleri ve prompt ayarı.** → Kapandı: değişiklik 8. `experiment_plan.md` §6.8 madde 6'ya göre kalibrasyon çiftleri prompt ayarında kullanılmaz. 40 çift, 100 soruluk doğrulama setinin 40 sorusuna denk gelebilir. Bu kural soruları mı kapsıyor, yalnızca çiftleri mi, netleştirilmeli.
 
 **Değişiklik 6: 2.1 ile 2.1b (kullanıcı kararı, 2026-11-24).**
 - Karar: insan kararı eşiğin sonucunu değil, **kayıt düzeyindeki etiketi** değiştirir. İnsanın puanladığı 50 soruda insanın "kritik hata var/yok" etiketi yargıcın etiketinin yerini alır; diğer 50 soruda yargıç + betik etiketi kalır. Kritik 2.1 bu birleşik etiketlerle hesaplanır (§9.1).
 - 2.1b'deki "2.1 ile çelişirse insan kararı geçerlidir" cümlesi bu kuralla değiştirildi.
 - Gerekçe: eski cümle bir uyarı eşiğinin (2.1b) kritik bir eşiğin (2.1) sonucunu kaldırmasına izin veriyordu. Yeni kural insanın üstünlüğünü korur, ama bunu tek tek kayıtlarda yapar; eşiklerin sınıfı değişmez.
-- Uygulama için gereken ek (bu kararın sonucu): insan formunun bilgi bölümünde şu an "kritik hata var/yok" alanı yoktu; yalnızca Evet / Kısmen / Hayır soruluyordu. "Hayır" kritik hatayla aynı şey değildir (§6.3'te bilgi puanı 0 = "kritik hata var **ya da** ana hüküm yanlış"). Bu yüzden forma `experiment_plan_v1.md` §6.3 tanımıyla ayrı bir "kritik hata var / yok" alanı eklendi (§6.9). 2.1b "Hayır" sayısıyla hesaplanmaya devam eder.
+- Uygulama için gereken ek (bu kararın sonucu): insan formunun bilgi bölümünde şu an "kritik hata var/yok" alanı yoktu; yalnızca Evet / Kısmen / Hayır soruluyordu. "Hayır" kritik hatayla aynı şey değildir (§6.3'te bilgi puanı 0 = "kritik hata var **ya da** ana hüküm yanlış"). Bu yüzden forma `experiment_plan.md` §6.3 tanımıyla ayrı bir "kritik hata var / yok" alanı eklendi (§6.9). 2.1b "Hayır" sayısıyla hesaplanmaya devam eder.
 - Bu ekin kapsamı ve 2.1'in `baseline` karşılaştırmasındaki uygulaması için §9.1'deki not ve açık karar 21'e bakınız.
 
 **Değişiklik 7: yargıç kalibrasyondan kalırsa yedek yol (kullanıcı kararı, 2026-11-24).** Kural §9.2'de. Gerekçe: 2.1 ve 4.2 kritik oldu ve ikisi de yargıca dayanıyordu; yargıç kalırsa nasıl ölçüleceği yazılı değildi. Kalibrasyon doğrulama aşamasında yapıldığı için yedek yolun gerekip gerekmediği 11. aşamadan önce bilinir; insan iş yükü önceden planlanabilir.
 
 **Değişiklik 8: kalibrasyon soruları prompt ayarından çıkarılmaz (kullanıcı kararı, 2026-11-24).** *(Değişiklik 12 ile kapsam dışı: prompt ayarı yok. Aynı ilke adaptör ayar seçimine taşındı, V9.)*
-- Doğrulamanın 100 sorusunun hepsi prompt ayarında kullanılır; kalibrasyonun 40 sorusu da dahil. `experiment_plan_v1.md` §6.8 madde 6 buna göre değiştirildi.
-- Bedeli: aynı 40 soru hem yargıcı seçmek hem prompt'u ayarlamak için kullanılır; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir. Sınırlama `report/report_plan_v1.md` §4.4'e eklendi.
+- Doğrulamanın 100 sorusunun hepsi prompt ayarında kullanılır; kalibrasyonun 40 sorusu da dahil. `experiment_plan.md` §6.8 madde 6 buna göre değiştirildi.
+- Bedeli: aynı 40 soru hem yargıcı seçmek hem prompt'u ayarlamak için kullanılır; doğrulama sonuçları bu nedenle de iyimser olabilir. Final iddiası yalnızca kilitli testten gelir. Sınırlama `report/report_plan.md` §4.4'e eklendi.
 
 **Değişiklik 9: açık karar 21 (kullanıcı kararı, 2026-11-24).**
 - *(a ve b, değişiklik 12 ile sadeleşti: insan formu artık `baseline`'ı kapsıyor, birleşik etiket `baseline` karşılaştırmasında uygulanıyor.)*
@@ -372,9 +376,9 @@ Dosya henüz onaylanmadı ve hiçbir model puanlanmadı. Bu yüzden değişiklik
 Bu bölüm iki prompt türünde de kalma durumunu anlatır. Yalnızca bir türde kalma §9.3'tedir.
 
 
-1. **Önce diğer aday.** Seçilen yargıç kalırsa diğer adayın kalibrasyon sonucuna bakılır. Geçtiyse o kullanılır. Ek ölçüm gerekmez: iki aday da aynı 40 çifti kalibrasyonda puanlamıştır (§0, `experiment_plan_v1.md` §6.8 madde 2).
+1. **Önce diğer aday.** Seçilen yargıç kalırsa diğer adayın kalibrasyon sonucuna bakılır. Geçtiyse o kullanılır. Ek ölçüm gerekmez: iki aday da aynı 40 çifti kalibrasyonda puanlamıştır (§0, `experiment_plan.md` §6.8 madde 2).
 2. **İkisi de kalırsa:**
-   - **4.1 ve 4.2:** 28 tuzak sorusunun adaptör ve `baseline` cevaplarını (56 cevap) insan puanlar. Model adları gizli, sıra karışık, anahtar ayrı dosyada (§6.9'daki körleme kuralları); ölçüt `experiment_plan_v1.md` §6.4'teki önceden kayıtlı başarı tanımlarıdır. Otomatik kontrol ayrıca çalışır ve ayrı raporlanır; insan puanını değiştirmez. Eşikler değişmez (4.1: ≥ `baseline` − 2; 4.2: ≥ 21/28).
+   - **4.1 ve 4.2:** 28 tuzak sorusunun adaptör ve `baseline` cevaplarını (56 cevap) insan puanlar. Model adları gizli, sıra karışık, anahtar ayrı dosyada (§6.9'daki körleme kuralları); ölçüt `experiment_plan.md` §6.4'teki önceden kayıtlı başarı tanımlarıdır. Otomatik kontrol ayrıca çalışır ve ayrı raporlanır; insan puanını değiştirmez. Eşikler değişmez (4.1: ≥ `baseline` − 2; 4.2: ≥ 21/28).
    - **Kritik 2.1:** yalnızca insanın puanladığı 50 soru üzerinden, insanın "kritik hata var/yok" etiketiyle, **fark ≤ +2** eşiğiyle hesaplanır. §2'nin tek karşılaştırması `baseline` olduğu ve insan formu `baseline`'ı kapsadığı için ayrı bir betik yedeğine (eski karar 21b) gerek kalmadı (değişiklik 12).
    - **1.1 / 1.2:** §1'deki kural geçerlidir: 1.2 tek başına birincildir, 1.1 "güvenilirliği düşük" notuyla raporlanır.
    - **Yargıca dayanan uyarı eşikleri** (2.2, 3.6, 3.9, 4.3, 5.2 ve tetikleyicide T.6, K.2) raporda "güvenilirliği düşük" notuyla gösterilir.
@@ -382,12 +386,12 @@ Bu bölüm iki prompt türünde de kalma durumunu anlatır. Yalnızca bir türde
 3. **1.1/1.2 kuralıyla tutarlılık (kontrol edildi):**
    - İki yol da aynı aracı kullanır: 11. aşamadaki 50 soruluk kör insan formu. Ek insan formu yalnızca tuzak için gelir.
    - 2.1'in yedek eşiği (+2 / 50 soru), 2.1b'nin 50 sorudaki toleransıyla aynıdır.
-   - "Önce diğer aday" adımı `experiment_plan_v1.md` §6.8 madde 4–5 ile uyumludur ("eşiği geçen adaylar arasında", "hiçbir aday geçemezse"). §1'deki cümle tekil "yargıç" dediği için bununla uyumlu olacak biçimde "iki aday da" diye düzeltildi.
+   - "Önce diğer aday" adımı `experiment_plan.md` §6.8 madde 4–5 ile uyumludur ("eşiği geçen adaylar arasında", "hiçbir aday geçemezse"). §1'deki cümle tekil "yargıç" dediği için bununla uyumlu olacak biçimde "iki aday da" diye düzeltildi.
    - İlk yazımda açık kalan noktalar karar 21 ile kapandı: ikincil iddialar (yukarıda), tek prompt türünde kalma (§9.3). 2.1'in ayrı `baseline` karşılaştırması değişiklik 12 ile ortadan kalktı. 3.9 uyarı eşiği olarak "güvenilirliği düşük" kuralına girer.
 
 ### 9.3 Kalibrasyon prompt türüne göre (karar 21d, 2026-11-24)
 
-**Kontrol sonucu.** İnsan kalibrasyon çiftlerini üslup+jargon ve bilgi için ayrı ayrı puanlıyordu ve yargıç iki ayrı prompt'la soruluyordu (`experiment_plan_v1.md` §6.8 madde 1 ve "Kullanım biçimi"). Ama 0.3, 0.4 ve plan §6.8 madde 3, uyum ve sıra tutarlılığının prompt türü başına ayrı hesaplanacağını söylemiyordu. Bu yüzden şöyle tanımlandı:
+**Kontrol sonucu.** İnsan kalibrasyon çiftlerini üslup+jargon ve bilgi için ayrı ayrı puanlıyordu ve yargıç iki ayrı prompt'la soruluyordu (`experiment_plan.md` §6.8 madde 1 ve "Kullanım biçimi"). Ama 0.3, 0.4 ve plan §6.8 madde 3, uyum ve sıra tutarlılığının prompt türü başına ayrı hesaplanacağını söylemiyordu. Bu yüzden şöyle tanımlandı:
 
 1. 0.3 (uyum ve kappa) ve 0.4 (sıra tutarlılığı) her aday için **üslup+jargon** ve **bilgi** prompt'larında ayrı ayrı hesaplanır. Bir aday bir prompt türünü ancak o türde hem 0.3'ü hem 0.4'ü sağlarsa geçer.
 2. "Önce diğer aday" adımı (§9.2 madde 1) ve 0.5 seçim kuralı her prompt türü için ayrı uygulanır. Sonuç olarak iki prompt türü farklı adaylarla puanlanabilir; bu durumda iki model sırayla çalıştırılır (kartta aynı anda tek büyük model kuralı). Tek yargıç kuralı eklenmedi (kullanıcı kararı, 2026-11-24): her prompt türü, o türde kalibrasyonu geçen yargıçla puanlanır.
@@ -405,3 +409,13 @@ Bu bölüm iki prompt türünde de kalma durumunu anlatır. Yalnızca bir türde
 Proje sahibi onayı (genel): bekliyor
 Onaylayan / tarih: —
 Onay commit'i: —
+
+## Değişiklik geçmişi
+
+Onaydan sonraki her değişiklikte en üstteki "Sürüm" numarası bir artar ve buraya bir satır eklenir. Eski hâller git geçmişindedir: `git log --follow -- <bu dosya>`.
+
+| Tarih | Ne değişti | Neden |
+|---|---|---|
+| 2026-11-23 | İlk taslak (01. aşama). | Ön kayıt: eşikler hiçbir model cevabı görülmeden yazıldı. |
+| 2026-11-24 | Onaydan önce 12 değişiklik; sürüm numarası artırılmadı. | Ayrıntı ve gerekçeler §8'de. |
+| 2026-11-26 | Dosya adındaki `_v1` eki kaldırıldı; bu satırlar ve bu bölüm eklendi. Hiçbir kural veya değer değişmedi. | Sürüm bilgisi dosya adında değil, dosyanın içinde ve git geçmişinde durur (proje sahibi kararı). |

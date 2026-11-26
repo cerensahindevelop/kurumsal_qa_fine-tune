@@ -14,7 +14,7 @@ Neden güvenli:
     Bu yüzden kilitli dosyalarda da kullanılabilir.
 
 Nasıl çalıştırılır (terminalde, proje klasöründeyken):
-    python -m src.data.count_phrase_matches --input evaluation/dev_out_of_scope_v1.jsonl \\
+    python -m src.data.count_phrase_matches --input evaluation/dev_out_of_scope.jsonl \\
         --phrase "anlaşılır bir dille anlatır mısın" --phrase "kısaca"
 
     --input: aranacak veri dosyaları. Birden fazla dosya yazılabilir.
@@ -97,7 +97,7 @@ def main() -> None:
 
     Ne döndürür:
         Bir değer döndürmez. Ekrana her dosya için bir satır yazar.
-        Örnek ekran çıktısı: "dev_out_of_scope_v1.jsonl: records=15 ['kısaca']=2"
+        Örnek ekran çıktısı: "dev_out_of_scope.jsonl: records=15 ['kısaca']=2"
     """
     # Komuttaki seçenekleri tanımla. Her seçeneğin tek bir İngilizce adı vardır.
     parser = argparse.ArgumentParser(description=__doc__.strip().splitlines()[1].strip())

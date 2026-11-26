@@ -46,7 +46,7 @@ Yeni terimler:
 
 ---
 
-## 2. `prompts/system_prompt_v1.txt`
+## 2. `prompts/system_prompt.txt`
 
 **Girdi:** yok (sabit metin). Eğitim, değerlendirme ve servis bu dosyayı **aynen** kullanır.
 
@@ -72,7 +72,7 @@ Yeni terimler:
 
 ---
 
-## 3. `evaluation/experiment_plan_v1.md` ve `evaluation/thresholds_v1.md`
+## 3. `evaluation/experiment_plan.md` ve `evaluation/thresholds.md`
 
 **Girdi:** CLAUDE.md'deki hedefler ve sistem listesi. Model cevabı yok.
 
@@ -101,7 +101,7 @@ Yeni terimler:
 
 ---
 
-## 4. `evaluation/dev_out_of_scope_v1.jsonl`
+## 4. `evaluation/dev_out_of_scope.jsonl`
 
 **Girdi:** yok. 15 soru tuzak setine bakılmadan sıfırdan yazıldı. Alanlar: `id, category, question, expected_behavior, acceptance_criteria, source, approval`.
 
@@ -120,13 +120,13 @@ Yeni terimler:
 
 ## 5. Gösterim: mini puanlama
 
-Uydurma soru ve iki cevapla yapılan gösterim `evaluation/experiment_plan_v1.md` §9'dadır. Oradan çıkan ders: chrF iki cevabı birbirinden ayırıyor (62,1'e karşı 27,4, ölçüldü), ama Cevap 2'deki "%25" ve "300 saat" kritik hatalarını tek başına göstermiyor. Bu hataları sayı karşılaştırması yakalıyor (recall 5/5'e karşı 1/5, ölçüldü).
+Uydurma soru ve iki cevapla yapılan gösterim `evaluation/experiment_plan.md` §9'dadır. Oradan çıkan ders: chrF iki cevabı birbirinden ayırıyor (62,1'e karşı 27,4, ölçüldü), ama Cevap 2'deki "%25" ve "300 saat" kritik hatalarını tek başına göstermiyor. Bu hataları sayı karşılaştırması yakalıyor (recall 5/5'e karşı 1/5, ölçüldü).
 
 ---
 
 ## 6. Açık kararların işlenmesi (01 güncellemesi)
 
-**Tetikleyici kural (`thresholds_v1.md` §3A):** "Gerekirse yap" türü bir karar ancak "ne zaman gerekir?" sorusu sonuç görülmeden sayıyla yazılırsa güvenilirdir. Burada tetikleyici, seçilen adaptörün Türkçe değerlendirmenin geliştirme bölümünde baseline'a göre ne kadar gerileyebileceğini görev görev söyler. Sınırlardan biri aşılırsa genel Türkçe karışımlı adaptör eğitilir.
+**Tetikleyici kural (`thresholds.md` §3A):** "Gerekirse yap" türü bir karar ancak "ne zaman gerekir?" sorusu sonuç görülmeden sayıyla yazılırsa güvenilirdir. Burada tetikleyici, seçilen adaptörün Türkçe değerlendirmenin geliştirme bölümünde baseline'a göre ne kadar gerileyebileceğini görev görev söyler. Sınırlardan biri aşılırsa genel Türkçe karışımlı adaptör eğitilir.
 
 **Mini örnek (örnek, uydurma; gerçek çalışma değil):**
 - TurkishMMLU geliştirme bölümünde baseline %61,0, adaptör %58,5 → fark −2,5 pp. T.1 sınırı −2,0 pp, yani tetikleyici **çalışır**.
@@ -146,7 +146,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Dosyalar ve girdileri:**
 - `inceleme/genel_kontrol_v2_taslak.jsonl`: GK2-036..050 yeniden yazıldı.
 - `src/data/build_review_csv.py`: girdi taslak JSONL, çıktı onay CSV'si.
-- `evaluation/experiment_plan_v1.md` §6.6 ve `thresholds_v1.md` 3.7, 3.9 ve T.7.
+- `evaluation/experiment_plan.md` §6.6 ve `thresholds.md` 3.7, 3.9 ve T.7.
 
 **Blok 1, neden ölçüt değişti.** Sızıntı ölçütünün amacı, "soru bunu gerektirmediği hâlde kurum diline kaymak" durumunu yakalamaktır. `b` soruları ise kurum işlemini sorar: "e-Devlet'ten nasıl bakarım?" sorusunun doğru cevabı "e-Devlet" kelimesini içermek zorundadır. Eski liste bu cevabı sızıntılı sayardı; buna yanlış alarm (false positive) denir. Yeni kuralda kurum adları serbest, yasak olan yalnızca bürokratik kalıptır ("Sayın", "gerekmektedir", "ilgili mevzuat çerçevesinde").
 
@@ -164,9 +164,9 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Üç cümlelik özet:** `b` grubu artık kurum işlemini gündelik dille soran ve sade anlatım bekleyen sorulardan oluşuyor. Bu grupta kurum adları serbest, yasak olan bürokratik kalıplar. Sadeleşmenin bilgi kaybına yol açmadığını görmek için doğruluk, kullanıcının onayladığı bilgi öğelerine göre ayrıca puanlanıyor.
 
 **Kontrol sorusu:** Neden `b` grubunda mevzuat atfı ("4447 sayılı Kanun") sızıntı sayılmadı, ama ayrıca sayılıyor?
-*Cevap:* Çünkü `system_prompt_v1` kural 1 alan içi sorularda dayanak belirtmeyi istiyor. Bu atıf sızıntı sayılsaydı, system prompt'a uyan model cezalandırılırdı. Atıf yine de sade anlatımı ağırlaştırabilir. Bu gerilim karar 9 ile çözüldü: system prompt kural 9, sade anlatım istendiğinde atıf gerektirmiyor.
+*Cevap:* Çünkü `system_prompt.txt` kural 1 alan içi sorularda dayanak belirtmeyi istiyor. Bu atıf sızıntı sayılsaydı, system prompt'a uyan model cezalandırılırdı. Atıf yine de sade anlatımı ağırlaştırabilir. Bu gerilim karar 9 ile çözüldü: system prompt kural 9, sade anlatım istendiğinde atıf gerektirmiyor.
 
-## 8. System prompt kararları 9–11 (`prompts/system_prompt_v1.txt`, `prompts/response_standard_v1.md`)
+## 8. System prompt kararları 9–11 (`prompts/system_prompt.txt`, `prompts/response_standard.md`)
 
 **Girdi:** kullanıcının kararları. **Çıktı:** system prompt'taki üç değişiklik.
 - **Kural 2'ye ek, kurum ağzı yok.** Model üç kurumun konularını cevapladığı için "Kurumumuz" belirsizdir. Kurumlar adıyla anılır. Eğitim verisi 03'te buna uydurulur; kilitli referanslar değişmez.
@@ -209,7 +209,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 ## 10. Eşik kararları ve `src/evaluation/threshold_probabilities.py`
 
-**Girdi:** yok; betik veri okumaz, yalnızca `--output` (JSON yolu) ve isteğe bağlı `--degradation` (4.1 için gerçek kötüleşme, varsayılan 3 soru) alır. **Çıktı:** `evaluation/threshold_probabilities.json` (tek güncel dosya; Türkçe anahtarlı ilk hâli git geçmişinde, sayılar aynı) ve ekranda özet. Bu sayılar `thresholds_v1.md` §8'deki "ölçüldü" değerlerinin kaynağıdır. Kavramların sade anlatımı `evaluation/thresholds_v1_explained.md` §9–§10'da.
+**Girdi:** yok; betik veri okumaz, yalnızca `--output` (JSON yolu) ve isteğe bağlı `--degradation` (4.1 için gerçek kötüleşme, varsayılan 3 soru) alır. **Çıktı:** `evaluation/threshold_probabilities.json` (tek güncel dosya; Türkçe anahtarlı ilk hâli git geçmişinde, sayılar aynı) ve ekranda özet. Bu sayılar `thresholds.md` §8'deki "ölçüldü" değerlerinin kaynağıdır. Kavramların sade anlatımı `evaluation/thresholds_explained.md` §9–§10'da.
 
 - **Blok 1, aile düzeyinde yanlış alarm.**
   - Alır: kontrol sayısı k, tek kontrolün yanlış alarm olasılığı (%5).
@@ -241,7 +241,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Kullanıcının verdiği sayılarla fark:** yalnızca −2'nin yakalama olasılığında. Verilen değer yaklaşık %68'di, ölçülen %56–63. Diğer sayılar örtüşüyor.
 
 **Eşik dosyasındaki değişiklikler (kullanıcı kararı, onaydan önce):**
-- Yalnızca 2.1, 3.7 ve 4.2 kritik; diğer koruma eşikleri uyarı. Uyarı aşılırsa betik kayıt seçer, insan etiketler, proje sahibi karar verir (`thresholds_v1.md` §6).
+- Yalnızca 2.1, 3.7 ve 4.2 kritik; diğer koruma eşikleri uyarı. Uyarı aşılırsa betik kayıt seçer, insan etiketler, proje sahibi karar verir (`thresholds.md` §6).
 - 4.1 −2 oldu.
 - Kalibrasyon 40 çifte çıktı.
 - Kazanma oranı hiçbir zaman tek başına yazılmaz (§7).
@@ -254,7 +254,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 
 ## 11. Açık kararlar 17–20: Holm ailesi, birleşik etiket, yargıç yedek yolu, kalibrasyon soruları
 
-Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluation/thresholds_v1.md` §8 (değişiklik 5–8) ve yeni §9. Girdisi kullanıcının dört kararı.
+Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluation/thresholds.md` §8 (değişiklik 5–8) ve yeni §9. Girdisi kullanıcının dört kararı.
 
 **Blok 1: Holm ailesi (karar 17).** Girdi: üç ikincil üslup+jargon testi (sentetik katkısı, prompt'un katkısı, adaptör vs `baseline`). Dönüşüm: üç p değeri birlikte Holm ile düzeltilir. Neden: düzeltmesiz üç iddiada en az bir yanlış iddia riski %14,3 (ölçüldü). Sonraki bloğa: 5.1'in eşiği artık sabit; 100 kesin kararda 61–63 galibiyet.
 
@@ -273,7 +273,7 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluat
 
 ## 12. Proje sahibi onayı öncesi netleştirmeler: üç değerli sonuç, sınır kuralı, galibiyet tablosu
 
-**Yol ve girdi:** `evaluation/thresholds_v1.md` (§0, 1.1 tablosu, Tanımlar, K.2, 4.3, §6.2, §8 değişiklik 10) ve `src/evaluation/threshold_probabilities.py`. Betiğin yeni çıktısı `isaret_testi_galibiyet_tablosu_n_1_100` (v2'de `sign_test_minimum_wins_table_1_to_100`); veri okumaz.
+**Yol ve girdi:** `evaluation/thresholds.md` (§0, 1.1 tablosu, Tanımlar, K.2, 4.3, §6.2, §8 değişiklik 10) ve `src/evaluation/threshold_probabilities.py`. Betiğin yeni çıktısı `isaret_testi_galibiyet_tablosu_n_1_100` (v2'de `sign_test_minimum_wins_table_1_to_100`); veri okumaz.
 
 **Blok 1: galibiyet tablosu (betik).** Girdi: kesin karar sayısı n (1–100) ve α (0,05; Holm için 0,025 ve 0,0167). Dönüşüm: iki yönlü kesin işaret testinde p < α veren en küçük galibiyet sayısı aranır. Neden: 1.1'deki "%60" koşulunun hiç bağlayıcı olmadığını göstermek ve yerine okunabilir bir tablo koymak. Sonuç (ölçüldü): gereken en düşük oran %60,6 (99 kararda 60); n ≤ 5'te anlamlılık mümkün değil. Sonraki bloğa: 1.1 artık yalnızca "p < 0,05".
 
@@ -290,7 +290,7 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluat
 
 ## 13. `hazir_istemli` kapsamdan çıkarıldı: taban çizgisi artık baseline
 
-**Yol ve girdi:** `evaluation/thresholds_v1.md` §8 değişiklik 12, `evaluation/experiment_plan_v1.md` §1–§5 ve §6.8, `report/report_plan_v1.md` §4.4, `CLAUDE.md` deney tablosu. Girdi: kullanıcının proje kararı (fine-tuning doğrudan iş olarak verildi).
+**Yol ve girdi:** `evaluation/thresholds.md` §8 değişiklik 12, `evaluation/experiment_plan.md` §1–§5 ve §6.8, `report/report_plan.md` §4.4, `CLAUDE.md` deney tablosu. Girdi: kullanıcının proje kararı (fine-tuning doğrudan iş olarak verildi).
 
 **Blok 1: birincil soru değişti.** Önce soru "eğitim, iyi bir prompt'tan daha mı iyi?" idi; şimdi "eğitim, üslubu baseline'a göre geliştirdi mi ve bir şeyi bozdu mu?". Birincil çift seçilen adaptör vs `baseline`; 1.1, 1.2 ve bütün bilgi eşikleri bu çifte uygulanır. Eşik değerleri aynı kaldı.
 
@@ -298,7 +298,7 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluat
 
 **Blok 3: kalibrasyonun yeri değişti.** Kalibrasyon çiftleri önce `baseline` ve `hazir_istemli`'den gelecekti; ikisi de eğitimden önce hazırdı. Yeni kaynak `baseline` ve ilk `faq_adapter` koşusu. Sonuç: kalibrasyon ilk adaptör eğitildikten sonra yapılabilir ve yargıca dayanan bütün doğrulama puanlamaları ondan sonra gelir.
 
-**Mini örnek (örnek, uydurma; gerçek çalışma değil):** doğrulamada `baseline` ve `faq_adapter_v1` cevapları üretildi. 40 soru seed 42 ile seçildi; insan 40 çifti kör puanladı; iki yargıç adayı da aynı çiftleri iki sırada puanladı. 12b üslupta %80 uyum ve %86 sıra tutarlılığıyla geçti ve seçildi. Ancak bundan sonra checkpoint seçimi yargıçla yapıldı.
+**Mini örnek (örnek, uydurma; gerçek çalışma değil):** doğrulamada `baseline` ve `faq_adapter_run1` cevapları üretildi. 40 soru seed 42 ile seçildi; insan 40 çifti kör puanladı; iki yargıç adayı da aynı çiftleri iki sırada puanladı. 12b üslupta %80 uyum ve %86 sıra tutarlılığıyla geçti ve seçildi. Ancak bundan sonra checkpoint seçimi yargıçla yapıldı.
 
 **Üç cümlelik özet:** Fine-tuning doğrudan talep edildiği için "prompt'tan üstün mü?" sorusu kapsamdan çıktı ve baseline hem üslup gelişiminin hem gerilemenin taban çizgisi oldu. Eşik değerleri değişmedi; ama tek bir karşılaştırma kaldığı için birleşik etiket, yedek yol ve çoklu karşılaştırma kuralları sadeleşti. Bunun bedeli rapora yazıldı: baseline'a karşı üslup kazancı beklenen bir sonuçtur ve prompt'la elde edilebilecek kazançtan ayrıştırılmamıştır.
 

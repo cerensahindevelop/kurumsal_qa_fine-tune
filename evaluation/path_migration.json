@@ -1,0 +1,62 @@
+{
+ "base_ref": "HEAD",
+ "lock_manifest": "evaluation/lock_manifest.json",
+ "files": [
+  {
+   "old_path": "prompts/system_prompt_v1.txt",
+   "new_path": "prompts/system_prompt.txt",
+   "old_sha256": "0ecd66614c7f4b7db1aab3d671e90125517c83453bd38bc78f34019bdd048cf0",
+   "new_sha256": "0ecd66614c7f4b7db1aab3d671e90125517c83453bd38bc78f34019bdd048cf0",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "prompts/response_standard_v1.md",
+   "new_path": "prompts/response_standard.md",
+   "old_sha256": "4917f186d3537e1c250e89d96fb457cb94750b32693b76055e4f2193d805e22c",
+   "new_sha256": "1d61d36ca74bce4b2ebf735c2cb8105a88239cdfb5a757bd7696e8ed261a3d3f",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "evaluation/thresholds_v1.md",
+   "new_path": "evaluation/thresholds.md",
+   "old_sha256": "9a5af01191820a060fd48e7a40362493a8f5c87944294c5e588311c0f82538f9",
+   "new_sha256": "4309ea8e98fb1ebb03b866d4e25ffaaa766abd5648aab6bb4b79ca132206219e",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "evaluation/thresholds_v1_explained.md",
+   "new_path": "evaluation/thresholds_explained.md",
+   "old_sha256": "3f71a7c3dba9f4bd57fbaabe581805e8beca5a3e7409cfe457ec267d36a56767",
+   "new_sha256": "0c424b749164b6fa38f274e705acb28e83a7faac970ee114ca1561659e575737",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "evaluation/experiment_plan_v1.md",
+   "new_path": "evaluation/experiment_plan.md",
+   "old_sha256": "3435be2c6f55255383e719397468542f534c95595576f412442d33eb2af18aa2",
+   "new_sha256": "8265f7913dc8a28ee8c59956200f4023fd215903cfd6df30eabf7d43a210da12",
+   "content_unchanged": false,
+   "locked": false
+  },
+  {
+   "old_path": "evaluation/dev_out_of_scope_v1.jsonl",
+   "new_path": "evaluation/dev_out_of_scope.jsonl",
+   "old_sha256": "4b510c13714c6909600743bbca73201c5beecb89619eebfe308616c35edaf193",
+   "new_sha256": "4b510c13714c6909600743bbca73201c5beecb89619eebfe308616c35edaf193",
+   "content_unchanged": true,
+   "locked": false
+  },
+  {
+   "old_path": "report/report_plan_v1.md",
+   "new_path": "report/report_plan.md",
+   "old_sha256": "2a1bc31aec3932c8f9dbee39eb3b7ac5e8023c1099af5fb3b1ca0d30398be0d3",
+   "new_sha256": "1cada8f7740e45da801ca60997c66906094507415dfb8c736707a4f6f20ab46c",
+   "content_unchanged": false,
+   "locked": false
+  }
+ ]
+}

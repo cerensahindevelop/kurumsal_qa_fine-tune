@@ -113,7 +113,7 @@ def load_path_migrations(migration_paths: list[Path]) -> dict[str, str]:
 
     Ne döndürür:
         Proje köküne göre yazılmış yollarla bir tablo.
-        Örnek: {"inceleme/genel_kontrol_v2_taslak.jsonl": "evaluation/held_out/general_control_v2.jsonl"}
+        Örnek: {"inceleme/genel_kontrol_v2_taslak.jsonl": "evaluation/held_out/general_control_held_out.jsonl"}
     """
     migrations: dict[str, str] = {}
     for migration_path in migration_paths:
@@ -143,7 +143,7 @@ def follow_migrations(path: str, migrations: dict[str, str]) -> str:
         migrations: load_path_migrations'ın döndürdüğü tablo.
 
     Ne döndürür:
-        En son yol. Örnek: "evaluation/held_out/general_control_v2.jsonl"
+        En son yol. Örnek: "evaluation/held_out/general_control_held_out.jsonl"
         Yol tabloda yoksa aynen döner.
 
     Nasıl çalışır:
