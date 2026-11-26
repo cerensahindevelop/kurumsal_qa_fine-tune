@@ -249,6 +249,24 @@ def display_path(record: dict) -> str:
     return f"{Path(record['root']).name}/{record['path']}"
 
 
+def short(sha256: str) -> str:
+    """
+    Ne yapar:
+        Bir parmak izinin yalnızca ilk 12 karakterini alır.
+
+    Neden var:
+        64 karakterlik tam parmak izi ekranda okunmaz. İki parmak izinin aynı mı farklı mı
+        olduğunu görmek için baştaki 12 karakter yeter.
+
+    Ne alır:
+        sha256: Tam parmak izi. Örnek: "3a7bd3e2360a3d29eea436fcfb7e44c7..."
+
+    Ne döndürür:
+        Kısa parmak izi. Örnek: "3a7bd3e2360a"
+    """
+    return sha256[:SHORT_SHA256_LENGTH]
+
+
 def compare_manifests(old_manifest: dict, new_manifest: dict, migrations: dict[str, str],
                       focus_patterns: list[str]) -> dict:
     """
@@ -278,10 +296,6 @@ def compare_manifests(old_manifest: dict, new_manifest: dict, migrations: dict[s
     """
     old_files = {file_key(record, migrations): record for record in old_manifest["files"]}
     new_files = {file_key(record, migrations): record for record in new_manifest["files"]}
-
-    def short(sha256: str) -> str:
-        # Parmak izinin yalnızca başını göster; aynı mı farklı mı olduğunu görmek için yeter.
-        return sha256[:SHORT_SHA256_LENGTH]
 
     result = {"added": [], "removed": [], "changed": [], "unchanged": []}
     for key in sorted(old_files.keys() | new_files.keys()):
