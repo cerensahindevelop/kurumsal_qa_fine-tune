@@ -32,6 +32,8 @@ yeni çıktılar oraya yazılmaz. Ayrıntı: `archive/README.md`.
 | `archive/env/` | Girdi parmak izi listeleri v1–v5, paket ve donanım kayıtları (2026-11-23/24) | Eski adları `girdi_sha256`, `paketler`, `donanim` idi. |
 | `inceleme/` | Kilitli `genel_kontrol_v2_taslak.jsonl` ve onay CSV'si | Arşivde değil; kilitli olduğu için yerinde duruyor. 02'de `evaluation/held_out/` altına taşınacak. |
 
+Kilit manifestinin sürümler arasında neyin neden değiştiği: `evaluation/lock_manifest_changelog.md`.
+
 Taşınan 38 dosyanın "eski yol → yeni yol → SHA-256" listesi: `evaluation/path_migration_manifest_2026-11-25.json`
 (24'ü ad değişikliği, 14'ü arşive taşıma; arşivdekilerin hepsi içerikçe aynı).
 
@@ -65,6 +67,14 @@ python -m src.data.build_input_manifest \
 # (v1 manifesti --extra-locked olmadan ve 01_sss deseni eklenmeden üretilmişti; v2, b grubu yeniden yazılmadan önceki taslağı; v3, GK2-050 düzeltmesinden önceki taslağı; v4, kullanıcı onayından ve GK2-044 düzeltmesinden önceki taslağı kilitler.)
 # genel_kontrol_v2 onaylanıp evaluation/held_out/ altına taşınınca --extra-locked o yolu gösterir
 # ve çıktı lock_manifest_v7.json olur.
+
+# 1a) KURAL: her yeni manifest sürümünden sonra bir öncekiyle karşılaştır ve
+#     evaluation/lock_manifest_changelog.md tablosuna yeni satır ekle (ne değişti, hangi dosya, neden, commit).
+#     Betik yalnızca manifestleri okur; kilitli dosyaları açmaz. Dosya taşındıysa taşıma listesini ver.
+python -m src.evaluation.compare_lock_manifests \
+  --old evaluation/lock_manifest_v<N-1>.json \
+  --new evaluation/lock_manifest_vN.json \
+  --path-migration evaluation/path_migration_manifest_<tarih>.json
 
 # 1b) Asistanın yazdığı taslaklar için insan onay kuyruğu (dolu hücreler kimliğe göre korunur;
 #     sonunda onay dağılımını yazar, "düzelt"/"duzelt" aynı sayılır)

@@ -1,6 +1,27 @@
 # PROJECT_STATUS
 
-Son güncelleme: 2026-11-26 (bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-26 (bakım: kilit manifesti değişiklik kaydı; bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+
+---
+
+## Bakım: kilit manifesti değişiklik kaydı (2026-11-26; aşama değil, 02'ye geçilmedi)
+
+### Tamamlanan iş
+- Yeni betik `src/evaluation/compare_lock_manifests.py`: iki manifesti karşılaştırır; eklenen, çıkarılan, parmak izi değişen ve aynı kalan dosyaları yalnızca yol ve 12 karakterlik kısa parmak iziyle yazar. Kilitli dosyaları açmaz, yalnızca manifestleri okur.
+  - Eski Türkçe alanlı (v1–v5) ve İngilizce alanlı (v6) manifestleri okur (`LEGACY_FIELD_NAMES`).
+  - `--path-migration` ile verilen taşıma listesine göre taşınan dosyayı "taşındı" olarak eşler. Manifestin kendisi taşındıysa eski yolundan yeni yerini bulur.
+  - Test ve tuzak dosyaları için ayrı bir özet satırı yazar (`--focus-patterns`).
+- Yeni dosya `evaluation/lock_manifest_changelog.md`: v1–v6 için sürüm, tarih, ne değişti, hangi dosya, neden ve commit.
+- README'ye "1a" kuralı ve komutu eklendi.
+
+### Doğrulama sonuçları (ölçüldü)
+- Beş ardışık çift: v1→v2 2 dosya eklendi (ham `01_sss`, `genel_kontrol_v2` taslağı) ve `01_sss/*` kalıbı eklendi; v2→v3, v3→v4 ve v4→v5 yalnızca taslağın parmak izi değişti; v5→v6 27/27 aynı.
+- Test ve tuzak dosyaları (7 dosya) her çiftte ve v1→v6 doğrudan karşılaştırmada 7/7 aynı. v1'in 25 dosyasının 25'i v6'da aynı.
+- Sentetik manifestlerle test: taşıma listesiyle taşınan dosya "aynı kaldı (taşındı)" çıktı; liste olmadan "çıkarıldı + eklendi". Eklenen, çıkarılan ve değişen dosya ile yeni kalıp doğru yakalandı. Eski manifest yolu (`degerlendirme/kilit_manifesti_v4.json`) taşıma eşlemesiyle arşivdeki dosyaya çözüldü. Olmayan manifestte betik hatayla durdu.
+- v1–v5 commit'leri eski yollarla bulundu (`0820870`, `b4ebb4e`, `518aa58`, `35f1a69`; v1 `914c1e8`). Arşive taşınan yolda `git log --follow` beşi için de yanlışlıkla `914c1e8` gösterdi; kayıtta bu not var.
+
+### Değişen çalıştırılabilir kod veya komut yolları
+- Yeni: `python -m src.evaluation.compare_lock_manifests --old … --new … [--path-migration …] [--focus-patterns …] [--output …]`.
 
 ---
 
@@ -42,6 +63,7 @@ Son güncelleme: 2026-11-26 (bakım: onay yetkisi proje sahibine geçti; önceki
   - `inceleme/genel_kontrol_v2_taslak.jsonl` → `evaluation/held_out/general_control_v2.jsonl`
   - `inceleme/genel_kontrol_v2_onay.csv` → `review/general_control_v2_review.csv`
 - Taşımadan önce ve sonra SHA-256 aynı olmalı; çiftler `evaluation/path_migration_map_*.json` ve migration manifestine eklenir. Ardından `evaluation/lock_manifest_v7.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
+- v7 üretilince `python -m src.evaluation.compare_lock_manifests --old evaluation/lock_manifest_v6.json --new evaluation/lock_manifest_v7.json --path-migration <02'nin taşıma manifesti>` çalıştırılır. `evaluation/lock_manifest_changelog.md` tablosuna v7 satırı eklenir. Beklenen: taslak "aynı kaldı (taşındı)", test ve tuzak 7/7 aynı. Bu kural bundan sonraki her manifest sürümü için geçerlidir (README "1a").
 - Taşımadan sonra `inceleme/` boşalırsa silinir. `evaluation/held_out/**` için Read deny kuralı eklenir (settings.json değişeceği için README'deki erişim engeli testi yapılır).
 - Belgelerdeki `genel_kontrol_v2` veri seti adı ve dosyadaki Türkçe alan adları (`grup`, `beklenen_davranis` gibi) kilit gereği değişmez; okuyan kod `LEGACY_*` eşlemelerini kullanır.
 

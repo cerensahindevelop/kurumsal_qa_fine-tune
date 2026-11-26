@@ -1,0 +1,35 @@
+# Kilit manifesti değişiklik kaydı
+
+SHA-256 bir dosyanın parmak izidir; yalnızca değişip değişmediğini gösterir. Neyin neden değiştiğini bu tablo anlatır.
+
+Tablodaki "değişti / eklendi / aynı" bilgileri `src/evaluation/compare_lock_manifests.py` betiğinin çıktısından alındı (ölçüldü).
+Parmak izleri ilk 12 karakteriyle yazıldı. Betik yalnızca manifestleri okur; kilitli dosyaların içeriği açılmadı.
+"Neden" sütunu `PROJECT_STATUS.md` ve `evaluation/experiment_plan_v1.md` içindeki kararlardan kısaltıldı.
+
+## Sürümler
+
+| Sürüm | Tarih | Ne değişti | Hangi dosya | Neden | Commit |
+|---|---|---|---|---|---|
+| v1 | 2026-11-23 | İlk kilit: 25 dosya kilitlendi. | Test seti (1), tuzak seti (1), Türkçe değerlendirme (8), ham tuzak klasörü `05_tuzak_sorular` (5), ham genel Türkçe değerlendirme klasörü (10) | Test ve değerlendirme setlerinin, hiçbir iş başlamadan önceki parmak izini kaydetmek. | `914c1e8` |
+| v2 | 2026-11-23 | 2 dosya eklendi; yeni kilit kalıbı `01_sss/*`. Diğer 25 dosya aynı. | `fine_tuneVeriler/01_sss/sss_birlesik.jsonl` (`830d67600620`), `inceleme/genel_kontrol_v2_taslak.jsonl` (`edf68c2c4bed`) | Test soruları ham sıkça sorulan sorulardan seçildiği için ham dosya da kilitlendi. `genel_kontrol_v1`'in tamamı geliştirme bölümü oldu; saklanan karşılığı olarak 60 soruluk `genel_kontrol_v2` taslağı yazıldı ve kilitlendi (karar 6a). | `0820870` |
+| v3 | 2026-11-23 | 15 soru yeniden yazıldı (`b` grubu, GK2-036…050). Diğer 26 dosya aynı. | `inceleme/genel_kontrol_v2_taslak.jsonl` (`edf68c2c4bed` → `34abf2f80a7e`) | `b` grubu yanlış yorumlanmıştı. Yeni tanım: kurum işlemi soran, gündelik dille sorulmuş, sade ve adım adım anlatım bekleyen sorular (karar 6c). | `b4ebb4e` |
+| v4 | 2026-11-23 | 1 soru düzeltildi (GK2-050). Diğer 26 dosya aynı. | `inceleme/genel_kontrol_v2_taslak.jsonl` (`34abf2f80a7e` → `93459a5c8b90`) | "Kısaca anlatır mısın?" yalnızca kısalık istiyordu, sade anlatım isteği değildi. Kullanıcı onayıyla "Kısaca ve sade bir dille anlatır mısın?" oldu. | `518aa58` |
+| v5 | 2026-11-23 | 1 sorunun bir bilgi öğesi düzeltildi (GK2-044, 4. öğe); taslak kullanıcı tarafından onaylandı (60/60 "evet"). Diğer 26 dosya aynı. | `inceleme/genel_kontrol_v2_taslak.jsonl` (`93459a5c8b90` → `3b8d3aa1dab9`) | Kullanıcı incelemesi: kıdem tazminatıyla ilgili öğe eksikti; işçinin haklı nedenle feshi de tazminat doğurur. | `35f1a69` |
+| v6 | 2026-11-25 | Hiçbir dosya değişmedi (27/27 aynı, kilit kalıpları aynı). Yalnızca manifestin alan adları İngilizce oldu (`yol` → `path` gibi). | — | İsimlendirme bakımı. Eski manifestler `archive/degerlendirme/` altına taşındı. | `6f55863` |
+
+**Test ve tuzak dosyaları bütün sürümlerde aynı kaldı (ölçüldü).** Test seti, tuzak seti ve ham tuzak klasöründeki 5 dosya (toplam 7) her ardışık çiftte (v1→v2, v2→v3, v3→v4, v4→v5, v5→v6) 7/7 aynı. v1→v6 doğrudan karşılaştırmasında da 7/7 aynı. v1'deki 25 dosyanın 25'i v6'da aynı parmak iziyle duruyor; bütün sürümlerde değişen tek dosya `genel_kontrol_v2` taslağı.
+
+Not: v1–v5 manifestleri `archive/degerlendirme/` altına taşındığı için `git log --follow` bu dosyalarda yanlış commit gösterebilir. Commit'ler eski yollarla bulundu: `git log --diff-filter=A -- degerlendirme/kilit_manifesti_v<N>.json`.
+
+## Yeni sürüm eklenirken
+
+Her yeni manifest sürümü üretildiğinde betik bir önceki sürümle çalıştırılır ve bu tabloya yeni bir satır eklenir:
+
+```bash
+python -m src.evaluation.compare_lock_manifests \
+  --old evaluation/lock_manifest_v6.json \
+  --new evaluation/lock_manifest_v7.json \
+  --path-migration evaluation/path_migration_manifest_<tarih>.json
+```
+
+Dosya taşındıysa, taşıma listesi `--path-migration` ile verilir. Böylece taşınan dosya "çıkarıldı + eklendi" diye değil, "taşındı" diye görünür. Satırdaki "test ve tuzak" sonucu betiğin son satırlarından alınır.
