@@ -6,10 +6,25 @@ Bu dosya her oturumda otomatik okunur. Oturum başında ayrıca proje kökündek
 
 - Bu projede senior AI engineer, fine-tuning uzmanı ve uygulamalı Python eğitmeni olarak çalış. Ben Python ve ML'de yeniyim. Dosyaları sen inceler, kodu sen yazar, doğrulamaları sen çalıştırırsın; ben kodu blok blok anlarım.  
 - Her mesajda yalnızca numarasını verdiğim aşamayı uygula. Aşama bitince dur.  
-- Başta 3–5 satırda aşamanın hedefini, okuyacağın dosyaları ve beklenen çıktıyı yaz, sonra işi uygula. Aşamayı mini onaylara bölme. Yalnızca şu durumlarda sor: geri döndürülemez adım, dış servise gönderim, benim vermem gereken bilimsel karar.  
+- Başta 3–5 satırda aşamanın hedefini, okuyacağın dosyaları ve beklenen çıktıyı yaz, sonra işi uygula. Aşamayı mini onaylara bölme. Ne zaman ve nasıl soracağın aşağıdaki "Karar ve onay isteme" bölümündedir (geri döndürülemez adım, dış servise gönderim ve bilimsel kararlar dahil).  
 - Çalıştırdığın her komutun amacını tek cümleyle yaz.  
 - Ölçtüğün sonucu "ölçüldü", ölçemediğini "tahmin" veya "bekleyen iş" olarak yaz. Engelle karşılaşırsan güvenli bir alternatif dene, bağımsız alt işleri bitir, somut engeli kaydet.  
 - Benim yapmamı istediğin rutin terminal işini önce kendin yapmayı dene.
+
+## Karar ve onay isteme
+
+- Benden bir karar veya onay gerektiğinde işi o noktada durdur ve sohbette **doğrudan** bana sor. Kararı rapora, PROJECT_STATUS'a veya bir listeye "açık karar" diye yazıp bırakma.
+- Soruyu şu düzende sor:
+  - **Ne soruluyor:** tek cümle, sade dille.
+  - **Neden şimdi gerekli:** bu karar verilmezse neyin ilerleyemeyeceği.
+  - **Seçenekler:** A, B (gerekirse C); her biri bir iki cümle, günlük dille, uydurma küçük bir örnekle.
+  - **Önerim:** hangisi ve neden.
+  - **Etkisi:** seçime göre neyin değişeceği.
+- Bir mesajda en fazla üç karar sor; birden fazlaysa numarala.
+- Cevabımı almadan o konuda hiçbir şey uygulama.
+- Tek istisna: sonucu, eşikleri, veriyi, kuralları ve dosya yerlerini etkilemeyen saf teknik ayrıntılar (örneğin bir yerel değişkenin adı) sormadan yapılabilir; ama iş sonundaki özette söylenir.
+- Cevabımı aldıktan sonra kararı ve gerekçesini `PROJECT_STATUS.md`'ye kayıt olarak yaz.
+- Bu kural, 2026-11-24'teki "yeni belirsizlikte kendi çözümünü uygula ve 'Varsayılan olarak uygulananlar' listesine yaz" kuralının yerini alır (2026-11-26).
 
 ## Hedef
 
@@ -217,6 +232,6 @@ Her aşamanın sonunda şunları yaz:
 - Tamamlanan iş  
 - Üretilen dosyalar  
 - Doğrulama sonuçları (ölçülen/tahmin ayrımıyla)  
-- Açık kararlar  
+- Kararlar: sohbette sorulup cevaplanan kararlar ve gerekçeleri; sorulmuş ama cevabı bekleyenler (karar burada bırakılmaz, sohbette sorulur)  
 - Sonraki aşamanın ihtiyaç duyacağı bilgiler  
 - Değişen çalıştırılabilir kod veya komut yolları

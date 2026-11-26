@@ -1,6 +1,20 @@
 # PROJECT_STATUS
 
-Son güncelleme: 2026-11-26 (bakım: kilit manifesti değişiklik kaydı; bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-26 (bakım: karar isteme kuralı; bakım: kilit manifesti değişiklik kaydı; bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+
+---
+
+## Bakım: karar ve onay isteme kuralı (2026-11-26; aşama değil, 02'ye geçilmedi)
+
+### Tamamlanan iş
+- CLAUDE.md'ye "Karar ve onay isteme" bölümü eklendi. Karar gerektiğinde iş durur ve soru sohbette sabit düzenle sorulur (ne soruluyor, neden şimdi, seçenekler, öneri, etki). Bir mesajda en fazla üç karar sorulur. Cevap gelmeden o konuda bir şey uygulanmaz. Cevap ve gerekçesi PROJECT_STATUS'a kayıt olarak yazılır.
+- Eski "kendi çözümünü uygula ve 'Varsayılan olarak uygulananlar' listesine yaz" kuralı kaldırıldı (aşağıda, "Çalışma kuralı: eşik paketindeki yeni belirsizlikler").
+- Çelişki kalmasın diye CLAUDE.md'de iki satır uyarlandı: "Yalnızca şu durumlarda sor…" satırı yeni bölüme yönlendiriyor; PROJECT_STATUS şablonundaki "Açık kararlar" maddesi "Kararlar: cevaplananlar ve gerekçeleri; sorulmuş ama cevabı bekleyenler" oldu.
+- V1–V6 "onay bekliyor" olarak işaretlendi. V1–V3 bu sohbette soruldu; V4–V6 bu üç soru cevaplanınca sorulacak (bir mesajda en fazla üç karar kuralı).
+- Kilit manifesti değişiklik kaydı (aynı istekteki 1. madde) bir önceki bakımda yapılmıştı (`c5f4fe1`, `1f2cb74`); yeniden yapılmadı.
+
+### Kararlar (cevap bekleyen; sohbette soruldu)
+- V1, V2, V3 (2026-11-26'da soruldu). V4, V5, V6 sıradaki mesajda sorulacak.
 
 ---
 
@@ -349,27 +363,27 @@ Son güncelleme: 2026-11-26 (bakım: kilit manifesti değişiklik kaydı; bakım
 22. **Aya karşılaştırması yargıç kalırsa** (**kapandı**, kullanıcı kararı 2026-11-24): üslup+jargon türüne bağlandı. Tek yargıç kuralı eklenmedi. `thresholds_v1.md` §9.3; `experiment_plan_v1.md` §6.5 ve §6.8 madde 4.
 23. **Uyarı incelemesinin yeniden hesabı** (**kapandı**, kullanıcı kararı 2026-11-24): (a) iki yönlü inceleme; (b) chrF ve perplexity düzeltilemez, bilinçli tercih; (c) yargıç üslupta kalırsa T.6 "ölçülemedi". Uygulama yorumları onaylandı. `thresholds_v1.md` §3A, §6.2, §8 değişiklik 11, §9.3.
 
-Açık karar kalmadı. Yeni belirsizlikler açık karar olarak değil, aşağıdaki "Varsayılan olarak uygulananlar" listesine yazılır.
+Açık karar kalmadı. 2026-11-26'dan itibaren yeni kararlar listeye yazılmaz; sohbette doğrudan sorulur (CLAUDE.md "Karar ve onay isteme").
 
-### Çalışma kuralı: eşik paketindeki yeni belirsizlikler (kullanıcı, 2026-11-24)
-- Eşik paketiyle ilgili yeni bir belirsizlik bulunursa açık karar **açılmaz**. Asistan kendi önerdiği çözümü uygular ve aşağıdaki listeye yazar: tek cümlelik sorun, uygulanan çözüm, dosya/satır. Kullanıcı listeyi topluca gözden geçirir.
-- **İstisna:** çözüm bir eşik **değerini** veya **kritik/uyarı ayrımını** değiştirecekse, uygulamadan önce kullanıcıya sorulur.
+### Çalışma kuralı: eşik paketindeki yeni belirsizlikler (kullanıcı, 2026-11-24; **2026-11-26'da kaldırıldı**)
+- Eski kural "kendi çözümünü uygula ve listeye yaz" idi. Yerine CLAUDE.md "Karar ve onay isteme" kuralı geldi: karar gerektiğinde iş durur ve soru sohbette doğrudan sorulur.
+- Bu kuralla daha önce uygulanmış maddeler (aşağıdaki V1–V6) sohbette tek tek proje sahibinin onayına sunuldu; cevap gelene kadar "onay bekliyor".
 
 ### Çalışma kuralı: GitHub'a gönderim (kullanıcı, 2026-11-24)
 - Uzak depo: `origin` = https://github.com/cerensahindevelop/kurumsal_qa_fine-tune (`main`, ilk gönderim `38dcb32`).
 - Aşama sonlarında yalnızca yerel commit yapılır. `git push` her seferinde **kullanıcıya sorulur** ve yalnızca onay gelirse yapılır.
 
-### Varsayılan olarak uygulananlar (kullanıcının toplu gözden geçirmesini bekliyor)
+### Varsayılan olarak uygulananlar (V1–V6: onay bekliyor, 2026-11-26'da sohbette soruldu)
 Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içindir. Hiçbiri bir eşik değerini veya kritik/uyarı ayrımını değiştirmiyor.
 
 | # | Sorun (tek cümle) | Uygulanan çözüm | Dosya / satır |
 |---|---|---|---|
-| V1 | 3.1 (TurkishMMLU doğruluğu) "ortalama farkı" türündeydi; doğru/yanlış bir sayım olduğu için "iki yöndeki uyuşmayan kayıt" orada tanımsızdı. | 3.1 "sayım farkı" türüne alındı: uyuşmayan kayıt = iki sistemden yalnızca birinin doğru bildiği soru, iki yönde de. | `thresholds_v1.md`:174 (§6.2 U.2) |
-| V2 | 3.8 mutlak bir orandır, karşılaştırılan sistem yoktur; "iki yön" tanımsızdı ve yalnızca olumsuz kayıtlara bakmak düzeltmeyi tek yönlü bırakıyordu. | Harf çıkarılamayan bütün kayıtlara ek olarak, harf çıkarılan kayıtlardan seed 42 ile 20 rastgele kayıt incelenir (betiğin cevapta olmayan harfi çıkarması). | `thresholds_v1.md`:175 |
-| V3 | İkili karşılaştırmada (2.2, 3.6) "uyuşmayan kayıt" tanımsızdı. | Yargıcın iki sırada tutarlı karar verdiği bütün kayıtlar (adaptörün kayıpları ve kazançları) incelenir; beraberlikler iki yönde de incelenmez. | `thresholds_v1.md`:176 |
-| V4 | Ortalama farkı eşiklerinde (2.3, 3.9 ortalama) yalnızca "en olumsuz 20" vardı. | En olumsuz 20 + en olumlu 20 + rastgele 10. | `thresholds_v1.md`:177 |
-| V5 | "En fazla 40 kayıt" sınırı tek yön için yazılmıştı; iki yönde tek sınır bir yönü kırpabilirdi. Ayrıca yön görünürse değerlendirici yanlı olabilirdi. | Her yönde en fazla 40 kayıt; aynı seçim kuralı ve etiket şeması; CSV'de yön gösterilmez, kayıtlar seed 42 ile karışık sıralanır. | `thresholds_v1.md`:180 |
-| V6 | Uyarı incelemesindeki düzeltmelerin kritik eşiklere taşınıp taşınmadığı yazılı değildi (2.4, 2.1'in alt kümesi); taşınırsa bir uyarı incelemesi kritik sonucu dolaylı olarak kaldırabilirdi. | Taşınmaz: kritik eşikler (2.1, 3.7, 4.2) özgün etiketlerle, 2.1'de §9.1'deki birleşik etiketlerle hesaplanır. Kritik/uyarı ayrımını korur, değiştirmez. | `thresholds_v1.md`:201 (§6.2 U.5) |
+| V1 (**onay bekliyor**) | 3.1 (TurkishMMLU doğruluğu) "ortalama farkı" türündeydi; doğru/yanlış bir sayım olduğu için "iki yöndeki uyuşmayan kayıt" orada tanımsızdı. | 3.1 "sayım farkı" türüne alındı: uyuşmayan kayıt = iki sistemden yalnızca birinin doğru bildiği soru, iki yönde de. | `thresholds_v1.md`:174 (§6.2 U.2) |
+| V2 (**onay bekliyor**) | 3.8 mutlak bir orandır, karşılaştırılan sistem yoktur; "iki yön" tanımsızdı ve yalnızca olumsuz kayıtlara bakmak düzeltmeyi tek yönlü bırakıyordu. | Harf çıkarılamayan bütün kayıtlara ek olarak, harf çıkarılan kayıtlardan seed 42 ile 20 rastgele kayıt incelenir (betiğin cevapta olmayan harfi çıkarması). | `thresholds_v1.md`:175 |
+| V3 (**onay bekliyor**) | İkili karşılaştırmada (2.2, 3.6) "uyuşmayan kayıt" tanımsızdı. | Yargıcın iki sırada tutarlı karar verdiği bütün kayıtlar (adaptörün kayıpları ve kazançları) incelenir; beraberlikler iki yönde de incelenmez. | `thresholds_v1.md`:176 |
+| V4 (**onay bekliyor**) | Ortalama farkı eşiklerinde (2.3, 3.9 ortalama) yalnızca "en olumsuz 20" vardı. | En olumsuz 20 + en olumlu 20 + rastgele 10. | `thresholds_v1.md`:177 |
+| V5 (**onay bekliyor**) | "En fazla 40 kayıt" sınırı tek yön için yazılmıştı; iki yönde tek sınır bir yönü kırpabilirdi. Ayrıca yön görünürse değerlendirici yanlı olabilirdi. | Her yönde en fazla 40 kayıt; aynı seçim kuralı ve etiket şeması; CSV'de yön gösterilmez, kayıtlar seed 42 ile karışık sıralanır. | `thresholds_v1.md`:180 |
+| V6 (**onay bekliyor**) | Uyarı incelemesindeki düzeltmelerin kritik eşiklere taşınıp taşınmadığı yazılı değildi (2.4, 2.1'in alt kümesi); taşınırsa bir uyarı incelemesi kritik sonucu dolaylı olarak kaldırabilirdi. | Taşınmaz: kritik eşikler (2.1, 3.7, 4.2) özgün etiketlerle, 2.1'de §9.1'deki birleşik etiketlerle hesaplanır. Kritik/uyarı ayrımını korur, değiştirmez. | `thresholds_v1.md`:201 (§6.2 U.5) |
 | V7 | `hazir_istemli` çıkınca yargıç kalibrasyonunun çift kaynağı (`baseline` vs `hazir_istemli`) ortadan kalktı. | Kaynak: `baseline` ile ilk `faq_adapter` koşusunun (`faq_adapter_v1`, son checkpoint) doğrulama cevapları; 40 soru seed 42 ile kaynağa göre katmanlı. **Sıraya etkisi:** 06'da yalnızca `baseline`'ın doğrulama cevapları üretilir ve otomatik metrikler hesaplanır; yargıçla puanlama yapılamaz. Kalibrasyon ve yargıç seçimi 07'de, ilk adaptörün doğrulama cevaplarından sonra yapılır. Yargıca dayanan bütün doğrulama puanlamaları (checkpoint/tarif seçimi, `faq_synthetic_adapter`, K.2) kalibrasyondan sonra gelir. 06 ve 07'nin içeriği depoda tanımlı değil; bu sıra, aşamaların senin numaralandırmana göre bir tahminidir. | `thresholds_v1.md`:28 (0.3); `experiment_plan_v1.md` §2 madde 2, §6.8 madde 1 |
 | V8 | 4.3'teki "aday ayarlar (prompt, checkpoint)" ifadesinde prompt artık aday değil. | "(checkpoint, tarif)" olarak düzeltildi. | `thresholds_v1.md`:140; `thresholds_v1_explained.md` 4.3 |
 | V9 | Karar 20'nin konusu olan prompt ayarı kalktı; ama kalibrasyonun 40 sorusu artık adaptör seçiminde aynı iyimserlik sorununu taşıyor. | Karar 20'nin ilkesi adaptör ayar/tarif seçimine taşındı: kalibrasyon soruları seçimden çıkarılmaz. Rapor sınırlaması buna göre yeniden yazıldı; ayrıca yargıcın yalnızca `faq_adapter` üslubuyla sınandığı eklendi. | `experiment_plan_v1.md` §6.8 madde 6; `report_plan_v1.md` §4.4 |
