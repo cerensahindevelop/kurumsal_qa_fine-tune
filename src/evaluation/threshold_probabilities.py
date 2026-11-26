@@ -10,7 +10,7 @@ Neden var:
     Sayılar elle hesaplanırsa hata yapılabilir; bu betik onları her seferinde aynı biçimde üretir.
 
 Nasıl çalıştırılır (terminalde, proje klasöründeyken):
-    python -m src.evaluation.threshold_probabilities --output evaluation/threshold_probabilities_v2.json
+    python -m src.evaluation.threshold_probabilities --output evaluation/threshold_probabilities.json
 
     --output: sonuçların yazılacağı dosya.
     --degradation: tuzak hesabında modelin kaç soru daha kötü varsayılacağı. Varsayılan 3.
@@ -27,8 +27,9 @@ Rastgelelik yok:
     Bu yüzden her çalıştırmada aynı sayılar çıkar ve seed (rastgeleliği sabitleyen sayı) gerekmez.
 
 Eski sürüm:
-    İlk sürümün çıktısı archive/degerlendirme/threshold_probabilities_v1.json dosyasındadır.
-    O dosyada anahtar adları Türkçedir. Her eski adın yeni karşılığı LEGACY_OUTPUT_KEYS listesindedir.
+    Çıktı tek bir güncel dosyadır: evaluation/threshold_probabilities.json. Eski hâli git geçmişindedir.
+    İlk çıktı Türkçe anahtar adlıydı: git show 1919cce:archive/degerlendirme/threshold_probabilities_v1.json
+    Sayılar aynıdır (2026-11-26'da yeniden ölçüldü). Her eski adın yeni karşılığı LEGACY_OUTPUT_KEYS listesindedir.
     Sayılar iki sürümde de aynı formüllerle hesaplanır.
 """
 from __future__ import annotations

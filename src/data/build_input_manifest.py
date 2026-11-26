@@ -21,17 +21,27 @@ Nasıl çalıştırılır (terminalde, proje klasöründeyken):
     python -m src.data.build_input_manifest \\
         --input "/home/aipc/Desktop/Gruplu Veriler" /home/aipc/Desktop/fine_tuneVeriler \\
         --extra-locked inceleme/genel_kontrol_v2_taslak.jsonl \\
-        --output env/2026-11-25_input_sha256_v6.json \\
-        --lock-manifest-output evaluation/lock_manifest_v6.json
+        --output env/input_sha256.json \\
+        --lock-manifest-output evaluation/lock_manifest.json
 
     --input: taranacak veri klasörleri.
     --extra-locked: bu klasörlerin dışında olup yine de kilitlenecek dosyalar.
     --output: bütün dosyaların listesinin yazılacağı yer.
     --lock-manifest-output: yalnızca kilitli dosyaların listesinin yazılacağı yer.
 
+Tek dosya, sürüm numarası içeride:
+    Her iki liste de tek bir güncel dosyadır; her çalıştırmada üzerine yazılır.
+    Eski hâller git geçmişinde saklanır. Bu yüzden betik, git'e kaydedilmemiş bir dosyanın üzerine yazmaz.
+    Kilit manifestinin sürüm numarası dosyanın içindeki "version" alanındadır.
+    Numara yalnızca kilitli bir dosya ya da kilit kalıbı değişince bir artar.
+    Hiçbir şey değişmediyse kilit manifesti olduğu gibi bırakılır.
+    Numara artınca evaluation/lock_manifest_changelog.md tablosuna yeni bir satır eklenir.
+
 Eski listeler:
-    2026-11-25'ten önce üretilen listeler (v1'den v5'e kadar) archive/degerlendirme/ klasöründedir.
-    Onlarda alan adları Türkçedir. Örneğin "yol" bugün "path" olarak yazılıyor.
+    Eski sürümler (kilit manifesti v1–v5 ve girdi listeleri) git geçmişindedir. Hangi commit'te
+    ve hangi yolda oldukları evaluation/lock_manifest_changelog.md tablosunda yazar.
+    Örnek: git show 35f1a69:degerlendirme/kilit_manifesti_v5.json
+    O sürümlerde alan adları Türkçedir. Örneğin "yol" bugün "path" olarak yazılıyor.
     Eski ve yeni adların karşılığı aşağıdaki LEGACY_FIELD_NAMES listesindedir.
 """
 
@@ -42,6 +52,7 @@ import datetime
 import fnmatch
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 # Kilitli sayılan dosyaların yer kalıpları.
@@ -62,7 +73,7 @@ DEFAULT_LOCKED_PATTERNS = [
 # PDF gibi dosyalar satırlardan oluşmadığı için sayılmaz.
 LINE_COUNTED_SUFFIXES = {".jsonl", ".csv", ".txt", ".md", ".py"}
 
-# Eski listelerdeki (archive/degerlendirme/lock_manifest_v1 ile v5 arası) Türkçe alan adlarının bugünkü karşılıkları.
+# Eski listelerdeki (git geçmişindeki kilit manifesti v1–v5 ve girdi listeleri) Türkçe alan adlarının bugünkü karşılıkları.
 # Eski bir listeyi okuyacak bir betik, adları bu tabloyla çevirir.
 LEGACY_FIELD_NAMES = {
     "olusturma": "created_at",
@@ -192,6 +203,99 @@ def scan_root(root: Path, locked_patterns: list[str]) -> list[dict]:
     return records
 
 
+def ensure_committed(path: Path) -> None:
+    """
+    Ne yapar:
+        Bir dosyanın üzerine yazılmadan önce, şu anki hâlinin git'e kaydedilmiş (commit edilmiş) olduğunu kontrol eder.
+        Kaydedilmemişse betiği durdurur.
+
+    Neden var:
+        Projede her kayıt türünün tek bir güncel dosyası vardır. Eski hâller ayrı dosyalarda değil,
+        yalnızca git geçmişinde saklanır. Kaydedilmemiş bir hâlin üzerine yazılırsa o hâl hiçbir yerde kalmaz.
+        Kilit manifesti için bu, bir sürümün kanıtının kaybolması demektir.
+
+    Ne alır:
+        path: Üzerine yazılacak dosya. Örnek: Path("evaluation/lock_manifest.json")
+
+    Ne döndürür:
+        Bir değer döndürmez. Sorun yoksa sessizce biter; sorun varsa açıklamayla betiği durdurur.
+
+    Nasıl çalışır:
+        Dosya hiç yoksa kaybolacak bir şey de yoktur; kontrol geçer.
+        Varsa git'e iki soru sorulur: "bu dosya izleniyor mu?" ve "son commit'ten beri değişti mi?".
+        Dosyanın bulunduğu klasörde git yoksa (örneğin geçici bir deneme klasörü) kontrol yapılamaz ve betik durur.
+    """
+    if not path.exists():
+        return
+    folder = path.resolve().parent
+    tracked = subprocess.run(["git", "-C", str(folder), "ls-files", "--error-unmatch", path.resolve().name],
+                             capture_output=True)
+    if tracked.returncode != 0:
+        raise SystemExit(f"{path} git'e kaydedilmemiş. Önceki hâli kaybolmasın diye üzerine yazılmadı. "
+                         "Önce commit edin.")
+    changed = subprocess.run(["git", "-C", str(folder), "diff", "--quiet", "HEAD", "--", path.resolve().name])
+    if changed.returncode != 0:
+        raise SystemExit(f"{path} son commit'ten sonra değişmiş. Önceki hâli kaybolmasın diye üzerine yazılmadı. "
+                         "Önce commit edin.")
+
+
+def fingerprint_set(records: list[dict]) -> set[tuple[str, str, str]]:
+    """
+    Ne yapar:
+        Manifestteki dosya kayıtlarını "kök klasör, yol, parmak izi" üçlülerinden oluşan bir kümeye çevirir.
+
+    Neden var:
+        İki manifestin aynı dosyaları aynı parmak izleriyle tutup tutmadığını tek bir karşılaştırmayla görmek için.
+        Boyut, satır sayısı ya da kayıtların sırası bu karşılaştırmaya karışmamalı.
+
+    Ne alır:
+        records: Dosya kayıtları. Eski Türkçe alan adlı kayıtlar da olabilir.
+                 Örnek: [{"kok": "/veri", "yol": "test.jsonl", "sha256": "3a7b...", "kilitli": True}]
+
+    Ne döndürür:
+        Üçlülerden oluşan küme. Örnek: {("/veri", "test.jsonl", "3a7b...")}
+    """
+    converted = [{LEGACY_FIELD_NAMES.get(key, key): value for key, value in record.items()} for record in records]
+    return {(record["root"], record["path"], record["sha256"]) for record in converted}
+
+
+def next_version(previous: dict | None, locked_records: list[dict], patterns: list[str]) -> int:
+    """
+    Ne yapar:
+        Kilit manifestinin yeni sürüm numarasını belirler.
+
+    Neden var:
+        Kilit manifesti tek bir dosyadır; sürüm numarası dosyanın içinde "version" alanında durur.
+        Numara yalnızca kilitli bir dosya ya da kilit kalıbı değiştiğinde artmalıdır.
+        Yalnızca tarih değişti diye artarsa, değişiklik kaydında boş satırlar birikir.
+
+    Ne alır:
+        previous: Diskteki önceki manifest. Dosya yoksa None.
+                  Örnek: {"version": 6, "created_at": "...", "patterns": [...], "files": [...]}
+        locked_records: Bu çalıştırmada bulunan kilitli dosya kayıtları.
+                        Örnek: [{"root": "/veri", "path": "test.jsonl", "sha256": "3a7b...", "locked": True}]
+        patterns: Bu çalıştırmada kullanılan kilit kalıpları. Örnek: ["degerlendirme/test.jsonl"]
+
+    Ne döndürür:
+        Sürüm numarası. Örnek: değişiklik yoksa 6, değişiklik varsa 7, ilk manifestse 1.
+
+    Nasıl çalışır:
+        Her dosya "kök klasör, yol ve parmak izi" üçlüsüyle temsil edilir. Önceki ve yeni manifestin üçlüleri
+        ile kalıpları aynıysa numara korunur, farklıysa bir artırılır.
+        Eski Türkçe alan adlı bir manifest gelirse adlar önce LEGACY_FIELD_NAMES ile çevrilir.
+        Önceki manifestte sürüm alanı yoksa numara tahmin edilmez; betik durur.
+    """
+    if previous is None:
+        return 1
+    previous = {LEGACY_FIELD_NAMES.get(key, key): value for key, value in previous.items()}
+    if "version" not in previous:
+        raise SystemExit("Önceki kilit manifestinde 'version' alanı yok; sürüm numarası tahmin edilemez.")
+
+    unchanged = (fingerprint_set(previous["files"]) == fingerprint_set(locked_records)
+                 and previous.get("patterns") == patterns)
+    return previous["version"] if unchanged else previous["version"] + 1
+
+
 def main() -> None:
     """
     Ne yapar:
@@ -207,7 +311,7 @@ def main() -> None:
 
     Ne döndürür:
         Bir değer döndürmez. Dosyaları diske yazar ve ekrana kısa bir sayım basar.
-        Örnek ekran çıktısı: "files=506 locked=27 output=env/2026-11-25_input_sha256_v6.json"
+        Örnek ekran çıktısı: "files=506 locked=27 output=env/input_sha256.json lock_manifest=değişmedi version=6"
     """
     # Komuttaki seçenekleri tanımla. Her seçeneğin tek bir İngilizce adı vardır.
     parser = argparse.ArgumentParser(description=__doc__.strip().splitlines()[1].strip())
@@ -242,6 +346,13 @@ def main() -> None:
         path = path.resolve()
         records.append(build_file_record(path, path.parent, path.name, locked=True))
 
+    # Üzerine yazmadan önce iki dosyanın da şu anki hâlinin git'e kaydedilmiş olduğunu kontrol et.
+    # Eski sürümler ayrı dosyalarda değil, yalnızca git geçmişinde saklanır.
+    # Kaydedilmemiş bir hâlin üzerine yazılırsa o hâl kalıcı olarak kaybolur.
+    ensure_committed(arguments.output)
+    if arguments.lock_manifest_output:
+        ensure_committed(arguments.lock_manifest_output)
+
     # Bütün dosyaların listesini yaz.
     # ensure_ascii=False ayarı, Türkçe karakterli dosya adlarının (ç, ş, ğ) dosyada okunabilir kalmasını sağlar.
     arguments.output.parent.mkdir(parents=True, exist_ok=True)
@@ -253,20 +364,34 @@ def main() -> None:
     # İstenmişse yalnızca kilitli dosyaların listesini (kilit manifestini) ayrıca yaz.
     # Hangi kalıplarla kilitlendiği de yazılır; böylece liste tek başına anlaşılır.
     locked_records = [record for record in records if record["locked"]]
+    lock_message = ""
     if arguments.lock_manifest_output:
-        arguments.lock_manifest_output.parent.mkdir(parents=True, exist_ok=True)
-        arguments.lock_manifest_output.write_text(
-            json.dumps(
-                {"created_at": created_at, "patterns": arguments.locked_patterns, "files": locked_records},
-                ensure_ascii=False,
-                indent=1,
-            ),
-            encoding="utf-8",
-        )
+        previous = None
+        if arguments.lock_manifest_output.exists():
+            previous = json.loads(arguments.lock_manifest_output.read_text(encoding="utf-8"))
+        version = next_version(previous, locked_records, arguments.locked_patterns)
+        if previous is not None and version == previous.get("version"):
+            # Kilitli dosyalar ve kalıplar aynı: dosyaya dokunma.
+            # Yalnızca tarih değişsin diye yeni bir sürüm üretmek, değişiklik kaydını anlamsız satırlarla doldururdu.
+            lock_message = f" lock_manifest=değişmedi version={version}"
+        else:
+            arguments.lock_manifest_output.parent.mkdir(parents=True, exist_ok=True)
+            arguments.lock_manifest_output.write_text(
+                json.dumps(
+                    {"version": version, "created_at": created_at,
+                     "patterns": arguments.locked_patterns, "files": locked_records},
+                    ensure_ascii=False,
+                    indent=1,
+                ),
+                encoding="utf-8",
+            )
+            lock_message = (f" lock_manifest=yeni_sürüm version={version}"
+                            " (sıradaki iş: compare_lock_manifests ile karşılaştır ve"
+                            " evaluation/lock_manifest_changelog.md tablosuna satır ekle)")
 
     # Ekrana yalnızca sayıları yaz.
     # Dosya içeriği hiçbir zaman ekrana yazılmaz; kilitli soruların görülmemesi için bu şarttır.
-    print(f"files={len(records)} locked={len(locked_records)} output={arguments.output}")
+    print(f"files={len(records)} locked={len(locked_records)} output={arguments.output}{lock_message}")
 
 
 if __name__ == "__main__":

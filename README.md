@@ -15,36 +15,38 @@ Proje kuralları: `CLAUDE.md` · Güncel durum: `PROJECT_STATUS.md`
 | `src/` | Betikler: `data/` (veri hazırlama, manifest, review CSV), `data_generation/` (öğretmen modelle eğitim verisi üretimi), `training/`, `evaluation/`, `serving/` |
 | `prompts/` | System prompt (`system_prompt_v1.txt`) ve cevap standardı |
 | `review/` | İnsanın dolduracağı CSV kuyrukları |
-| `evaluation/` | Deney planı, eşikler, geliştirme kapsam dışı seti, yeni kilit manifestleri, puanlama çıktıları |
+| `evaluation/` | Deney planı, eşikler, geliştirme kapsam dışı seti, kilit manifesti (`lock_manifest.json`) ve değişiklik kaydı, eşik olasılıkları, puanlama çıktıları |
 | `experiments/` | Deney çıktıları (`<experiment_id>/`, asla yeniden kullanılmaz) |
 | `report/` | Senior raporu |
 | `docs/learning/` | Aşama aşama öğrenme açıklamaları |
-| `env/` | Paket, donanım ve girdi özeti kayıtları |
+| `env/` | `input_sha256.json` (girdi parmak izleri), `packages.txt` (paket sürümleri), `hardware.txt` (donanım) |
+| `inceleme/` | Yalnızca 02'de taşınacak kilitli `genel_kontrol_v2` dosyaları; 02'den sonra silinir |
 
-## Tarihî kayıtlar
+## Eski kayıtlar git geçmişinde
 
-2026-11-25 isimlendirme bakımından önce üretilmiş kayıtlar `archive/` klasöründe saklanır. Bu dosyalar değiştirilmez;
-yeni çıktılar oraya yazılmaz. Ayrıntı: `archive/README.md`.
+Her kayıt türünün tek bir güncel dosyası vardır. Örnekler: kilit manifesti `evaluation/lock_manifest.json`, paket listesi `env/packages.txt`.
+Dosya güncellenince eski hâl silinmez; git onu geçmişinde saklar. Bu yüzden ayrı bir arşiv klasörü yoktur (`archive/` 2026-11-26'da kaldırıldı).
 
-| Yer | İçerik | Not |
-|---|---|---|
-| `archive/degerlendirme/` | Kilit manifestleri v1–v5 (`lock_manifest_v1.json` … `v5`), `threshold_probabilities_v1.json` | Türkçe alan adlarıyla. Karşılıklar `LEGACY_FIELD_NAMES` ve `LEGACY_OUTPUT_KEYS` sözlüklerinde. |
-| `archive/env/` | Girdi parmak izi listeleri v1–v5, paket ve donanım kayıtları (2026-11-23/24) | Eski adları `girdi_sha256`, `paketler`, `donanim` idi. |
-| `inceleme/` | Kilitli `genel_kontrol_v2_taslak.jsonl` ve onay CSV'si | Arşivde değil; kilitli olduğu için yerinde duruyor. 02'de `evaluation/held_out/` altına taşınacak. |
+**Uyarı:** Projenin eski kayıtları git geçmişinde tutulur. Projeyi başka bir makineye (örneğin intranete) taşırken `git clone` ile, `.git` klasörüyle birlikte taşıyın; yalnızca dosyaları kopyalamak geçmişi kaybettirir.
 
-Kilit manifestinin sürümler arasında neyin neden değiştiği: `evaluation/lock_manifest_changelog.md`.
+Eski bir sürümü görmek için `git show <commit>:<yol>` kullanılır. Örnek, kilit manifestinin 5. sürümü:
 
-Taşınan 38 dosyanın "eski yol → yeni yol → SHA-256" listesi: `evaluation/path_migration_manifest_2026-11-25.json`
-(24'ü ad değişikliği, 14'ü arşive taşıma; arşivdekilerin hepsi içerikçe aynı).
+```bash
+git show 35f1a69:degerlendirme/kilit_manifesti_v5.json
+```
+
+- Kilit manifestinin her sürümünün commit'i, yolu ve "neyin neden değiştiği": `evaluation/lock_manifest_changelog.md`.
+- Bir dosyanın bütün geçmişi: `git log --oneline -- <yol>`. Yolu değişmiş dosyalarda `--follow` bazen yanlış eşler; değişiklik kaydı bunun için doğrulanmış commit'leri verir.
+- v1–v5 ve eski girdi listeleri Türkçe alan adlıdır. Betikler bunları `LEGACY_FIELD_NAMES` ve `LEGACY_OUTPUT_KEYS` sözlükleriyle okur.
 
 ## Girdiler (salt okunur)
 
 - Ham veri: `/home/aipc/Desktop/fine_tuneVeriler`
 - Hazırlanmış veri: `/home/aipc/Desktop/Gruplu Veriler`
 
-Test, tuzak ve Türkçe değerlendirme setleri kilitlidir. Bu setlere yalnızca sayı, kimlik ve SHA-256 özeti yazan betikler dokunur. Kilitli dosyaların listesi ve özetleri: `evaluation/lock_manifest_v6.json` (geçerli sürüm, 2026-11-25; v5 ile aynı 27 dosya ve aynı SHA-256 özetleri, yeni alan adlarıyla). v1–v5 `archive/degerlendirme/` altında tarihî kayıt olarak durur.
+Test, tuzak ve Türkçe değerlendirme setleri kilitlidir. Bu setlere yalnızca sayı, kimlik ve SHA-256 özeti yazan betikler dokunur. Kilitli dosyaların listesi ve özetleri: `evaluation/lock_manifest.json`. Sürüm numarası dosyanın içindeki `version` alanındadır; şu an **6** (27 dosya).
 
-**11. aşamadaki kilit kontrolü** o gün geçerli olan en yüksek numaralı `evaluation/lock_manifest_v<N>.json` dosyasını kullanır. 02'de `genel_kontrol_v2` `evaluation/held_out/` altına taşınınca `lock_manifest_v7.json` üretilir; 11'de beklenen manifest v7'dir. Kontrol yalnızca SHA-256 ve sayı karşılaştırır, içerik basmaz.
+**11. aşamadaki kilit kontrolü** `evaluation/lock_manifest.json` dosyasını kullanır. 02'de `genel_kontrol_v2` `evaluation/held_out/` altına taşınınca bu dosya güncellenir ve sürüm 7 olur; 11'de beklenen sürüm 7'dir. Kontrol yalnızca SHA-256 ve sayı karşılaştırır, içerik basmaz.
 
 ## Çalıştırma sırası
 
@@ -54,27 +56,26 @@ Her komut proje kökünden çalıştırılır. Yollarda boşluk olduğu için t�
 
 ```bash
 # 1) Girdilerin SHA-256 özeti ve kilit manifesti (içerik basmaz)
-#    N = son sürüm + 1 (şu an 7). v1–v6 üretildi; var olan sürümün üzerine yazılmaz.
+#    İki dosya da tek güncel dosyadır; her çalıştırmada üzerine yazılır, eski hâl git geçmişinde kalır.
+#    Betik, git'e kaydedilmemiş bir dosyanın üzerine yazmaz: önce commit edin.
+#    Kilit manifestinin version alanı yalnızca kilitli dosyalar ya da kalıplar değişince bir artar;
+#    değişmediyse dosyaya dokunulmaz ve ekrana "lock_manifest=değişmedi" yazılır.
 python -m src.data.build_input_manifest \
   --input "/home/aipc/Desktop/Gruplu Veriler" /home/aipc/Desktop/fine_tuneVeriler \
   --extra-locked inceleme/genel_kontrol_v2_taslak.jsonl \
-  --output env/$(date +%F)_input_sha256_vN.json \
-  --lock-manifest-output evaluation/lock_manifest_vN.json
-# v1–v5 eski adla üretildi: src.veri.girdi_ozeti --girdi/--cikti/--kilit-cikti/--ek-kilitli,
-# çıktılar archive/env/2026-11-23_input_sha256_v5.json ve archive/degerlendirme/lock_manifest_v5.json.
-# Eski Türkçe seçenek adları 2026-11-25'te kaldırıldı; yalnızca İngilizce adlar çalışır. Alan adları v6'dan itibaren İngilizce
-# (kok→root, yol→path, bayt→bytes, satir→lines, kilitli→locked; tam liste LEGACY_FIELD_NAMES).
-# (v1 manifesti --extra-locked olmadan ve 01_sss deseni eklenmeden üretilmişti; v2, b grubu yeniden yazılmadan önceki taslağı; v3, GK2-050 düzeltmesinden önceki taslağı; v4, kullanıcı onayından ve GK2-044 düzeltmesinden önceki taslağı kilitler.)
-# genel_kontrol_v2 onaylanıp evaluation/held_out/ altına taşınınca --extra-locked o yolu gösterir
-# ve çıktı lock_manifest_v7.json olur.
+  --output env/input_sha256.json \
+  --lock-manifest-output evaluation/lock_manifest.json
+# Alan adları sürüm 6'dan itibaren İngilizce (kok→root, yol→path, bayt→bytes, satir→lines, kilitli→locked;
+# tam liste LEGACY_FIELD_NAMES). Sürümlerin hikâyesi: evaluation/lock_manifest_changelog.md.
+# genel_kontrol_v2 evaluation/held_out/ altına taşınınca --extra-locked o yolu gösterir ve sürüm 7 olur.
 
-# 1a) KURAL: her yeni manifest sürümünden sonra bir öncekiyle karşılaştır ve
+# 1a) KURAL: kilit manifestinin sürümü her arttığında son commit'teki hâliyle karşılaştır ve
 #     evaluation/lock_manifest_changelog.md tablosuna yeni satır ekle (ne değişti, hangi dosya, neden, commit).
-#     Betik yalnızca manifestleri okur; kilitli dosyaları açmaz. Dosya taşındıysa taşıma listesini ver.
+#     --old HEAD:... git'teki son kaydedilmiş sürümü okur. Betik yalnızca manifestleri okur; kilitli dosyaları açmaz.
+#     Kilitli bir dosya taşındıysa sona --path-migration evaluation/path_migration.json ekle (aşağıdaki 1d).
 python -m src.evaluation.compare_lock_manifests \
-  --old evaluation/lock_manifest_v<N-1>.json \
-  --new evaluation/lock_manifest_vN.json \
-  --path-migration evaluation/path_migration_manifest_<tarih>.json
+  --old HEAD:evaluation/lock_manifest.json \
+  --new evaluation/lock_manifest.json
 
 # 1b) Asistanın yazdığı taslaklar için insan onay kuyruğu (dolu hücreler kimliğe göre korunur;
 #     sonunda onay dağılımını yazar, "düzelt"/"duzelt" aynı sayılır)
@@ -85,37 +86,24 @@ python -m src.data.build_review_csv \
   --output inceleme/genel_kontrol_v2_onay.csv
 
 # 1c) Eşik gerekçelerindeki olasılıklar (veri okumaz; tam olasılık hesabı)
-#     Aile düzeyinde yanlış alarm, 4.1 tuzak toleransı, kalibrasyon belirsizliği, işaret testi tablosu
-#     v1 (archive/degerlendirme/threshold_probabilities_v1.json) Türkçe anahtarlarla yazıldı ve arşivde durur;
-#     v2 aynı sayıları İngilizce anahtarlarla yazar (karşılıklar: LEGACY_OUTPUT_KEYS).
+#     Aile düzeyinde yanlış alarm, 4.1 tuzak toleransı, kalibrasyon belirsizliği, işaret testi tablosu.
+#     İlk çıktı Türkçe anahtarlıydı ve git geçmişindedir; sayılar aynı (karşılıklar: LEGACY_OUTPUT_KEYS).
 python -m src.evaluation.threshold_probabilities \
-  --output evaluation/threshold_probabilities_v2.json
+  --output evaluation/threshold_probabilities.json
 
-# 2) Paket ve donanım kaydı
-#    (2026-11-23/24 kayıtları archive/env/ altında)
-pip freeze > env/$(date +%F)_packages.txt
-nvidia-smi --query-gpu=index,name,pci.bus_id,memory.total,memory.used,driver_version --format=csv > env/$(date +%F)_hardware.txt
-ollama --version >> env/$(date +%F)_hardware.txt
-```
-
-### Bakım (2026-11-25): isimlendirme ve arşiv
-
-```bash
-# Taşınan dosyaların eski/yeni yolu ve SHA-256 özeti (eşleme elle yazıldı; içerik basmaz).
-# Eşleme hem ad değişikliğini hem archive/ taşımasını içerir.
-# --base-ref, bakımdan önceki son commit'tir (59aa89e); eski içerik oradan okunur.
+# 1d) Dosya taşındığında taşıma kaydı (eski yol → yeni yol → SHA-256; içerik basmaz).
+#     Tek güncel dosya evaluation/path_migration.json; yalnızca son taşımayı anlatır.
+#     2026-11-25 ad değişikliğinin kaydı: git show 1919cce:evaluation/path_migration_manifest_2026-11-25.json
 python -m src.data.build_path_migration_manifest \
-  --mapping evaluation/path_migration_map_2026-11-25.json \
-  --base-ref 59aa89e \
-  --lock-manifest evaluation/lock_manifest_v6.json \
-  --output evaluation/path_migration_manifest_2026-11-25.json
+  --pair <eski_yol> <yeni_yol> \
+  --base-ref HEAD \
+  --lock-manifest evaluation/lock_manifest.json \
+  --output evaluation/path_migration.json
 
-# Yeni alan adlarıyla güncel kilit manifesti (v6; v5 ile aynı 27 dosya ve özet)
-python -m src.data.build_input_manifest \
-  --input "/home/aipc/Desktop/Gruplu Veriler" /home/aipc/Desktop/fine_tuneVeriler \
-  --extra-locked inceleme/genel_kontrol_v2_taslak.jsonl \
-  --output env/2026-11-25_input_sha256_v6.json \
-  --lock-manifest-output evaluation/lock_manifest_v6.json
+# 2) Paket ve donanım kaydı (tek dosyalar; tarihli kopya üretilmez)
+pip freeze > env/packages.txt
+nvidia-smi --query-gpu=index,name,pci.bus_id,memory.total,memory.used,driver_version --format=csv > env/hardware.txt
+ollama --version >> env/hardware.txt
 ```
 
 Sonraki aşamaların komutları her aşama sonunda bu bölüme eklenir.

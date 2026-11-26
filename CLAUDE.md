@@ -73,11 +73,11 @@ evaluation/     eşikler, deney planı, kilit manifesti, puanlama çıktıları
 experiments/    deney çıktıları
 report/         senior raporu
 docs/learning/  öğrenme açıklamaları
-env/            sürüm ve donanım kayıtları
-archive/        tarihî kayıtlar (eski kilit manifestleri ve env kayıtları); değiştirilmez
+env/            paket, donanım ve girdi parmak izi kayıtları (input_sha256.json, packages.txt, hardware.txt)
 inceleme/       yalnızca 02'de taşınacak kilitli genel_kontrol_v2 dosyaları; yeni inceleme dosyaları review/ altına
 
-Tarihî kayıtların listesi README'deki "Tarihî kayıtlar" bölümünde ve archive/README.md dosyasındadır.
+Her kayıt türünün tek bir güncel dosyası vardır (örneğin evaluation/lock_manifest.json, env/packages.txt).
+Eski hâller ayrı dosyalarda tutulmaz; git geçmişindedir. Ayrıntı: README "Eski kayıtlar git geçmişinde".
 ```
 
 Model ağırlıkları ve büyük çıktılar git'e girmez.
@@ -143,8 +143,9 @@ Model ağırlıkları ve büyük çıktılar git'e girmez.
   - `experiments.csv` satırı  
   - Offline TensorBoard kaydı (W\&B yok)  
 - Her aşama sonunda:  
-  - `pip freeze > env/<date>_packages.txt`  
-  - Girdi dosyalarının SHA-256 özeti  
+  - `pip freeze > env/packages.txt` (dosyanın üzerine yazılır; tarihli kopya üretilmez, eski hâl git geçmişinde kalır)  
+  - Girdi dosyalarının SHA-256 özeti: `env/input_sha256.json` güncellenir; kilitli dosyalar değiştiyse `evaluation/lock_manifest.json` sürümü bir artar ve değişiklik kaydına satır eklenir  
+  - Donanım değiştiyse `env/hardware.txt` güncellenir  
   - Git commit (mesaj `NN: <özet>`). Büyük veri ve model dosyaları `.gitignore`'a girer.
 
 ## Kod yazım kuralları

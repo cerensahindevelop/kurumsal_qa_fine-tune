@@ -1,6 +1,53 @@
 # PROJECT_STATUS
 
-Son güncelleme: 2026-11-26 (bakım: karar isteme kuralı; bakım: kilit manifesti değişiklik kaydı; bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-26 (bakım: tek güncel dosya düzeni, archive/ kaldırıldı; bakım: karar isteme kuralı; bakım: kilit manifesti değişiklik kaydı; bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+
+---
+
+> **Not (2026-11-26):** `archive/` klasörü kaldırıldı. Her kayıt türünün tek bir güncel dosyası var; eski hâller git geçmişinde. Aşağıdaki geçmiş kayıtlarda geçen `archive/…`, `lock_manifest_v<N>.json`, `env/<tarih>_…` ve `path_migration_*_2026-11-25.json` yolları o günün doğru kaydıdır ve değiştirilmedi (proje sahibi kararı 2A). Bu dosyaları görmek için: `git show 1919cce:<yol>`. Kilit manifesti sürümlerinin commit'leri: `evaluation/lock_manifest_changelog.md`.
+
+## Bakım: tek güncel dosya düzeni, archive/ kaldırıldı (2026-11-26; aşama değil, 02'ye geçilmedi)
+
+### Tamamlanan iş
+- Kural (proje sahibi, 2026-11-26): her kayıt türünün tek bir güncel dosyası olur. Eski sürümler silinir ve git geçmişinde kalır.
+- `archive/` tamamen kaldırıldı: `README.md`, kilit manifestleri v1–v5, `threshold_probabilities_v1.json`, girdi listeleri v1–v5, `2026-11-23_packages.txt`.
+- Taşıma kayıtları silindi (karar 1B): `evaluation/path_migration_map_2026-11-25.json`, `evaluation/path_migration_manifest_2026-11-25.json`. Özetleri ve geri getiren commit'leri değişiklik kaydında.
+- Tek dosyaya inenler:
+
+  | Eski | Yeni | İçerik |
+  |---|---|---|
+  | `evaluation/lock_manifest_v6.json` | `evaluation/lock_manifest.json` | Başa `"version": 6` eklendi; başka fark yok |
+  | `env/2026-11-25_input_sha256_v6.json` | `env/input_sha256.json` | Aynı |
+  | `archive/env/2026-11-24_packages.txt` | `env/packages.txt` | Aynı |
+  | `archive/env/2026-11-23_hardware.txt` | `env/hardware.txt` | Aynı |
+  | `archive/degerlendirme/threshold_probabilities_v1.json` | `evaluation/threshold_probabilities.json` | Betikle yeniden üretildi; İngilizce anahtarlar, sayılar aynı |
+- Kod:
+  - `build_input_manifest`: tek dosyaya yazar. Kilitli dosyalar ya da kalıplar değişince `version` bir artar, değişmediyse kilit manifestine dokunulmaz. Git'e kaydedilmemiş bir dosyanın üzerine yazmaz (`ensure_committed`).
+  - `compare_lock_manifests`: git'teki bir sürümü okur (`--old HEAD:evaluation/lock_manifest.json`). Arşiv yolu arama kodu kaldırıldı.
+  - `build_path_migration_manifest`: yeni `--pair ESKİ YENİ` seçeneği; ayrı bir eşleme dosyası gerekmez. Çıktı tek dosya: `evaluation/path_migration.json`. Aynı üzerine yazma koruması var.
+- CLAUDE.md: klasör ağacından `archive/` çıktı. "Her aşama sonunda" kuralı `env/packages.txt`, `env/input_sha256.json` ve `env/hardware.txt` olarak değişti.
+- README: "Eski kayıtlar git geçmişinde" bölümü ve `git clone` uyarısı eklendi. 01 komutları tek dosyalara göre düzeltildi; yeni 1d (taşıma kaydı) komutu eklendi.
+- Talimat niteliğindeki yerler güncellendi: 02 yapılacakları, 11. aşama kilit kontrolü, onaya hazır dosyalar, sonraki aşamanın ihtiyaç duyacağı bilgiler, planlar, öğrenme notları ve `inceleme/README.md`. Geçmiş kayıtlar olduğu gibi kaldı (karar 2A).
+
+### Kararlar (proje sahibi, 2026-11-26; sohbette soruldu)
+- **1B:** taşıma kayıtları silinir. Gerekçe: bir kerelik kanıttı ve işini yaptı; "tek güncel dosya" kuralına uyuyor; özet ve geri getiren commit değişiklik kaydında. 02 için tek `evaluation/path_migration.json`.
+- **2A:** PROJECT_STATUS'taki geçmiş kayıtlar değiştirilmez; en üste not eklenir. Gerekçe: o gün doğru olan kayıt silinmez, yeni kayıt eklenir. Talimat niteliğindeki yerler güncellenir.
+- **3A:** plan olduğu gibi uygulandı. Önkoşul kontrol edildi: `inceleme/` ve içindeki iki kilitli dosya silinecekler listesinde yoktu.
+
+### Doğrulama sonuçları (ölçüldü)
+- Değişiklik kaydı: v1–v6'nın altısı tabloda; altı commit kimliği git'teki ekleme commit'leriyle aynı. Arşivdeki v1–v5 o commit'lerdeki hâlleriyle bayt bayt aynı (5/5 SHA-256).
+- Silmeden sonra `compare_lock_manifests` v1–v5'i git'ten okudu: beş çiftin sonuçları değişiklik kaydıyla aynı; test ve tuzak her çiftte 7/7 aynı.
+- Taşınan env dosyaları kaynaklarıyla aynı SHA-256 (3/3). `lock_manifest.json` v6'dan yalnızca `version` satırıyla farklı.
+- Eşik olasılıkları: yeni çıktı, v1 ile anahtar çevirisinden sonra birebir aynı.
+- Sentetik git deposunda `build_input_manifest`: ilk çalıştırma sürüm 1; değişiklik yokken dosyaya dokunulmadı; veri değişince sürüm 2; kaydedilmemiş ya da değiştirilmiş dosyanın üzerine yazmayı reddetti (çıkış kodu 1).
+- Kilitli dosyalar: sonuç aşağıdaki son doğrulamada.
+
+### Değişen çalıştırılabilir kod veya komut yolları
+- `python -m src.data.build_input_manifest … --output env/input_sha256.json --lock-manifest-output evaluation/lock_manifest.json`
+- `python -m src.evaluation.compare_lock_manifests --old HEAD:evaluation/lock_manifest.json --new evaluation/lock_manifest.json [--path-migration evaluation/path_migration.json]`
+- `python -m src.data.build_path_migration_manifest --pair <eski> <yeni> [--pair …] --base-ref HEAD --lock-manifest evaluation/lock_manifest.json --output evaluation/path_migration.json`
+- `python -m src.evaluation.threshold_probabilities --output evaluation/threshold_probabilities.json`
+- `pip freeze > env/packages.txt`; `nvidia-smi … > env/hardware.txt`
 
 ---
 
@@ -84,8 +131,8 @@ Son güncelleme: 2026-11-26 (bakım: karar isteme kuralı; bakım: kilit manifes
 - Çakışma denetiminden sonra kilitli dosyalar İngilizce adlarıyla taşınır:
   - `inceleme/genel_kontrol_v2_taslak.jsonl` → `evaluation/held_out/general_control_v2.jsonl`
   - `inceleme/genel_kontrol_v2_onay.csv` → `review/general_control_v2_review.csv`
-- Taşımadan önce ve sonra SHA-256 aynı olmalı; çiftler `evaluation/path_migration_map_*.json` ve migration manifestine eklenir. Ardından `evaluation/lock_manifest_v7.json` üretilir ve hiçbir model çalışmadan önce commit edilir.
-- v7 üretilince `python -m src.evaluation.compare_lock_manifests --old evaluation/lock_manifest_v6.json --new evaluation/lock_manifest_v7.json --path-migration <02'nin taşıma manifesti>` çalıştırılır. `evaluation/lock_manifest_changelog.md` tablosuna v7 satırı eklenir. Beklenen: taslak "aynı kaldı (taşındı)", test ve tuzak 7/7 aynı. Bu kural bundan sonraki her manifest sürümü için geçerlidir (README "1a").
+- Taşımadan önce ve sonra SHA-256 aynı olmalı. Kanıt `python -m src.data.build_path_migration_manifest --pair <eski> <yeni> … --base-ref HEAD --lock-manifest evaluation/lock_manifest.json --output evaluation/path_migration.json` ile tek dosyaya yazılır (README 1d). Ardından `build_input_manifest` yeniden çalıştırılır; `evaluation/lock_manifest.json` güncellenir, `version` 7 olur ve hiçbir model çalışmadan önce commit edilir. *(2026-11-26'da tek dosya düzenine göre güncellendi.)*
+- Sürüm 7 üretilince, commit etmeden önce `python -m src.evaluation.compare_lock_manifests --old HEAD:evaluation/lock_manifest.json --new evaluation/lock_manifest.json --path-migration evaluation/path_migration.json` çalıştırılır. `evaluation/lock_manifest_changelog.md` tablosuna v7 satırı eklenir. Beklenen: taslak "aynı kaldı (taşındı)", test ve tuzak 7/7 aynı. Bu kural bundan sonraki her manifest sürümü için geçerlidir (README "1a").
 - Taşımadan sonra `inceleme/` boşalırsa silinir. `evaluation/held_out/**` için Read deny kuralı eklenir (settings.json değişeceği için README'deki erişim engeli testi yapılır).
 - Belgelerdeki `genel_kontrol_v2` veri seti adı ve dosyadaki Türkçe alan adları (`grup`, `beklenen_davranis` gibi) kilit gereği değişmez; okuyan kod `LEGACY_*` eşlemelerini kullanır.
 
@@ -109,7 +156,7 @@ Son güncelleme: 2026-11-26 (bakım: karar isteme kuralı; bakım: kilit manifes
 - Aşağıdaki "Kilit kontrolü" ve "--help" sonuçları bu bakımın son durumu içindir (özet bölümüne bakın).
 
 ### 11. aşamadaki kilit kontrolü
-- O gün geçerli en yüksek numaralı `evaluation/lock_manifest_v<N>.json` kullanılır. Şu an geçerli: v6. 02'de `genel_kontrol_v2` taşınınca v7 üretilir; 11'de beklenen v7.
+- *(2026-11-26'da güncellendi.)* Kontrol tek dosyayı kullanır: `evaluation/lock_manifest.json`. Sürüm dosyanın içindeki `version` alanındadır; şu an 6. 02'de `genel_kontrol_v2` taşınınca 7 olur; 11'de beklenen sürüm 7.
 
 ---
 
@@ -399,12 +446,12 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
 
 ### Onaya hazır dosyalar (proje sahibi onayı bekliyor)
 - **Onaylanacaklar:** `evaluation/thresholds_v1.md`, `evaluation/experiment_plan_v1.md`, `report/report_plan_v1.md`, `prompts/response_standard_v1.md`, `prompts/system_prompt_v1.txt`, `evaluation/dev_out_of_scope_v1.jsonl` (15 soru).
-- **Destekleyici, bağlayıcı değil:** `evaluation/thresholds_v1_explained.md`, `src/evaluation/threshold_probabilities.py`, `archive/degerlendirme/threshold_probabilities_v1.json`.
+- **Destekleyici, bağlayıcı değil:** `evaluation/thresholds_v1_explained.md`, `src/evaluation/threshold_probabilities.py`, `evaluation/threshold_probabilities.json` (2026-11-26'da arşivdeki v1'in yerine üretildi; sayılar aynı).
 - Her dosyanın son commit'i `git log -1 --follow --format=%h -- <dosya>` ile görülür (`--follow`, 2026-11-25 ad değişikliğinden önceki geçmişi de izler). Onay, eşik dosyasının sonundaki "Proje sahibi onayı (genel)" satırına ve "Onay (proje sahibi)" sütunundaki "bekliyor" hücrelerine ayrı bir commit'le yazılır.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/data/build_input_manifest.py` içindeki `DEFAULT_LOCKED_PATTERNS` listesinde. 02 ve sonrası bu listeye uymalı.
-  - `01_sss/*` deseni listeye eklendi. Yeni `--extra-locked` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `archive/degerlendirme/lock_manifest_v5.json`.
+  - `01_sss/*` deseni listeye eklendi. Yeni `--extra-locked` seçeneği proje içindeki tek dosyaları kilitler. Geçerli manifest: `evaluation/lock_manifest.json` (sürüm 6).
 - **02'de Türkçe değerlendirme bölmesi:**
   - Dosya başına %30 / %70, seed 42, geliştirmede ≥ 50 kayıt.
   - Alt grubu olan dosyalarda (TurkishMMLU ders, `genel_kontrol` soru türü) katmanlı.
@@ -412,7 +459,7 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
   - Beklenen boyutlar `experiment_plan_v1.md` §6.5'te.
   - `genel_kontrol_v1` ve `turkishmmlu_dev` bölünmez (karar 6). `genel_kontrol_v2` saklanan bölümdür.
 - 02'deki çakışma denetimine `inceleme/genel_kontrol_v2_taslak.jsonl` (onaylı hâli) de girer. Karşılaştırılacak setler: eğitim adayları, genel Türkçe havuzu, `genel_kontrol_v1`, geliştirme kapsam dışı seti, doğrulama, test ve tuzak.
-- v2 onaylandı ama henüz taşınmadı. 02'deki çakışma denetiminden sonra `evaluation/held_out/general_control_v2.jsonl` yoluna taşınır (İngilizce ad, kullanıcı kararı 2026-11-25), `lock_manifest_v7.json` üretilir (v6, 2026-11-25 bakımında üretildi) ve hiçbir model çalışmadan önce commit edilir. Denetimde değişiklik gerekirse yeniden kullanıcı onayı alınır.
+- v2 onaylandı ama henüz taşınmadı. 02'deki çakışma denetiminden sonra `evaluation/held_out/general_control_v2.jsonl` yoluna taşınır (İngilizce ad, kullanıcı kararı 2026-11-25), `evaluation/lock_manifest.json` güncellenir (sürüm 6 → 7) ve hiçbir model çalışmadan önce commit edilir. Denetimde değişiklik gerekirse yeniden kullanıcı onayı alınır.
 - v2'nin `b` soruları SSS konularına yakın (işsizlik ödeneği, yıllık izin, ihbar, süt izni vb.). 02'deki çakışma denetiminde test ve tuzakla yakın eşleşme çıkabilir; çıkarsa yalnızca kimlikle CSV'ye yazılır.
 - **03 için önceden kayıtlı veri dönüşümleri** (`experiment_plan_v1.md` karar 10 ve 11). İkisi de betikle yapılır, değişen kimlikleri yazar ve belirsiz kayıtları `review/` kuyruğuna gönderir. Kilitli doğrulama ve test referanslarına dokunulmaz.
   1. **Kurum ağzı:** eğitim cevaplarındaki "Kurumumuz", "Bakanlığımız" ve çekimli biçimleri `kaynak` alanına göre kurum adıyla değiştirilir.

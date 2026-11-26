@@ -11,18 +11,27 @@ Neden var:
 
 Nasıl çalıştırılır (terminalde, proje klasöründeyken):
     python -m src.data.build_path_migration_manifest \\
-        --mapping evaluation/path_migration_map_2026-11-25.json \\
-        --base-ref 59aa89e \\
-        --lock-manifest evaluation/lock_manifest_v6.json \\
-        --output evaluation/path_migration_manifest_2026-11-25.json
+        --pair inceleme/genel_kontrol_v2_taslak.jsonl evaluation/held_out/general_control_v2.jsonl \\
+        --pair inceleme/genel_kontrol_v2_onay.csv review/general_control_v2_review.csv \\
+        --base-ref HEAD \\
+        --lock-manifest evaluation/lock_manifest.json \\
+        --output evaluation/path_migration.json
 
-    --mapping: eski ve yeni yer çiftlerinin yazıldığı dosya.
+    --pair: bir eski yer ve bir yeni yer. Her taşınan dosya için bir kez yazılır.
+    --mapping: çift çok olduğunda, çiftlerin yazıldığı bir JSON dosyası ([["eski", "yeni"], ...]).
+               --pair ile birlikte de kullanılabilir; en az biri gerekir.
     --base-ref: eski içeriğin okunacağı git kaydı. Git, projenin geçmiş sürümlerini saklayan araçtır;
                 her kaydın kısa bir kimliği vardır (örnek: 59aa89e). Bu, taşımadan önceki son kayıt olmalıdır.
     --lock-manifest: hangi dosyaların kilitli olduğunu söyleyen liste (kilit manifesti).
     --output: sonucun yazılacağı dosya.
 
-Eşleme dosyası neden elle yazılır:
+Tek dosya:
+    Sonuç her zaman evaluation/path_migration.json dosyasına yazılır ve yalnızca son taşımayı anlatır.
+    Önceki taşımaların kaydı git geçmişindedir. Örnek: 2026-11-25'teki ad değişikliğinin kaydı
+    git show 1919cce:evaluation/path_migration_manifest_2026-11-25.json komutuyla görülür.
+    Betik, git'e kaydedilmemiş bir çıktının üzerine yazmaz; önceki kayıt kaybolmasın.
+
+Eşleme neden elle yazılır:
     Git dosyaların nereye taşındığını kendisi tahmin edebilir. Ama boş dosyaları ve çok değişmiş
     dosyaları yanlış eşleyebilir. Elle yazılan eşleme, gerçekte neyin nereye gittiğini gösterir.
 
@@ -37,7 +46,7 @@ import json
 import subprocess
 from pathlib import Path
 
-from src.data.build_input_manifest import LEGACY_FIELD_NAMES, compute_sha256
+from src.data.build_input_manifest import LEGACY_FIELD_NAMES, compute_sha256, ensure_committed
 
 
 def sha256_at_git_ref(git_ref: str, path: str) -> str | None:
@@ -73,7 +82,7 @@ def locked_project_paths(lock_manifest_path: Path) -> set[str]:
         Kilitli bir dosyanın içeriği hiçbir zaman değişmemelidir; liste bunu ayrıca işaretler.
 
     Ne alır:
-        lock_manifest_path: Kilit manifestinin yeri. Örnek: "evaluation/lock_manifest_v6.json"
+        lock_manifest_path: Kilit manifestinin yeri. Örnek: "evaluation/lock_manifest.json"
 
     Ne döndürür:
         Proje klasörüne göre yerlerin kümesi. Örnek: {"inceleme/genel_kontrol_v2_taslak.jsonl"}
@@ -107,7 +116,7 @@ def main() -> None:
 
     Ne alır:
         Doğrudan bir değer almaz. Bilgileri terminalde yazılan komuttan okur
-        (--mapping, --base-ref, --lock-manifest, --output).
+        (--pair, --mapping, --base-ref, --lock-manifest, --output).
 
     Ne döndürür:
         Bir değer döndürmez. Dosyaya her taşınan dosya için bir satır yazar.
@@ -117,14 +126,24 @@ def main() -> None:
     """
     # Komuttaki seçenekleri tanımla. Her seçeneğin tek bir İngilizce adı vardır.
     parser = argparse.ArgumentParser(description=__doc__.strip().splitlines()[1].strip())
-    parser.add_argument("--mapping", type=Path, required=True, help="Eski ve yeni yer çiftleri (JSON)")
+    parser.add_argument("--pair", nargs=2, action="append", default=[], metavar=("OLD", "NEW"),
+                        help="Bir taşınan dosyanın eski ve yeni yeri; her dosya için bir kez yazılır")
+    parser.add_argument("--mapping", type=Path, help="Çok sayıda çift için JSON dosyası ([[eski, yeni], ...])")
     parser.add_argument("--base-ref", default="HEAD", help="Eski içeriğin okunacağı git kaydı")
     parser.add_argument("--lock-manifest", type=Path, required=True, help="Kilitli dosyaları gösteren liste")
     parser.add_argument("--output", type=Path, required=True, help="Sonucun yazılacağı dosya (JSON)")
     arguments = parser.parse_args()
 
-    # Eşlemeyi ve kilitli dosyaların listesini oku.
-    pairs = json.loads(arguments.mapping.read_text(encoding="utf-8"))
+    # Eşlemeyi topla: komutta yazılan çiftler ve varsa eşleme dosyasındakiler.
+    # Hiç çift yoksa yazılacak bir kanıt da yoktur; boş bir dosya yanlış güven verirdi.
+    pairs = [tuple(pair) for pair in arguments.pair]
+    if arguments.mapping:
+        pairs += [tuple(pair) for pair in json.loads(arguments.mapping.read_text(encoding="utf-8"))]
+    if not pairs:
+        raise SystemExit("En az bir --pair ya da --mapping verin.")
+    ensure_committed(arguments.output)
+
+    # Kilitli dosyaların listesini oku.
     locked_paths = locked_project_paths(arguments.lock_manifest)
 
     # Her çift için iki parmak izi çıkar: eskisi git geçmişinden, yenisi diskteki dosyadan.

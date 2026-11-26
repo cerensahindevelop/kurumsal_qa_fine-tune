@@ -16,12 +16,14 @@ Neden güvenli:
 
 Nasıl çalıştırılır (terminalde, proje klasöründeyken):
     python -m src.evaluation.compare_lock_manifests \\
-        --old archive/degerlendirme/lock_manifest_v5.json \\
-        --new evaluation/lock_manifest_v6.json \\
-        --path-migration evaluation/path_migration_manifest_2026-11-25.json
+        --old HEAD:evaluation/lock_manifest.json \\
+        --new evaluation/lock_manifest.json \\
+        --path-migration evaluation/path_migration.json
 
-    --old: eski manifest.
-    --new: yeni manifest.
+    --old: eski manifest. Bir dosya yolu ya da git'teki bir sürüm olabilir.
+           Git sürümü "<commit>:<yol>" biçiminde yazılır. Örnek: HEAD:evaluation/lock_manifest.json
+           (HEAD, son commit demektir.) Kilit manifesti tek bir dosya olduğu için eski sürümü yalnızca git'tedir.
+    --new: yeni manifest. Aynı biçimde; çoğunlukla diskteki güncel dosya.
     --path-migration: taşınan dosyaların "eski yol → yeni yol" listeleri (bir veya birkaç dosya).
     --focus-patterns: ayrıca özetlenecek dosyaların yer kalıpları. Varsayılan: test ve tuzak dosyaları.
     --output: sonucun ayrıca JSON olarak yazılacağı yer (isteğe bağlı).
@@ -36,14 +38,17 @@ Taşınan dosyalar:
     Örneğin 02. aşamada inceleme/genel_kontrol_v2_taslak.jsonl, evaluation/held_out/ altına taşınacak.
     Betik, yol taşıma listesine bakarak eski ve yeni yerin aynı dosya olduğunu anlar.
     Böylece taşınan dosya "çıkarıldı ve eklendi" diye değil, "taşındı" diye yazılır.
-    Manifest dosyasının kendisi taşınmışsa (örneğin degerlendirme/kilit_manifesti_v5.json artık
-    archive/degerlendirme/lock_manifest_v5.json yolunda), eski yol verildiğinde yeni yolu kendisi bulur.
+
+Eski sürümleri karşılaştırmak:
+    v1–v5 yalnızca git geçmişindedir; commit'leri ve yolları evaluation/lock_manifest_changelog.md tablosundadır.
+    Örnek: --old 518aa58:degerlendirme/kilit_manifesti_v4.json --new 35f1a69:degerlendirme/kilit_manifesti_v5.json
 """
 from __future__ import annotations
 
 import argparse
 import fnmatch
 import json
+import subprocess
 from pathlib import Path
 
 from src.data.build_input_manifest import LEGACY_FIELD_NAMES
@@ -104,7 +109,7 @@ def load_path_migrations(migration_paths: list[Path]) -> dict[str, str]:
         migration_paths: Taşıma listelerinin yolları. İki biçim okunur:
                          taşıma manifesti ({"files": [{"old_path": ..., "new_path": ...}]})
                          ve elle yazılmış eşleme ([["eski", "yeni"], ...]).
-                         Örnek: [Path("evaluation/path_migration_manifest_2026-11-25.json")]
+                         Örnek: [Path("evaluation/path_migration.json")]
 
     Ne döndürür:
         Proje köküne göre yazılmış yollarla bir tablo.
@@ -130,15 +135,15 @@ def follow_migrations(path: str, migrations: dict[str, str]) -> str:
         Bir yolu, taşıma tablosuna göre bugünkü yerine kadar izler.
 
     Neden var:
-        Bir dosya birden fazla kez taşınmış olabilir (önce ad değişikliği, sonra arşive taşıma).
+        Bir dosya birden fazla kez taşınmış olabilir (örneğin önce adı değişir, sonra başka klasöre gider).
         Tek adım bakmak, dosyayı ara bir yerde bırakır ve eşleşme kaçar.
 
     Ne alır:
-        path: Proje köküne göre yol. Örnek: "degerlendirme/kilit_manifesti_v5.json"
+        path: Proje köküne göre yol. Örnek: "inceleme/genel_kontrol_v2_taslak.jsonl"
         migrations: load_path_migrations'ın döndürdüğü tablo.
 
     Ne döndürür:
-        En son yol. Örnek: "archive/degerlendirme/lock_manifest_v5.json"
+        En son yol. Örnek: "evaluation/held_out/general_control_v2.jsonl"
         Yol tabloda yoksa aynen döner.
 
     Nasıl çalışır:
@@ -152,35 +157,38 @@ def follow_migrations(path: str, migrations: dict[str, str]) -> str:
     return path
 
 
-def resolve_manifest_path(path: Path, migrations: dict[str, str]) -> Path:
+def read_manifest_text(source: str) -> str:
     """
     Ne yapar:
-        Verilen manifest yolu artık yoksa, taşıma tablosundan dosyanın yeni yerini bulur.
+        Bir manifestin metnini, diskteki bir dosyadan ya da git geçmişindeki bir sürümden okur.
 
     Neden var:
-        Eski manifestler 2026-11-25'te archive/ altına taşındı. Eski belgelerde hâlâ eski yol yazıyor.
-        Kullanıcı eski yolu verirse betik hata vermek yerine doğru dosyayı açmalı.
+        Kilit manifesti tek bir dosyadır; her yeni sürüm eskisinin üzerine yazılır.
+        Eski sürüm diskte artık yoktur, yalnızca git'te durur. Karşılaştırma için onu git'ten okumak gerekir.
 
     Ne alır:
-        path: Komutta verilen manifest yolu. Örnek: Path("degerlendirme/kilit_manifesti_v5.json")
-        migrations: load_path_migrations'ın döndürdüğü tablo.
+        source: Dosya yolu ya da "<commit>:<yol>" biçiminde bir git sürümü.
+                Örnek: "evaluation/lock_manifest.json" ya da "HEAD:evaluation/lock_manifest.json"
 
     Ne döndürür:
-        Açılacak dosyanın yolu. Örnek: Path("archive/degerlendirme/lock_manifest_v5.json")
+        Manifestin JSON metni. Örnek: '{"version": 6, "created_at": "...", ...}'
+
+    Nasıl çalışır:
+        Önce diskte böyle bir dosya var mı diye bakılır. Yoksa ve yazı ":" içeriyorsa, git'e "git show" ile sorulur.
+        Komut proje klasöründe çalışır; böylece yollar proje köküne göre yazılabilir.
+        İkisi de olmazsa betik açıklamayla durur.
     """
-    if path.exists():
-        return path
-    # Taşıma tablosu proje köküne göre yazılmıştır. Bu yüzden yolu önce proje köküne göre yaz.
-    absolute = path.resolve()
-    relative = absolute.relative_to(PROJECT_ROOT).as_posix() if absolute.is_relative_to(PROJECT_ROOT) else path.as_posix()
-    moved = Path(follow_migrations(relative, migrations))
-    if not (PROJECT_ROOT / moved).exists():
-        raise SystemExit(f"Manifest bulunamadı: {path}")
-    # Proje köküne göre kısa yolu döndür; ekranda ve değişiklik kaydında okunaklı görünsün.
-    return PROJECT_ROOT / moved if Path.cwd() != PROJECT_ROOT else moved
+    path = Path(source)
+    if path.is_file():
+        return path.read_text(encoding="utf-8")
+    if ":" in source:
+        shown = subprocess.run(["git", "-C", str(PROJECT_ROOT), "show", source], capture_output=True)
+        if shown.returncode == 0:
+            return shown.stdout.decode("utf-8")
+    raise SystemExit(f"Manifest bulunamadı (ne diskte ne git'te): {source}")
 
 
-def load_manifest(path: Path) -> dict:
+def load_manifest(source: str) -> dict:
     """
     Ne yapar:
         Bir kilit manifestini okur ve alan adlarını İngilizceye çevirir.
@@ -189,12 +197,13 @@ def load_manifest(path: Path) -> dict:
         Eski ve yeni manifestler aynı biçime getirilmeden karşılaştırılamaz.
 
     Ne alır:
-        path: Manifest dosyasının yolu. Örnek: Path("evaluation/lock_manifest_v6.json")
+        source: Dosya yolu ya da git sürümü. Örnek: "HEAD:evaluation/lock_manifest.json"
 
     Ne döndürür:
-        Manifest sözlüğü. Örnek: {"created_at": "2026-11-25T15:09:17+03:00", "patterns": [...], "files": [...]}
+        Manifest sözlüğü. Örnek: {"version": 6, "created_at": "2026-11-25T15:09:17+03:00", "patterns": [...], "files": [...]}
+        v1–v5 gibi sürüm alanı olmayan eski manifestlerde "version" anahtarı bulunmaz.
     """
-    return rename_legacy_keys(json.loads(path.read_text(encoding="utf-8")))
+    return rename_legacy_keys(json.loads(read_manifest_text(source)))
 
 
 def file_key(record: dict, migrations: dict[str, str]) -> str:
@@ -337,7 +346,31 @@ def compare_manifests(old_manifest: dict, new_manifest: dict, migrations: dict[s
     return result
 
 
-def format_report(old_path: Path, new_path: Path, old_manifest: dict, new_manifest: dict, result: dict) -> str:
+def format_header(label: str, source: str, manifest: dict) -> str:
+    """
+    Ne yapar:
+        Raporun başındaki "eski" ya da "yeni" satırını yazar: kaynak, sürüm numarası, tarih ve dosya sayısı.
+
+    Neden var:
+        Okuyan kişi neyin neyle karşılaştırıldığını ilk iki satırda görmeli.
+
+    Ne alır:
+        label: Satırın etiketi. Örnek: "eski"
+        source: Manifestin dosya yolu ya da git sürümü. Örnek: "HEAD:evaluation/lock_manifest.json"
+        manifest: Okunmuş manifest. Örnek: {"version": 6, "created_at": "2026-11-25T15:09:17+03:00", "files": [...]}
+
+    Ne döndürür:
+        Tek satırlık metin.
+        Örnek: "eski: HEAD:evaluation/lock_manifest.json (sürüm 6, 2026-11-25T15:09:17+03:00, 27 dosya)"
+
+    Nasıl çalışır:
+        v1–v5'te sürüm alanı yoktur. Onlar için "sürüm ?" yazılır; numara değişiklik kaydından okunur.
+    """
+    return (f"{label}: {source} (sürüm {manifest.get('version', '?')}, "
+            f"{manifest.get('created_at', '?')}, {len(manifest['files'])} dosya)")
+
+
+def format_report(old_source: str, new_source: str, old_manifest: dict, new_manifest: dict, result: dict) -> str:
     """
     Ne yapar:
         Karşılaştırma sonucunu insanın okuyacağı düz metne çevirir.
@@ -346,21 +379,18 @@ def format_report(old_path: Path, new_path: Path, old_manifest: dict, new_manife
         JSON çıktısı betikler için uygundur; terminalde bakan kişi için sade bir liste gerekir.
 
     Ne alır:
-        old_path, new_path: Karşılaştırılan manifestlerin yolları.
-                            Örnek: Path("archive/degerlendirme/lock_manifest_v5.json")
-        old_manifest, new_manifest: Okunmuş manifestler (oluşturulma tarihini göstermek için).
+        old_source, new_source: Karşılaştırılan manifestlerin dosya yolu ya da git sürümü.
+                                Örnek: "HEAD:evaluation/lock_manifest.json"
+        old_manifest, new_manifest: Okunmuş manifestler (sürüm numarasını ve oluşturulma tarihini göstermek için).
         result: compare_manifests'ın döndürdüğü sözlük.
 
     Ne döndürür:
         Çok satırlı metin. Örnek:
-        "eski: archive/degerlendirme/lock_manifest_v5.json (2026-11-23T17:06:56+03:00, 27 dosya)
+        "eski: HEAD:evaluation/lock_manifest.json (sürüm 6, 2026-11-25T15:09:17+03:00, 27 dosya)
          ...
          özet: eklendi=0 çıkarıldı=0 değişti=0 aynı=27"
     """
-    lines = [
-        f"eski: {old_path} ({old_manifest.get('created_at', '?')}, {len(old_manifest['files'])} dosya)",
-        f"yeni: {new_path} ({new_manifest.get('created_at', '?')}, {len(new_manifest['files'])} dosya)",
-    ]
+    lines = [format_header("eski", old_source, old_manifest), format_header("yeni", new_source, new_manifest)]
     titles = {"added": "eklendi", "removed": "çıkarıldı", "changed": "parmak izi değişti", "unchanged": "aynı kaldı"}
     for group, title in titles.items():
         lines.append(f"{title} ({len(result[group])}):")
@@ -397,8 +427,9 @@ def main() -> None:
     """
     # Komuttaki seçenekleri tanımla. Her seçeneğin tek bir İngilizce adı vardır.
     parser = argparse.ArgumentParser(description=__doc__.strip().splitlines()[1].strip())
-    parser.add_argument("--old", required=True, type=Path, help="Eski kilit manifesti")
-    parser.add_argument("--new", required=True, type=Path, help="Yeni kilit manifesti")
+    parser.add_argument("--old", required=True,
+                        help="Eski kilit manifesti: dosya yolu ya da <commit>:<yol> (örnek: HEAD:evaluation/lock_manifest.json)")
+    parser.add_argument("--new", required=True, help="Yeni kilit manifesti: dosya yolu ya da <commit>:<yol>")
     parser.add_argument("--path-migration", nargs="*", default=[], type=Path,
                         help="Taşınan dosyaların eski yol → yeni yol listeleri")
     parser.add_argument("--focus-patterns", nargs="*", default=DEFAULT_FOCUS_PATTERNS,
@@ -407,17 +438,15 @@ def main() -> None:
     arguments = parser.parse_args()
 
     migrations = load_path_migrations(arguments.path_migration)
-    old_path = resolve_manifest_path(arguments.old, migrations)
-    new_path = resolve_manifest_path(arguments.new, migrations)
-    old_manifest = load_manifest(old_path)
-    new_manifest = load_manifest(new_path)
+    old_manifest = load_manifest(arguments.old)
+    new_manifest = load_manifest(arguments.new)
 
     result = compare_manifests(old_manifest, new_manifest, migrations, arguments.focus_patterns)
-    print(format_report(old_path, new_path, old_manifest, new_manifest, result))
+    print(format_report(arguments.old, arguments.new, old_manifest, new_manifest, result))
 
     if arguments.output:
         # Hangi dosyaların karşılaştırıldığını da yaz; JSON tek başına okunduğunda anlaşılsın.
-        payload = {"old_manifest": str(old_path), "new_manifest": str(new_path), **result}
+        payload = {"old_manifest": arguments.old, "new_manifest": arguments.new, **result}
         arguments.output.parent.mkdir(parents=True, exist_ok=True)
         arguments.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
