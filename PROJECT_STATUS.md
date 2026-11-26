@@ -13,8 +13,12 @@ Son güncelleme: 2026-11-26 (bakım: karar isteme kuralı; bakım: kilit manifes
 - V1–V6 "onay bekliyor" olarak işaretlendi. V1–V3 bu sohbette soruldu; V4–V6 bu üç soru cevaplanınca sorulacak (bir mesajda en fazla üç karar kuralı).
 - Kilit manifesti değişiklik kaydı (aynı istekteki 1. madde) bir önceki bakımda yapılmıştı (`c5f4fe1`, `1f2cb74`); yeniden yapılmadı.
 
-### Kararlar (cevap bekleyen; sohbette soruldu)
-- V1, V2, V3 (2026-11-26'da soruldu). V4, V5, V6 sıradaki mesajda sorulacak.
+### Kararlar
+- **V1, V2, V3: onaylandı (proje sahibi, 2026-11-26; üçünde de A, yani dosyalarda uygulanmış olan hâl).** Hiçbir dosya değişmedi; `thresholds_v1.md` §6.2 U.2 olduğu gibi kaldı.
+  - V1 (3.1, TurkishMMLU): yalnızca iki sistemden birinin doğru bildiği sorular, iki yönde incelenir. Gerekçe: farkı yalnızca ayrışan sorular yaratır; doğru/yanlış sorularda "en olumsuz 20" sıralaması anlamsızdır.
+  - V2 (3.8, harf çıkarılamayan oran): harf çıkarılamayan bütün cevaplar + harf çıkarılan cevaplardan seed 42 ile 20 rastgele cevap. Gerekçe: betik iki yönde yanılabilir; yalnızca tek yöne bakmak düzeltmeyi hep adaptör lehine işletir. Ek yük 20 kayıt.
+  - V3 (2.2, 3.6, ikili karşılaştırma): yargıcın iki sırada tutarlı karar verdiği kayıplar ve kazançlar; beraberlikler incelenmez. Gerekçe: V1 ile aynı ilke (ayrışmayan kayıtlara bakılmaz); yalnızca kayıplar tek yönlü olur; beraberlikleri eklemek iş yükünü neredeyse ikiye katlar.
+- V4, V5, V6: cevap bekliyor (2026-11-26'da sohbette soruldu).
 
 ---
 
@@ -373,14 +377,14 @@ Açık karar kalmadı. 2026-11-26'dan itibaren yeni kararlar listeye yazılmaz; 
 - Uzak depo: `origin` = https://github.com/cerensahindevelop/kurumsal_qa_fine-tune (`main`, ilk gönderim `38dcb32`).
 - Aşama sonlarında yalnızca yerel commit yapılır. `git push` her seferinde **kullanıcıya sorulur** ve yalnızca onay gelirse yapılır.
 
-### Varsayılan olarak uygulananlar (V1–V6: onay bekliyor, 2026-11-26'da sohbette soruldu)
+### Varsayılan olarak uygulananlar (V1–V3 onaylandı; V4–V6 onay bekliyor; 2026-11-26'da sohbette soruldu)
 Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içindir. Hiçbiri bir eşik değerini veya kritik/uyarı ayrımını değiştirmiyor.
 
 | # | Sorun (tek cümle) | Uygulanan çözüm | Dosya / satır |
 |---|---|---|---|
-| V1 (**onay bekliyor**) | 3.1 (TurkishMMLU doğruluğu) "ortalama farkı" türündeydi; doğru/yanlış bir sayım olduğu için "iki yöndeki uyuşmayan kayıt" orada tanımsızdı. | 3.1 "sayım farkı" türüne alındı: uyuşmayan kayıt = iki sistemden yalnızca birinin doğru bildiği soru, iki yönde de. | `thresholds_v1.md`:174 (§6.2 U.2) |
-| V2 (**onay bekliyor**) | 3.8 mutlak bir orandır, karşılaştırılan sistem yoktur; "iki yön" tanımsızdı ve yalnızca olumsuz kayıtlara bakmak düzeltmeyi tek yönlü bırakıyordu. | Harf çıkarılamayan bütün kayıtlara ek olarak, harf çıkarılan kayıtlardan seed 42 ile 20 rastgele kayıt incelenir (betiğin cevapta olmayan harfi çıkarması). | `thresholds_v1.md`:175 |
-| V3 (**onay bekliyor**) | İkili karşılaştırmada (2.2, 3.6) "uyuşmayan kayıt" tanımsızdı. | Yargıcın iki sırada tutarlı karar verdiği bütün kayıtlar (adaptörün kayıpları ve kazançları) incelenir; beraberlikler iki yönde de incelenmez. | `thresholds_v1.md`:176 |
+| V1 (**onaylandı**, 2026-11-26, A) | 3.1 (TurkishMMLU doğruluğu) "ortalama farkı" türündeydi; doğru/yanlış bir sayım olduğu için "iki yöndeki uyuşmayan kayıt" orada tanımsızdı. | 3.1 "sayım farkı" türüne alındı: uyuşmayan kayıt = iki sistemden yalnızca birinin doğru bildiği soru, iki yönde de. | `thresholds_v1.md`:174 (§6.2 U.2) |
+| V2 (**onaylandı**, 2026-11-26, A) | 3.8 mutlak bir orandır, karşılaştırılan sistem yoktur; "iki yön" tanımsızdı ve yalnızca olumsuz kayıtlara bakmak düzeltmeyi tek yönlü bırakıyordu. | Harf çıkarılamayan bütün kayıtlara ek olarak, harf çıkarılan kayıtlardan seed 42 ile 20 rastgele kayıt incelenir (betiğin cevapta olmayan harfi çıkarması). | `thresholds_v1.md`:175 |
+| V3 (**onaylandı**, 2026-11-26, A) | İkili karşılaştırmada (2.2, 3.6) "uyuşmayan kayıt" tanımsızdı. | Yargıcın iki sırada tutarlı karar verdiği bütün kayıtlar (adaptörün kayıpları ve kazançları) incelenir; beraberlikler iki yönde de incelenmez. | `thresholds_v1.md`:176 |
 | V4 (**onay bekliyor**) | Ortalama farkı eşiklerinde (2.3, 3.9 ortalama) yalnızca "en olumsuz 20" vardı. | En olumsuz 20 + en olumlu 20 + rastgele 10. | `thresholds_v1.md`:177 |
 | V5 (**onay bekliyor**) | "En fazla 40 kayıt" sınırı tek yön için yazılmıştı; iki yönde tek sınır bir yönü kırpabilirdi. Ayrıca yön görünürse değerlendirici yanlı olabilirdi. | Her yönde en fazla 40 kayıt; aynı seçim kuralı ve etiket şeması; CSV'de yön gösterilmez, kayıtlar seed 42 ile karışık sıralanır. | `thresholds_v1.md`:180 |
 | V6 (**onay bekliyor**) | Uyarı incelemesindeki düzeltmelerin kritik eşiklere taşınıp taşınmadığı yazılı değildi (2.4, 2.1'in alt kümesi); taşınırsa bir uyarı incelemesi kritik sonucu dolaylı olarak kaldırabilirdi. | Taşınmaz: kritik eşikler (2.1, 3.7, 4.2) özgün etiketlerle, 2.1'de §9.1'deki birleşik etiketlerle hesaplanır. Kritik/uyarı ayrımını korur, değiştirmez. | `thresholds_v1.md`:201 (§6.2 U.5) |
