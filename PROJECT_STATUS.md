@@ -1,6 +1,26 @@
 # PROJECT_STATUS
 
-Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; senior öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+Son güncelleme: 2026-11-26 (bakım: onay yetkisi proje sahibine geçti; önceki: 2026-11-25, bakım: kanarya dosyaları kaldırıldı, erişim testi README'ye taşındı; bakım: eski kayıtlar archive/ altına taşındı; bakım: isimlendirme refactor'ı; önceki: 2026-11-24, 01: eşiklerin açıklamalı belgesi; eşik kararları: kritik/uyarı, tuzak −2, kalibrasyon 40, raporlama; açık kararlar 17–23 kapatıldı; proje sahibi onayı öncesi netleştirmeler; eşik paketi onaya hazır; `hazir_istemli` kapsamdan çıkarıldı) · Son tamamlanan aşama: **01**
+
+---
+
+## Bakım: onay yetkisi proje sahibine geçti (2026-11-26; aşama değil, 02'ye geçilmedi)
+
+### Tamamlanan iş
+- Bu projede onayları proje sahibi (kullanıcı) verir; başka bir onaylayıcı yoktur (kullanıcı kararı, 2026-11-26).
+- Eski onaylayıcı adıyla yazılmış bütün onay ve karar ifadeleri ("… onayı: bekliyor", "… onayıyla commit edilir", "nihai kararı … verir", "… kararı yalnızca servise çıkış hakkındadır") "proje sahibi" olarak değişti. Kapsam: CLAUDE.md (yazma izni verildi), PROJECT_STATUS.md, `evaluation/thresholds_v1.md`, `evaluation/thresholds_v1_explained.md`, `evaluation/experiment_plan_v1.md`, `report/report_plan_v1.md`, `prompts/response_standard_v1.md`, `docs/learning/01_skeleton_and_plan.md`. README'de onay ifadesi yoktu.
+- Eşik tablolarındaki 8 onay sütununun başlığı "Onay (proje sahibi)" oldu. Genel onay satırı "Proje sahibi onayı (genel): bekliyor".
+- Uyarı eşiği kuralının (§1, §6.2 U.3–U.5) anlamı değişmedi: proje sahibinin kararı yalnızca servise çıkış hakkındadır ve birincil sonucu "geçti"ye çeviremez.
+- Onay durumları "bekliyor" olarak kaldı. Henüz hiçbir şey onaylanmadı. Proje sahibi 01'i öğrendikten sonra onay verecek; onay tarihi ve commit kimliği dosyalara ayrı bir commit'le yazılacak.
+- Rapor ve sunum ifadeleri bilerek değişmedi: o kişi raporun okuyucusudur, onaylayıcı değil.
+
+### Doğrulama sonuçları (ölçüldü)
+- 60 değişiklik, 8 dosya; betik her değişikliğin beklenen sayıda yapıldığını saydı.
+- Git farkı: değişen 8 dosyanın hepsinde sayı dizisi önceki commit'le aynı, satır sayıları aynı. Hiçbir eşik değeri değişmedi.
+- Metin araması (archive/ hariç; arşiv değiştirilmez): eşleşme 78'den 18'e indi. Kalanlar:
+  - 1 rol tanımı: CLAUDE.md'deki "… AI engineer" satırı (Claude'un rolü, onayla ilgisi yok).
+  - 3 rapor adı: CLAUDE.md klasör ağacı, README klasör tablosu, `report/report_plan_v1.md`.
+  - 14 okuyucu ve sunum anlamı, hepsi `thresholds_v1_explained.md`'de ("Okuyucu: …", "… denebilir/sunulur", "… diye sorarsa", "… sunumunda").
 
 ---
 
@@ -99,7 +119,7 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
 
 ### Varsayılan olarak uygulananlar (kullanıcının gözden geçirmesini bekliyor)
 - "Tarihî manifestleri yerinde koru" ve "kilitli içeriği taşıma" kuralları nedeniyle eski `degerlendirme/` ve `inceleme/` klasörleri başta yalnızca tarihî dosyalarla kaldı. Sonraki bakımda (yukarıda) tarihî kayıtlar `archive/` altına toplandı; `inceleme/` yalnızca kilitli dosyalarla duruyor.
-- Onaya hazır dosyaların yolu ve terimleri değişti; içerik ve eşik değerleri aynı. Senior'a commit kimliği verilirken `--follow` kullanılmalı.
+- Onaya hazır dosyaların yolu ve terimleri değişti; içerik ve eşik değerleri aynı. Proje sahibi onay için commit kimliği yazarken `--follow` kullanılmalı.
 - v6 numarası bu bakımda kullanıldı; `genel_kontrol_v2` 02'de taşınınca üretilecek manifest v7 olur (belgeler buna göre güncellendi). **11. aşamadaki kilit kontrolü o gün geçerli en yüksek numaralı `evaluation/lock_manifest_v<N>.json`'u kullanır; beklenen v7.**
 - Geliştirme setinde örnek doğru cevabı tutan ayrı bir alan yok (`acceptance_criteria` bir ölçüttür, cevap değildir); bu yüzden `reference_answer` adı kullanılmadı. Kilitli setlerdeki alanlar değiştirilemez.
 - Henüz yazılmamış betiklerin planlanan sütun ve etiket adları (ör. `neden`, `duzeltilmis_etiket`, `gercek_hata`) belgede olduğu gibi bırakıldı; betik yazılırken İngilizce adlandırılacak. Yalnızca planlanan yollar çevrildi (`src/evaluation/warning_review_queue.py`, `review/human_form_v1.csv`, `evaluation/held_out/`, `evaluation/responses/`).
@@ -121,12 +141,12 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
 - CLAUDE.md'deki klasör yapısı kuruldu. `src/` alt paketlerine `__init__.py` eklendi.
 - Cevap standardı ve tek system prompt (`system_prompt_v1.txt`) yazıldı.
 - Deney planı (ön kayıt taslağı) hazırlandı: sistemler, doğrulama ve test sırası, birincil/ikincil sonuç ayrımı, sentetik katkısının test karşılaştırması, few-shot önerisi, puanlama tanımları, metrik sınırları, yargıç adayları ve kalibrasyon kuralı, beş açık karar ve mini puanlama gösterimi.
-- Eşik taslağı (`thresholds_v1.md`) yazıldı. Bütün satırlarda "senior onayı: bekliyor" yazıyor.
+- Eşik taslağı (`thresholds_v1.md`) yazıldı. Bütün satırlarda "Onay (proje sahibi): bekliyor" yazıyor.
 - Geliştirme kapsam dışı seti için 15 soruluk taslak yazıldı (tuzak setine bakılmadan).
 - Girdi SHA-256 özeti ve kilit manifesti üretildi. Paket ve donanım kaydı alındı.
 - Eğitim başlatılmadı. Hiçbir model çalıştırılmadı.
 - **Eşik kararları (kullanıcı, 2026-11-24; onaydan önce, aynı dosyaya işlendi):**
-  - Yalnızca 2.1, 3.7 ve 4.2 kritik; §2–§4'teki diğer 14 eşik uyarı. Uyarı aşılırsa kırmızı bayrak, betikle seçilen kayıtların insan incelemesi ve senior kararı gelir. Süreç `thresholds_v1.md` §6.2'de tanımlı.
+  - Yalnızca 2.1, 3.7 ve 4.2 kritik; §2–§4'teki diğer 14 eşik uyarı. Uyarı aşılırsa kırmızı bayrak, betikle seçilen kayıtların insan incelemesi ve proje sahibinin kararı gelir. Süreç `thresholds_v1.md` §6.2'de tanımlı.
   - §1'deki birincil sonuç cümlesi bu ayrıma göre yeniden yazıldı. §3A tetikleyicisi bu ayrımdan etkilenmiyor.
   - 4.1 "adaptör ≥ `hazir_istemli` − 2" oldu (2026-11-24'te `hazir_istemli` kapsamdan çıkınca "adaptör ≥ `baseline` − 2").
   - Yargıç kalibrasyonu 40 çifte çıktı (`thresholds_v1.md` 0.3 ve 0.5, `experiment_plan_v1.md` §6.8 ve §6.9, `report_plan_v1.md` §4).
@@ -146,7 +166,7 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
   - (c) Yedek yolda ikincil iddia yok: "güvenilir ölçüm yapılamadı, iddia yapılmadı".
   - (d) 0.3/0.4'ün prompt türü başına ayrı ölçüldüğü yazılı değildi (insan etiketi ve yargıç prompt'u ayrıydı, eşik hesabı tanımsızdı); ayrı ölçüm tanımlandı (§9.3). Yedek yol yalnızca kalınan türe dayanan eşiklere uygulanır. Sonuç: iki prompt türü farklı adaylarla puanlanabilir.
   - "Fark ettiklerim" 30 maddesi üç gruba ayrıldı (açık karar 16'da); hiçbiri düzeltilmedi.
-- **Senior öncesi netleştirmeler ve açık karar 22 (kullanıcı, 2026-11-24; `thresholds_v1.md` §8 değişiklik 10).** Hiçbir eşik değeri değişmedi:
+- **Proje sahibi onayı öncesi netleştirmeler ve açık karar 22 (kullanıcı, 2026-11-24; `thresholds_v1.md` §8 değişiklik 10).** Hiçbir eşik değeri değişmedi:
   - #1: 1.1'den "≥ %60" kaldırıldı; kural "işaret testi p < 0,05". Gereken en az galibiyet tablosu §1'de (betikle, ölçüldü).
   - #2: §0 ikiye ayrıldı: 0.1–0.2 geçerlilik koşulu (koşu tekrarlanır), 0.3–0.5 yargıç uygunluğu (yedek yol).
   - #6: 0.5 prompt türü başına; 26B yalnızca uyumda 5 pp'den fazla öndeyse; yalnızca biri geçerse o.
@@ -156,7 +176,7 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
   - #12: K.2 pay seçimi (net kazanç; 5 pp içinde %10; hiçbiri geçmezse K.3).
   - #15: 50 soruda +2 bilinçli onaylandı; oransal fark rapor planına yazıldı.
   - #20: 4.3 doğrulamada seçim kısıtı; uyarı sınıfından çıktı (uyarı eşikleri 14 → 13).
-  - #24: uyarı incelemesi yalnızca kayıt etiketlerini düzeltir, eşik yeniden hesaplanır, hâlâ aşılıyorsa birincil sonuç "çekinceli". Sonuç artık üç değerli: geçti / çekinceli / kaldı. Senior kararı yalnızca servise çıkış hakkında.
+  - #24: uyarı incelemesi yalnızca kayıt etiketlerini düzeltir, eşik yeniden hesaplanır, hâlâ aşılıyorsa birincil sonuç "çekinceli". Sonuç artık üç değerli: geçti / çekinceli / kaldı. Proje sahibinin kararı yalnızca servise çıkış hakkında.
   - Karar 22: Aya (3.6, T.6) üslup+jargon türüne bağlandı. Tek yargıç kuralı eklenmedi.
   - Rapor planı: özet üç değerli; 2.1b'nin oransal toleransı sınırlamaya yazıldı.
   - `thresholds_v1_explained.md`: ilgili bölümler, 4 sözlük terimi; "fark ettiklerim" 33 madde (31–33 yeni).
@@ -241,7 +261,7 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
 
 ### Kararlar (kullanıcı, 2026-11-23) — "01: açık kararlar kaydedildi" commit'iyle işlendi
 1. **Genel Türkçe verisi** yalnızca gerileme görülürse eğitime girer.
-   - Sayısal tetikleyici `thresholds_v1.md` §3A'da: T.1–T.8 (görev başına izin verilen en fazla düşüş ve sızıntı sınırı) ve K.1–K.3 (tetiklenince yapılacaklar). Senior onayı bekliyor.
+   - Sayısal tetikleyici `thresholds_v1.md` §3A'da: T.1–T.8 (görev başına izin verilen en fazla düşüş ve sızıntı sınırı) ve K.1–K.3 (tetiklenince yapılacaklar). Proje sahibi onayı bekliyor.
    - Eski "her durumda %10–20" kararından neden değişildiği `experiment_plan_v1.md` §8, karar 1'de.
 2. **Türkçe değerlendirme ayrımı:** her dosyada %30 geliştirme / %70 saklanan, seed 42; her görevde geliştirme bölümü en az 50 kayıt. Bölme 02'de yapılacak.
 3. **Kör insan değerlendirmesi:**
@@ -269,7 +289,7 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
 - **Karar 10, kurum ağzı:** kural 2'ye eklendi. Model kurumları adıyla anar, "Kurumumuz" / "Bakanlığımız" demez. `response_standard_v1.md` §2. 03 notu aşağıda. Kurum verisi turunda bu kural tek kurum için yeniden değerlendirilecek.
 - **Karar 11, tutar ile süre/oran ayrımı:** kural 4 değiştirildi. Kanunda belirlenmiş süre, gün sayısı ve oranlar verilir. Dönemsel TL tutarlarının rakamı verilmez; hesaplama yolu söylenir ve resmî kaynaktan kontrol önerilir. `response_standard_v1.md` §4 uyduruldu.
   - 03'teki eskimiş tutar nötrleştirme kuralı plan karar 11'de önceden kayda alındı ve **kullanıcı tarafından onaylandı**.
-  - §6.3'teki puanlama kuralı **kullanıcı tarafından kabul edildi**: kural 4'e uygun biçimde verilmeyen dönemsel TL tutarı eksik sayılmaz. Kesin onayı eşiklerle birlikte senior verecek.
+  - §6.3'teki puanlama kuralı **kullanıcı tarafından kabul edildi**: kural 4'e uygun biçimde verilmeyen dönemsel TL tutarı eksik sayılmaz. Kesin onayı eşiklerle birlikte proje sahibi verecek.
 
 ### Açık kararlar (kullanıcı)
 7. **`genel_kontrol_v2`:** onay kapandı ("01: genel_kontrol_v2 onaylandı"); taşıma ve deny kuralı açık.
@@ -292,10 +312,10 @@ Son güncelleme: 2026-11-25 (bakım: kanarya dosyaları kaldırıldı, erişim t
   - GKD-008'in beklenen davranışına "Asgari ücretin Asgari Ücret Tespit Komisyonu tarafından belirlendiğini söyleyebilir." eklendi.
   - Diğer 13 kayıt olduğu gibi onaylandı. 15 kaydın hepsinde `onay: "onaylandı (kullanıcı)"`. Ölçüldü: yalnızca bu üç alan değişti, başka alan değişmedi.
   - Set kilit manifestinde değil (geliştirme seti); yeni manifest üretilmedi. 02'deki çakışma denetiminden geçecek.
-8. **Senior onayları:** `thresholds_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `experiment_plan_v1.md`, `report/report_plan_v1.md`, `response_standard_v1.md`, `system_prompt_v1.txt`, `dev_out_of_scope_v1.jsonl` (15 soru). Kullanıcı `response_standard_v1.md` ve `system_prompt_v1.txt` için kararlarını verdi (karar 9–14). `dev_out_of_scope_v1.jsonl` kullanıcı tarafından onaylandı (aşağıda); senior onayı yine bekliyor.
+8. **Proje sahibi onayları:** `thresholds_v1.md` (bütün satırlar, §3A ve yeni 3.9 dahil), `experiment_plan_v1.md`, `report/report_plan_v1.md`, `response_standard_v1.md`, `system_prompt_v1.txt`, `dev_out_of_scope_v1.jsonl` (15 soru). Kullanıcı `response_standard_v1.md` ve `system_prompt_v1.txt` için kararlarını verdi (karar 9–14). `dev_out_of_scope_v1.jsonl` kullanıcı tarafından onaylandı (aşağıda); proje sahibi onayı yine bekliyor.
 15. **Düşünme modu yan deneyi** (açık, karar 06'da verilecek): `baseline` model doğrulama setinde düşünme açık ve kapalı çalıştırılıp bilgi doğruluğu (bilgi puanı, kritik hata) ve süre karşılaştırılsın mı? Ana planda yok, hiçbir eşiği etkilemez. Yapılırsa 0.1'i bilerek ihlal ettiği için ayrı bir deney kimliğiyle yürütülmeli. Gerekçe: düşünme kapalılığının çok adımlı sorulardaki (ör. kıdem + ihbar birlikte) bedeli ölçülmedi. Ayrıntı `thresholds_v1_explained.md`, 0.1 ek bölümü.
 16. **Eşik açıklamasında listelenen zayıf noktalar** (`thresholds_v1_explained.md` §12, 33 madde). Gruplama 2026-11-24'te yapıldı:
-    - **Senior onayından önce (10): hepsi kapandı** (1, 2, 6, 7, 8, 9, 12, 15, 20, 24; `thresholds_v1.md` §8 değişiklik 10).
+    - **Proje sahibi onayından önce (10): hepsi kapandı** (1, 2, 6, 7, 8, 9, 12, 15, 20, 24; `thresholds_v1.md` §8 değişiklik 10).
     - **İlgili aşamada (5):** 13, 14, 17, 22, 25. Aşağıda "Sonraki aşamanın ihtiyaç duyacağı bilgiler"de aşamalarına not olarak yazıldı.
     - **Yalnızca not (15):** 3, 4, 5, 10, 11, 16, 18, 19, 21, 23, 26, 27, 28, 29, 30.
     - **Yeni (31–33):** açık karar 23'e bağlı.
@@ -333,10 +353,10 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
 | V9 | Karar 20'nin konusu olan prompt ayarı kalktı; ama kalibrasyonun 40 sorusu artık adaptör seçiminde aynı iyimserlik sorununu taşıyor. | Karar 20'nin ilkesi adaptör ayar/tarif seçimine taşındı: kalibrasyon soruları seçimden çıkarılmaz. Rapor sınırlaması buna göre yeniden yazıldı; ayrıca yargıcın yalnızca `faq_adapter` üslubuyla sınandığı eklendi. | `experiment_plan_v1.md` §6.8 madde 6; `report_plan_v1.md` §4.4 |
 | V10 | `genel_kontrol_v2` sınırlaması artık var olmayan "prompt geliştirme"den söz ediyordu. | "System prompt ve seçilen ayarlar" olarak düzeltildi; risk aynı kaldı. | `report_plan_v1.md` §4.4 (`genel_kontrol_v2` maddesi) |
 
-### Onaya hazır dosyalar (senior onayı bekliyor)
+### Onaya hazır dosyalar (proje sahibi onayı bekliyor)
 - **Onaylanacaklar:** `evaluation/thresholds_v1.md`, `evaluation/experiment_plan_v1.md`, `report/report_plan_v1.md`, `prompts/response_standard_v1.md`, `prompts/system_prompt_v1.txt`, `evaluation/dev_out_of_scope_v1.jsonl` (15 soru).
 - **Destekleyici, bağlayıcı değil:** `evaluation/thresholds_v1_explained.md`, `src/evaluation/threshold_probabilities.py`, `archive/degerlendirme/threshold_probabilities_v1.json`.
-- Her dosyanın son commit'i `git log -1 --follow --format=%h -- <dosya>` ile görülür (`--follow`, 2026-11-25 ad değişikliğinden önceki geçmişi de izler). Onay, eşik dosyasının sonundaki "Senior onayı (genel)" satırına ve satırlardaki "bekliyor" sütununa ayrı bir commit'le yazılır.
+- Her dosyanın son commit'i `git log -1 --follow --format=%h -- <dosya>` ile görülür (`--follow`, 2026-11-25 ad değişikliğinden önceki geçmişi de izler). Onay, eşik dosyasının sonundaki "Proje sahibi onayı (genel)" satırına ve "Onay (proje sahibi)" sütunundaki "bekliyor" hücrelerine ayrı bir commit'le yazılır.
 
 ### Sonraki aşamanın ihtiyaç duyacağı bilgiler
 - Kilitli desenler `src/data/build_input_manifest.py` içindeki `DEFAULT_LOCKED_PATTERNS` listesinde. 02 ve sonrası bu listeye uymalı.
@@ -372,7 +392,7 @@ Satır numaraları 2026-11-24 commit'indeki `evaluation/thresholds_v1.md` içind
   - İnsan formu betiği (11) bilgi bölümüne "Kritik hata var mı? Var / Yok" alanını koymalı; §6.3 tanımı formda yazılı olmalı.
   - 2.1 puanlama betiği etiket kaynağını kayıt başına yazmalı (`insan` / `yargic_betik`) ve §9.1'e göre birleştirmeli. §2 yalnızca `baseline` ile karşılaştırılır; 50 insan sorusunda iki tarafın (adaptör, `baseline`) etiketi de insandan gelir.
   - Kalibrasyon betiği uyumu, kappayı ve sıra tutarlılığını her aday × prompt türü (üslup+jargon, bilgi) için ayrı yazmalı ve seçimi tür başına yapmalı (§9.3). 0.5'te yalnızca uyum karşılaştırılır. Aya, üslup türünün yargıcıyla puanlanır.
-- **Senior öncesi netleştirmelerden doğan işler (2026-11-24):**
+- **Proje sahibi onayı öncesi netleştirmelerden doğan işler (2026-11-24):**
   - Bütün eşik betikleri sınır kuralını uygulamalı: ham değerle karşılaştırma, eşiğe eşit değer geçer. "Kaybetme − kazanma" paydası bütün kayıtlar.
   - Uyarı kuyruğu betiği (`src/evaluation/warning_review_queue.py`) `neden` (`gercek_hata` / `olcum_yanilgisi` / `belirsiz`) ve `duzeltilmis_etiket` sütunlarını üretmeli ve eşiği yeniden hesaplayan bir adım içermeli. Kayıt seçimi iki yönlü (yön başına en fazla 40, yön CSV'de gizli, karışık sıra; V1–V5). 3.2–3.5 için kuyruk üretilmez. Düzeltmeler kritik eşik hesabına girmez (V6).
   - Rapor betiği birincil sonucu üç değerle yazmalı: geçti / çekinceli / kaldı.

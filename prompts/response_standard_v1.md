@@ -1,6 +1,6 @@
 # Cevap standardı v1
 
-Durum: taslak (01; 2026-11-23'te karar 9–11 ile güncellendi, kural 9 ton istekleriyle genişletildi), senior onayı: bekliyor
+Durum: taslak (01; 2026-11-23'te karar 9–11 ile güncellendi, kural 9 ton istekleriyle genişletildi), proje sahibi onayı: bekliyor
 Bağlı dosya: `prompts/system_prompt_v1.txt` (bu standardın modele verilen kısa hâli)
 
 ## 1. Kime yazıyoruz

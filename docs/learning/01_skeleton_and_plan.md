@@ -88,7 +88,7 @@ Yeni terimler:
 - Her otomatik metriğin neyi ölçmediği yazılıdır.
 - Neden: tek bir metrik (ör. chrF) doğruluğu ve üslubu aynı anda ölçemez.
 
-**Blok 4: eşikler.** Her ölçüt için bir sayı, gerekçesi ve "senior onayı: bekliyor" satırı vardır. Neden: eşik sonuçtan önce sabitlenirse "başarı" tanımı sonuca göre esnetilemez.
+**Blok 4: eşikler.** Her ölçüt için bir sayı, gerekçesi ve "Onay (proje sahibi): bekliyor" sütunu vardır. Neden: eşik sonuçtan önce sabitlenirse "başarı" tanımı sonuca göre esnetilemez.
 
 **Mini örnek (örnek, uydurma; gerçek çalışma değil):** yargıç 100 sorunun 50'sinde adaptörü, 30'unda prompt'lu modeli seçiyor, 20'si beraberlik. Kazanma oranı 50/80 = %62,5 ≥ %60 ✓. İşaret testi (50'ye karşı 30) için p ≈ 0,03 < 0,05 ✓. Kritik hata farkı +1 ≤ +3 ✓. Bu durumda birincil uç nokta geçilmiş olur, ama genel Türkçe ve tuzak eşikleri de ayrıca kontrol edilir.
 
@@ -241,7 +241,7 @@ Tek bir satırın aşılması yeterlidir; karışım koşusu yapılır.
 **Kullanıcının verdiği sayılarla fark:** yalnızca −2'nin yakalama olasılığında. Verilen değer yaklaşık %68'di, ölçülen %56–63. Diğer sayılar örtüşüyor.
 
 **Eşik dosyasındaki değişiklikler (kullanıcı kararı, onaydan önce):**
-- Yalnızca 2.1, 3.7 ve 4.2 kritik; diğer koruma eşikleri uyarı. Uyarı aşılırsa betik kayıt seçer, insan etiketler, senior karar verir (`thresholds_v1.md` §6).
+- Yalnızca 2.1, 3.7 ve 4.2 kritik; diğer koruma eşikleri uyarı. Uyarı aşılırsa betik kayıt seçer, insan etiketler, proje sahibi karar verir (`thresholds_v1.md` §6).
 - 4.1 −2 oldu.
 - Kalibrasyon 40 çifte çıktı.
 - Kazanma oranı hiçbir zaman tek başına yazılmaz (§7).
@@ -271,7 +271,7 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluat
 **Kontrol sorusu:** `baseline` karşılaştırmasında adaptörün etiketlerini insandan, `baseline`'ınkileri yargıçtan almak neden sorunlu?
 *Cevap:* İki taraf farklı ölçüm aracıyla sayılmış olur. İnsan yargıçtan daha katı ya da daha yumuşaksa, fark modeller arasındaki farkı değil ölçüm araçları arasındaki farkı yansıtır.
 
-## 12. Senior öncesi netleştirmeler: üç değerli sonuç, sınır kuralı, galibiyet tablosu
+## 12. Proje sahibi onayı öncesi netleştirmeler: üç değerli sonuç, sınır kuralı, galibiyet tablosu
 
 **Yol ve girdi:** `evaluation/thresholds_v1.md` (§0, 1.1 tablosu, Tanımlar, K.2, 4.3, §6.2, §8 değişiklik 10) ve `src/evaluation/threshold_probabilities.py`. Betiğin yeni çıktısı `isaret_testi_galibiyet_tablosu_n_1_100` (v2'de `sign_test_minimum_wins_table_1_to_100`); veri okumaz.
 
@@ -279,7 +279,7 @@ Bu bölümde yeni kod yok; değişiklikler ölçüm kurallarında. Yol: `evaluat
 
 **Blok 2: kuralların yazımı.** Girdi: belirsiz okunabilen eşik metinleri. Dönüşüm: sınır kuralı (eşit değer geçer; yuvarlamadan önce), "kaybetme − kazanma" paydası (beraberlikler dahil), 0.5'in tek okumalı hâli, 3.8/T.8'in kime uygulandığı, K.2'nin pay seçimi. Neden: aynı veri iki okumayla farklı sonuç vermesin. Sonraki bloğa: eşik değerleri aynı, kararlar tek anlamlı.
 
-**Blok 3: üç değerli sonuç.** Girdi: uyarı eşiği aşımı. Dönüşüm: inceleme yalnızca kayıt etiketlerini düzeltir; eşik yeniden hesaplanır; hâlâ aşılıyorsa sonuç "çekinceli". Neden: sonuçları gördükten sonra verilen bir karar başarı ölçütünü esnetmesin; senior yalnızca servise çıkışa karar verir.
+**Blok 3: üç değerli sonuç.** Girdi: uyarı eşiği aşımı. Dönüşüm: inceleme yalnızca kayıt etiketlerini düzeltir; eşik yeniden hesaplanır; hâlâ aşılıyorsa sonuç "çekinceli". Neden: sonuçları gördükten sonra verilen bir karar başarı ölçütünü esnetmesin; proje sahibi yalnızca servise çıkışa karar verir.
 
 **Mini örnek (örnek, uydurma; gerçek çalışma değil):** TurkishMMLU farkı −2,6 pp (eşik ≥ −2,0). İnceleme 12 kayıtta harf çıkarma yanılgısı buldu ve doğru harfi yazdı. Yeniden hesap: −2,6 + 12/630 × 100 ≈ −0,7 pp → uyarı kalkar. Yalnızca 3 kayıt düzeltilseydi ≈ −2,1 pp → sınır kuralına göre aşılmış → "çekinceli".
 

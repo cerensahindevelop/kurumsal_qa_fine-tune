@@ -1,13 +1,13 @@
 # Rapor planı v1
 
-Durum: taslak (01, 2026-11-23), senior onayı: bekliyor
+Durum: taslak (01, 2026-11-23), proje sahibi onayı: bekliyor
 Bağlı dosyalar: `evaluation/experiment_plan_v1.md`, `evaluation/thresholds_v1.md`
 
 Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra yazılır. Bu dosya raporun iskeletini ve önceden bilinen sınırlamaları sonuçlardan önce kayda geçirir; böylece sınırlamalar sonuca göre seçilmez.
 
 ## 1. Bölümler
 
-1. **Özet:** birincil sonuç tek cümleyle (geçti / çekinceli / kaldı; `thresholds_v1.md` §1), ardından koruma koşulları ve varsa servise çıkış hakkındaki senior kararı (sonucu değiştirmez).
+1. **Özet:** birincil sonuç tek cümleyle (geçti / çekinceli / kaldı; `thresholds_v1.md` §1), ardından koruma koşulları ve varsa servise çıkış hakkındaki proje sahibi kararı (sonucu değiştirmez).
 2. **Yöntem:**
    - sistemler, veri ve bölmeler (sayı ve SHA-256 ile);
    - eğitim tarifi;
@@ -104,6 +104,6 @@ Senior raporu 11. aşamadaki bütün puanlar üretilip commit edildikten sonra y
 - **Dönemsel TL tutarları** (karar 11). Model dönemsel tutarın rakamını vermez. Referansta bu rakam varsa:
   - sayı recall'u düşer;
   - chrF hafifçe düşer;
-  - bilgi puanı için §6.3'teki ek kural önerisi (senior onayı bekliyor) uygulanır.
+  - bilgi puanı için §6.3'teki ek kural önerisi (proje sahibi onayı bekliyor) uygulanır.
   Tutar içeren referansların sayısı ayrıca raporlanır.
 - **Kapsam:** pilot açık verilerle yapıldı. Sonuçlar kurum verisine doğrudan genellenemez; aynı akış orijinal modelden yeniden çalıştırılacak.

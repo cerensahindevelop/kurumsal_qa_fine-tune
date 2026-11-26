@@ -1,6 +1,6 @@
 # Deney planı v1 (ön kayıt taslağı)
 
-Durum: taslak (01, 2026-11-23; aynı gün kullanıcının açık kararlarıyla güncellendi, bkz. §8; 2026-11-24'te `hazir_istemli` kapsamdan çıkarıldı, `thresholds_v1.md` §8 değişiklik 12), senior onayı: bekliyor
+Durum: taslak (01, 2026-11-23; aynı gün kullanıcının açık kararlarıyla güncellendi, bkz. §8; 2026-11-24'te `hazir_istemli` kapsamdan çıkarıldı, `thresholds_v1.md` §8 değişiklik 12), proje sahibi onayı: bekliyor
 Rapor planı ve sınırlamalar: `report/report_plan_v1.md`
 Eşikler: `evaluation/thresholds_v1.md` · Cevap standardı: `prompts/response_standard_v1.md` · System prompt: `prompts/system_prompt_v1.txt`
 
@@ -37,7 +37,7 @@ Ortak kurallar:
 **Birincil sonuç (tek ana karşılaştırma):** seçilen adaptör ile `baseline` testte karşılaştırılır (2026-11-24'ten beri; önceki rakip `hazir_istemli` kapsam dışı).
 - Birincil uç nokta (primary endpoint: başarının tek ana ölçüsü): yerel yargıcın **üslup+jargon** ikili karşılaştırmasında seçilen adaptörün kazanma / beraberlik / kayıp sayıları; ölçüt iki yönlü kesin işaret testinde p < 0,05 (beraberlikler hariç). Kararın iki sırada da tutarlı olması gerekir; tutarsız karar beraberlik sayılır. İlk taslaktaki "≥ %60" koşulu 2026-11-24'te kaldırıldı; hiçbir zaman bağlayıcı değildi (`thresholds_v1.md` 1.1 ve gereken galibiyet tablosu).
 - Birincil uç noktanın geçerli sayılması için şu koruma koşulları da sağlanmalı: bilgi doğruluğunda kötüleşme yok, genel Türkçe korunuyor, tuzak davranışı kötüleşmiyor (eşikler `thresholds_v1.md` dosyasında).
-  - Onaydan önce değişiklik (2026-11-24, kullanıcı kararı): koruma eşiklerinden yalnızca 2.1, 3.7 ve 4.2 kritiktir; biri aşılırsa birincil sonuç "kaldı" olur. Diğerleri uyarı eşiğidir: aşılırsa raporda kırmızı bayrakla gösterilir, insan incelenen kayıtların etiketlerini düzeltir ve eşik yeniden hesaplanır. Hâlâ aşılıyorsa birincil sonuç "çekinceli" olur; senior kararı yalnızca servise çıkış hakkındadır ve sonucu "geçti"ye çeviremez (`thresholds_v1.md` §1, §6; 2026-11-24). Sonuç üç değerlidir: geçti / çekinceli / kaldı.
+  - Onaydan önce değişiklik (2026-11-24, kullanıcı kararı): koruma eşiklerinden yalnızca 2.1, 3.7 ve 4.2 kritiktir; biri aşılırsa birincil sonuç "kaldı" olur. Diğerleri uyarı eşiğidir: aşılırsa raporda kırmızı bayrakla gösterilir, insan incelenen kayıtların etiketlerini düzeltir ve eşik yeniden hesaplanır. Hâlâ aşılıyorsa birincil sonuç "çekinceli" olur; proje sahibinin kararı yalnızca servise çıkış hakkındadır ve sonucu "geçti"ye çeviremez (`thresholds_v1.md` §1, §6; 2026-11-24). Sonuç üç değerlidir: geçti / çekinceli / kaldı.
 - **Fine-tuning proje sahibinin talebidir; prompt'la karşılaştırma kapsam dışıdır. Baseline, üslup gelişimi ve gerileme kontrolleri için taban çizgisidir.** Birincil sonuç, eğitimin üslubu `baseline`'a göre geliştirip geliştirmediğini ve bir şeyi bozup bozmadığını söyler; prompt'la elde edilebilecek kazançtan ayrıştırmaz (`report/report_plan_v1.md` §4.4).
 
 **İkincil sonuçlar** (raporlanır, ana iddia yapılmaz):
@@ -97,7 +97,7 @@ Güç notu (tahmin): 100 test sorusunda beraberlik olmasa bile işaret testinin 
 Ek kurallar:
 - Kaldırılmış bir uygulamayı yürürlükteymiş gibi anlatmak kritik hatadır.
 - Referansta olmayan ve doğrulanamayan kesin bir rakam **kritik hata değildir**. Bunun yerine "doğrulanamayan iddia" olarak işaretlenir ve insan değerlendiriciye gider.
-- Referanstaki dönemsel bir TL tutarını system prompt kural 4'e uygun biçimde vermemek eksik sayılmaz. Bunun için cevabın hesaplama yolunu doğru söylemesi ve kontrol önermesi gerekir. Kullanıcı bu kuralı kabul etti. Kesin onayı eşiklerle birlikte senior verecek (§8, karar 11).
+- Referanstaki dönemsel bir TL tutarını system prompt kural 4'e uygun biçimde vermemek eksik sayılmaz. Bunun için cevabın hesaplama yolunu doğru söylemesi ve kontrol önermesi gerekir. Kullanıcı bu kuralı kabul etti. Kesin onayı eşiklerle birlikte proje sahibi verecek (§8, karar 11).
 
 | Puan | Tanım |
 |---|---|
@@ -267,7 +267,7 @@ Kararlar 1–6 kullanıcı tarafından 2026-11-23'te verildi. Karar 6, ilk beş 
 
 ### Karar 1 (verildi): genel Türkçe verisi yalnızca gerileme görülürse eğitime girer
 
-**Karar:** "Gerekirse karışım". Tetikleyici sayısaldır ve şimdiden yazılıdır: `thresholds_v1.md` §3A, T.1–T.8 (görev başına izin verilen en fazla düşüş ve gündelik sorularda üslup sızıntısı sınırı; senior onayı bekliyor). Tetiklenince ne olacağı K.1–K.3'te.
+**Karar:** "Gerekirse karışım". Tetikleyici sayısaldır ve şimdiden yazılıdır: `thresholds_v1.md` §3A, T.1–T.8 (görev başına izin verilen en fazla düşüş ve gündelik sorularda üslup sızıntısı sınırı; proje sahibi onayı bekliyor). Tetiklenince ne olacağı K.1–K.3'te.
 
 **Eski karardan neden değişti** ("genel Türkçe %10–20 her durumda eğitime girer"):
 1. **Veri hazır değil ve hazırlığı pahalı.** `egitim_sorulari.jsonl` cevapsız bir soru havuzu. Özgün cevaplar kalite sorunları nedeniyle eğitim hedefi olarak onaylanmadı (Gruplu Veriler README'si). Her durumda karışım, her adaptör için cevap üretimi ve onayı gerektirir:
@@ -439,7 +439,7 @@ Metnin geçmişi (hepsi 2026-11-23, kullanıcı kararı):
 
 **03 nötrleştirme kuralı:** kullanıcı tarafından onaylandı (2026-11-23).
 
-**Puanlamaya etkisi (kullanıcı kabul etti, 2026-11-23; kesin onay `thresholds_v1.md` ile birlikte senior'dan gelecek):** kilitli referanslarda dönemsel TL tutarı bulunabilir. Bir cevap bu tutarın rakamını kural 4'e uygun biçimde vermiyorsa, hesaplama yolunu doğru söylüyorsa ve kontrol öneriyorsa, bu durum §6.3'te ne "önemli koşul eksik" ne de kritik hata sayılır. Kural hem `baseline` hem adaptörler için aynıdır. Sayı karşılaştırmasında (§6.7) dönemsel TL tutarları recall hesabının dışında tutulur ve ayrıca raporlanır.
+**Puanlamaya etkisi (kullanıcı kabul etti, 2026-11-23; kesin onay `thresholds_v1.md` ile birlikte proje sahibinden gelecek):** kilitli referanslarda dönemsel TL tutarı bulunabilir. Bir cevap bu tutarın rakamını kural 4'e uygun biçimde vermiyorsa, hesaplama yolunu doğru söylüyorsa ve kontrol öneriyorsa, bu durum §6.3'te ne "önemli koşul eksik" ne de kritik hata sayılır. Kural hem `baseline` hem adaptörler için aynıdır. Sayı karşılaştırmasında (§6.7) dönemsel TL tutarları recall hesabının dışında tutulur ve ayrıca raporlanır.
 
 ### `genel_kontrol_v2` kilitleme akışı (karar 6a ve 6c)
 

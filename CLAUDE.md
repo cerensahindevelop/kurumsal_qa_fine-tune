@@ -95,7 +95,7 @@ Model ağırlıkları ve büyük çıktılar git'e girmez.
 
 ## Ön kayıt (eşikler)
 
-- Geçme eşikleri `evaluation/thresholds_v1.md` dosyasında tutulur ve senior onayıyla commit edilir.  
+- Geçme eşikleri `evaluation/thresholds_v1.md` dosyasında tutulur ve proje sahibi onayıyla commit edilir.  
 - Bu dosya onaylanmadan hiçbir model doğrulama setinde puanlanmaz; yalnızca 3–5 soruluk teknik deneme yapılır.  
 - Eşik değişikliği yeni sürüm dosyası ve gerekçesiyle yapılır, raporda gösterilir.
 
